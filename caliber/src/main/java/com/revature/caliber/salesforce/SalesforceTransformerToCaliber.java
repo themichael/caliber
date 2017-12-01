@@ -121,6 +121,12 @@ public class SalesforceTransformerToCaliber {
 		case "Did Not Show":
 			stringTrainingStatus = "Dropped";
 			return transformStatusHelper(stringTrainingStatus);
+		case "Rejected":
+			stringTrainingStatus = "Dropped";
+			return transformStatusHelper(stringTrainingStatus);
+		case "Terminated":
+			stringTrainingStatus = "Dropped";
+			return transformStatusHelper(stringTrainingStatus);
 		default:
 			return transformStatusHelper(stringTrainingStatus);
 		}

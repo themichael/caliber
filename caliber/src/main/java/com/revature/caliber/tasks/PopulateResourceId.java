@@ -1,17 +1,14 @@
 package com.revature.caliber.tasks;
 
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
-import org.springframework.stereotype.Component;
 
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
 
-@Component
 public class PopulateResourceId {
 	
 	private static final Logger log=Logger.getLogger(PopulateResourceId.class);
@@ -23,7 +20,7 @@ public class PopulateResourceId {
 			String sTrainingName = salesforceBatches.get(sIndex).getTrainingName();
 			if(cTrainingName.equals(sTrainingName)) {
 				caliberBatch.setResourceId(salesforceBatches.get(sIndex).getResourceId());
-				log.info("Found ResourceId!");
+				log.info("Found ResourceId: "+caliberBatch.getResourceId());
 				batchUpdated = true;
 			}
 		}
@@ -48,7 +45,7 @@ public class PopulateResourceId {
 			String sTraineeEmail = salesforceTrainee.getEmail();
 			if(cTraineeEmail.equals(sTraineeEmail)) {
 				caliberTrainee.setResourceId(salesforceTrainee.getResourceId());
-				log.info("Found ResourceId!");
+				log.info("Found ResourceId: "+caliberTrainee.getResourceId());
 				traineeUpdated = true;
 			}
 		}

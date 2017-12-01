@@ -23,6 +23,8 @@ public class BatchUpdate {
 	private static final Logger log=Logger.getLogger(BatchUpdate.class);
 
 	@Autowired
+	private SalesforceAuth salesforceAuth;
+	@Autowired
 	private SalesforceDAO salesforceDao;
 	@Autowired
 	private BatchDAO batchDao;
@@ -40,15 +42,17 @@ public class BatchUpdate {
 	@Scheduled(cron = "0 * * * * *") 	//Every minute (testing)
 	public void updateBatchTask() {
 		//Update job goes here
-		log.debug("Update Batch Task");
+		log.info("Update Batch Task");
+		System.out.println("Update Batch Task");
+		salesforceAuth.setUser();
 		List<Batch> salesforceBatches = salesforceDao.getAllRelevantBatches();
 		List<Batch> caliberBatches = batchDao.findAll();
 		//List<Batch> notSalesforceBatches = batchDao.findAll();
 		
 		compareBatches(caliberBatches,salesforceBatches);
 		
-		log.debug("End of Update Task");
-		
+		log.info("End of Update Task");
+		System.out.println("End of Update Task");
 	}
 	
 	/*
@@ -61,14 +65,13 @@ public class BatchUpdate {
 		boolean batchUpdated = false;
 		for(int sIndex=0;sIndex<salesforceBatches.size();sIndex++) {
 			String sResourceId = salesforceBatches.get(sIndex).getResourceId();
-			//int sResourceId = salesforceBatches.get(sIndex).getBatchId();
 			for(int cIndex=0;cIndex<caliberBatches.size();cIndex++) {
 				String cResourceId = caliberBatches.get(cIndex).getResourceId();
 				if(cResourceId == null) {
 					PopulateResourceId.getBatchResourceId(caliberBatches.get(cIndex), salesforceBatches);
+					cResourceId = caliberBatches.get(cIndex).getResourceId();
 				}
-				//int cResourceId = caliberBatches.get(cIndex).getBatchId();
-				if(cResourceId.equals(sResourceId)) {
+				if(cResourceId != null && cResourceId.equals(sResourceId)) {
 					log.debug("Comparing Caliber batch: "+cResourceId+" to Salesforce Batch: "+sResourceId);
 					log.info("Comparing Caliber batch: "+cResourceId+" to Salesforce Batch: "+sResourceId);
 					Batch caliberBatch = caliberBatches.get(cIndex);
@@ -76,9 +79,6 @@ public class BatchUpdate {
 					log.info("BatchDao: "+batchDao);
 					if(!caliberBatch.getTrainer().getEmail().equals(salesforceBatch.getTrainer().getEmail())) {
 						log.info("Update Caliber Trainer");
-						//caliberBatch.getTrainer().getBatches().remove(caliberBatch);
-						log.info("TrainerDao: "+trainerDao);
-						//trainerDao.update(caliberBatch.getTrainer());
 						
 						Set<Batch> trainerBatches = salesforceBatch.getTrainer().getBatches();
 						if(trainerBatches != null) {
@@ -100,7 +100,7 @@ public class BatchUpdate {
 						if(!caliberBatch.getCoTrainer().getEmail().equals(salesforceBatch.getCoTrainer().getEmail())) {
 							caliberBatch.getCoTrainer().getBatches().remove(caliberBatch);
 							caliberBatch.setCoTrainer(salesforceBatch.getCoTrainer());
-							//batchDao.update(caliberBatch);
+							batchDao.update(caliberBatch);
 							batchUpdated = true;
 						}
 					}
@@ -133,17 +133,15 @@ public class BatchUpdate {
 		
 		while(cIt.hasNext()) {
 			Trainee cTrainee = cIt.next();
-			//int cResourceId = cTrainee.getTraineeId();
 			String cResourceId = cTrainee.getResourceId();
-			log.info("Trainee Dao: "+traineeDao);
 			if(cResourceId == null) {
 				PopulateResourceId.getTraineeResourceId(cTrainee, salesforceTrainees);
+				cResourceId = cTrainee.getResourceId();
 			}
 			if(cResourceId != null) {
 				Iterator<Trainee> sIt = salesforceTrainees.iterator();
 				while(sIt.hasNext()) {
 					Trainee sTrainee = sIt.next();
-					//int sResourceId = sTrainee.getTraineeId();
 					String sResourceId = sTrainee.getResourceId();
 					if(cResourceId.equals(sResourceId)) {
 						if(!cTrainee.getName().equals(sTrainee.getName())) {

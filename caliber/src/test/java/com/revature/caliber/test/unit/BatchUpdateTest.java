@@ -13,13 +13,9 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.TriggerContext;
 import org.springframework.scheduling.support.CronTrigger;
-import org.springframework.stereotype.Component;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.revature.caliber.CaliberTest;
 import com.revature.caliber.beans.Batch;
@@ -28,9 +24,6 @@ import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.beans.TrainingStatus;
 import com.revature.caliber.data.BatchDAO;
-import com.revature.caliber.data.SalesforceDAO;
-import com.revature.caliber.data.TraineeDAO;
-import com.revature.caliber.data.TrainerDAO;
 import com.revature.caliber.tasks.BatchUpdate;
 
 public class BatchUpdateTest extends CaliberTest{
@@ -54,7 +47,7 @@ public class BatchUpdateTest extends CaliberTest{
 	@Before
 	public void setTraineeInfo() {
 		this.traineeOne.setName("Joe Smith");
-		this.traineeOne.setResourceId("one");
+		//this.traineeOne.setResourceId("one");
 		this.traineeOne.setEmail("one@gmail.com");
 		this.traineeOne.setPhoneNumber("954-798-6005");
 		this.traineeOne.setTrainingStatus(TrainingStatus.Training);
@@ -80,7 +73,13 @@ public class BatchUpdateTest extends CaliberTest{
 	@Before
 	public void setBatchInfo() {
 		
+		/*
 		this.caliberBatch = batchDao.findOneWithDroppedTrainees(2200);
+		this.caliberTrainer = caliberBatch.getTrainer();
+		log.info("CaliberBatch: "+ caliberBatch.getResourceId());
+		*/
+		
+		this.caliberBatch = batchDao.findOneWithDroppedTrainees(2201);
 		this.caliberTrainer = caliberBatch.getTrainer();
 		log.info("CaliberBatch: "+ caliberBatch.getResourceId());
 		
@@ -89,7 +88,8 @@ public class BatchUpdateTest extends CaliberTest{
 		this.salesforceTrainer.setTitle("Trainer");
 		this.salesforceTrainer.setTier(TrainerRole.ROLE_TRAINER);
 		
-		this.salesforceBatch.setResourceId(caliberBatch.getResourceId());
+		//this.salesforceBatch.setResourceId(caliberBatch.getResourceId());
+		this.salesforceBatch.setResourceId("TWO");
 		this.salesforceBatch.setTrainer(salesforceTrainer);
 		this.salesforceBatch.setTrainingName(caliberBatch.getTrainingName());
 		this.salesforceBatch.setLocation(caliberBatch.getLocation());
