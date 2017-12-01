@@ -195,5 +195,28 @@ angular
 					$scope.closeAddTask = function(){
 						$scope.addTask = false;
 					}
+					
+					/**
+					 * Deactivate Trainer Task
+					 */
+					$scope.deactivateTask = function(task){
+						$log.debug($scope.task)
+						task.active = "0";
+						console.log(task);
+//						caliberDelegate.vp.saveOrUpdateTask(task)
+//						.then(
+//								$log.debug("Task deactivated: "
+//										+ response)
+//								)
+//						console.log(response);
+						console.log("called function successfully");
+						console.log(task);
+					};
+					
+					$scope.populateTask = function(task) {
+						console.log(task);
+						console.log("here!");
+						$scope.task = task;
+					};
 
 				});
