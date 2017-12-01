@@ -155,7 +155,7 @@ angular
 								},
 								function(response) {
 									$log.error(
-											"There was an error in vpFactory -> saveTask "
+											"There was an error in vpFactory -> saveTaskCompletion "
 													+ response, status);
 								});
 
