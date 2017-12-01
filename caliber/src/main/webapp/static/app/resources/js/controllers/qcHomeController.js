@@ -229,6 +229,7 @@ angular
                     // Start function for reports to use and assess
                     function start() {
                         if ($scope.batches[0]) {
+                        	console.log($scope.batches[0].startDate);
                             $scope.trainingNameDate = $scope.batches[0].trainer.name
                                 + " - "
                                 + $filter('date')(

@@ -508,8 +508,10 @@ angular
 						$scope.batchesByYear = [];
 
 						for (var i = 0; i < $scope.batches.length; i++) {
-							if ($scope.selectedYear === parseInt($scope.batches[i].startDate
-									.substring(0, 4))) {
+							
+							var date = new Date($scope.batches[i].startDate);
+
+							if ($scope.selectedYear === parseInt(date.getFullYear())) {
 								$scope.batchesByYear.push($scope.batches[i]);
 							}
 						}
