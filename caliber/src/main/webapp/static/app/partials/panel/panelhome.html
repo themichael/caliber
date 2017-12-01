@@ -23,10 +23,10 @@
 										<i class="fa fa-search"></i>
 									</button>
 								</span> 
-								<input ng-model="chosenTrainee" list="traineeList"
-									type="search" id="searchTextBox"
-									placeholder="Search for Trainee" class="form-control SearchPad"
-									autocomplete="off" ng-change="populateTrainees()"/>
+								<input ng-change="populateTraineeList()"
+									ng-model="chosenTrainee" list="traineeList" type="search"
+									id="searchTextBox" placeholder="Search for trainee"
+									class="form-control SearchPad" autocomplete="off" />
 								<datalist id="traineeList">
 									<option ng-repeat="trainee in employedTrainees track by $index"
 										ng-value="trainee.name">

@@ -238,16 +238,11 @@ angular
 						$log.debug($scope.trainee);
 					};
 
-					(function() {
-						allBatches.forEach(function(batch) {
-							batch.trainees.forEach(function(trainee) {
-								$scope.employedTrainees.push(trainee);
-							});
-						});
-					})();
-					function populateTraineeList() {
-						$log.debug("populate trainee list");
-						getTrainees();
+					//Retrieved trainees upon user input, not before 
+					$scope.populateTraineeList = function(){
+						if ($scope.employedTrainees.length===0) {
+							getTrainees();					
+						}
 					}
 					
 					function getTrainees(){

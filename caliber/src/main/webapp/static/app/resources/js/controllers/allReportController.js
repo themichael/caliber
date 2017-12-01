@@ -53,18 +53,10 @@ angular
 			$scope.panelIndex = 0;	
 			
 			//Retrieved trainees upon user input, not before 
-			function populateTraineeList() {
-				$log.debug("populate trainee list");
-				getTrainees();
-			}
-			
-			function getTrainees(){
-				//for each batch, add the trainees to an overall list of trainees
-				allBatches.forEach(function(batch){
-					batch.trainees.forEach(function(trainee){
-						$scope.employedTrainees.push(trainee);
-					});
-				});
+			$scope.populateTraineeList = function(){
+				if ($scope.allTrainees.length===0) {
+					getTrainees();					
+				}
 			}
 			
 			// Used to sort trainees in batch
@@ -96,6 +88,8 @@ angular
 				});
 			}
 
+			
+			
 			
 			//load chart information based on chosen searched trainee
 			$scope.selectChosenTrainee = function(){
