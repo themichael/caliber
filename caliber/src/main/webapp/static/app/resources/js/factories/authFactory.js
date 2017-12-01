@@ -64,7 +64,6 @@ angular.module("auth").factory("authFactory",
 			}
 			
 			function getIdCookie() {
-				console.log("getting cookie")
 				return $cookies.get("id");
 			}
 
