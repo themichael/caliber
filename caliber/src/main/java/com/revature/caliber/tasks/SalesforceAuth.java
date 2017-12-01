@@ -67,9 +67,10 @@ public class SalesforceAuth {
 			Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUserId(),
 	                salesforceUser.getAuthorities());
 	        SecurityContextHolder.getContext().setAuthentication(auth);
+	        String token = ((SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getSalesforceToken().getAccessToken();
 			
-		} catch (Exception e) {
-			log.error("Error accesing token: "+e.getStackTrace());
+		} catch (IOException e) {
+			log.error("Error accesing token: "+ e);
 		}
 	}
 	
