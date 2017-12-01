@@ -16,7 +16,6 @@ angular
 					$scope.allActiveTasks;
 					var currentUserId = $cookies.get("id");
 					var currentUser;
-					
 					$log.debug("Booted trainer manage controller.");
 					$log.debug('test trainermanager controller -j');
 					/**
@@ -359,6 +358,7 @@ angular
 																$scope.allActiveTasks[j].isHidden = true;
 																$scope.allActiveTasks[j].isChecked = false;
 															}
+															console.log(trainer);
 															if (relevantTasks.length===0){
 																trainer.title = "Trainer";
 																caliberDelegate.vp.updateTrainer(trainer);
