@@ -88,15 +88,15 @@ INSERT INTO CALIBER_TRAINER(TRAINER_ID, EMAIL, NAME, TITLE, TIER)
 INSERT INTO CALIBER_TRAINER(TRAINER_ID, EMAIL, NAME, TITLE, TIER)
   VALUES( TRAINER_ID_SEQUENCE.NEXTVAL, 'grawyne@gmail.com', 'Gray Wynne', 'Trainer', 'ROLE_TRAINER');
 INSERT INTO CALIBER_TRAINER(TRAINER_ID, EMAIL, NAME, TITLE, TIER)
-  VALUES(TRAINER_ID_SEQUENCE.NEXTVAL, 'owallace@mailinator.com', 'Orson Wallace', 'Trainer', 'ROLE_TRAINER');
+  VALUES(TRAINER_ID_SEQUENCE.NEXTVAL, 'owallace@mailinator.com', 'Orson Wallace', 'Junior Trainer', 'ROLE_TRAINER');
 INSERT INTO CALIBER_TRAINER(TRAINER_ID, EMAIL, NAME, TITLE, TIER)
-  VALUES(TRAINER_ID_SEQUENCE.NEXTVAL, 'slevinson@mailinator.com', 'Shelby Levinson', 'Trainer', 'ROLE_TRAINER');
+  VALUES(TRAINER_ID_SEQUENCE.NEXTVAL, 'slevinson@mailinator.com', 'Shelby Levinson', 'Junior Trainer', 'ROLE_TRAINER');
 INSERT INTO CALIBER_TRAINER(TRAINER_ID, EMAIL, NAME, TITLE, TIER)
-  VALUES(TRAINER_ID_SEQUENCE.NEXTVAL, 'wpayne@mailinator.com', 'Walter Payne', 'Trainer', 'ROLE_TRAINER');
+  VALUES(TRAINER_ID_SEQUENCE.NEXTVAL, 'wpayne@mailinator.com', 'Walter Payne', 'Junior Trainer', 'ROLE_TRAINER');
 INSERT INTO CALIBER_TRAINER(TRAINER_ID, EMAIL, NAME, TITLE, TIER)
-  VALUES(TRAINER_ID_SEQUENCE.NEXTVAL, 'nchurch@mailinator.com', 'Natalie Church', 'Trainer', 'ROLE_TRAINER');
+  VALUES(TRAINER_ID_SEQUENCE.NEXTVAL, 'nchurch@mailinator.com', 'Natalie Church', 'Junior Trainer', 'ROLE_TRAINER');
 INSERT INTO CALIBER_TRAINER(TRAINER_ID, EMAIL, NAME, TITLE, TIER)
-  VALUES(TRAINER_ID_SEQUENCE.NEXTVAL, 'aradcliff@mailinator.com', 'Archer Radcliff', 'Trainer', 'ROLE_TRAINER');
+  VALUES(TRAINER_ID_SEQUENCE.NEXTVAL, 'aradcliff@mailinator.com', 'Archer Radcliff', 'Junior Trainer', 'ROLE_TRAINER');
 --------------------------------------------------------------------------------------------------------------------MAKE PANEL ROLE
 INSERT INTO CALIBER_TRAINER(TRAINER_ID, EMAIL, NAME, TITLE, TIER)
   VALUES( TRAINER_ID_SEQUENCE.NEXTVAL, 'rajeshy@revature.com', 'Rajesh Yamunachari', 'Senior Technical Manager', 'ROLE_PANEL');

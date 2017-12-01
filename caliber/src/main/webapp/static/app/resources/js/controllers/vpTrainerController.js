@@ -12,7 +12,10 @@ angular
 		.module("vp")
 		.controller(
 				"vpTrainerController",
-				function($scope, $log, caliberDelegate) {
+				function($scope, $cookies, $log, caliberDelegate) {
+					$scope.allActiveTasks;
+					var currentUserId = $cookies.get("id");
+					var currentUser;
 					$log.debug("Booted trainer manage controller.");
 					$log.debug('test trainermanager controller -j');
 					/**
@@ -21,14 +24,20 @@ angular
 					 */
 
 					/** On page start --> load all trainers * */
-
 					$scope.loadAllTrainers = function() {
-						caliberDelegate.all.getAllTrainers().then(
+						caliberDelegate.all.getAllTrainers()
+						.then(
 								function(trainers) {
 									$log.debug(trainers);
 									$scope.allTrainers = trainers;
+									for(var i = 0; i<trainers.length;i++){
+										if(currentUserId==trainers[i].trainerId){
+											currentUser=trainers[i];
+										}
+									}
 								});
 					};
+
 					
 
 					var submitTier = function(tier) {
@@ -178,12 +187,12 @@ angular
 					};
 					
 					/**
-					 *	Edit task and persist to database
+					 * Edit task and persist to database
 					 */
 					
 					var oldDescription = null;
 					var oldPriority = null;
-					//show edit task option and hide old task description
+					// show edit task option and hide old task description
 					$scope.editTask = function(index) {
 						$scope.allActiveTasks[index].isShown = false;
 						$scope.allActiveTasks[index].isHidden = false;
@@ -193,7 +202,7 @@ angular
 						oldPriority = $scope.allActiveTasks[index].priority;
 					};
 					
-					//update task with new edits
+					// update task with new edits
 					$scope.submitEdit = function(index, desc, priority){
 						if(desc == null){
 							desc = oldDescription;
@@ -214,7 +223,7 @@ angular
 									$log.debug("Task Updated: "
 											+ response);
 								})
-						//re-populate with updated tasks
+						// re-populate with updated tasks
 						.then( caliberDelegate.all.getAllTasksByTrainerId($scope.trainerForm.trainerId).then(
 								function(t_tasks){
 										caliberDelegate.all.getAllActiveTasks().then(
@@ -238,7 +247,7 @@ angular
 								
 					}
 					
-					//close edit task option
+					// close edit task option
 					$scope.closeEditTask = function(index){
 						$scope.allActiveTasks[index].isShown = true;
 						$scope.allActiveTasks[index].isHidden = true;
@@ -246,9 +255,10 @@ angular
 					};
 					
 					
-					//addTask boolean determining visibility of add task form default false
+					// addTask boolean determining visibility of add task form
+					// default false
 					$scope.addTask = false;
-					//clicking the add button will show form
+					// clicking the add button will show form
 					$scope.openAddTask = function(){
 						$scope.addTask = true;
 					}
@@ -257,7 +267,6 @@ angular
 					// the db
 					$scope.saveTask = function(task, priority){
 						var newTask = {"active":1, "description":task, "priority":priority};
-						console.log(newTask);
 						caliberDelegate.vp.saveOrUpdateTask(newTask)
 						.then(
 								function(response) {
@@ -265,7 +274,7 @@ angular
 											+ response);
 
 								})
-						//gets all of the tasks
+						// gets all of the tasks
 						.then( caliberDelegate.all.getAllTasksByTrainerId($scope.trainerForm.trainerId).then(
 								function(t_tasks){
 										caliberDelegate.all.getAllActiveTasks().then(
@@ -304,7 +313,9 @@ angular
 						}
 					}
 					
+					
 					$scope.checkOff = function(trainer){
+						trainer.tier = "ROLE_"+trainer.tier;
 						for(var i=0;i<toCheck.length;i++){
 							for(var j=0;j<$scope.allActiveTasks.length;j++){
 								if($scope.allActiveTasks[j].id === toCheck[i]){
@@ -314,20 +325,45 @@ angular
 											"priority": $scope.allActiveTasks[j].priority,
 											"id": $scope.allActiveTasks[j].id
 											};
-									var now = new Date().toISOString().slice(0,10);
-									
+
 									var taskCompletion = {
-											"id": 0,
-											"trainer" : trainer.trainerId, 
-											"checkedBy" : trainer.trainerId, 
-											"completionDate" : now, 
-											"taskCompleted" : taskCompleted.id}
-									console.log(taskCompletion);
+											"id": 1,
+											"trainer" : trainer, 
+											"checkedBy" : currentUser, 
+											"completionDate" : null, 
+											"taskCompleted" : taskCompleted}
 									caliberDelegate.vp.saveTaskCompletion(taskCompletion)
 									.then(
 											function(response) {
 												$log.debug("Saved Task Completion: "
 														+ response);
+											});
+									
+									var relevantTasks;
+									caliberDelegate.all.getAllTasksByTrainerId($scope.trainerForm.trainerId).then(
+											function(t_tasks){
+													caliberDelegate.all.getAllActiveTasks().then(
+														function(tasks){
+															$log.debug(tasks);
+															for(var i = 0; i < t_tasks.length; i++){
+																num = tasks.findIndex(j => j.id === t_tasks[i].taskCompleted.id);
+																if(num > -1){
+																	tasks.splice(num, 1);
+																}
+															}
+															relevantTasks = tasks;
+															for(var j = 0; j < tasks.length; j++){
+																$scope.allActiveTasks[j].isShown = true;
+																$scope.allActiveTasks[j].isHidden = true;
+																$scope.allActiveTasks[j].isChecked = false;
+															}
+															console.log(trainer);
+															if (relevantTasks.length===0){
+																trainer.title = "Trainer";
+																caliberDelegate.vp.updateTrainer(trainer);
+																location.reload();
+															}
+													});
 											});
 								}
 							}

@@ -24,6 +24,7 @@ public interface Authorization {
 
     /**
      * Creates salesforce token and saves it as a session cookie
+     * Saves a session cookie with user Id
      * 
      * @param code
      *            the string returned from the authURI required for getting
