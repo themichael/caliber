@@ -51,12 +51,12 @@ public class SalesforceAuth {
 			log.info("Logging into Salesforce "+clientId+" "+clientSecret);
 			log.info("User: "+username+" Pass: "+password);
 			login();
-			SalesforceUser salesforceUser = new SalesforceUser();
-			salesforceUser.setUserId("patrick@revature.com");
-			Trainer trainer = new Trainer("Patrick Walsh", "Lead Trainer", "patrick.walsh@revature.com", TrainerRole.ROLE_VP);
-			trainer.setTrainerId(1);
-			salesforceUser.setCaliberUser(trainer);
-			salesforceUser.setSalesforceToken(accessTokenJson);
+//			SalesforceUser salesforceUser = new SalesforceUser();
+//			salesforceUser.setUserId("patrick@revature.com");
+//			Trainer trainer = new Trainer("Patrick Walsh", "Lead Trainer", "patrick.walsh@revature.com", TrainerRole.ROLE_VP);
+//			trainer.setTrainerId(1);
+//			salesforceUser.setCaliberUser(trainer);
+//			salesforceUser.setSalesforceToken(accessTokenJson);
 			
 		} catch (Exception e) {
 			log.error(e);
