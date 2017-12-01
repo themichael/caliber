@@ -340,20 +340,38 @@ angular
 					$scope.deactivateTask = function(task){
 						$log.debug($scope.task)
 						task.active = "0";
+						caliberDelegate.vp.saveOrUpdateTask(task)
+						.then(
+								$log.debug("Task deactivated: "
+										+ task)
+								)
 						console.log(task);
-//						caliberDelegate.vp.saveOrUpdateTask(task)
-//						.then(
-//								$log.debug("Task deactivated: "
-//										+ response)
-//								)
-//						console.log(response);
-						console.log("called function successfully");
-						console.log(task);
+						console.log("Task deactivated: "
+								+ task.description);
+						caliberDelegate.all.getAllTasksByTrainerId($scope.trainerForm.trainerId).then(
+						function(t_tasks){
+							caliberDelegate.all.getAllActiveTasks().then(
+								function(tasks){
+									$log.debug(tasks);
+									for(var i = 0; i < t_tasks.length; i++){
+										num = tasks.findIndex(j => j.id === t_tasks[i].taskCompleted.id);
+										if(num > -1){
+											tasks.splice(num, 1);
+										}
+									}
+									$scope.allActiveTasks = tasks;
+									for(var j = 0; j < tasks.length; j++){
+										$scope.allActiveTasks[j].isShown = true;
+										$scope.allActiveTasks[j].isHidden = true;
+										$scope.allActiveTasks[j].isChecked = false;
+									}
+							});
+						})
+		
 					};
 					
 					$scope.populateTask = function(task) {
-						console.log(task);
-						console.log("here!");
+						$log.debug(task);
 						$scope.task = task;
 					};
 
