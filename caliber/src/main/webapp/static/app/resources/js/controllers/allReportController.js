@@ -104,8 +104,8 @@ angular
 							$scope.currentBatch = batch;
 							$scope.currentTrainee = trainee;
 							$scope.currentTraineeId = trainee.traineeId;
-							$scope.selectedYear = Number($scope.currentBatch.startDate
-														.substr(0, 4));
+							var date = new Date($scope.currentBatch.startDate);
+							$scope.selectedYear = Number(date.getFullYear());
 							getCurrentBatchWeeks($scope.currentBatch.weeks);
 
 							//select view display

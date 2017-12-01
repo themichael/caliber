@@ -27,7 +27,7 @@
 						ng-model="chosenTrainee" list="traineeList" type="search"
 						id="searchTextBox" placeholder="Search..."
 						class="form-control SearchPad" autocomplete="off" />
-                      <datalist id="traineeList" ng-show="chosenTrainee.length">
+                      <datalist id="traineeList">
 	    						<option ng-repeat="trainee in allTrainees track by $index" ng-value="trainee.name">
 	    							{{trainee.name}} | {{trainee.email}} | {{trainee.skypeId}} 
 	    						</option>
