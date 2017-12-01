@@ -2,6 +2,8 @@ package com.revature.caliber.test.unit;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +13,28 @@ import com.revature.caliber.beans.TrainerTask;
 import com.revature.caliber.data.TaskDAO;
 
 public class TaskDAOTest extends CaliberTest{
-	private static final Logger log = Logger.getLogger(TaskDAO.class);
+	private static final Logger log = Logger.getLogger(TaskDAOTest.class);
 
 	@Autowired
 	private TaskDAO dao;
 	
-	private static final String TASK_COUNT = "select count(task_id) from caliber_task";							//Finds all categories, active and inactive.
+	private static final String TASK_COUNT = "select count(task_id) from caliber_task";
+	private static final String ACTIVE_TASK_COUNT = "select count(task_id) from caliber_task WHERE IS_ACTIVE = 1";
 
+	@Autowired
+	public void setTaskDAO(TaskDAO taskDAO) {
+		this.dao = taskDAO;
+	}
+	
+	@Test
+	public void testFindAllActive() {
+		log.info("FIND ALL ACTIVE TASKS TEST");
+		Long sizeActual = jdbcTemplate.queryForObject(ACTIVE_TASK_COUNT, Long.class);
+		List<TrainerTask> tasks = dao.findAllActiveTasks();
+		Long sizeExpected = (long) tasks.size();
+		assertEquals(sizeExpected, sizeActual);
+	}
+	
 	@Test
 	public void save() {
 		log.info("Testing save method from TaskDAO");
