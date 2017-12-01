@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.beans.Address;
 import com.revature.caliber.beans.Batch;
-import com.revature.caliber.beans.Category;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;

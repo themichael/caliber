@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.beans.TrainerTask;
-import com.revature.caliber.beans.TrainerTaskCompletion;
 
 @Repository
 public class TaskDAO {
