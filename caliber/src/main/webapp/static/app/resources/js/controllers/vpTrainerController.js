@@ -305,6 +305,7 @@ angular
 					}
 					
 					$scope.checkOff = function(trainer){
+						trainer.tier = "ROLE_"+trainer.tier;
 						for(var i=0;i<toCheck.length;i++){
 							for(var j=0;j<$scope.allActiveTasks.length;j++){
 								if($scope.allActiveTasks[j].id === toCheck[i]){
@@ -314,14 +315,13 @@ angular
 											"priority": $scope.allActiveTasks[j].priority,
 											"id": $scope.allActiveTasks[j].id
 											};
-									var now = new Date().toISOString().slice(0,10);
-									
+									//var now = new Date().toISOString().slice(0,10);
 									var taskCompletion = {
-											"id": 0,
-											"trainer" : trainer.trainerId, 
-											"checkedBy" : trainer.trainerId, 
-											"completionDate" : now, 
-											"taskCompleted" : taskCompleted.id}
+											"id": 1,
+											"trainer" : trainer, 
+											"checkedBy" : trainer, 
+											"completionDate" : null, 
+											"taskCompleted" : taskCompleted}
 									console.log(taskCompletion);
 									caliberDelegate.vp.saveTaskCompletion(taskCompletion)
 									.then(
