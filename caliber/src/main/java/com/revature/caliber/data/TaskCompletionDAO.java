@@ -66,14 +66,14 @@ public class TaskCompletionDAO {
 	public void saveTaskCompletion(TrainerTaskCompletion taskCompletion) {
 		Date date = new Date();
 		DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
-		String date_str = df.format(date);
+		String dateStr = df.format(date);
 		Date completionDate;
 		try {
-			completionDate = new SimpleDateFormat("yyyy/MM/dd").parse(date_str);
+			completionDate = new SimpleDateFormat("yyyy/MM/dd").parse(dateStr);
 			taskCompletion.setCompletionDate(completionDate);
 			sessionFactory.getCurrentSession().save(taskCompletion);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			log.warn(e);
 		}
 		
 	}
