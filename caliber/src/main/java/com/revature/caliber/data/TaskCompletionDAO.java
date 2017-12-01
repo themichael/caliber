@@ -1,9 +1,13 @@
 package com.revature.caliber.data;
 
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.sql.JoinType;
@@ -55,4 +59,23 @@ public class TaskCompletionDAO {
         		.add(Restrictions.eq("t.trainerId", id))
         		.list();
     }
+    
+    /*
+     * Save a new Task Completion
+     **/
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public void saveTaskCompletion(TrainerTaskCompletion taskCompletion) {
+		Date date = new Date();
+		DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+		String date_str = df.format(date);
+		Date completionDate;
+		try {
+			completionDate = new SimpleDateFormat("yyyy/MM/dd").parse(date_str);
+			taskCompletion.setCompletionDate(completionDate);
+			sessionFactory.getCurrentSession().save(taskCompletion);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+	}
 }

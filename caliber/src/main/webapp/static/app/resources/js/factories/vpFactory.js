@@ -142,6 +142,25 @@ angular
 
 					};
 					
+					// Save new task
+					vp.saveTaskCompletion = function(taskCompletion) {
+						return $http({
+							url : "/vp/task/completed",
+							method : "POST",
+							data : taskCompletion
+						}).then(
+								function(response) {
+									$log.debug(taskCompletion + " has been saved");
+									$log.debug(response);
+								},
+								function(response) {
+									$log.error(
+											"There was an error in vpFactory -> saveTask "
+													+ response, status);
+								});
+
+					};
+					
 
 					// deactivate trainer needed to force content type to be
 					// JSON else 415

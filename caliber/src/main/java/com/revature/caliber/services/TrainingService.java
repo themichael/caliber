@@ -457,5 +457,14 @@ public class TrainingService {
 		log.debug("Save task: " + task);
 		taskDAO.saveOrUpdateTask(task);
 	}
+	
+	/**
+	 * SAVE A NEW TASK COMPLETION
+	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public void saveTaskCompletion(TrainerTaskCompletion taskCompletion) {
+		log.debug("Save task completed: " + taskCompletion);
+		taskCompletionDAO.saveTaskCompletion(taskCompletion);
+	}
 
 }
