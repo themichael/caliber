@@ -69,7 +69,7 @@ public class SalesforceAuth {
 	        SecurityContextHolder.getContext().setAuthentication(auth);
 			
 		} catch (Exception e) {
-			log.error("Error accesing token: "+e);
+			log.error("Error accesing token: "+e.getStackTrace());
 		}
 	}
 	
