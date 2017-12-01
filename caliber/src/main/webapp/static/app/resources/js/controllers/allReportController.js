@@ -95,6 +95,7 @@ angular
 			$scope.selectChosenTrainee = function(){
 				//get name
 				var traineeName = $scope.chosenTrainee;
+				
 				//get trainee and batch
 				allBatches.forEach(function(batch){
 					batch.trainees.forEach(function(trainee){
@@ -107,7 +108,6 @@ angular
 							var date = new Date($scope.currentBatch.startDate);
 							$scope.selectedYear = Number(date.getFullYear());
 							getCurrentBatchWeeks($scope.currentBatch.weeks);
-
 							//select view display
 							selectView($scope.currentBatch.batchId,
 									$scope.reportCurrentWeek,
@@ -242,7 +242,7 @@ angular
 						});
 			}
 			
-			function displayTraineePanelFeedback(){	
+			function displayTraineePanelFeedback(traineeId){	
 				caliberDelegate.panel.reportTraineePanels($scope.currentTrainee.traineeId).then(
 						function(response){
 							NProgress.done();
