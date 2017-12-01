@@ -39,7 +39,7 @@ public class BatchUpdate {
 	 */
 	
 	//@Scheduled(cron = "0 0 0 * * *")  //Midnight
-	@Scheduled(cron = "0 0/15 * 1/1 * ?") 	//Every minute (testing)
+	@Scheduled(cron = "0 0/5 * 1/1 * ?") 	//Every minute (testing)
 	public void updateBatchTask() {
 		//Update job goes here
 		log.info("Update Batch Task");
@@ -51,8 +51,8 @@ public class BatchUpdate {
 		
 		compareBatches(caliberBatches,salesforceBatches);
 		
+		salesforceAuth.clearUser();
 		log.info("End of Update Task");
-		System.out.println("End of Update Task");
 	}
 	
 	/*

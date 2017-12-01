@@ -12,7 +12,11 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -22,11 +26,15 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
+import com.revature.caliber.data.TrainerDAO;
 import com.revature.caliber.security.models.SalesforceToken;
 import com.revature.caliber.security.models.SalesforceUser;
 
 @Service
 public class SalesforceAuth {
+	
+	@Autowired
+	TrainerDAO trainerDao;
 	
 	protected static String accessToken = "Auth ";
 	protected static SalesforceToken accessTokenJson;
@@ -51,16 +59,22 @@ public class SalesforceAuth {
 			log.info("Logging into Salesforce "+clientId+" "+clientSecret);
 			log.info("User: "+username+" Pass: "+password);
 			login();
-//			SalesforceUser salesforceUser = new SalesforceUser();
-//			salesforceUser.setUserId("patrick@revature.com");
-//			Trainer trainer = new Trainer("Patrick Walsh", "Lead Trainer", "patrick.walsh@revature.com", TrainerRole.ROLE_VP);
-//			trainer.setTrainerId(1);
-//			salesforceUser.setCaliberUser(trainer);
-//			salesforceUser.setSalesforceToken(accessTokenJson);
+			SalesforceUser salesforceUser = new SalesforceUser();
+			salesforceUser.setUserId(username);
+			Trainer trainer = trainerDao.findByEmail(username);
+			salesforceUser.setCaliberUser(trainer);
+			salesforceUser.setSalesforceToken(accessTokenJson);
+			Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUserId(),
+	                salesforceUser.getAuthorities());
+	        SecurityContextHolder.getContext().setAuthentication(auth);
 			
 		} catch (Exception e) {
-			log.error(e);
+			log.error("Error accesing token: "+e);
 		}
+	}
+	
+	public void clearUser() {
+		SecurityContextHolder.clearContext();
 	}
 	
 	/**
