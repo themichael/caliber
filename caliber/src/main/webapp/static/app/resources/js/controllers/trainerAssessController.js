@@ -274,7 +274,6 @@ angular
 
 				function sortByDate(currentYear) {
 					$scope.selectedBatches = [];
-					console.log($scope.selectedBatches);
 					for (var i = 0; i < $scope.batches.length; i++) {
 						var date = new Date($scope.batches[i].startDate);
 						if (date.getFullYear() === currentYear) {
