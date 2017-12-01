@@ -357,7 +357,6 @@ angular
 																$scope.allActiveTasks[j].isHidden = true;
 																$scope.allActiveTasks[j].isChecked = false;
 															}
-															console.log(trainer);
 															if (relevantTasks.length===0){
 																trainer.title = "Trainer";
 																caliberDelegate.vp.updateTrainer(trainer);
@@ -381,9 +380,6 @@ angular
 								$log.debug("Task deactivated: "
 										+ task)
 								)
-						console.log(task);
-						console.log("Task deactivated: "
-								+ task.description);
 						caliberDelegate.all.getAllTasksByTrainerId($scope.trainerForm.trainerId).then(
 						function(t_tasks){
 							caliberDelegate.all.getAllActiveTasks().then(
