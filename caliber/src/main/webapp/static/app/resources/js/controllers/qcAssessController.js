@@ -61,8 +61,7 @@ angular
 					 * ***************************************** UI
 					 * **********************************************
 					 */
-					//used for detecting two red weeks in a row 
-					var weekBefore;
+		
 					
 					// function to get notes
 					$scope.getNotes = function() {
@@ -138,16 +137,6 @@ angular
 																	true));
 												}
 											});
-						//Get QC Trainee notes for previous week and make sure it's not the first week 
-						if($scope.currentWeek-1 !== 1){
-							caliberDelegate.qc
-								.traineeNote($scope.currentBatch.batchId,
-										$scope.currentWeek-1)
-								.then(
-										function(notes) {
-											weekBefore = notes;
-										});
-						}
 							// If there are no weeks
 						} else if ($scope.currentBatch !== undefined
 								&& $scope.currentBatch !== null) {
@@ -260,43 +249,60 @@ angular
 					// Function for individual qc feedback for trainee note
 					$scope.pickIndividualStatus = function(trainee, status,
 							index) {
-						var element = document.getElementsByClassName("glyphicon-flag")[index];
-						var color = trainee.flagStatus;
-						if(weekBefore[index] !== undefined){
-							//red flag if recently there are 2 red weeks consecutively
-							if(status === 'Poor' && weekBefore[index].qcStatus === 'Poor'){
-								element.setAttribute("class","glyphicon glyphicon-flag color-red");
-								color = 'RED';
-								trainee.flagNotes = "Trainee received two consecutive weeks of negative QC feedback";
-							}//if no change, keep it to previous flag
+						var weekBefore;
+						//Get QC Trainee notes for previous week and make sure it's not the first week 
+						if($scope.currentWeek-1 !== 1){
+							caliberDelegate.qc
+								.traineeNote($scope.currentBatch.batchId,
+										$scope.currentWeek-1)
+								.then(
+										function(notes) {
+											weekBefore = notes;
+											var element = document.getElementsByClassName("glyphicon-flag")[index];
+											var color = trainee.flagStatus;
+											for(var t = 0; t < weekBefore.length; t++){
+												if(weekBefore[t].trainee.traineeId === trainee.traineeId){
+													if(weekBefore[t] !== undefined){
+														//red flag if recently there are 2 red weeks consecutively
+														if(status === 'Poor' && weekBefore[t].qcStatus === 'Poor'){
+															element.setAttribute("class","glyphicon glyphicon-flag color-red");
+															color = 'RED';
+															trainee.flagNotes = "Trainee received two consecutive weeks of negative QC feedback";
+														}//if no change, keep it to previous flag
+													}
+													else{
+														if(color === 'RED'){
+															element.setAttribute("class","glyphicon glyphicon-flag color-red");
+														}else if(color === 'GREEN'){
+															element.setAttribute("class","glyphicon glyphicon-flag color-green");
+														}else if(color === 'TRAINER'){
+															element.setAttribute("class","glyphicon glyphicon-flag color-orange");
+														}else{
+															element.setAttribute("class","glyphicon glyphicon-flag color-white");
+														}
+													}
+													//add onto trainee object for update
+													trainee.batch = {
+															batchId : $scope.currentBatch.batchId
+														};
+													trainee.flagStatus = color;
+													//update trainee with flag color 
+													var updateTrainee = function() {
+															caliberDelegate.all
+																	.updateTrainee(trainee)
+													};
+													updateTrainee();
+													// Set individual note to status selected
+													$scope.faces[index].qcStatus = status;
+													// Save note
+													$scope.saveTraineeNote(index);
+													$log.debug($scope.faces[index]);
+													break;
+												}
+											}
+										});
 						}
-						else{
-							if(color === 'RED'){
-								element.setAttribute("class","glyphicon glyphicon-flag color-red");
-							}else if(color === 'GREEN'){
-								element.setAttribute("class","glyphicon glyphicon-flag color-green");
-							}else if(color === 'TRAINER'){
-								element.setAttribute("class","glyphicon glyphicon-flag color-orange");
-							}else{
-								element.setAttribute("class","glyphicon glyphicon-flag color-white");
-							}
-						}
-						//add onto trainee object for update
-						trainee.batch = {
-								batchId : $scope.currentBatch.batchId
-							};
-						trainee.flagStatus = color;
-						//update trainee with flag color 
-						var updateTrainee = function() {
-								caliberDelegate.all
-										.updateTrainee(trainee)
-						};
-						updateTrainee();
-						// Set individual note to status selected
-						$scope.faces[index].qcStatus = status;
-						// Save note
-						$scope.saveTraineeNote(index);
-						$log.debug($scope.faces[index]);
+					
 					};
 
 					// default -- view assessments table
@@ -629,7 +635,7 @@ angular
 					 */
 					function commentBox(flag, status, initialStatus, index, trainee){
 						flag.nextSibling.nextSibling.removeAttribute("style");
-						flag.nextSibling.nextSibling.setAttribute("style","display:inline-block; position:absolute; padding:5px; border-radius:5px; margin-left:5px; background-color: white; border: solid #ccc 1px;");
+						flag.nextSibling.nextSibling.setAttribute("style","display:inline-block; position:absolute; padding:5px; border-radius:5px; margin-left:5px; background-color: white; border: solid #ccc 1px; z-index: 1");
 						$scope.closeComment = function(){
 							document.getElementsByClassName("commentForm")[index].setAttribute("style","display:none;");
 							if(initialStatus === "RED"){

@@ -847,7 +847,7 @@ angular
 					 */
 					function commentBox(flag, status, initialStatus, index, trainee){
 						flag.nextSibling.nextSibling.removeAttribute("style");
-						flag.nextSibling.nextSibling.setAttribute("style","display:inline-block; position:absolute; padding:5px; border-radius:5px; margin-left:5px; background-color: white; border: solid #ccc 1px;");
+						flag.nextSibling.nextSibling.setAttribute("style","display:inline-block; position:absolute; padding:5px; border-radius:5px; margin-left:5px; background-color: white; border: solid #ccc 1px; z-index: 1");
 						$scope.closeComment = function(){
 							document.getElementsByClassName("commentForm")[index].setAttribute("style","display:none;");
 							if(initialStatus === "RED"){
