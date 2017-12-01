@@ -80,8 +80,9 @@ public class Panel {
 	@Column(name="PANEL_ROUND", nullable=false)
 	private int panelRound;
 	
+	@Enumerated(EnumType.STRING)
 	@Column(name="RECORDING_CONSENT")
-	private boolean recordingConsent;
+	private RecordingConsent recordingConsent;
 	
 	@Column(name="RECORDING_LINK")
 	private String recordingLink;
@@ -184,11 +185,11 @@ public class Panel {
 		this.panelRound = panelRound;
 	}
 
-	public boolean isRecordingConsent() {
+	public RecordingConsent isRecordingConsent() {
 		return recordingConsent;
 	}
 
-	public void setRecordingConsent(boolean recordingConsent) {
+	public void setRecordingConsent(RecordingConsent recordingConsent) {
 		this.recordingConsent = recordingConsent;
 	}
 
@@ -280,7 +281,7 @@ public class Panel {
 		result = prime * result + ((projectOneDescription == null) ? 0 : projectOneDescription.hashCode());
 		result = prime * result + ((projectThreeDescription == null) ? 0 : projectThreeDescription.hashCode());
 		result = prime * result + ((projectTwoDescription == null) ? 0 : projectTwoDescription.hashCode());
-		result = prime * result + (recordingConsent ? 1231 : 1237);
+		result = prime * result + ((recordingConsent == null) ? 0 : recordingConsent.hashCode());
 		result = prime * result + ((recordingLink == null) ? 0 : recordingLink.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((trainee == null) ? 0 : trainee.hashCode());
