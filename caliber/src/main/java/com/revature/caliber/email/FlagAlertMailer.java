@@ -115,7 +115,7 @@ public class FlagAlertMailer implements Runnable {
 		logger.info("Trainers being sent emails: " + vps);
 		String emailTemplate = getFlagEmailString();
 		if (emailTemplate == null) {
-			logger.warn("Unable to load email template, exiting sendEmails()");
+			logger.error("Unable to load email template, exiting sendEmails()");
 			return;
 		}
 		for (Trainer trainer : vps) {
@@ -137,8 +137,8 @@ public class FlagAlertMailer implements Runnable {
 				Transport.send(message);
 				logger.info("Flag email sent");
 			} catch (MessagingException e) {
-				logger.warn(e);
-				logger.warn("Flag email exception");
+				logger.error(e);
+				logger.error("Flag email exception");
 			}
 		}
 	}
@@ -156,8 +156,8 @@ public class FlagAlertMailer implements Runnable {
 			logger.info("loaded flag email template");
 			return emailStr;
 		} catch (IOException e) {
-			logger.warn("Unable to read flag email template");
-			logger.warn(e);
+			logger.error("Unable to read flag email template");
+			logger.error(e);
 			return null;
 		}
 	}
