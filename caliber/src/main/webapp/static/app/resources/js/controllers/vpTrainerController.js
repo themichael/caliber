@@ -145,7 +145,7 @@ angular
 											function(tasks){
 												$log.debug(tasks);
 												for(var i = 0; i < t_tasks.length; i++){
-													num = tasks.findIndex(j => j.id === t_tasks[i].taskCompleted.id);
+													var num = tasks.findIndex(j => j.id === t_tasks[i].taskCompleted.id);
 													if(num > -1){
 														tasks.splice(num, 1);
 													}
@@ -304,7 +304,7 @@ angular
 					}
 
 					var toCheck = [];
-					$scope.addToCheck = function(taskId, index){
+					$scope.addToCheck = function(taskId){
 						if(!toCheck.includes(taskId)){
 							toCheck[toCheck.length]=taskId;	
 						} else {
@@ -332,12 +332,7 @@ angular
 											"checkedBy" : currentUser, 
 											"completionDate" : null, 
 											"taskCompleted" : taskCompleted}
-									caliberDelegate.vp.saveTaskCompletion(taskCompletion)
-									.then(
-											function(response) {
-												$log.debug("Saved Task Completion: "
-														+ response);
-											});
+									caliberDelegate.vp.saveTaskCompletion(taskCompletion);
 									
 									var relevantTasks;
 									caliberDelegate.all.getAllTasksByTrainerId($scope.trainerForm.trainerId).then(

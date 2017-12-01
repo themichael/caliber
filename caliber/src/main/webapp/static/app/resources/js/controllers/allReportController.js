@@ -247,7 +247,7 @@ angular
 							NProgress.done();
 							$scope.traineePanelData = response;
 							$log.debug(response);		
-						},function(response){
+						},function(){
 							NProgress.done();
 						});	
 			}
@@ -393,7 +393,7 @@ angular
 						|| $scope.traineePanelData === null){
 					return false;
 				}
-				if ($scope.traineePanelData != null && $scope.traineePanelData.length == 0) {
+				if ($scope.traineePanelData !== null && $scope.traineePanelData.length === 0) {
 					return false;
 				}
 				return true;
