@@ -188,8 +188,8 @@ angular
 								function(response) {
 									$log.debug("Task Created: "
 											+ response);
-								})
-							})
+								}
+							)
 					}
 					
 					$scope.closeAddTask = function(){

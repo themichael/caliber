@@ -40,8 +40,8 @@
 											data-target="#editTrainerModal"><span
 												class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a></td>
 										<td><a role="button" class="pull-right"
-											ng-click="populateTrainer($index)" data-toggle="modal"
-											data-target="#deleteTrainerModal"><span
+											ng-click="populateTask(task)" data-toggle="modal"
+											data-target="#deactivateTaskModal"><span
 												class="glyphicon glyphicon-remove" aria-hidden="true"></span></a></td>
 									</tr>
 									<tr ng-show="addTask">
@@ -75,3 +75,5 @@
 		</div>
 	</div>
 </form>
+<!-- modal to confirm deactivate task -->
+<div ui-view="deactivate-task-modal"></div>
