@@ -1,6 +1,9 @@
 package com.revature.caliber.data;
 
-import java.sql.Date;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -62,8 +65,17 @@ public class TaskCompletionDAO {
      **/
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public void saveTaskCompletion(TrainerTaskCompletion taskCompletion) {
-		Calendar currenttime = Calendar.getInstance();
-		taskCompletion.setCompletionDate(new Date((currenttime.getTime()).getTime()));
-		sessionFactory.getCurrentSession().save(taskCompletion);
+		Date date = new Date();
+		DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
+		String date_str = df.format(date);
+		Date completionDate;
+		try {
+			completionDate = new SimpleDateFormat("yyyy/MM/dd").parse(date_str);
+			taskCompletion.setCompletionDate(completionDate);
+			sessionFactory.getCurrentSession().save(taskCompletion);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
 	}
 }

@@ -528,4 +528,13 @@ public class TrainingController {
 		return new ResponseEntity<>(task, HttpStatus.CREATED);
 	}
 	
+	//Saves a completed task
+	@RequestMapping(value = "/vp/task/completed", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	@PreAuthorize("hasAnyRole('VP')")
+	public ResponseEntity<TrainerTaskCompletion> saveTaskCompletopn(@Valid @RequestBody TrainerTaskCompletion taskCompletion) {
+		trainingService.saveTaskCompletion(taskCompletion);
+		return new ResponseEntity<>(taskCompletion, HttpStatus.CREATED);
+	}
+	
 }

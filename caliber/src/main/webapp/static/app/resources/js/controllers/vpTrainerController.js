@@ -145,6 +145,7 @@ angular
 												for(var j = 0; j < tasks.length; j++){
 													$scope.allActiveTasks[j].isShown = true;
 													$scope.allActiveTasks[j].isHidden = true;
+													$scope.allActiveTasks[j].isChecked = false;
 												}
 										});
 								});
@@ -186,6 +187,7 @@ angular
 					$scope.editTask = function(index) {
 						$scope.allActiveTasks[index].isShown = false;
 						$scope.allActiveTasks[index].isHidden = false;
+						$scope.allActiveTasks[index].isChecked = false;
 						
 						oldDescription = $scope.allActiveTasks[index].description;
 						oldPriority = $scope.allActiveTasks[index].priority;
@@ -212,7 +214,7 @@ angular
 									$log.debug("Task Updated: "
 											+ response);
 								})
-						//re-populate with update tasks
+						//re-populate with updated tasks
 						.then( caliberDelegate.all.getAllTasksByTrainerId($scope.trainerForm.trainerId).then(
 								function(t_tasks){
 										caliberDelegate.all.getAllActiveTasks().then(
@@ -228,6 +230,7 @@ angular
 												for(var j = 0; j < tasks.length; j++){
 													$scope.allActiveTasks[j].isShown = true;
 													$scope.allActiveTasks[j].isHidden = true;
+													$scope.allActiveTasks[j].isChecked = false;
 												}
 										});
 								})
@@ -239,6 +242,7 @@ angular
 					$scope.closeEditTask = function(index){
 						$scope.allActiveTasks[index].isShown = true;
 						$scope.allActiveTasks[index].isHidden = true;
+						$scope.allActiveTasks[index].isChecked = false;
 					};
 					
 					
@@ -276,6 +280,7 @@ angular
 												for(var j = 0; j < tasks.length; j++){
 													$scope.allActiveTasks[j].isShown = true;
 													$scope.allActiveTasks[j].isHidden = true;
+													$scope.allActiveTasks[j].isChecked = false;
 												}
 										});
 								})
@@ -290,30 +295,43 @@ angular
 					}
 					
 					var toCheck = [];
-					$scope.addToCheck = function(taskId){
+					$scope.addToCheck = function(taskId, index){
 						if(!toCheck.includes(taskId)){
 							toCheck[toCheck.length]=taskId;	
 						} else {
 							var indexToRemove = toCheck.indexOf(taskId)
 							toCheck.splice(indexToRemove,1);
 						}
-						console.log(toCheck);
 					}
 					
 					$scope.checkOff = function(trainer){
 						for(var i=0;i<toCheck.length;i++){
 							for(var j=0;j<$scope.allActiveTasks.length;j++){
 								if($scope.allActiveTasks[j].id === toCheck[i]){
-									var taskId = $scope.allActiveTasks[j];
-									var taskCompletion = {"trainer" : trainer, "checkedBy" : checkedBy, "completionDate" : null, "taskCompleted" : taskCompleted}
+									var taskCompleted = {
+											"active": 1, 
+											"description": $scope.allActiveTasks[j].description, 
+											"priority": $scope.allActiveTasks[j].priority,
+											"id": $scope.allActiveTasks[j].id
+											};
+									var now = new Date().toISOString().slice(0,10);
+									
+									var taskCompletion = {
+											"id": 0,
+											"trainer" : trainer.trainerId, 
+											"checkedBy" : trainer.trainerId, 
+											"completionDate" : now, 
+											"taskCompleted" : taskCompleted.id}
+									console.log(taskCompletion);
+									caliberDelegate.vp.saveTaskCompletion(taskCompletion)
+									.then(
+											function(response) {
+												$log.debug("Saved Task Completion: "
+														+ response);
+											});
 								}
 							}
 						}
-//						toCheck = [];
 					}
-					
-//					$scope.reset = function(){
-//						toCheck = [];
-//					}
 
 				});
