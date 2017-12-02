@@ -232,7 +232,7 @@ angular
 						});
 			}
 			
-			function displayTraineePanelFeedback(){	
+			function displayTraineePanelFeedback(traineeId){	
 				caliberDelegate.panel.reportTraineePanels($scope.currentTrainee.traineeId).then(
 						function(response){
 							NProgress.done();
