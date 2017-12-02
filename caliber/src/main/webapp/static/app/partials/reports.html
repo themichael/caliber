@@ -28,7 +28,8 @@
 						id="searchTextBox" placeholder="Search..."
 						class="form-control SearchPad" autocomplete="off" />
                       <datalist id="traineeList">
-	    						<option ng-repeat="trainee in allTrainees track by $index" ng-value="trainee.name">
+	    						<option ng-repeat="trainee in allTrainees track by $index" ng-value="trainee.name"
+	    						  ng-if="chosenTrainee.length>0">
 	    							{{trainee.name}} | {{trainee.email}} | {{trainee.skypeId}} 
 	    						</option>
 	    			  </datalist>
