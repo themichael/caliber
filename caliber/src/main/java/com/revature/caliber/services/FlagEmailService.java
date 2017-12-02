@@ -86,7 +86,7 @@ public class FlagEmailService {
 				return;
 			flagServiceStarted = true;
 			
-			logger.info("startFlagReminderJob() for FlagEmailService");
+			logger.info("startFlagReminderJob() for FlagEmailService ( pineapple ) ");
 			
 			// First we get the time that the emails will start to fire
 			LocalTime flagTimeToFireDate = LocalTime.of(HOUR_TO_FIRE, MINUTE_TO_FIRE);
@@ -98,7 +98,7 @@ public class FlagEmailService {
 			
 			long delayInUnits = flagTimeToFire.toEpochSecond() - now.toEpochSecond();
 		
-			logger.info("Flag emails will start firing at: " + flagTimeToFire);
+			logger.info("Flag emails will start firing at: " + flagTimeToFire + " ( pineapple ) ");
 			
 			/*
 			 * Mailer's run() will be called after delayInUnits TIME_UNITS with TIME_UNITS_BETWEEN_EMAILS TIME_UNITS
