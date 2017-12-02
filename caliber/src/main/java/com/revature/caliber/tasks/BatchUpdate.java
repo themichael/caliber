@@ -41,15 +41,17 @@ public class BatchUpdate {
 	//@Scheduled(cron = "0 0 0 * * *")  //Midnight
 	@Scheduled(cron = "0 0/1 * 1/1 * ?") 	//Every minute (testing)
 	public void updateBatchTask() {
-		//Update job goes here
+		
 		log.info("Update Batch Task");
 		System.out.println("Update Batch Task");
-		salesforceAuth.setUser();
-		List<Batch> salesforceBatches = salesforceDao.getAllRelevantBatches();
-		List<Batch> caliberBatches = batchDao.findAll();
-		//List<Batch> notSalesforceBatches = batchDao.findAll();
-		
-		compareBatches(caliberBatches,salesforceBatches);
+		boolean userSet = salesforceAuth.setUser();
+		if(userSet) {
+			List<Batch> salesforceBatches = salesforceDao.getAllRelevantBatches();
+			List<Batch> caliberBatches = batchDao.findAll();
+			//List<Batch> notSalesforceBatches = batchDao.findAll();
+			
+			compareBatches(caliberBatches,salesforceBatches);
+		}
 		
 		salesforceAuth.clearUser();
 		log.info("End of Update Task");

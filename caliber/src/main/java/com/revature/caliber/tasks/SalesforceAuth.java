@@ -53,7 +53,9 @@ public class SalesforceAuth {
 	
 	private static Logger log = Logger.getLogger(SalesforceAuth.class);
 	
-	public void setUser() {
+	public boolean setUser() {
+		
+		boolean userSet = false;
 		
 		try {
 			log.info("Logging into Salesforce "+clientId+" "+clientSecret);
@@ -62,17 +64,26 @@ public class SalesforceAuth {
 			log.error("This is the Token: "+ accessToken);
 			SalesforceUser salesforceUser = new SalesforceUser();
 			salesforceUser.setUserId(username);
-			Trainer trainer = trainerDao.findByEmail(username);
+			Trainer trainer = trainerDao.findByEmail("patrick.walsh@revature.com");
 			salesforceUser.setCaliberUser(trainer);
+			salesforceUser.setRole(trainer.getTier().name());
+			log.info("SalesforceUser role: "+salesforceUser.getRole());
 			salesforceUser.setSalesforceToken(accessTokenJson);
 			Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUserId(),
 	                salesforceUser.getAuthorities());
 	        SecurityContextHolder.getContext().setAuthentication(auth);
-	        String token = ((SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getSalesforceToken().getAccessToken();
-			
+	        
+	        if(accessTokenJson != null && 
+	        		((SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getSalesforceToken() == accessTokenJson) {
+	        	userSet = true;
+	        }
+	        
 		} catch (IOException e) {
 			log.error("Error accesing token: "+ e);
+			return userSet;
 		}
+		
+		return userSet;
 	}
 	
 	public void clearUser() {
