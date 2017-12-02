@@ -51,6 +51,8 @@ public class BatchUpdate {
 			//List<Batch> notSalesforceBatches = batchDao.findAll();
 			
 			compareBatches(caliberBatches,salesforceBatches);
+		} else {
+			log.error("Unable to perform BatchUpdate");
 		}
 		
 		salesforceAuth.clearUser();
