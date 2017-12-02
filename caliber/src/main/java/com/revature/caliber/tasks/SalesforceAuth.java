@@ -13,11 +13,9 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonParser.Feature;
@@ -25,7 +23,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Trainer;
-import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.data.TrainerDAO;
 import com.revature.caliber.security.models.SalesforceToken;
 import com.revature.caliber.security.models.SalesforceUser;
@@ -36,7 +33,6 @@ public class SalesforceAuth {
 	@Autowired
 	TrainerDAO trainerDao;
 	
-	protected static String accessToken = "Auth ";
 	protected static SalesforceToken accessTokenJson;
 	protected static final String AUTH = "Authorization";
 	protected static String jsessionid;
@@ -61,7 +57,7 @@ public class SalesforceAuth {
 			log.info("Logging into Salesforce "+clientId+" "+clientSecret);
 			log.info("User: "+username+" Pass: "+password);
 			login();
-			log.error("This is the Token: "+ accessToken);
+			log.error("This is the Token: "+ accessTokenJson.getAccessToken());
 			SalesforceUser salesforceUser = new SalesforceUser();
 			salesforceUser.setUserId(username);
 			Trainer trainer = trainerDao.findByEmail("patrick.walsh@revature.com");
@@ -114,8 +110,7 @@ public class SalesforceAuth {
 			mapper.configure(Feature.ALLOW_NUMERIC_LEADING_ZEROS, true);
 			accessTokenJson = mapper.readValue(response.getEntity().getContent(),
 					SalesforceToken.class); // actual
-			accessToken += accessTokenJson.getAccessToken();
-			log.info("Accessing Salesforce API using token:  " + accessToken);
+			log.info("Accessing Salesforce API using token:  " + accessTokenJson.getAccessToken());
 		}catch(Exception e){
 			log.error(e);
 			httpClient = HttpClientBuilder.create().build();

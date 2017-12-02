@@ -13,6 +13,10 @@ public class PopulateResourceId {
 	
 	private static final Logger log=Logger.getLogger(PopulateResourceId.class);
 	
+	private PopulateResourceId() {
+		super();
+	}
+	
 	public static boolean getBatchResourceId(Batch caliberBatch,List<Batch> salesforceBatches) {
 		boolean batchUpdated = false;
 		String cTrainingName = caliberBatch.getTrainingName();

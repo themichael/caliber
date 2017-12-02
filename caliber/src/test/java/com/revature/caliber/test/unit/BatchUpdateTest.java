@@ -28,6 +28,8 @@ import com.revature.caliber.tasks.BatchUpdate;
 
 public class BatchUpdateTest extends CaliberTest{
 	
+	private static final Logger log = Logger.getLogger(BatchUpdate.class);
+	
 	@Autowired
 	private BatchUpdate batchUpdate;
 	@Autowired
@@ -36,7 +38,6 @@ public class BatchUpdateTest extends CaliberTest{
 	private Trainee traineeOne = new Trainee();
 	private Trainee traineeTwo = new Trainee();
 	private Trainee traineeThree = new Trainee();
-	private Trainer caliberTrainer = new Trainer();
 	private Trainer salesforceTrainer = new Trainer();
 	private Batch caliberBatch = new Batch();
 	private Batch salesforceBatch = new Batch();
@@ -47,7 +48,6 @@ public class BatchUpdateTest extends CaliberTest{
 	@Before
 	public void setTraineeInfo() {
 		this.traineeOne.setName("Joe Smith");
-		//this.traineeOne.setResourceId("one");
 		this.traineeOne.setEmail("one@gmail.com");
 		this.traineeOne.setPhoneNumber("954-798-6005");
 		this.traineeOne.setTrainingStatus(TrainingStatus.Training);
@@ -73,14 +73,7 @@ public class BatchUpdateTest extends CaliberTest{
 	@Before
 	public void setBatchInfo() {
 		
-		/*
-		this.caliberBatch = batchDao.findOneWithDroppedTrainees(2200);
-		this.caliberTrainer = caliberBatch.getTrainer();
-		log.info("CaliberBatch: "+ caliberBatch.getResourceId());
-		*/
-		
 		this.caliberBatch = batchDao.findOneWithDroppedTrainees(2201);
-		this.caliberTrainer = caliberBatch.getTrainer();
 		log.info("CaliberBatch: "+ caliberBatch.getResourceId());
 		
 		this.salesforceTrainer.setName("Tom Riddle");
@@ -88,7 +81,6 @@ public class BatchUpdateTest extends CaliberTest{
 		this.salesforceTrainer.setTitle("Trainer");
 		this.salesforceTrainer.setTier(TrainerRole.ROLE_TRAINER);
 		
-		//this.salesforceBatch.setResourceId(caliberBatch.getResourceId());
 		this.salesforceBatch.setResourceId("TWO");
 		this.salesforceBatch.setTrainer(salesforceTrainer);
 		this.salesforceBatch.setTrainingName(caliberBatch.getTrainingName());
@@ -107,7 +99,7 @@ public class BatchUpdateTest extends CaliberTest{
 	 * 				 Checks the last time execution was fired and 
 	 * 				 Shows the next execution date that trigger will be fired
 	 */
-	private static final Logger log = Logger.getLogger(BatchUpdate.class);
+	
 	@Test
 	public void testScheduler() {
 		org.springframework.scheduling.support.CronTrigger trigger = new CronTrigger("0 0 0 * * *");
@@ -117,7 +109,6 @@ public class BatchUpdateTest extends CaliberTest{
 		final Date yesterday = today.getTime();
 		String lastMessage = (sdf.format(yesterday)) + " : [Yesterday]";
 		log.info(lastMessage);
-		//System.out.println(lastMessage);
 		Date nextExecution = trigger.nextExecutionTime(
 				new TriggerContext() {
 					@Override
@@ -135,7 +126,6 @@ public class BatchUpdateTest extends CaliberTest{
 				});
 		String nextMessage = sdf.format(nextExecution) + " : [Execution] ";
 		log.info(nextMessage);
-		//System.out.println(nextMessage);
 	}
 	
 	@Test
