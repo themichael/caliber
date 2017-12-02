@@ -110,22 +110,23 @@ public class SalesforceTransformerToCaliber {
 	public TrainingStatus transformStatus(SalesforceTrainee salesforceTrainee) {
 
 		String stringTrainingStatus = salesforceTrainee.getTrainingStatus();
+		String dropped = "Dropped";
 
 		if (stringTrainingStatus == null) {
 			stringTrainingStatus = "";
 		}
 		switch (stringTrainingStatus) {
 		case "Declined Offer":
-			stringTrainingStatus = "Dropped";
+			stringTrainingStatus = dropped;
 			return transformStatusHelper(stringTrainingStatus);
 		case "Did Not Show":
-			stringTrainingStatus = "Dropped";
+			stringTrainingStatus = dropped;
 			return transformStatusHelper(stringTrainingStatus);
 		case "Rejected":
-			stringTrainingStatus = "Dropped";
+			stringTrainingStatus = dropped;
 			return transformStatusHelper(stringTrainingStatus);
 		case "Terminated":
-			stringTrainingStatus = "Dropped";
+			stringTrainingStatus = dropped;
 			return transformStatusHelper(stringTrainingStatus);
 		default:
 			return transformStatusHelper(stringTrainingStatus);
