@@ -42,7 +42,8 @@ public class SalesforceAuth {
 	private static String password = System.getenv("CALIBER_API_PASSWORD");
 	private static String clientId = System.getenv("SALESFORCE_CLIENT_ID");
 	private static String clientSecret = System.getenv("SALESFORCE_CLIENT_SECRET");
-	private static String accessTokenUrl = "https://test.salesforce.com/services/oauth2/token";
+	private static String salesforceUrl = System.getenv("SALESFORCE_LOGIN_URL");
+	private static String accessTokenUri = "services/oauth2/token";
 	protected static String authHeader = "Authorization";
 	
 	private static final String PASS = "password";
@@ -95,8 +96,8 @@ public class SalesforceAuth {
 	 */
 	private static void login() throws JsonMappingException, IOException {
 		HttpClient httpClient = HttpClientBuilder.create().build();
-		log.info("logging into URL   " + accessTokenUrl);
-		HttpPost post = new HttpPost(accessTokenUrl);
+		log.info("logging into URL   " + salesforceUrl + accessTokenUri);
+		HttpPost post = new HttpPost(salesforceUrl + accessTokenUri);
 		List<NameValuePair> parameters = new ArrayList<>();
 		parameters.add(new BasicNameValuePair("grant_type", PASS));
 		parameters.add(new BasicNameValuePair("client_secret", clientSecret));
@@ -114,8 +115,8 @@ public class SalesforceAuth {
 		}catch(Exception e){
 			log.error(e);
 			httpClient = HttpClientBuilder.create().build();
-			log.info("logging into URL   " + accessTokenUrl);
-			post = new HttpPost(accessTokenUrl);
+			log.info("logging into URL   " + accessTokenUri);
+			post = new HttpPost(salesforceUrl + accessTokenUri);
 			parameters = new ArrayList<>();
 			parameters.add(new BasicNameValuePair("grant_type", PASS));
 			parameters.add(new BasicNameValuePair("client_secret", clientSecret));
