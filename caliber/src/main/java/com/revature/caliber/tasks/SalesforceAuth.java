@@ -33,7 +33,7 @@ public class SalesforceAuth {
 	@Autowired
 	TrainerDAO trainerDao;
 	
-	protected static SalesforceToken accessTokenJson;
+	protected static SalesforceToken accessTokenJson = new SalesforceToken();
 	protected static final String AUTH = "Authorization";
 	protected static String jsessionid;
 
@@ -70,8 +70,7 @@ public class SalesforceAuth {
 	                salesforceUser.getAuthorities());
 	        SecurityContextHolder.getContext().setAuthentication(auth);
 	        
-	        if(accessTokenJson != null && 
-	        		((SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getSalesforceToken() == accessTokenJson) {
+	        if(((SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getSalesforceToken() != null) {
 	        	userSet = true;
 	        }
 	        
