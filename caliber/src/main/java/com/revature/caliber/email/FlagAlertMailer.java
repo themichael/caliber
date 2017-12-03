@@ -170,7 +170,7 @@ public class FlagAlertMailer implements Runnable {
 	 * @return Set of VP Trainers
 	 */
 	public Set<Trainer> getVPs() {
-		List<Trainer> trainers = trainingService.findAllTrainers();
+		List<Trainer> trainers = this.trainingService.findAllTrainers();
 		logger.info("trainers :" + trainers.toString() + " pineapple ");
 		Set<Trainer> vps = new HashSet<>();
 		for (Trainer trainer : trainers) {
@@ -191,7 +191,7 @@ public class FlagAlertMailer implements Runnable {
 	 * @return String of red flagged trainees
 	 */
 	public String redFlagHTML() {
-		List<Trainee> trainees = trainingService.findAllTrainees();
+		List<Trainee> trainees = this.trainingService.findAllTrainees();
 		String redFlagHTML="";
 		for (Trainee trainee : trainees) {
 			if (trainee.getFlagStatus() == TraineeFlag.RED) {
@@ -210,7 +210,7 @@ public class FlagAlertMailer implements Runnable {
 	 * @return String of green flagged trainees
 	 */
 	public String greenFlagHTML() {
-		List<Trainee> trainees = trainingService.findAllTrainees();
+		List<Trainee> trainees = this.trainingService.findAllTrainees();
 		String greenFlagHTML="";
 		for (Trainee trainee : trainees) {
 			if (trainee.getFlagStatus() == TraineeFlag.GREEN) {
