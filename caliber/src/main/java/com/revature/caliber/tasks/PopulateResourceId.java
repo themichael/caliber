@@ -30,7 +30,7 @@ public class PopulateResourceId {
 		}
 		
 		if(!batchUpdated) {
-			caliberBatch.getTrainingName().concat(" FAKE BATCH");
+			caliberBatch.setTrainingName(cTrainingName+" FAKE BATCH");
 		}
 		
 		return batchUpdated;
