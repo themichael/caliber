@@ -28,7 +28,11 @@ public class PopulateResourceId {
 				batchUpdated = true;
 			}
 		}
-			
+		
+		if(!batchUpdated) {
+			caliberBatch.getTrainingName().concat(" FAKE BATCH");
+		}
+		
 		return batchUpdated;
 	}
 	

@@ -57,7 +57,6 @@ public class SalesforceAuth {
 			log.info("Logging into Salesforce "+salesforceId+" "+salesforceSecret);
 			log.info("User: "+username+" Pass: "+password);
 			login();
-			log.error("This is the Token: "+ accessTokenJson.getAccessToken());
 			SalesforceUser salesforceUser = new SalesforceUser();
 			salesforceUser.setUserId(username);
 			Trainer trainer = trainerDao.findByEmail("patrick.walsh@revature.com");
