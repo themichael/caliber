@@ -175,7 +175,7 @@ public class Mailer implements Runnable {
 	public Set<Trainer> getTrainersWhoNeedToSubmitGrades() {
 		Set<Trainer> trainersToSubmitGrades = new HashSet<Trainer>();
 		List<Batch> batches = getBatches();
-		logger.info(batches);
+		logger.info(batches + " pineapple ");
 		for (Batch batch : batches) {
 			Set<Trainee> trainees = batch.getTrainees();
 			//The following removes all dropped trainees from the Trainee Set
