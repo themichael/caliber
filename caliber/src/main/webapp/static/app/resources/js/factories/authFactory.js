@@ -3,6 +3,8 @@ angular.module("auth").factory("authFactory",
 			$log.debug("Booted Authentication Factory");
 
 			var auth = {};
+			var devMode = false;
+			var DEBUG_URL = "/caliber/";
 
 			// Roles
 			var vpRole = "ROLE_VP";
@@ -321,12 +323,9 @@ angular.module("auth").factory("authFactory",
 			 */
 			auth.authCategory = function() {
 				var role = getCookie();
-
-				switch (role) {
-				case vpRole:
+				if(role === vpRole){
 					$log.debug("Changing state to: " + vpCategory);
-					break;
-				default:
+				} else {
 					auth.auth();
 				}
 			};

@@ -39,7 +39,7 @@ public class BatchUpdate {
 	 */
 	
 	//@Scheduled(cron = "0 0 0 * * *")  //Midnight
-	@Scheduled(cron = "0 0/1 * 1/1 * ?") 	//Every minute (testing)
+	@Scheduled(cron = "0 0/30 * 1/1 * ?") 	//Every minute (testing)
 	public void updateBatchTask() {
 		
 		log.info("Update Batch Task");
