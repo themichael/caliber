@@ -27,6 +27,8 @@ import com.revature.caliber.beans.Address;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.beans.TrainerTask;
+import com.revature.caliber.beans.TrainerTaskCompletion;
 import com.revature.caliber.security.models.SalesforceUser;
 import com.revature.caliber.services.TrainingService;
 
@@ -356,7 +358,7 @@ public class TrainingController {
 		return new ResponseEntity<>(trainingService.findCommonLocations(), HttpStatus.OK);
 	}
 
-	/*
+	/*get
 	 *******************************************************
 	 * TRAINEE SERVICES
 	 *
@@ -466,4 +468,73 @@ public class TrainingController {
 	private Trainer getPrincipal(Authentication auth) {
 		return ((SalesforceUser) auth.getPrincipal()).getCaliberUser();
 	}
+	
+	/*
+	 *******************************************************
+	 * TASK SERVICES
+	 *
+	 *******************************************************
+	 */
+	
+	
+	/**
+	 * Returns all active tasks from the database`
+	 *
+	 * @return
+	 */
+	@RequestMapping(value = "/all/tasks/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	@PreAuthorize("hasAnyRole('VP')")
+	public ResponseEntity<List<TrainerTask>> getAllActiveTasks() {
+		log.info("Fetching all active tasks");
+		List<TrainerTask> tasks = trainingService.findAllActiveTasks();
+		return new ResponseEntity<>(tasks, HttpStatus.OK);
+	}
+	
+	/**
+	 * Returns all completed tasks
+	 *
+	 * @return
+	 */
+	@RequestMapping(value = "/all/tasks/trainer", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	@PreAuthorize("hasAnyRole('VP')")
+	public ResponseEntity<List<TrainerTaskCompletion>> getAllCompletedTasks() {
+		log.info("Fetching all completed tasks");
+		List<TrainerTaskCompletion> tasks = trainingService.findAllCompletedTasks();
+		return new ResponseEntity<>(tasks, HttpStatus.OK);
+	}
+	
+	/**
+	 * Returns all completed tasks by trainerId
+	 *
+	 * @return
+	 */
+	@RequestMapping(value = "/all/tasks/trainer/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	@PreAuthorize("hasAnyRole('VP')")
+	public ResponseEntity<List<TrainerTaskCompletion>> getAllTasksByTrainerId(@PathVariable int id) {
+		log.info("Fetching all completed tasks for trainer with id " + id);
+		List<TrainerTaskCompletion> tasks = trainingService.findAllTasksByTrainerId(id);
+		return new ResponseEntity<>(tasks, HttpStatus.OK);
+	}
+	
+	//Calls a method that creates a new task
+	@RequestMapping(value = "/vp/task", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	@PreAuthorize("hasAnyRole('VP')")
+	public ResponseEntity<TrainerTask> saveOrUpdateTask(@Valid @RequestBody TrainerTask task) {
+		trainingService.saveOrUpdateTask(task);
+		return new ResponseEntity<>(task, HttpStatus.CREATED);
+	}
+	
+	//Saves a completed task
+	@RequestMapping(value = "/vp/task/completed", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	@PreAuthorize("hasAnyRole('VP')")
+	public ResponseEntity<TrainerTaskCompletion> saveTaskCompletopn(@Valid @RequestBody TrainerTaskCompletion taskCompletion) {
+		trainingService.saveTaskCompletion(taskCompletion);
+		return new ResponseEntity<>(taskCompletion, HttpStatus.CREATED);
+	}
+	
 }
