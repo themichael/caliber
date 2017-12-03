@@ -306,7 +306,7 @@ angular
 					var toCheck = [];
 					$scope.addToCheck = function(taskId){
 						if(!toCheck.includes(taskId)){
-							toCheck[toCheck.length]=taskId;	
+							toCheck.push(taskId);	
 						} else {
 							var indexToRemove = toCheck.indexOf(taskId)
 							toCheck.splice(indexToRemove,1);
@@ -325,7 +325,6 @@ angular
 											"priority": $scope.allActiveTasks[j].priority,
 											"id": $scope.allActiveTasks[j].id
 											};
-
 									var taskCompletion = {
 											"id": 1,
 											"trainer" : trainer, 
@@ -333,35 +332,15 @@ angular
 											"completionDate" : null, 
 											"taskCompleted" : taskCompleted}
 									caliberDelegate.vp.saveTaskCompletion(taskCompletion);
-									
-									var relevantTasks;
-									caliberDelegate.all.getAllTasksByTrainerId($scope.trainerForm.trainerId).then(
-											function(t_tasks){
-													caliberDelegate.all.getAllActiveTasks().then(
-														function(tasks){
-															$log.debug(tasks);
-															for(var i = 0; i < t_tasks.length; i++){
-																num = tasks.findIndex(j => j.id === t_tasks[i].taskCompleted.id);
-																if(num > -1){
-																	tasks.splice(num, 1);
-																}
-															}
-															relevantTasks = tasks;
-															for(var j = 0; j < tasks.length; j++){
-																$scope.allActiveTasks[j].isShown = true;
-																$scope.allActiveTasks[j].isHidden = true;
-																$scope.allActiveTasks[j].isChecked = false;
-															}
-															if (relevantTasks.length===0){
-																trainer.title = "Trainer";
-																caliberDelegate.vp.updateTrainer(trainer);
-																location.reload();
-															}
-													});
-											});
 								}
 							}
 						}
+							if (toCheck.length ===$scope.allActiveTasks.length ){
+								trainer.title = "Trainer";
+								caliberDelegate.vp.updateTrainer(trainer);
+								location.reload();
+							}
+						toCheck = [];
 					}
 					
 					/**
