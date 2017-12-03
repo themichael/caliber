@@ -41,6 +41,8 @@ public class BatchUpdateTest extends CaliberTest{
 	private Trainer salesforceTrainer = new Trainer();
 	private Batch caliberBatch = new Batch();
 	private Batch salesforceBatch = new Batch();
+	private Set<Trainee> caliberTrainees = new HashSet<>();
+	private Set<Trainee> salesforceTrainees = new HashSet<>();
 	
 	/*
 	 *	Dummy data for testUpdateTrainees() 
@@ -65,6 +67,11 @@ public class BatchUpdateTest extends CaliberTest{
 		this.traineeThree.setEmail("one@gmail.com");
 		this.traineeThree.setPhoneNumber("954-798-6005");
 		this.traineeThree.setTrainingStatus(TrainingStatus.Dropped);
+		
+		caliberTrainees.add(traineeOne);
+		caliberTrainees.add(traineeThree);
+		salesforceTrainees.add(traineeThree);
+		salesforceTrainees.add(traineeTwo);
 	}
 	
 	/*
@@ -74,6 +81,7 @@ public class BatchUpdateTest extends CaliberTest{
 	public void setBatchInfo() {
 		
 		this.caliberBatch = batchDao.findOneWithDroppedTrainees(2201);
+		this.caliberBatch.setTrainees(caliberTrainees);
 		log.info("CaliberBatch: "+ caliberBatch.getResourceId());
 		
 		this.salesforceTrainer.setName("Tom Riddle");
@@ -92,6 +100,7 @@ public class BatchUpdateTest extends CaliberTest{
 		this.salesforceBatch.setEndDate(caliberBatch.getEndDate());
 		this.salesforceBatch.setStartDate(caliberBatch.getStartDate());
 		this.salesforceBatch.setBatchId(caliberBatch.getBatchId());
+		this.salesforceBatch.setTrainees(salesforceTrainees);
 	}
 	
 	/*

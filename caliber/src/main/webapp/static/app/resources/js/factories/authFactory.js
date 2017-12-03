@@ -93,7 +93,6 @@ angular.module("auth").factory("authFactory",
 					$state.go(stagingState);
 					break;
 				default:
-					//error();
 					$log.debug("Auth Default");
 					$window.location.replace("/");
 					break;
@@ -187,13 +186,6 @@ angular.module("auth").factory("authFactory",
 
 				$log.debug("Authorizing staging role");
 
-				/* if (role !== stagingRole) {
-					if (devMode)
-						$location.path(DEBUG_URL);
-					else
-						$location.path("/");
-				}
-				*/
 				if (role === trainerRole)
 					$location.path(trainerHome);
 				else if (role === qcRole)

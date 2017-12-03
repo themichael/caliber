@@ -113,21 +113,6 @@ public class SalesforceAuth {
 			log.info("Accessing Salesforce API using token:  " + accessTokenJson.getAccessToken());
 		}catch(Exception e){
 			log.error(e);
-			httpClient = HttpClientBuilder.create().build();
-			log.info("logging into URL   " + accessTokenUri);
-			post = new HttpPost(salesforceUrl + accessTokenUri);
-			parameters = new ArrayList<>();
-			parameters.add(new BasicNameValuePair("grant_type", PASS));
-			parameters.add(new BasicNameValuePair("client_secret", clientSecret));
-			parameters.add(new BasicNameValuePair("client_id", clientId));
-			parameters.add(new BasicNameValuePair("username", username));
-			parameters.add(new BasicNameValuePair(PASS, password));
-			post.setEntity(new UrlEncodedFormEntity(parameters));
-			response = httpClient.execute(post);
-			ObjectMapper mapper = new ObjectMapper();
-			mapper.configure(Feature.ALLOW_NUMERIC_LEADING_ZEROS, true);
-			log.error(mapper.readValue(response.getEntity().getContent(),
-					JsonNode.class)); 
 		}
 	}
 }

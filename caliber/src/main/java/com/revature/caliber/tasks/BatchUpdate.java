@@ -83,13 +83,10 @@ public class BatchUpdate {
 					
 					Set<Trainee> salesforceTrainees = salesforceBatch.getTrainees();
 					Set<Trainee> caliberTrainees = caliberBatch.getTrainees();
-					if(caliberTrainees.containsAll(salesforceTrainees) && caliberTrainees.size() ==  salesforceTrainees.size()) {
-						continue;
-					} else {
-						log.info("Update Caliber Trainees");
-						updateTrainees(caliberTrainees,salesforceTrainees);
-						batchUpdated = true;
-					}
+					
+					log.info("Update Caliber Trainees");
+					boolean traineeUpdate = updateTrainees(caliberTrainees,salesforceTrainees);
+					batchUpdated = batchUpdated ? true : traineeUpdate;
 				}
 			}
 		}
@@ -117,7 +114,8 @@ public class BatchUpdate {
 			batchDao.update(caliberBatch);
 			batchUpdated = true;
 		}
-		if(caliberBatch.getCoTrainer() != null && !caliberBatch.getCoTrainer().getEmail().equals(salesforceBatch.getCoTrainer().getEmail())) {
+		if(caliberBatch.getCoTrainer() != null && 
+				!caliberBatch.getCoTrainer().getEmail().equals(salesforceBatch.getCoTrainer().getEmail())) {
 			caliberBatch.getCoTrainer().getBatches().remove(caliberBatch);
 			caliberBatch.setCoTrainer(salesforceBatch.getCoTrainer());
 			batchDao.update(caliberBatch);
@@ -147,9 +145,13 @@ public class BatchUpdate {
 			}
 			if(cResourceId != null) {
 				Iterator<Trainee> sIt = salesforceTrainees.iterator();
+				boolean update = false;
 				while(sIt.hasNext()) {
 					Trainee sTrainee = sIt.next();
-					checkTraineeChange(cTrainee,sTrainee);
+					update = checkTraineeChange(cTrainee,sTrainee);
+				}
+				if(update) {
+					traineeUpdated = true;
 				}
 			}
 		}
@@ -181,6 +183,7 @@ public class BatchUpdate {
 			}
 			if(traineeUpdated) {
 				traineeDao.update(cTrainee);
+				return traineeUpdated;
 			}
 			
 			log.debug(cTrainee);
