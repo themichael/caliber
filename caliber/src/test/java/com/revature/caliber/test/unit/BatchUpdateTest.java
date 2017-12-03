@@ -138,15 +138,6 @@ public class BatchUpdateTest extends CaliberTest{
 	}
 	
 	@Test
-	public void testUpdateTrainees() {
-		
-		boolean updated = batchUpdate.updateTrainees(caliberTrainees, salesforceTrainees);
-		log.info("Trainees were updated: "+updated);
-		assertTrue(updated);
-		
-	}
-	
-	@Test
 	public void compareBatchTest() {
 		List<Batch> caliberBatches = new ArrayList<>();
 		List<Batch> salesforceBatches = new ArrayList<>();
