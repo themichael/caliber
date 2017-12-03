@@ -11,14 +11,14 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
-
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.caliber.email.FlagAlertMailer;
 
 @Service
-public class FlagEmailService {
+public class FlagEmailService implements InitializingBean {
 
 		
 		private static final Logger logger = Logger.getLogger(FlagEmailService.class);
@@ -73,7 +73,7 @@ public class FlagEmailService {
 		/**
 		 * Starts the ScheduledThreadExecutor upon application startup/bean initialization
 		 */
-		//@Override
+		@Override
 		public void afterPropertiesSet(){
 			startFlagReminderJob();
 		}
