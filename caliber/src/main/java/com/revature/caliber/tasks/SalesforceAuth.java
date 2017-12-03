@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonParser.Feature;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.data.TrainerDAO;
@@ -40,8 +39,8 @@ public class SalesforceAuth {
 	protected static String baseUrl = System.getenv("CALIBER_API_SERVER");
 	private static String username = System.getenv("CALIBER_API_USERNAME");
 	private static String password = System.getenv("CALIBER_API_PASSWORD");
-	private static String clientId = System.getenv("SALESFORCE_CLIENT_ID");
-	private static String clientSecret = System.getenv("SALESFORCE_CLIENT_SECRET");
+	private static String salesforceId = System.getenv("SALESFORCE_CLIENT_ID");
+	private static String salesforceSecret = System.getenv("SALESFORCE_CLIENT_SECRET");
 	private static String salesforceUrl = System.getenv("SALESFORCE_LOGIN_URL");
 	private static String accessTokenUri = "services/oauth2/token";
 	protected static String authHeader = "Authorization";
@@ -55,7 +54,7 @@ public class SalesforceAuth {
 		boolean userSet = false;
 		
 		try {
-			log.info("Logging into Salesforce "+clientId+" "+clientSecret);
+			log.info("Logging into Salesforce "+salesforceId+" "+salesforceSecret);
 			log.info("User: "+username+" Pass: "+password);
 			login();
 			log.error("This is the Token: "+ accessTokenJson.getAccessToken());
@@ -99,8 +98,8 @@ public class SalesforceAuth {
 		HttpPost post = new HttpPost(salesforceUrl + accessTokenUri);
 		List<NameValuePair> parameters = new ArrayList<>();
 		parameters.add(new BasicNameValuePair("grant_type", PASS));
-		parameters.add(new BasicNameValuePair("client_secret", clientSecret));
-		parameters.add(new BasicNameValuePair("client_id", clientId));
+		parameters.add(new BasicNameValuePair("client_secret", salesforceSecret));
+		parameters.add(new BasicNameValuePair("client_id", salesforceId));
 		parameters.add(new BasicNameValuePair("username", username));
 		parameters.add(new BasicNameValuePair(PASS, password));
 		post.setEntity(new UrlEncodedFormEntity(parameters));

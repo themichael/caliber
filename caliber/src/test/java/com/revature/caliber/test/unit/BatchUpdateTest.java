@@ -139,14 +139,6 @@ public class BatchUpdateTest extends CaliberTest{
 	
 	@Test
 	public void testUpdateTrainees() {
-		Set<Trainee> caliberTrainees = new HashSet<>();
-		Set<Trainee> salesforceTrainees = new HashSet<>();
-		
-		caliberTrainees.add(this.traineeOne);
-		caliberTrainees.add(this.traineeTwo);
-		
-		salesforceTrainees.add(this.traineeThree);
-		salesforceTrainees.add(this.traineeTwo);
 		
 		boolean updated = batchUpdate.updateTrainees(caliberTrainees, salesforceTrainees);
 		log.info("Trainees were updated: "+updated);
