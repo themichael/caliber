@@ -1,5 +1,5 @@
 angular.module("auth").factory("authFactory",
-		function($log, $http, $cookies, $state, $location) {
+		function($log, $http, $cookies, $state, $location, $window) {
 			$log.debug("Booted Authentication Factory");
 
 			var auth = {};
@@ -59,7 +59,9 @@ angular.module("auth").factory("authFactory",
 			 * 
 			 * @returns A cookie that contains the role
 			 */
-			function getRoleCookie() {
+
+			function getCookie() {
+				$log.debug($cookies.get("role"));
 				return $cookies.get("role");
 			}
 			
@@ -73,7 +75,7 @@ angular.module("auth").factory("authFactory",
 			 * Moves user to home page when entering root
 			 */
 			auth.auth = function() {
-				var role = getRoleCookie();
+				var role = getCookie();
 
 				switch (role) {
 				case trainerRole:
@@ -97,7 +99,8 @@ angular.module("auth").factory("authFactory",
 					$state.go(stagingState);
 					break;
 				default:
-					error();
+					$log.debug("Auth Default");
+					$window.location.replace("/");
 					break;
 				}
 			};
@@ -106,7 +109,7 @@ angular.module("auth").factory("authFactory",
 			 * Moves user to home page if user is not of role qc
 			 */
 			auth.authQC = function() {
-				var role = getRoleCookie();
+				var role = getCookie();
 				if (role === qcRole)
 					$log.debug("Authenticated user as QC");
 				else if (role === trainerRole)
@@ -115,10 +118,15 @@ angular.module("auth").factory("authFactory",
 					$location.path(vpHome);
 				else if (role === panelRole)
 					$location.path(panelHome);
+				else if (role === undefined){
+					$log.debug("authQC redirect");
+					$window.location.replace("/")
+					throw Error;
+				}
 			};
 
 			auth.authPanel = function () {
-				var role = getRoleCookie();
+				var role = getCookie();
 				if (role === panelRole) {
 					$log.debug("Authenticated user as Panel");
 					$location.path(panelHome);
@@ -132,13 +140,18 @@ angular.module("auth").factory("authFactory",
 				else if (role === vpRole) {
 					$location.path(vpHome);
 				}
+				else if (role === undefined){
+					$log.debug("authPanel redirect");
+					$window.location.replace("/");
+					throw Error;
+				}
 			};
 
 			/**
 			 * moves user to home page if user is not of role vp
 			 */
 			auth.authVP = function() {
-				var role = getRoleCookie();
+				var role = getCookie();
 				if (role === vpRole)
 					$log.debug("Authenticate user as VP");
 				else if (role === trainerRole)
@@ -147,13 +160,18 @@ angular.module("auth").factory("authFactory",
 					$location.path(qcHome);
 				else if (role === panelRole)
 					$location.path(panelHome);
+				else if (role === undefined){
+					$log.debug("authVP redirect")
+					$window.location.replace("/");
+					throw new Error();
+				}
 			};
 
 			/**
 			 * Moves user to home page if user is not of role trainer
 			 */
 			auth.authTrainer = function() {
-				var role = getRoleCookie();
+				var role = getCookie();
 				if (role === trainerRole)
 					$log.debug("Authenticated user as Trainer");
 				else if (role === qcRole)
@@ -162,18 +180,30 @@ angular.module("auth").factory("authFactory",
 					$location.path(vpHome);
 				else if (role === panelRole)
 					$location.path(panelHome);
+				else if (role === undefined){
+					$log.debug("authTrainer redirect")
+					$window.location.replace("/");
+					throw Error;
+				}
 			};
 
 			auth.authStaging = function() {
-				var role = getRoleCookie();
+				var role = getCookie();
 
 				$log.debug("Authorizing staging role");
 
-				if (role !== stagingRole) {
-					if (devMode)
-						$location.path(DEBUG_URL);
-					else
-						$location.path("/");
+				if (role === trainerRole)
+					$location.path(trainerHome);
+				else if (role === qcRole)
+					$location.path(qcHome);
+				else if (role === vpRole)
+					$location.path(vpHome);
+				else if (role === panelRole)
+					$location.path(panelHome);
+				else if (role === undefined){
+					$log.debug("authStaging redirect")
+					$window.location.replace("/");
+					throw Error;
 				}
 			};
 
@@ -182,7 +212,7 @@ angular.module("auth").factory("authFactory",
 			 * take the user to his/her homepage.
 			 */
 			auth.authManage = function() {
-				var role = getRoleCookie();
+				var role = getCookie();
 
 				switch (role) {
 				case vpRole:
@@ -210,7 +240,7 @@ angular.module("auth").factory("authFactory",
 			 * take the user to his/her homepage.
 			 */
 			auth.authAudit = function() {
-				var role = getRoleCookie();
+				var role = getCookie();
 
 				switch (role) {
 				case vpRole:
@@ -232,7 +262,7 @@ angular.module("auth").factory("authFactory",
 			 * take the user to his/her homepage.
 			 */
 			auth.authReports = function() {
-				var role = getRoleCookie();
+				var role = getCookie();
 
 				switch (role) {
 				case vpRole:
@@ -260,7 +290,7 @@ angular.module("auth").factory("authFactory",
 			 * take the user to his/her homepage.
 			 */
 			auth.authImport = function() {
-				var role = getRoleCookie();
+				var role = getCookie();
 
 				switch (role) {
 				case trainerRole:
@@ -279,7 +309,7 @@ angular.module("auth").factory("authFactory",
 			 * take the user to his/her homepage.
 			 */
 			auth.authAssess = function() {
-				var role = getRoleCookie();
+				var role = getCookie();
 
 				switch (role) {
 				case vpRole:
@@ -301,13 +331,11 @@ angular.module("auth").factory("authFactory",
 			 * take the user to his/her homepage.
 			 */
 			auth.authCategory = function() {
-				var role = getRoleCookie();
 
-				switch (role) {
-				case vpRole:
+				var role = getCookie();
+				if(role === vpRole){
 					$log.debug("Changing state to: " + vpCategory);
-					break;
-				default:
+				} else {
 					auth.auth();
 				}
 			};
@@ -317,7 +345,7 @@ angular.module("auth").factory("authFactory",
 			 * take the user to his/her homepage.
 			 */
 			auth.authTrainers = function() {
-				var role = getRoleCookie();
+				var role = getCookie();
 
 				switch (role) {
 				case vpRole:

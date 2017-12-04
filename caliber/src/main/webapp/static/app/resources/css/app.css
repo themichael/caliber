@@ -593,7 +593,7 @@ INTENDED FOR CHART DOWNLOAD ICON IF HOVER OVER CHANGE CURSOR TO POINTING
   width: 300px;
   vertical-align: middle;
   white-space: nowrap;
-  position: relative;
+  position: relative;  
 }
 
 .container-1 .icon{
@@ -642,3 +642,7 @@ INTENDED FOR CHART DOWNLOAD ICON IF HOVER OVER CHANGE CURSOR TO POINTING
 	background-color: #FFFFFF;
 	transition: background-color 1.5s ease;
 }
+
+.hideDropdown input::-webkit-calendar-picker-indicator {
+	  display: none;
+}	
