@@ -1,0 +1,2 @@
+INFO    2017-12-03 18:44:53,053 [main] com.revature.caliber.data.TrainerDAO  - Finding all trainers
+INFO    2017-12-03 18:46:10,640 [main] com.revature.caliber.data.TraineeDAO  - Fetching all trainees

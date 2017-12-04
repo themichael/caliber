@@ -32,6 +32,7 @@ public class FlagAlertMailer implements Runnable {
 	@Autowired
 	private TrainingService trainingService;
 
+
 	@Autowired
 	private EmailAuthenticator authenticator;
 
@@ -112,6 +113,7 @@ public class FlagAlertMailer implements Runnable {
 	 * 			  String of all trainees with a green flag, formatted in an HTML table
 	 */
 	private void sendEmails(Session session, Set<Trainer> vps, String redFlagHTML, String greenFlagHTML) {
+
 		logger.info("Trainers being sent emails: " + vps);
 		String emailTemplate = getFlagEmailString();
 		if (emailTemplate == null) {
@@ -170,13 +172,15 @@ public class FlagAlertMailer implements Runnable {
 	 * @return Set of VP Trainers
 	 */
 	public Set<Trainer> getVPs() {
-		List<Trainer> trainers = trainingService.findAllTrainers();
+		List<Trainer> trainers = this.trainingService.findAllTrainers();
+		logger.info(trainers.toString());
 		Set<Trainer> vps = new HashSet<>();
 		for (Trainer trainer : trainers) {
 			if (trainer.getTier() == TrainerRole.ROLE_VP) {
 				vps.add(trainer);
 			}
 		}
+		logger.info(vps.toString());
 		return vps;
 	}
 
@@ -189,7 +193,8 @@ public class FlagAlertMailer implements Runnable {
 	 * @return String of red flagged trainees
 	 */
 	public String redFlagHTML() {
-		List<Trainee> trainees = trainingService.findAllTrainees();
+		List<Trainee> trainees = this.trainingService.findAllTrainees();
+		logger.info(trainees.toString());
 		String redFlagHTML="";
 		for (Trainee trainee : trainees) {
 			if (trainee.getFlagStatus() == TraineeFlag.RED) {
@@ -208,7 +213,8 @@ public class FlagAlertMailer implements Runnable {
 	 * @return String of green flagged trainees
 	 */
 	public String greenFlagHTML() {
-		List<Trainee> trainees = trainingService.findAllTrainees();
+		List<Trainee> trainees = this.trainingService.findAllTrainees();
+		logger.info(trainees.toString());
 		String greenFlagHTML="";
 		for (Trainee trainee : trainees) {
 			if (trainee.getFlagStatus() == TraineeFlag.GREEN) {
