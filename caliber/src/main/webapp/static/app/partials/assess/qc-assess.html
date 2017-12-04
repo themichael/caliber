@@ -69,6 +69,7 @@
 							<!-- Columns for selected batch -->
 							<tr>
 								<th>Trainee</th>
+								<th></th>
 								<th>Individual Feedback</th>
 								<th>Notes</th>
 							</tr>
@@ -76,42 +77,55 @@
 						<tbody>
 							<!-- Displays a list of all trainees still active in the batch -->
 							<tr ng-repeat="trainee in currentBatch.trainees track by $index">
-								<td>{{ trainee.name }}</td>
+								<td ng-click="toggleColor(trainee, $index)">{{trainee.name}}</td>
+									<td><span ng-mouseover="showNotes($index)" ng-mouseleave="hideNotes($index)" 
+									ng-init="init(trainee, $index)" class="glyphicon glyphicon-flag"></span>
+									<form class="commentForm" ng-submit="updateFlag(trainee, $index)"
+										style="display: none;">
+										<input type="text" placeholder="comment" name="statusComment"
+											ng-model="trainee.flagNotes"> <input type="submit"
+											value="Save"> <span ng-click="closeComment()"
+											class="glyphicon glyphicon-remove-sign"></span>
+									</form>
+									<div style="display:none" class="notes">
+ 										<span>{{trainee.flagNotes}}</span>
+ 									</div>
+									</td>
 								<!-- Icons: question mark in circle by default. 
 								  		Otherwise shows the status type (icons) -->
 								<td><button ng-hide="faces[$index].qcStatus"
 									class="hiddenButton col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
 									title="Click to update your feedback."
 									alt="Click to update your feedback."
-									ng-click="processingNote? null : pickIndividualStatus(trainee.name, qcStatusTypes[0], $index);"
+									ng-click="processingNote? null : pickIndividualStatus(trainee, qcStatusTypes[0], $index);"
 									ng-disabled="processingNote">
 									<i class="fa fa-question-circle fa-2x"></i>
 								</button>
 									<button ng-hide="faces[$index].qcStatus !== qcStatusTypes[0]"
 										title="Excellent"
 										class="hiddenButton col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
-										ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[1], $index);"
+										ng-click="pickIndividualStatus(trainee, qcStatusTypes[1], $index);"
 										ng-disabled="processingNote">
 										<i class="fa fa-star fa-2x pick"></i>
 									</button>
 									<button ng-hide="faces[$index].qcStatus !== qcStatusTypes[1]"
 										title="Good"
 										class="hiddenButton col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
-										ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[2], $index);"
+										ng-click="pickIndividualStatus(trainee, qcStatusTypes[2], $index);"
 										ng-disabled="processingNote">
 										<i class="fa fa-smile-o fa-2x pick"></i>
 									</button>
 									<button ng-hide="faces[$index].qcStatus !== qcStatusTypes[2]"
 										title="Fair"
 										class="hiddenButton col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
-										ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[3], $index);"
+										ng-click="pickIndividualStatus(trainee, qcStatusTypes[3], $index);"
 										ng-disabled="processingNote">
 										<i class="fa fa-meh-o fa-2x pick"></i>
 									</button>
 									<button ng-hide="faces[$index].qcStatus !== qcStatusTypes[3]"
 										title="Poor"
 										class="hiddenButton col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
-										ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[4], $index);"
+										ng-click="pickIndividualStatus(trainee, qcStatusTypes[4], $index);"
 										ng-disabled="processingNote">
 										<i class="fa fa-frown-o fa-2x pick"></i>
 									</button>
@@ -119,7 +133,7 @@
 										class="hiddenButton col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
 										title="Click to update your feedback."
 										alt="Click to update your feedback."
-										ng-click="pickIndividualStatus(trainee.name, qcStatusTypes[0], $index);"
+										ng-click="pickIndividualStatus(trainee, qcStatusTypes[0], $index);"
 										ng-disabled="processingNote">
 										<i class="fa fa-question-circle fa-2x pick"></i>
 									</button></td>

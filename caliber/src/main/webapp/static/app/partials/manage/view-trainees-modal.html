@@ -45,6 +45,7 @@
 							<thead>
 								<tr>
 									<th>Trainee Name</th>
+									<th></th>
 									<th>Trainee Email</th>
 									<th>Training Status</th>
 									<th>Phone Number</th>
@@ -62,7 +63,20 @@
 							</thead>
 							<tbody>
 								<tr ng-repeat="trainee in trainees">
-									<td>{{trainee.name}}</td>
+									<td ng-click="toggleColor(trainee, $index)">{{trainee.name}}</td>
+									<td><span ng-mouseover="showNotes($index)" ng-mouseleave="hideNotes($index)"
+ 									ng-init="init(trainee, $index)" class="glyphicon glyphicon-flag"></span>
+									<form class="commentForm" ng-submit="updateFlag(trainee, $index)"
+										style="display: none;">
+										<input type="text" placeholder="comment" name="statusComment"
+											ng-model="trainee.flagNotes"> <input type="submit"
+											value="Save"> <span ng-click="closeComment()"
+											class="glyphicon glyphicon-remove-sign"></span>
+									</form>
+									<div style="display:none" class="notes">
+ 										<span>{{trainee.flagNotes}}</span>
+ 									</div>
+									</td>
 									<td>{{trainee.email}}</td>
 									<td>{{trainee.trainingStatus}}</td>
 									<td>{{trainee.phoneNumber}}</td>

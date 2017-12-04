@@ -475,6 +475,16 @@ footer a, footer a:hover {
   	color: red;
 }
 
+.color-white {
+	font-weight: bold;
+  	color: white;
+}
+
+.color-orange{
+	font-weight: bold;
+  	color: #F26925;
+}
+
 /**********************
 	save button
 **********************/

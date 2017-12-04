@@ -465,5 +465,4 @@ public class TrainingService {
 		log.debug("Save task completed: " + taskCompletion);
 		taskCompletionDAO.saveTaskCompletion(taskCompletion);
 	}
-
 }

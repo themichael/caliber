@@ -13,6 +13,7 @@ angular
 					$scope.categories = [];
 					// used to block user processes to wait for server's response
 					$scope.processingNote = false; 
+			
 
 					var now = Number(Date.now());
 					var twoMonthsAgo = (now-5259492000);
@@ -60,6 +61,8 @@ angular
 					 * ***************************************** UI
 					 * **********************************************
 					 */
+		
+					
 					// function to get notes
 					$scope.getNotes = function() {
 						// Check if there are no weeks
@@ -147,6 +150,20 @@ angular
 							}
 						}
 					}
+					//Set flags to color in database
+					$scope.init = function(trainee, index){
+						var flagElement = document.getElementsByClassName("glyphicon-flag")[index];
+						var flagColor = trainee.flagStatus;
+						if(flagColor === 'RED'){
+							flagElement.setAttribute("class","glyphicon glyphicon-flag color-red");
+						}else if(flagColor === 'GREEN'){
+							flagElement.setAttribute("class","glyphicon glyphicon-flag color-green");
+						}else if(flagColor === 'TRAINER'){
+							flagElement.setAttribute("class","glyphicon glyphicon-flag color-orange");
+						}else{
+							flagElement.setAttribute("class","glyphicon glyphicon-flag color-white");
+						}
+					}
 
 					// Used to pick face for batch
 					$scope.pickOverallStatus = function(batch, pick) {
@@ -214,7 +231,7 @@ angular
 									$scope.qcStatusTypes = types;
 								});
 
-						// ///////////////////////////////////////////////////////////////////////////////////////////
+						
 						// load note types
 						caliberDelegate.all.enumNoteType().then(
 								function(noteTypes) {
@@ -227,15 +244,65 @@ angular
 						$scope.getNotes();
 						categories();
 					}
+			
 
 					// Function for individual qc feedback for trainee note
 					$scope.pickIndividualStatus = function(trainee, status,
 							index) {
-						// Set individual note to status selected
-						$scope.faces[index].qcStatus = status;
-						// Save note
-						$scope.saveTraineeNote(index);
-						$log.debug($scope.faces[index]);
+						var weekBefore;
+						//Get QC Trainee notes for previous week and make sure it's not the first week 
+						if($scope.currentWeek-1 !== 1){
+							caliberDelegate.qc
+								.traineeNote($scope.currentBatch.batchId,
+										$scope.currentWeek-1)
+								.then(
+										function(notes) {
+											weekBefore = notes;
+											var element = document.getElementsByClassName("glyphicon-flag")[index];
+											var color = trainee.flagStatus;
+											for(var t = 0; t < weekBefore.length; t++){
+												if(weekBefore[t].trainee.traineeId === trainee.traineeId){
+													if(weekBefore[t] !== undefined){
+														//red flag if recently there are 2 red weeks consecutively
+														if(status === 'Poor' && weekBefore[t].qcStatus === 'Poor'){
+															element.setAttribute("class","glyphicon glyphicon-flag color-red");
+															color = 'RED';
+															trainee.flagNotes = "Trainee received two consecutive weeks of negative QC feedback";
+														}//if no change, keep it to previous flag
+													}
+													else{
+														if(color === 'RED'){
+															element.setAttribute("class","glyphicon glyphicon-flag color-red");
+														}else if(color === 'GREEN'){
+															element.setAttribute("class","glyphicon glyphicon-flag color-green");
+														}else if(color === 'TRAINER'){
+															element.setAttribute("class","glyphicon glyphicon-flag color-orange");
+														}else{
+															element.setAttribute("class","glyphicon glyphicon-flag color-white");
+														}
+													}
+													//add onto trainee object for update
+													trainee.batch = {
+															batchId : $scope.currentBatch.batchId
+														};
+													trainee.flagStatus = color;
+													//update trainee with flag color 
+													var updateTrainee = function() {
+															caliberDelegate.all
+																	.updateTrainee(trainee)
+													};
+													updateTrainee();
+													// Set individual note to status selected
+													$scope.faces[index].qcStatus = status;
+													// Save note
+													$scope.saveTraineeNote(index);
+													$log.debug($scope.faces[index]);
+													break;
+												}
+											}
+										});
+						}
+					
 					};
 
 					// default -- view assessments table
@@ -529,4 +596,85 @@ angular
 							}
 						}
 					}
+					
+					/**
+					 * ********************************************************************
+					 * Flag Control
+					 * ********************************************************************
+					 */
+					
+					/** creates a function triggered by a click on the trainee's name, that toggles the color of the flag
+					 *  and opens an input box to comment on the color change 
+					 */
+					
+					var status = null;
+					$scope.toggleColor = function(trainee, index) {
+						var flagElement = document.getElementsByClassName("glyphicon-flag")[index];
+						var initialStatus = trainee.flagStatus;
+				        if (flagElement.getAttribute("class") === "glyphicon glyphicon-flag color-white") {
+				        		status = "RED";
+				        		flagElement.setAttribute("class","glyphicon glyphicon-flag color-red");
+				        } else if (flagElement.getAttribute("class") === "glyphicon glyphicon-flag color-red") {
+				        		status = "GREEN";
+				        		flagElement.setAttribute("class","glyphicon glyphicon-flag color-green");
+				        } else if (flagElement.getAttribute("class") === "glyphicon glyphicon-flag color-green") {
+				        		status = "TRAINER";
+				        		flagElement.setAttribute("class","glyphicon glyphicon-flag color-orange");
+				        } else if (flagElement.getAttribute("class") === "glyphicon glyphicon-flag color-orange") {
+				        		status = "NONE";
+				        		flagElement.setAttribute("class","glyphicon glyphicon-flag color-white");
+				        }
+				        if(initialStatus !== status){
+				        		commentBox(flagElement, status, initialStatus, index, trainee);
+				        } else {
+				        		flagElement.nextSibling.nextSibling.setAttribute("style","display:none;");
+				        }
+				    }
+					
+					/** opens up a comment form box when the flag color changes 
+					 */
+					function commentBox(flag, status, initialStatus, index, trainee){
+						flag.nextSibling.nextSibling.removeAttribute("style");
+						flag.nextSibling.nextSibling.setAttribute("style","display:inline-block; position:absolute; padding:5px; border-radius:5px; margin-left:5px; background-color: white; border: solid #ccc 1px; z-index: 1");
+						$scope.closeComment = function(){
+							document.getElementsByClassName("commentForm")[index].setAttribute("style","display:none;");
+							if(initialStatus === "RED"){
+								flag.setAttribute("class","glyphicon glyphicon-flag color-red");
+							} else if (initialStatus === "GREEN"){
+								flag.setAttribute("class","glyphicon glyphicon-flag color-green");
+							} else if (initialStatus === "TRAINER"){
+								flag.setAttribute("class","glyphicon glyphicon-flag color-orange");
+							} else {
+								flag.setAttribute("class","glyphicon glyphicon-flag color-white");
+							}
+						}
+						trainee.batch = {
+	                            batchId : $scope.currentBatch.batchId
+	                        };
+					}
+					
+					/** saves changes the flag status in the javascript object and persists it back to the database
+					 *  upon submission of the comment form and closes the form
+					 */
+					$scope.updateFlag = function(trainee, index){
+						trainee.flagStatus = status;
+						caliberDelegate.all
+                        	.updateTrainee(trainee);
+						document.getElementsByClassName("commentForm")[index].setAttribute("style","display:none;");
+					}
+					
+					//show flagNotes when hovering over flag
+					$scope.showNotes = function(index){
+						if($scope.currentBatch.trainees[index].flagNotes != null){
+							document.getElementsByClassName("notes")[index].setAttribute("style",
+							"z-index: 1; display:inline-block; position:absolute; padding:5px; " +
+							"border: 1px solid #CCC; border-radius: 5px; background-color: white");
+						}
+					}
+					 					
+ 					//hide flagNotes when no there is no flag hover 
+ 					$scope.hideNotes = function(index){
+							document.getElementsByClassName("notes")[index].setAttribute("style", "display: none");
+		 			}
+ 					
 				});
