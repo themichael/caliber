@@ -72,8 +72,8 @@ angular
 			
 			var relBatchesCount = 0;
 			for(var i=0;i<allBatches.length;i++){
-				var endDate = Date.parse(allBatches[i].endDate);
-				var startDate = Date.parse(allBatches[i].startDate);
+				var endDate = allBatches[i].endDate;
+				var startDate = allBatches[i].startDate;
 				if ((endDate>twoMonthsAgo && endDate<now) || (startDate<now && endDate>now)){
 					relaventBatches[relBatchesCount]=allBatches[i];
 					relBatchesCount++;
