@@ -45,12 +45,12 @@ public class FlagEmailService implements InitializingBean {
 		/**
 		 * The hour of the day during DAY_OF_WEEK_TO_FIRE at which to fire
 		 */
-		private static final int HOUR_TO_FIRE = 18; // hours go 0-23
+		private static final int HOUR_TO_FIRE = 20; // hours go 0-23
 		
 		/**
 		 * The minute of the HOUR_TO_FIRE to fire
 		 */
-		private static final int MINUTE_TO_FIRE = 45; // minutes go 0-59
+		private static final int MINUTE_TO_FIRE = 05; // minutes go 0-59
 		
 		/**
 		 * Number of days between emails, likely to stay 1 week/7 days
