@@ -190,8 +190,13 @@ angular
 					// create an array of numbers for number of weeks in the
 					// batch selected
 					if ($scope.currentBatch) {
+<<<<<<< HEAD
 						for (var a = 1; a <= $scope.currentBatch.weeks; a++) {
 							$scope.weeks.push(a);
+=======
+						for (var y = 1; y <= $scope.currentBatch.weeks; y++) {
+							$scope.weeks.push(y);
+>>>>>>> fdbfa214aaf7d6da7429eea0b4f533a6ba031018
 						}
 					}
 

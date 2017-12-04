@@ -7,14 +7,21 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.beans.Address;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
+import com.revature.caliber.beans.TrainerTask;
+import com.revature.caliber.beans.TrainerTaskCompletion;
 import com.revature.caliber.data.AddressDAO;
 import com.revature.caliber.data.BatchDAO;
+import com.revature.caliber.data.TaskCompletionDAO;
+import com.revature.caliber.data.TaskDAO;
 import com.revature.caliber.data.TraineeDAO;
 import com.revature.caliber.data.TrainerDAO;
 
@@ -34,6 +41,8 @@ public class TrainingService {
 	private TraineeDAO traineeDAO;
 	private BatchDAO batchDAO;
 	private AddressDAO addressDAO;
+	private TaskDAO taskDAO;
+	private TaskCompletionDAO taskCompletionDAO;
 
 	@Autowired
 	public void setTrainerDAO(TrainerDAO trainerDAO) {
@@ -53,6 +62,16 @@ public class TrainingService {
 	@Autowired
 	public void setAddressDAO(AddressDAO addressDAO) {
 		this.addressDAO = addressDAO;
+	}
+	
+	@Autowired
+	public void setTaskDAO(TaskDAO taskDAO) {
+		this.taskDAO = taskDAO;
+	}
+	
+	@Autowired
+	public void setTaskCompletionDao(TaskCompletionDAO taskCompletionDAO) {
+		this.taskCompletionDAO = taskCompletionDAO;
 	}
 
 	/*
@@ -398,5 +417,56 @@ public class TrainingService {
 		traineeDAO.update(trainee);
 	}
 	
+<<<<<<< HEAD
+=======
+	/*
+	 *******************************************************
+	 * TASK SERVICES
+	 *
+	 *******************************************************
+	 */
+
+	/**
+	 * FIND ALL ACTIVE TASKS
+	 */
+	public List<TrainerTask> findAllActiveTasks() {
+		log.debug("Find all active tasks");
+		return taskDAO.findAllActiveTasks();
+	}
+	
+	/**
+	 * FIND ALL COMPLETED TASKS
+	 */
+	public List<TrainerTaskCompletion> findAllCompletedTasks() {
+		log.debug("Find all completed tasks");
+		return taskCompletionDAO.findAllCompletedTasks();
+	}
+	
+	/**
+	 * FIND ALL COMPLETED TASKS BY TRAINER ID
+	 */
+	public List<TrainerTaskCompletion> findAllTasksByTrainerId(int id) {
+		log.debug("Find all completed tasks for trainer with id " +  id);
+		return taskCompletionDAO.findAllTasksByTrainerId(id);
+	}
+
+	/**
+	 * SAVE A NEW TASK
+	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public void saveOrUpdateTask(TrainerTask task) {
+		log.debug("Save task: " + task);
+		taskDAO.saveOrUpdateTask(task);
+	}
+	
+	/**
+	 * SAVE A NEW TASK COMPLETION
+	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public void saveTaskCompletion(TrainerTaskCompletion taskCompletion) {
+		log.debug("Save task completed: " + taskCompletion);
+		taskCompletionDAO.saveTaskCompletion(taskCompletion);
+	}
+>>>>>>> fdbfa214aaf7d6da7429eea0b4f533a6ba031018
 
 }

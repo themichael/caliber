@@ -59,8 +59,12 @@ angular.module("auth").factory("authFactory",
 			 * 
 			 * @returns A cookie that contains the role
 			 */
-			function getCookie() {
+			function getRoleCookie() {
 				return $cookies.get("role");
+			}
+			
+			function getIdCookie() {
+				return $cookies.get("id");
 			}
 
 			//
@@ -69,7 +73,7 @@ angular.module("auth").factory("authFactory",
 			 * Moves user to home page when entering root
 			 */
 			auth.auth = function() {
-				var role = getCookie();
+				var role = getRoleCookie();
 
 				switch (role) {
 				case trainerRole:
@@ -102,7 +106,7 @@ angular.module("auth").factory("authFactory",
 			 * Moves user to home page if user is not of role qc
 			 */
 			auth.authQC = function() {
-				var role = getCookie();
+				var role = getRoleCookie();
 				if (role === qcRole)
 					$log.debug("Authenticated user as QC");
 				else if (role === trainerRole)
@@ -114,7 +118,7 @@ angular.module("auth").factory("authFactory",
 			};
 
 			auth.authPanel = function () {
-				var role = getCookie();
+				var role = getRoleCookie();
 				if (role === panelRole) {
 					$log.debug("Authenticated user as Panel");
 					$location.path(panelHome);
@@ -134,7 +138,7 @@ angular.module("auth").factory("authFactory",
 			 * moves user to home page if user is not of role vp
 			 */
 			auth.authVP = function() {
-				var role = getCookie();
+				var role = getRoleCookie();
 				if (role === vpRole)
 					$log.debug("Authenticate user as VP");
 				else if (role === trainerRole)
@@ -149,7 +153,7 @@ angular.module("auth").factory("authFactory",
 			 * Moves user to home page if user is not of role trainer
 			 */
 			auth.authTrainer = function() {
-				var role = getCookie();
+				var role = getRoleCookie();
 				if (role === trainerRole)
 					$log.debug("Authenticated user as Trainer");
 				else if (role === qcRole)
@@ -161,7 +165,7 @@ angular.module("auth").factory("authFactory",
 			};
 
 			auth.authStaging = function() {
-				var role = getCookie();
+				var role = getRoleCookie();
 
 				$log.debug("Authorizing staging role");
 
@@ -178,7 +182,7 @@ angular.module("auth").factory("authFactory",
 			 * take the user to his/her homepage.
 			 */
 			auth.authManage = function() {
-				var role = getCookie();
+				var role = getRoleCookie();
 
 				switch (role) {
 				case vpRole:
@@ -206,7 +210,7 @@ angular.module("auth").factory("authFactory",
 			 * take the user to his/her homepage.
 			 */
 			auth.authAudit = function() {
-				var role = getCookie();
+				var role = getRoleCookie();
 
 				switch (role) {
 				case vpRole:
@@ -228,7 +232,7 @@ angular.module("auth").factory("authFactory",
 			 * take the user to his/her homepage.
 			 */
 			auth.authReports = function() {
-				var role = getCookie();
+				var role = getRoleCookie();
 
 				switch (role) {
 				case vpRole:
@@ -256,7 +260,7 @@ angular.module("auth").factory("authFactory",
 			 * take the user to his/her homepage.
 			 */
 			auth.authImport = function() {
-				var role = getCookie();
+				var role = getRoleCookie();
 
 				switch (role) {
 				case trainerRole:
@@ -275,7 +279,7 @@ angular.module("auth").factory("authFactory",
 			 * take the user to his/her homepage.
 			 */
 			auth.authAssess = function() {
-				var role = getCookie();
+				var role = getRoleCookie();
 
 				switch (role) {
 				case vpRole:
@@ -297,7 +301,7 @@ angular.module("auth").factory("authFactory",
 			 * take the user to his/her homepage.
 			 */
 			auth.authCategory = function() {
-				var role = getCookie();
+				var role = getRoleCookie();
 
 				switch (role) {
 				case vpRole:
@@ -313,7 +317,7 @@ angular.module("auth").factory("authFactory",
 			 * take the user to his/her homepage.
 			 */
 			auth.authTrainers = function() {
-				var role = getCookie();
+				var role = getRoleCookie();
 
 				switch (role) {
 				case vpRole:

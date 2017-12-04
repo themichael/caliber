@@ -361,6 +361,12 @@ angular
 											},
 											"trainer-extra-modals@vp.trainers":{
 												templateUrl : "/static/app/partials/trainers/trainer-auxillary-modals.html"
+											},
+											"trainer-checklist-form@vp.trainers":{
+												templateUrl : "/static/app/partials/trainers/trainer-checklist-modal.html"
+											},
+											"deactivate-task-modal@vp.trainers":{
+												templateUrl : "/static/app/partials/trainers/deactivate-task-modal.html"
 											}
 										},
 										// authorize the users

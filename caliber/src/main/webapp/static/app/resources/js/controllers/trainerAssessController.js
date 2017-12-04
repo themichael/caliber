@@ -135,7 +135,11 @@ angular
 				if (!allBatches) 
 					return;
 				if (allBatches.length > 0) { 
+<<<<<<< HEAD
 					// if currentBatch is not yet in the scope, run for assess batch..
+=======
+					// if currentBatch is not yet in the scope, runfor assess batch..
+>>>>>>> fdbfa214aaf7d6da7429eea0b4f533a6ba031018
 					// else this controller is being used for reportsController
 					if(!$scope.currentBatch){
 						$scope.currentBatch = allBatches[0];
@@ -158,14 +162,12 @@ angular
 									$scope.category.options = categories;
 								});
 
-
 						caliberDelegate.all.enumNoteType().then(
 								function(noteTypes) {
 									$log.debug(noteTypes);
 								});
 
-						// loading all assement type for create assement
-						// drop down
+						// loading all assement type for create assement drop down
 						$scope.assessmentType = {
 								model : null,
 								options : []
@@ -179,7 +181,12 @@ angular
 								});
 						$log.debug("Batches " + allBatches);
 
+<<<<<<< HEAD
 						if(!$scope.currentWeek){ // if currentWeek is not yet in the scope, run for assess batch
+=======
+						if(!$scope.currentWeek){ 
+							// if currentWeek is not yet in the scope, run for assess batch
+>>>>>>> fdbfa214aaf7d6da7429eea0b4f533a6ba031018
 							var totalWeeks = allBatches[allBatches.length-1].weeks; // the
 							// number of weeks for that batch
 
@@ -233,9 +240,15 @@ angular
 			}
 
 			/**
+<<<<<<< HEAD
 			 * When selecting a year the batch drop down will change to the latest batch of that year. If there 
 			 * aren't any batch for the year that is selected then the No Batch will be display check 
 			 * the view for ng-show author: Kam Lam
+=======
+			 * When selecting a year the batch drop down will change to the latest batch of 
+			 * that year. If there aren't any batch for the year that is selected then the 
+			 * No Batch will be display check the view for ng-show author: Kam Lam
+>>>>>>> fdbfa214aaf7d6da7429eea0b4f533a6ba031018
 			 */
 			$scope.selectYear = function(index) {
 				$scope.selectedYear = $scope.years[index];
@@ -298,7 +311,6 @@ angular
 					$log.debug($scope.batches + ", " +$scope.batchesByYear);
 
 				}
-
 				// batch drop down select
 				$scope.selectCurrentBatch = function(index) {
 					$scope.currentBatch = $scope.batchesByYear[index];
@@ -414,7 +426,14 @@ angular
 
 				/** *******TrainerBatch Notes********** */	
 
+<<<<<<< HEAD
 				// This function passes the batchID and week param to get the batch notes for that week Author: Kam Lam
+=======
+				/*
+				 * This function passes the batchID and week param to get the batch notes 
+				 * for that week Author: Kam Lam
+				 */
+>>>>>>> fdbfa214aaf7d6da7429eea0b4f533a6ba031018
 				$scope.getTBatchNote = function (batchId, week){
 					caliberDelegate.trainer
 					.getTrainerBatchNote(batchId, week)
@@ -463,6 +482,15 @@ angular
 								for(var i = 1; i <= $scope.currentBatch.weeks; i++){
 									$scope.currentBatch.arrayWeeks.push(i);
 								}
+<<<<<<< HEAD
+=======
+
+								/*
+								 * The following functions are needed in this function to load it on 
+								 * start up. If you find another way to call these function with out calling it
+								 * here, please feel free to change it. Author: Kam Lam
+								 */
+>>>>>>> fdbfa214aaf7d6da7429eea0b4f533a6ba031018
 								// Parse the current batch year from date to int. For the selectedYear function.
 								$scope.selectedYear = parseInt($scope.currentBatch.startDate.substring(0,4));
 								// initializing the batchYears function.
@@ -490,8 +518,17 @@ angular
 				};
 
 				/** *******Save TrainerBatch Notes********** */	
+<<<<<<< HEAD
 			
 				//Updating and Creating batch notes -  Author: Kam Lam
+=======
+				/*
+				 * Updating and creating trainerbatch notes. get the batchnoteID to to see if the 
+				 * note has already been created for this batch or not. If noteID is undefined
+				 * meaning there is not note for this batch, so we will create one. If there is 
+				 * note ID, we will update the notes. author: Kam Lam
+				 */
+>>>>>>> fdbfa214aaf7d6da7429eea0b4f533a6ba031018
 				$scope.saveTrainerNotes = function(batchNoteId) {
 					$log.debug("Saving note: " + $scope.trainerBatchNote);
 					// Create note
@@ -517,8 +554,14 @@ angular
 						caliberDelegate.trainer.updateNote($scope.trainerBatchNote);
 					}
 				};
+<<<<<<< HEAD
 				
 				 // Array of assessments by assessment id used to store raw score and to calculate weight score - jack			
+=======
+				/*
+				 * Array of assessments by assessment id used to store raw score and to calculate weight score - jack
+				 */			
+>>>>>>> fdbfa214aaf7d6da7429eea0b4f533a6ba031018
 				$scope.generateArrAssessmentById = function(assessments){
 					var totalRawScore = 0;
 					if(assessments !== undefined){
@@ -542,8 +585,7 @@ angular
 					return (rawScore/totalRawScore) * 100;
 				};
 				/**
-				 * Updates Grade if exists, else create new Grade, then
-				 * saves to $scope
+				 * Updates Grade if exists, else create new Grade, then saves to $scope
 				 * 
 				 * @param gradeId
 				 * @param traineeId
@@ -566,11 +608,22 @@ angular
 								dateReceived : new Date(),
 								score :score,
 						};
+<<<<<<< HEAD
 						//if assessment object has gradeId, define it in grade object
 						if($scope.trainees[trainee.traineeId].assessments[assessment.assessmentId].gradeId){
 							grade.gradeId = $scope.trainees[trainee.traineeId].assessments[assessment.assessmentId].gradeId;
 						}
 						// adds new Grade if not exists, else update, response contains the ID of the created/updated Grade
+=======
+						/*
+						 * if assessment object has gradeId, define it in grade object
+						 */
+						if($scope.trainees[trainee.traineeId].assessments[assessment.assessmentId].gradeId){
+							grade.gradeId = $scope.trainees[trainee.traineeId].assessments[assessment.assessmentId].gradeId;
+						}
+						// adds new Grade if not exists, else update, response contains the ID of the 
+						//created/updated Grade
+>>>>>>> fdbfa214aaf7d6da7429eea0b4f533a6ba031018
 
 						caliberDelegate.trainer.addGrade(grade).then(
 								function(response) {
@@ -602,7 +655,13 @@ angular
 						return false;
 					}else if($scope.grades[traineeId]){
 						angular.forEach($scope.grades[traineeId],function(grade){
+<<<<<<< HEAD
 							//create a assessment object that contains gradeId for each $scope.trainees[trainee]
+=======
+							/*
+							 * create a assessment object that contains gradeId for each $scope.trainees[trainee]
+							 */
+>>>>>>> fdbfa214aaf7d6da7429eea0b4f533a6ba031018
 							if(grade.assessment !== undefined && (grade.assessment.assessmentId === assessmentId)){
 								if($scope.trainees[traineeId].assessments[grade.assessment.assessmentId] === undefined){
 									$scope.trainees[traineeId].assessments[grade.assessment.assessmentId] = {};
@@ -876,7 +935,12 @@ angular
 					$('#'+str).modal('toggle');
 				};
 
+<<<<<<< HEAD
 				// this method will return the proper string depending if there is an average for the week or not
+=======
+				// this method will return the proper string depending if there is an average for 
+				//the week or not
+>>>>>>> fdbfa214aaf7d6da7429eea0b4f533a6ba031018
 				$scope.boldBatchAverage = function(){
 					if($scope.allAssessmentsAvgForWeek){
 						$scope.isThereAvgForWeek = true;
