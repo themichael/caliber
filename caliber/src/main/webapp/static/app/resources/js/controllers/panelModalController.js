@@ -38,7 +38,7 @@ angular
 			
 			$scope.recordingConsent = {
 				model: null,
-				options: [{exp: 'Yes', value: 'True'}, {exp: 'No', value:'False'}]
+				options: [{exp: 'Yes', value: 'Yes'}, {exp: 'No', value:'No'}, {exp: 'Did Not Ask', value:'Did Not Ask'}]
 			};
 			
 			$scope.panelStatus = {

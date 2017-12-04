@@ -11,6 +11,8 @@ public enum AssessmentType implements Serializable{
 	Verbal,
 	@JsonProperty("Project")
 	Project,
+	@JsonProperty("Presentation")
+	Presentation,
 	@JsonProperty("Other")
 	Other
 }

@@ -32,7 +32,6 @@ public class FlagAlertMailer implements Runnable {
 	@Autowired
 	private TrainingService trainingService;
 
-
 	@Autowired
 	private EmailAuthenticator authenticator;
 
@@ -117,7 +116,7 @@ public class FlagAlertMailer implements Runnable {
 		logger.info("Trainers being sent emails: " + vps);
 		String emailTemplate = getFlagEmailString();
 		if (emailTemplate == null) {
-			logger.error("Unable to load email template, exiting sendEmails()");
+			logger.error("Unable to load email template, exiting sendEmails() ( pineapple ) ");
 			return;
 		}
 		for (Trainer trainer : vps) {
@@ -137,10 +136,10 @@ public class FlagAlertMailer implements Runnable {
 				 message.setContent(rFlagHTML, text);
 
 				Transport.send(message);
-				logger.info("Flag email sent");
+				logger.info("Flag email sent ( pineapple ) ");
 			} catch (MessagingException e) {
 				logger.error(e);
-				logger.error("Flag email exception");
+				logger.error("Flag email exception ( pineapple ) ");
 			}
 		}
 	}
@@ -155,10 +154,10 @@ public class FlagAlertMailer implements Runnable {
 			String emailStr;
 			ClassLoader classLoader = getClass().getClassLoader();
 			emailStr = IOUtils.toString(classLoader.getResourceAsStream(EMAIL_TEMPLATE_PATH));
-			logger.info("loaded flag email template");
+			logger.info("loaded flag email template ( pineapple ) ");
 			return emailStr;
 		} catch (IOException e) {
-			logger.error("Unable to read flag email template");
+			logger.error("Unable to read flag email template ( pineapple ) ");
 			logger.error(e);
 			return null;
 		}
@@ -180,7 +179,7 @@ public class FlagAlertMailer implements Runnable {
 				vps.add(trainer);
 			}
 		}
-		logger.info(vps.toString());
+		logger.info("vps :" + vps+ " pineapple ");
 		return vps;
 	}
 
@@ -224,5 +223,6 @@ public class FlagAlertMailer implements Runnable {
 		}
 		return greenFlagHTML;
 	}
+
 
 }

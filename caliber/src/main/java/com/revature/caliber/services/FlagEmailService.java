@@ -11,14 +11,14 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.Logger;
-
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.caliber.email.FlagAlertMailer;
 
 @Service
-public class FlagEmailService {
+public class FlagEmailService implements InitializingBean {
 
 		
 		private static final Logger logger = Logger.getLogger(FlagEmailService.class);
@@ -40,7 +40,7 @@ public class FlagEmailService {
 		/**
 		 * The day of the week during which emails should fire
 		 */
-		private static final DayOfWeek DAY_OF_WEEK_TO_FIRE = DayOfWeek.TUESDAY;
+		private static final DayOfWeek DAY_OF_WEEK_TO_FIRE = DayOfWeek.SUNDAY;
 		
 		/**
 		 * The hour of the day during DAY_OF_WEEK_TO_FIRE at which to fire
@@ -73,7 +73,7 @@ public class FlagEmailService {
 		/**
 		 * Starts the ScheduledThreadExecutor upon application startup/bean initialization
 		 */
-		//@Override
+		@Override
 		public void afterPropertiesSet(){
 			startFlagReminderJob();
 		}
@@ -85,9 +85,9 @@ public class FlagEmailService {
 			if (flagServiceStarted)
 				return;
 			flagServiceStarted = true;
-			
-			logger.info("startFlagReminderJob() for FlagEmailService");
-			
+		
+			logger.info("startFlagReminderJob() for FlagEmailService ( pineapple ) ");
+	
 			// First we get the time that the emails will start to fire
 			LocalTime flagTimeToFireDate = LocalTime.of(HOUR_TO_FIRE, MINUTE_TO_FIRE);
 			LocalDate flagTimeToFireTime = LocalDate.now().with(TemporalAdjusters.nextOrSame(DAY_OF_WEEK_TO_FIRE));
@@ -98,7 +98,7 @@ public class FlagEmailService {
 			
 			long delayInUnits = flagTimeToFire.toEpochSecond() - now.toEpochSecond();
 		
-			logger.info("Flag emails will start firing at: " + flagTimeToFire);
+			logger.info("Flag emails will start firing at: " + flagTimeToFire + " ( pineapple ) ");
 			
 			/*
 			 * Mailer's run() will be called after delayInUnits TIME_UNITS with TIME_UNITS_BETWEEN_EMAILS TIME_UNITS

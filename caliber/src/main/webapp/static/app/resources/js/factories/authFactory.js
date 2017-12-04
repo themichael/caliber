@@ -28,6 +28,7 @@ angular.module("auth").factory("authFactory",
 
 			var vpManage = "vp.manage";
 			var qcManage = "qc.manage";
+			var stagingManage = "staging.manage";
 			var trainerManage = "/trainer/home";
 			var panelManage = "panel.manage";
 
@@ -185,6 +186,9 @@ angular.module("auth").factory("authFactory",
 					break;
 				case qcRole:
 					$log.debug("Changing state to: " + qcManage);
+					break;
+				case stagingRole:
+					$log.debug("Changing state to: " + stagingManage);
 					break;
 				case trainerRole:
 					$log.debug("Changing state to: " + trainerManage);
