@@ -417,8 +417,6 @@ public class TrainingService {
 		traineeDAO.update(trainee);
 	}
 	
-<<<<<<< HEAD
-=======
 	/*
 	 *******************************************************
 	 * TASK SERVICES
@@ -467,6 +465,4 @@ public class TrainingService {
 		log.debug("Save task completed: " + taskCompletion);
 		taskCompletionDAO.saveTaskCompletion(taskCompletion);
 	}
->>>>>>> fdbfa214aaf7d6da7429eea0b4f533a6ba031018
-
 }
