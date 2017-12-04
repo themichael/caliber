@@ -171,14 +171,14 @@ public class FlagAlertMailer implements Runnable {
 	 */
 	public Set<Trainer> getVPs() {
 		List<Trainer> trainers = this.trainingService.findAllTrainers();
-		logger.info("trainers :" + trainers.toString() + " pineapple ");
+		logger.info("trainers :" + trainers + " pineapple ");
 		Set<Trainer> vps = new HashSet<>();
 		for (Trainer trainer : trainers) {
 			if (trainer.getTier() == TrainerRole.ROLE_VP) {
 				vps.add(trainer);
 			}
 		}
-		logger.info("vps :" + vps.toString()+ " pineapple ");
+		logger.info("vps :" + vps+ " pineapple ");
 		return vps;
 	}
 
