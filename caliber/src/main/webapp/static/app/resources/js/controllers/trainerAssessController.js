@@ -491,7 +491,8 @@ angular
 								// date to int. For the selectedYear
 								// function.
 								var date = new Date($scope.currentBatch.startDate);
-								$scope.selectedYear = parseInt(date.getFullYear());								// initializing the batchYears
+								$scope.selectedYear = parseInt(date.getFullYear());
+								// initializing the batchYears
 								// function.
 								batchYears();
 								// initializing the getTBatchNote

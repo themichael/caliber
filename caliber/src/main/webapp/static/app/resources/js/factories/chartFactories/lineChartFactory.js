@@ -268,7 +268,7 @@ angular.module("charts").factory("lineChartFactory", function($log) {
 			chartData.series.push(key); // Pass or Repanel
 			
 			//set colors for correct line
-			if(key == "Pass"){
+			if(key === "Pass"){
 				chartData.colors.push("#18ad18");
 			} else{
 				chartData.colors.push("#ea2825");

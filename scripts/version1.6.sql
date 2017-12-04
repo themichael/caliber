@@ -95,3 +95,17 @@ ALTER TABLE CALIBER_TRAINEE
 --------------------------------------------------------
 
    CREATE SEQUENCE  "CALIBER"."TASK_ID_SEQUENCE"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE ;
+
+--------------------------------------------------------
+--  DDL to create new column in CALIBER_TRAINER to indicate if they are currently training or not
+--------------------------------------------------------
+    
+ALTER TABLE CALIBER_TRAINER ADD COMPLETED_CHECKLIST NUMBER(1,0) DEFAULT 0;
+
+-------------------------TASK---------------------------
+INSERT INTO CALIBER_TASK VALUES(CALIBER.TASK_ID_SEQUENCE.NEXTVAL, 1, 'Train a batch for one week.', 1);
+INSERT INTO CALIBER_TASK VALUES(CALIBER.TASK_ID_SEQUENCE.NEXTVAL, 1, 'Create lesson plans and examples for each week.', 2);
+INSERT INTO CALIBER_TASK VALUES(CALIBER.TASK_ID_SEQUENCE.NEXTVAL, 1, 'Particpate in three QC Interviews.', 3);
+INSERT INTO CALIBER_TASK VALUES(CALIBER.TASK_ID_SEQUENCE.NEXTVAL, 0, 'Create new panel questions.', 4);
+
+-----------------------TASK END-------------------------

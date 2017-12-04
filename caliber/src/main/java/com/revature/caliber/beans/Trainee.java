@@ -354,4 +354,20 @@ public class Trainee implements Serializable {
 	public void setProjectCompletion(String projectCompletion) {
 		this.projectCompletion = projectCompletion;
 	}
+	
+	public TraineeFlag getFlagStatus() {
+		return flagStatus;
+	}
+
+	public void setFlagStatus(TraineeFlag flagStatus) {
+		this.flagStatus = flagStatus;
+	}
+
+	public String getFlagNotes() {
+		return flagNotes;
+	}
+
+	public void setFlagNotes(String flagNotes) {
+		this.flagNotes = flagNotes;
+	}
 }

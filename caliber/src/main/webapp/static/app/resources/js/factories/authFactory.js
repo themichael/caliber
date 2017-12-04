@@ -3,8 +3,6 @@ angular.module("auth").factory("authFactory",
 			$log.debug("Booted Authentication Factory");
 
 			var auth = {};
-			var devMode = false;
-			var DEBUG_URL = "/caliber/";
 
 			// Roles
 			var vpRole = "ROLE_VP";
@@ -28,6 +26,7 @@ angular.module("auth").factory("authFactory",
 
 			var vpManage = "vp.manage";
 			var qcManage = "qc.manage";
+			var stagingManage = "staging.manage";
 			var trainerManage = "/trainer/home";
 			var panelManage = "panel.manage";
 
@@ -58,9 +57,14 @@ angular.module("auth").factory("authFactory",
 			 * 
 			 * @returns A cookie that contains the role
 			 */
+
 			function getCookie() {
 				$log.debug($cookies.get("role"));
 				return $cookies.get("role");
+			}
+			
+			function getIdCookie() {
+				return $cookies.get("id");
 			}
 
 			//
@@ -215,6 +219,9 @@ angular.module("auth").factory("authFactory",
 				case qcRole:
 					$log.debug("Changing state to: " + qcManage);
 					break;
+				case stagingRole:
+					$log.debug("Changing state to: " + stagingManage);
+					break;
 				case trainerRole:
 					$log.debug("Changing state to: " + trainerManage);
 					break;
@@ -322,6 +329,7 @@ angular.module("auth").factory("authFactory",
 			 * take the user to his/her homepage.
 			 */
 			auth.authCategory = function() {
+
 				var role = getCookie();
 				if(role === vpRole){
 					$log.debug("Changing state to: " + vpCategory);
