@@ -22,6 +22,7 @@ import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.TraineeFlag;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
+import com.revature.caliber.data.TrainerDAO;
 import com.revature.caliber.services.TrainingService;
 
 @Component
@@ -29,6 +30,9 @@ public class FlagAlertMailer implements Runnable {
 
 	private static final Logger logger = Logger.getLogger(FlagAlertMailer.class);
 
+	@Autowired
+	private TrainerDAO trainerDAO;
+	
 	@Autowired
 	private TrainingService trainingService;
 
@@ -170,7 +174,7 @@ public class FlagAlertMailer implements Runnable {
 	 * @return Set of VP Trainers
 	 */
 	public Set<Trainer> getVPs() {
-		List<Trainer> trainers = trainingService.findAllTrainers();
+		List<Trainer> trainers = getTrainers();
 		Set<Trainer> vps = new HashSet<>();
 		for (Trainer trainer : trainers) {
 			if (trainer.getTier() == TrainerRole.ROLE_VP) {
@@ -219,4 +223,7 @@ public class FlagAlertMailer implements Runnable {
 		return greenFlagHTML;
 	}
 
+	private List<Trainer> getTrainers(){
+		return this.trainerDAO.findAll();
+	}
 }
