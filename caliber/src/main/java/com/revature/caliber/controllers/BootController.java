@@ -127,5 +127,6 @@ public class BootController extends AbstractSalesforceSecurityHelper {
                 salesforceUser.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(auth);
         servletResponse.addCookie(new Cookie("role", jsonObject.getString("tier")));
+        servletResponse.addCookie(new Cookie("id", Integer.toString(salesforceUser.getCaliberUser().getTrainerId())));
     }
 }
