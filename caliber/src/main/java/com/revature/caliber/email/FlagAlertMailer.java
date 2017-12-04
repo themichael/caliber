@@ -22,6 +22,8 @@ import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.TraineeFlag;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
+import com.revature.caliber.data.TraineeDAO;
+import com.revature.caliber.data.TrainerDAO;
 import com.revature.caliber.services.TrainingService;
 
 @Component
@@ -30,7 +32,10 @@ public class FlagAlertMailer implements Runnable {
 	private static final Logger logger = Logger.getLogger(FlagAlertMailer.class);
 
 	@Autowired
-	private TrainingService trainingService;
+	private TrainerDAO trainerDAO;
+	
+	@Autowired
+	private TraineeDAO traineeDAO;
 
 	@Autowired
 	private EmailAuthenticator authenticator;
@@ -170,13 +175,15 @@ public class FlagAlertMailer implements Runnable {
 	 * @return Set of VP Trainers
 	 */
 	public Set<Trainer> getVPs() {
-		List<Trainer> trainers = trainingService.findAllTrainers();
+		List<Trainer> trainers = getTrainers();
+		logger.error("All trainers: " + trainers);
 		Set<Trainer> vps = new HashSet<>();
 		for (Trainer trainer : trainers) {
 			if (trainer.getTier() == TrainerRole.ROLE_VP) {
 				vps.add(trainer);
 			}
 		}
+		logger.error("VPs: " + vps);
 		return vps;
 	}
 
@@ -189,7 +196,7 @@ public class FlagAlertMailer implements Runnable {
 	 * @return String of red flagged trainees
 	 */
 	public String redFlagHTML() {
-		List<Trainee> trainees = trainingService.findAllTrainees();
+		List<Trainee> trainees = getTrainees();
 		String redFlagHTML="";
 		for (Trainee trainee : trainees) {
 			if (trainee.getFlagStatus() == TraineeFlag.RED) {
@@ -208,7 +215,7 @@ public class FlagAlertMailer implements Runnable {
 	 * @return String of green flagged trainees
 	 */
 	public String greenFlagHTML() {
-		List<Trainee> trainees = trainingService.findAllTrainees();
+		List<Trainee> trainees = getTrainees();
 		String greenFlagHTML="";
 		for (Trainee trainee : trainees) {
 			if (trainee.getFlagStatus() == TraineeFlag.GREEN) {
@@ -219,4 +226,11 @@ public class FlagAlertMailer implements Runnable {
 		return greenFlagHTML;
 	}
 
+	private List<Trainer> getTrainers(){
+		return this.trainerDAO.findAll();
+	}
+	
+	private List<Trainee> getTrainees(){
+		return this.traineeDAO.findAll();
+	}
 }
