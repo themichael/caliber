@@ -181,6 +181,7 @@ public class FlagAlertMailer implements Runnable {
 				vps.add(trainer);
 			}
 		}
+		logger.info("vps :" + vps+ " pineapple ");
 		return vps;
 	}
 
@@ -193,7 +194,7 @@ public class FlagAlertMailer implements Runnable {
 	 * @return String of red flagged trainees
 	 */
 	public String redFlagHTML() {
-		List<Trainee> trainees = trainingService.findAllTrainees();
+		List<Trainee> trainees = this.trainingService.findAllTrainees();
 		String redFlagHTML="";
 		for (Trainee trainee : trainees) {
 			if (trainee.getFlagStatus() == TraineeFlag.RED) {
@@ -212,7 +213,7 @@ public class FlagAlertMailer implements Runnable {
 	 * @return String of green flagged trainees
 	 */
 	public String greenFlagHTML() {
-		List<Trainee> trainees = trainingService.findAllTrainees();
+		List<Trainee> trainees = this.trainingService.findAllTrainees();
 		String greenFlagHTML="";
 		for (Trainee trainee : trainees) {
 			if (trainee.getFlagStatus() == TraineeFlag.GREEN) {
