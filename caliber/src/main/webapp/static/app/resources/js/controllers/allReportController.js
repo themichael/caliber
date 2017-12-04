@@ -50,7 +50,15 @@ angular
 			$scope.batchOverall = false;
 			$scope.batchOverallTrainee = false;
 			$scope.allTrainees = [];
-			$scope.panelIndex = 0;			
+			$scope.panelIndex = 0;	
+			
+			//Retrieved trainees upon user input, not before 
+			$scope.populateTraineeList = function(){
+				if ($scope.allTrainees.length===0) {
+					getTrainees();					
+				}
+			}
+			
 			// Used to sort trainees in batch
 			function compare(a, b) {
 				if (a.name < b.name)
@@ -81,10 +89,13 @@ angular
 			}
 
 			
+			
+			
 			//load chart information based on chosen searched trainee
 			$scope.selectChosenTrainee = function(){
 				//get name
 				var traineeName = $scope.chosenTrainee;
+				
 				//get trainee and batch
 				allBatches.forEach(function(batch){
 					batch.trainees.forEach(function(trainee){
@@ -94,10 +105,9 @@ angular
 							$scope.currentBatch = batch;
 							$scope.currentTrainee = trainee;
 							$scope.currentTraineeId = trainee.traineeId;
-							$scope.selectedYear = Number($scope.currentBatch.startDate
-														.substr(0, 4));
+							var date = new Date($scope.currentBatch.startDate);
+							$scope.selectedYear = Number(date.getFullYear());
 							getCurrentBatchWeeks($scope.currentBatch.weeks);
-
 							//select view display
 							selectView($scope.currentBatch.batchId,
 									$scope.reportCurrentWeek,
@@ -118,7 +128,7 @@ angular
 				// get all training types for dropdown
 				getAllTrainingTypes();
 				// get all trainees for search results display
-				getTrainees();
+				//getTrainees();
 
 				if ($scope.currentBatch === null || $scope.currentBatch === undefined) {
 					$scope.noBatch = true;
@@ -126,8 +136,8 @@ angular
 				} else {
 					$log.debug("You have some batches");
 					$scope.noBatch = false;
-					$scope.selectedYear = Number($scope.currentBatch.startDate
-							.substr(0, 4));
+					var date = new Date($scope.currentBatch.startDate);
+					$scope.selectedYear = Number(date.getFullYear());
 					batchYears();
 					getCurrentBatchWeeks($scope.currentBatch.weeks);
 					selectView($scope.currentBatch.batchId,
@@ -232,7 +242,7 @@ angular
 						});
 			}
 			
-			function displayTraineePanelFeedback(){	
+			function displayTraineePanelFeedback(traineeId){	
 				caliberDelegate.panel.reportTraineePanels($scope.currentTrainee.traineeId).then(
 						function(response){
 							NProgress.done();
@@ -276,8 +286,8 @@ angular
 			function batchYears() {
 				$scope.batchesByYear = [];
 				for (var i = 0; i < allBatches.length; i++) {
-					if ($scope.selectedYear === Number(allBatches[i].startDate
-							.substr(0, 4))) {
+					var date = new Date(allBatches[i].startDate);
+					if ($scope.selectedYear === Number(date.getFullYear())) {
 						$scope.batchesByYear.push(allBatches[i]);
 					}
 				}
