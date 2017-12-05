@@ -477,8 +477,7 @@ angular
 								for(var i = 1; i <= $scope.currentBatch.weeks; i++){
 									$scope.currentBatch.arrayWeeks.push(i);
 								}
-
-								/*
+				/*
 								 * The following functions are
 								 * needed in this function to load
 								 * it on start up. If you find
@@ -492,8 +491,8 @@ angular
 								// function.
 								var date = new Date($scope.currentBatch.startDate);
 								$scope.selectedYear = parseInt(date.getFullYear());
-								// initializing the batchYears
-								// function.
+								// initializing the batchYears function.
+
 								batchYears();
 								// initializing the getTBatchNote
 								// function.
