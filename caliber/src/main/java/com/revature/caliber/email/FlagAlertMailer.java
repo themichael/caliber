@@ -8,16 +8,20 @@ import java.util.Set;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.gargoylesoftware.htmlunit.javascript.host.Console;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.TraineeFlag;
 import com.revature.caliber.beans.Trainer;
@@ -41,9 +45,9 @@ public class FlagAlertMailer implements Runnable {
 	 * with the name of the vp the email is addressed to, as well as the names and flag comments
 	 * associated with the flagged trainees
 	 */
-	private static final String EMAIL_TEMPLATE_VP_NAME_TOKEN = "$TRAINER_NAME";
-	private static final String EMAIL_TEMPLATE_GREEN_FLAGS_TOKEN = "$GREEN_FLAG_TRAINEES";
-	private static final String EMAIL_TEMPLATE_RED_FLAGS_TOKEN = "$RED_FLAG_TRAINEES";
+	private static final String VP_NAME_TOKEN = "$VP_NAME";
+	private static final String GREEN_FLAGS_TOKEN = "$GREEN_FLAG_TRAINEES";
+	private static final String RED_FLAGS_TOKEN = "$RED_FLAG_TRAINEES";
 
 	/**
 	 * The path to the email template
@@ -116,7 +120,7 @@ public class FlagAlertMailer implements Runnable {
 		logger.info("Trainers being sent emails: " + vps);
 		String emailTemplate = getFlagEmailString();
 		if (emailTemplate == null) {
-			logger.error("Unable to load email template, exiting sendEmails() ( pineapple ) ");
+			logger.error("Unable to load flag email template, exiting sendEmails()");
 			return;
 		}
 		for (Trainer trainer : vps) {
@@ -124,22 +128,35 @@ public class FlagAlertMailer implements Runnable {
 				MimeMessage message = new MimeMessage(session);
 				message.addRecipient(Message.RecipientType.TO, new InternetAddress(trainer.getEmail()));
 
-				message.setSubject("Submit Grades Reminder");
+				message.setSubject("Current Flagged Trainees");
 
 				// Parametrize the email to contain the name of the trainer being emailed
 				 String text = "text/html";
-				 String emailVPStr = emailTemplate.replace(EMAIL_TEMPLATE_VP_NAME_TOKEN, trainer.getName());
-				 String gFlagHTML = emailTemplate.replace(EMAIL_TEMPLATE_GREEN_FLAGS_TOKEN, greenFlagHTML);
-				 String rFlagHTML = emailTemplate.replace(EMAIL_TEMPLATE_RED_FLAGS_TOKEN, redFlagHTML);
-				 message.setContent(emailVPStr, text);
-				 message.setContent(gFlagHTML, text);
-				 message.setContent(rFlagHTML, text);
-
-				Transport.send(message);
-				logger.info("Flag email sent ( pineapple ) ");
+				 String emailVPStr = emailTemplate.replace(VP_NAME_TOKEN, trainer.getName());
+				 System.out.println(trainer.getName());
+				 String rFlagHTML = emailTemplate.replace(RED_FLAGS_TOKEN, redFlagHTML);
+				 System.out.println(redFlagHTML);
+				 String gFlagHTML = emailTemplate.replace(GREEN_FLAGS_TOKEN, greenFlagHTML);
+				 System.out.println(greenFlagHTML);
+				 Multipart multipart = new MimeMultipart();
+				 MimeBodyPart rFlagPart = new MimeBodyPart();
+				 rFlagPart.setContent(rFlagHTML, "text/html; charset=utf-8");
+				 multipart.addBodyPart(rFlagPart);
+				 System.out.println(emailTemplate);
+				 MimeBodyPart gFlagPart = new MimeBodyPart();
+				 gFlagPart.setContent(gFlagHTML, "text/html; charset=utf-8");
+				 multipart.addBodyPart(gFlagPart);
+				 System.out.println(emailTemplate);
+				 MimeBodyPart vpNamePart = new MimeBodyPart();
+				 vpNamePart.setContent(emailVPStr, "text/html; charset=utf-8");
+				 multipart.addBodyPart(vpNamePart);
+				 System.out.println(emailTemplate);
+				 message.setContent(multipart);
+				 Transport.send(message);
+				logger.info("Flag email sent");
 			} catch (MessagingException e) {
 				logger.error(e);
-				logger.error("Flag email exception ( pineapple ) ");
+				logger.error("Flag email exception");
 			}
 		}
 	}
@@ -154,10 +171,10 @@ public class FlagAlertMailer implements Runnable {
 			String emailStr;
 			ClassLoader classLoader = getClass().getClassLoader();
 			emailStr = IOUtils.toString(classLoader.getResourceAsStream(EMAIL_TEMPLATE_PATH));
-			logger.info("loaded flag email template ( pineapple ) ");
+			logger.info("loaded flag email template");
 			return emailStr;
 		} catch (IOException e) {
-			logger.error("Unable to read flag email template ( pineapple ) ");
+			logger.error("Unable to read flag email template");
 			logger.error(e);
 			return null;
 		}
@@ -171,7 +188,7 @@ public class FlagAlertMailer implements Runnable {
 	 * @return Set of VP Trainers
 	 */
 	public Set<Trainer> getVPs() {
-		List<Trainer> trainers = this.trainingService.findAllTrainers();
+		List<Trainer> trainers = trainingService.findAllTrainers();
 		logger.info(trainers.toString());
 		Set<Trainer> vps = new HashSet<>();
 		for (Trainer trainer : trainers) {
@@ -179,7 +196,6 @@ public class FlagAlertMailer implements Runnable {
 				vps.add(trainer);
 			}
 		}
-		logger.info("vps :" + vps+ " pineapple ");
 		return vps;
 	}
 
@@ -192,8 +208,7 @@ public class FlagAlertMailer implements Runnable {
 	 * @return String of red flagged trainees
 	 */
 	public String redFlagHTML() {
-		List<Trainee> trainees = this.trainingService.findAllTrainees();
-		logger.info(trainees.toString());
+		List<Trainee> trainees = trainingService.findAllTrainees();
 		String redFlagHTML="";
 		for (Trainee trainee : trainees) {
 			if (trainee.getFlagStatus() == TraineeFlag.RED) {
@@ -212,8 +227,7 @@ public class FlagAlertMailer implements Runnable {
 	 * @return String of green flagged trainees
 	 */
 	public String greenFlagHTML() {
-		List<Trainee> trainees = this.trainingService.findAllTrainees();
-		logger.info(trainees.toString());
+		List<Trainee> trainees = trainingService.findAllTrainees();
 		String greenFlagHTML="";
 		for (Trainee trainee : trainees) {
 			if (trainee.getFlagStatus() == TraineeFlag.GREEN) {

@@ -40,7 +40,7 @@ public class FlagEmailService implements InitializingBean {
 		/**
 		 * The day of the week during which emails should fire
 		 */
-		private static final DayOfWeek DAY_OF_WEEK_TO_FIRE = DayOfWeek.SUNDAY;
+		private static final DayOfWeek DAY_OF_WEEK_TO_FIRE = DayOfWeek.TUESDAY;
 		
 		/**
 		 * The hour of the day during DAY_OF_WEEK_TO_FIRE at which to fire
@@ -50,7 +50,7 @@ public class FlagEmailService implements InitializingBean {
 		/**
 		 * The minute of the HOUR_TO_FIRE to fire
 		 */
-		private static final int MINUTE_TO_FIRE = 15; // minutes go 0-59
+		private static final int MINUTE_TO_FIRE = 54; // minutes go 0-59
 		
 		/**
 		 * Number of days between emails, likely to stay 1 week/7 days
@@ -86,7 +86,7 @@ public class FlagEmailService implements InitializingBean {
 				return;
 			flagServiceStarted = true;
 		
-			logger.info("startFlagReminderJob() for FlagEmailService ( pineapple ) ");
+			logger.info("startFlagReminderJob() for FlagEmailService ");
 	
 			// First we get the time that the emails will start to fire
 			LocalTime flagTimeToFireDate = LocalTime.of(HOUR_TO_FIRE, MINUTE_TO_FIRE);
@@ -98,7 +98,7 @@ public class FlagEmailService implements InitializingBean {
 			
 			long delayInUnits = flagTimeToFire.toEpochSecond() - now.toEpochSecond();
 		
-			logger.info("Flag emails will start firing at: " + flagTimeToFire + " ( pineapple ) ");
+			logger.info("Flag emails will start firing at: " + flagTimeToFire);
 			
 			/*
 			 * Mailer's run() will be called after delayInUnits TIME_UNITS with TIME_UNITS_BETWEEN_EMAILS TIME_UNITS

@@ -35,7 +35,7 @@ public class BootController extends AbstractSalesforceSecurityHelper {
     private static final Logger log = Logger.getLogger(BootController.class);
     private static final String INDEX = "index";
     //@Value("#{systemEnvironment['CALIBER_DEV_MODE']}")
-    private boolean debug=true;
+    private boolean debug = true;
     private static final String DEBUG_USER_LOGIN = "patrick.walsh@revature.com";
     
     /**
@@ -127,5 +127,6 @@ public class BootController extends AbstractSalesforceSecurityHelper {
                 salesforceUser.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(auth);
         servletResponse.addCookie(new Cookie("role", jsonObject.getString("tier")));
+        servletResponse.addCookie(new Cookie("id", Integer.toString(salesforceUser.getCaliberUser().getTrainerId())));
     }
 }

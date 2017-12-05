@@ -45,7 +45,7 @@ public class SalesforceDAO {
 	private SalesforceTransformerToCaliber transformer;
 
 	//@Value("#{systemEnvironment['CALIBER_DEV_MODE']}")
-	private boolean debug = true;
+	private boolean debug=true;
 
 	@Value("#{systemEnvironment['SALESFORCE_INSTANCE_URL']}")
 	private String salesforceInstanceUrl;
