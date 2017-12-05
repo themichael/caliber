@@ -468,7 +468,8 @@ angular
 									$scope.currentBatch.arrayWeeks.push(i);
 								}
 								// Parse the current batch year from date to int. For the selectedYear function.
-								$scope.selectedYear = parseInt($scope.currentBatch.startDate.substring(0,4));
+								 var date = new Date($scope.currentBatch.startDate);
+								 $scope.selectedYear = parseInt(date.getFullYear());
 								// initializing the batchYears function.
 								batchYears();
 								// initializing the getTBatchNote function.
