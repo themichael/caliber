@@ -131,27 +131,10 @@ public class FlagAlertMailer implements Runnable {
 				message.setSubject("Current Flagged Trainees");
 
 				// Parametrize the email to contain the name of the trainer being emailed
-				 String text = "text/html";
-				 String emailVPStr = emailTemplate.replace(VP_NAME_TOKEN, trainer.getName());
-				 System.out.println(trainer.getName());
-				 String rFlagHTML = emailTemplate.replace(RED_FLAGS_TOKEN, redFlagHTML);
-				 System.out.println(redFlagHTML);
-				 String gFlagHTML = emailTemplate.replace(GREEN_FLAGS_TOKEN, greenFlagHTML);
-				 System.out.println(greenFlagHTML);
-				 Multipart multipart = new MimeMultipart();
-				 MimeBodyPart rFlagPart = new MimeBodyPart();
-				 rFlagPart.setContent(rFlagHTML, "text/html; charset=utf-8");
-				 multipart.addBodyPart(rFlagPart);
-				 System.out.println(emailTemplate);
-				 MimeBodyPart gFlagPart = new MimeBodyPart();
-				 gFlagPart.setContent(gFlagHTML, "text/html; charset=utf-8");
-				 multipart.addBodyPart(gFlagPart);
-				 System.out.println(emailTemplate);
-				 MimeBodyPart vpNamePart = new MimeBodyPart();
-				 vpNamePart.setContent(emailVPStr, "text/html; charset=utf-8");
-				 multipart.addBodyPart(vpNamePart);
-				 System.out.println(emailTemplate);
-				 message.setContent(multipart);
+				 String templateReplace1 = emailTemplate.replace(VP_NAME_TOKEN, trainer.getName());
+				 String templateReplace2 = templateReplace1.replace(RED_FLAGS_TOKEN, redFlagHTML);
+				 String templateReplace3 = templateReplace2.replace(GREEN_FLAGS_TOKEN, greenFlagHTML);
+				 message.setContent(templateReplace3, "text/html");
 				 Transport.send(message);
 				logger.info("Flag email sent");
 			} catch (MessagingException e) {
