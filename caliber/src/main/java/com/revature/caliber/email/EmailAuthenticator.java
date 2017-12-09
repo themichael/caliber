@@ -14,10 +14,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class EmailAuthenticator extends Authenticator {
 
-	//@Value("#{systemEnvironment['CALIBER_EMAIL_USERNAME']}")
-	private String fromEmail = "rev.dev.caliber@gmail.com";
-	//@Value("#{systemEnvironment['CALIBER_EMAIL_PASS']}")
-	private String fromPass = "wU$q+#6vr2WE";
+	@Value("#{systemEnvironment['CALIBER_EMAIL_USERNAME']}")
+	private String fromEmail;
+	@Value("#{systemEnvironment['CALIBER_EMAIL_PASS']}")
+	private String fromPass;
 
 	@Override
 	public PasswordAuthentication getPasswordAuthentication() {
