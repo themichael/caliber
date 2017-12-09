@@ -21,8 +21,8 @@ angular
 					
 					var relBatchesCount = 0;
 					for(var i=0;i<allBatches.length;i++){
-						var endDate = Date.parse(allBatches[i].endDate);
-						var startDate = Date.parse(allBatches[i].startDate);
+						var endDate = allBatches[i].endDate;
+						var startDate = allBatches[i].startDate;
 						if ((endDate>twoMonthsAgo && endDate<now) || (startDate<now && endDate>now)){
 							relaventBatches[relBatchesCount]=allBatches[i];
 							relBatchesCount++;
@@ -190,8 +190,8 @@ angular
 					// create an array of numbers for number of weeks in the
 					// batch selected
 					if ($scope.currentBatch) {
-						for (var a = 1; a <= $scope.currentBatch.weeks; a++) {
-							$scope.weeks.push(a);
+						for (var y = 1; y <= $scope.currentBatch.weeks; y++) {
+							$scope.weeks.push(y);
 						}
 					}
 
@@ -590,8 +590,10 @@ angular
 						$scope.batchesByYear = [];
 
 						for (var i = 0; i < $scope.batches.length; i++) {
-							if ($scope.selectedYear === parseInt($scope.batches[i].startDate
-									.substring(0, 4))) {
+							
+							var date = new Date($scope.batches[i].startDate);
+
+							if ($scope.selectedYear === parseInt(date.getFullYear())) {
 								$scope.batchesByYear.push($scope.batches[i]);
 							}
 						}

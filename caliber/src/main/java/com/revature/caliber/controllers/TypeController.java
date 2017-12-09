@@ -168,7 +168,7 @@ public class TypeController {
 	}
 	
     public static List<String> hyphenate(List<String> list) {
-        List<String> hyphenatedlist = new ArrayList<String>();
+        List<String> hyphenatedlist = new ArrayList<>();
         for(String s: list) {
         hyphenatedlist.add(s.replace("_", "-"));
         }
