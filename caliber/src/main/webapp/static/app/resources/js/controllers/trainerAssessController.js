@@ -231,15 +231,9 @@ angular
 			}
 
 			/**
-<<<<<<< HEAD
-			 * When selecting a year the batch drop down will change to the latest batch of that year. If there 
-			 * aren't any batch for the year that is selected then the No Batch will be display check 
-			 * the view for ng-show author: Kam Lam
-=======
 			 * When selecting a year the batch drop down will change to the latest batch of 
 			 * that year. If there aren't any batch for the year that is selected then the 
 			 * No Batch will be display check the view for ng-show author: Kam Lam
->>>>>>> fdbfa214aaf7d6da7429eea0b4f533a6ba031018
 			 */
 			$scope.selectYear = function(index) {
 				$scope.selectedYear = $scope.years[index];
