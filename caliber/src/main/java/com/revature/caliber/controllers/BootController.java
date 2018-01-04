@@ -19,6 +19,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -31,6 +32,7 @@ import com.revature.caliber.security.models.SalesforceUser;
  * The type Boot controller.
  */
 @Controller
+@CrossOrigin(origins = "http://ec2-54-163-132-124.compute-1.amazonaws.com")
 public class BootController extends AbstractSalesforceSecurityHelper {
     private static final Logger log = Logger.getLogger(BootController.class);
     private static final String INDEX = "index";
