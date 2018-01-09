@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,6 +35,7 @@ import com.revature.caliber.beans.TrainingType;
 @RestController
 @PreAuthorize("isAuthenticated()")
 @RequestMapping(value = "types", produces = MediaType.APPLICATION_JSON_VALUE)
+@CrossOrigin(origins = "http://ec2-54-163-132-124.compute-1.amazonaws.com")
 public class TypeController {
 
 	private static final Logger log = Logger.getLogger(TypeController.class);

@@ -6,6 +6,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +18,7 @@ import com.revature.caliber.services.PDFService;
 
 @RestController
 @PreAuthorize("isAuthenticated()")
+@CrossOrigin(origins = "http://ec2-54-163-132-124.compute-1.amazonaws.com")
 public class PDFController {
 
 	private static final Logger log = Logger.getLogger(PDFController.class);

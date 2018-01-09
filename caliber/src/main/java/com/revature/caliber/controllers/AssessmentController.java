@@ -1,8 +1,10 @@
 package com.revature.caliber.controllers;
 
-import com.revature.caliber.beans.Assessment;
-import com.revature.caliber.services.AssessmentService;
-import org.apache.log4j.*;
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -11,10 +13,15 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.util.List;
+import com.revature.caliber.beans.Assessment;
+import com.revature.caliber.services.AssessmentService;
 
 /**
  * Used for assessment CRUD operations. Includes both Trainer and QC assessments
@@ -24,6 +31,7 @@ import java.util.List;
  */
 @RestController
 @PreAuthorize("isAuthenticated()")
+@CrossOrigin(origins = "http://ec2-54-163-132-124.compute-1.amazonaws.com")
 public class AssessmentController {
 
 	private static final Logger log = Logger.getLogger(AssessmentController.class);
