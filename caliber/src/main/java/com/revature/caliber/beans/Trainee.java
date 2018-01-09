@@ -306,6 +306,7 @@ public class Trainee implements Serializable {
 		return "Trainee [traineeId=" + traineeId + ", name=" + name + ", email=" + email + ", trainingStatus="
 				+ trainingStatus + ", major=" + major + "]";
 	}
+	
 
 	public String getRecruiterName() {
 		return recruiterName;
