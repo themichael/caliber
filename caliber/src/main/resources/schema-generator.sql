@@ -238,6 +238,11 @@ SET DEFINE OFF;
   PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
   BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
   TABLESPACE "USERS" ;
+--INSERT COLUMNS FOR RED/GREEN FLAG
+ALTER TABLE CALIBER_TRAINEE
+  ADD FLAG_NOTES VARCHAR2(4000);
+ALTER TABLE CALIBER_TRAINEE
+  ADD FLAG_STATUS VARCHAR2(255) DEFAULT 'NONE';
 --------------------------------------------------------
 --  DDL for Index SYS_C006870
 --------------------------------------------------------
@@ -263,6 +268,17 @@ SET DEFINE OFF;
 --------------------------------------------------------
   ALTER TABLE "CALIBER"."CALIBER_TRAINEE" ADD CONSTRAINT "FK_I6XQ8I1717FWXU7UQBXHMGOWC" FOREIGN KEY ("BATCH_ID")
 	  REFERENCES "CALIBER"."CALIBER_BATCH" ("BATCH_ID") ENABLE;
+--------------------------------------------------------
+--  Triggers to remove flags from dropped or employeed trainees
+--------------------------------------------------------
+CREATE OR REPLACE TRIGGER remove_flag_on_drop
+BEFORE UPDATE ON CALIBER_TRAINEE
+FOR EACH ROW
+BEGIN
+    UPDATE CALIBER_TRAINEE 
+    SET FLAG_STATUS = 'NONE' 
+    WHERE TRAINING_STATUS = 'Dropped';
+END;
 --------------------------------------------------------
 --  DDL for Table CALIBER_GRADE
 --------------------------------------------------------
