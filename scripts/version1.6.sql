@@ -28,7 +28,8 @@ ALTER TABLE CALIBER_TRAINEE
 /
   
 -- CREATE TRIGGER FOR DROPPED TRAINEES
-
+--to be done Java-side 
+/*
 CREATE OR REPLACE TRIGGER remove_flag_on_drop
 BEFORE UPDATE ON CALIBER_TRAINEE
 FOR EACH ROW
@@ -50,7 +51,7 @@ BEGIN
     WHERE TRAINING_STATUS = 'Employed' AND FLAG_STATUS != 'TRAINER';
 END;
 /
-  
+*/
 
 -- NEW TABLES AND COLUMNS FOR TRAIN THE TRAINER CHECKLIST
 --------------------------------------------------------

@@ -268,7 +268,10 @@ SET DEFINE OFF;
 	  REFERENCES "CALIBER"."CALIBER_BATCH" ("BATCH_ID") ENABLE;
 --------------------------------------------------------
 --  Triggers to remove flags from dropped or employeed trainees
+--  To be done Java-side
 --------------------------------------------------------
+
+/*
 CREATE OR REPLACE TRIGGER remove_flag_on_drop
 BEFORE UPDATE ON "CALIBER"."CALIBER_TRAINEE"
 FOR EACH ROW
@@ -288,7 +291,7 @@ BEGIN
     WHERE TRAINING_STATUS = 'Employed';
 END;
 /
-
+*/
 --------------------------------------------------------
 --  DDL for Table CALIBER_GRADE
 --------------------------------------------------------
