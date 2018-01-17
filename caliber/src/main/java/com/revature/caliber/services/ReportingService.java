@@ -17,20 +17,11 @@ import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
+import com.revature.caliber.beans.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.revature.caliber.beans.Assessment;
-import com.revature.caliber.beans.AssessmentType;
-import com.revature.caliber.beans.Batch;
-import com.revature.caliber.beans.Category;
-import com.revature.caliber.beans.Grade;
-import com.revature.caliber.beans.Note;
-import com.revature.caliber.beans.Panel;
-import com.revature.caliber.beans.PanelStatus;
-import com.revature.caliber.beans.QCStatus;
-import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.data.AssessmentDAO;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.GradeDAO;
@@ -150,29 +141,32 @@ public class ReportingService {
 	 * Stacked Bar Chart   batchOverAllData
 	 *******************************************************
 	 */
-	public List<Object> getAllBatchesCurrentWeekQCStackedBarChart() { // changed to List<Object>
-		List<Object> results = new ArrayList<>();
-		List<Batch> currentBatches = batchDAO.findAllCurrentWithNotes();  // changed to Notes
-		currentBatches.parallelStream().forEach(b -> {
-			Map<String, Object> batchData = new HashMap<>();
-			Map<Integer, Map<QCStatus, Integer>> batchWeekQCStats = utilSeparateQCTraineeNotesByWeek(b);
-			for (Integer i = batchWeekQCStats.size(); i > 0; i--) {
-				Map<QCStatus, Integer> temp = batchWeekQCStats.get(i);
-				if (temp.values().stream().mapToInt(Number::intValue).sum() != 0) {
-					batchData.put("label", b.getTrainer().getName().split(" ")[0] +" "+ b.getStartDate());
-					batchData.put("address", b.getAddress());
-					batchData.put("qcStatus", temp);   // Batch ID
-					batchData.put("id", b.getBatchId()); //Actual batch id
-					results.add(batchData);
-					break;
-				}
-			}
-		});
-		log.info(results);
-		return results;
-	}
-	
-	
+    public List<Object> getAllBatchesCurrentWeekQCStackedBarChart() { // changed to List<Object>
+        List<Object> results = new ArrayList<>();
+        List<Batch> currentBatches = batchDAO.findAllCurrentWithNotes();  // changed to Notes
+        currentBatches.parallelStream().forEach(batch -> {
+            Map<String, Object> batchData = new HashMap<>();
+            Map<Integer, Map<QCStatus, Integer>> batchWeekQCStats = utilSeparateQCTraineeNotesByWeek(batch);
+            for (Integer weekNum = batchWeekQCStats.size(); weekNum > 0; weekNum--) {
+                Map<QCStatus, Integer> qcStatusMapping = batchWeekQCStats.get(weekNum);
+                if (qcStatusMapping.values().stream().mapToInt(Number::intValue).sum() != 0) {
+                	//due to Hibernate issues, overallBatchStatus in the "batch" object is with the database: here, it is retrieved manually
+					QCStatus overallBatchStatus = noteDAO.findQCBatchNotes(batch.getBatchId(), weekNum).getQcStatus();
+					batchData.put("label", batch.getTrainer().getName().split(" ")[0] + " " + batch.getStartDate());
+					batchData.put("address", batch.getAddress());
+					batchData.put("qcStatus", qcStatusMapping);   // Batch ID
+					batchData.put("id", batch.getBatchId()); //Actual batch id
+					batchData.put("qcOverall", overallBatchStatus);
+                    batchData.put("displayWeek", weekNum);
+                    results.add(batchData);
+                    break;
+                }
+            }
+        });
+        log.info(results);
+        return results;
+    }
+
 	public Map<Integer, Map<QCStatus, Integer>> utilSeparateQCTraineeNotesByWeek(Batch batch) {
 		Map<Integer, Map<QCStatus, Integer>> results = new HashMap<>();
 		Map<QCStatus, Integer> qcStatsMapTemplate = new LinkedHashMap<>();

@@ -1,12 +1,12 @@
 /**
  * Team !Uncharted
- * 
+ *
  * @author Pier Yos
  * @author Hossain Yahya
  * @author Yanilda Peralta
  * @author Igor Gluskin
  * @author Ateeb Khawaja
- * 
+ *
  */
 angular.module("charts").factory(
 		"barChartFactory",
@@ -247,55 +247,59 @@ angular.module("charts").factory(
 				} ];
 				return chartData;
 			};
-			
-			barChart.getAllBatchesCurrentWeekQCStats = function(data) {
-				var chartData = {};
-				chartData.series = [];
-				chartData.data = [];
-				chartData.labels = [];
-				chartData.colors = [];
-				chartData.id = [];
 
-				angular.forEach(data, function(batch) {
-					chartData.labels.push(batch.label);
-					chartData.id.push(batch.id);
-					var i = 0;
-					angular.forEach(batch.qcStatus, function(value2, key2) {
-						// Because the qcStatuses get randomized, this if else set orders them.
-						if(key2 === "Poor"){
-							i = 0;
-						}
-						else if(key2 === "Average"){
-							i = 1;
-						}
-						else if(key2 === "Good"){
-							i = 2;
-						}
-						else if(key2 === "Superstar"){
-							i = 3;
-						}
-						if (chartData.data[i] === undefined) {
-							chartData.data[i]=[];
-							chartData.series[i]=key2;
-							if (key2 === "Superstar"){
-								chartData.colors[i] ="#393fef";
-							}
-							else if (key2 === "Good"){
-								chartData.colors[i]="#18ad18";
-							}
-							else if (key2 === "Average"){
-								chartData.colors[i] = "#f9e900";
-							}
-							else if (key2 === "Poor"){
-								chartData.colors[i] = "#ea2825";								
-							}
-						}
-						chartData.data[i].push(value2);
-						i++;
-					});
+            barChart.getAllBatchesCurrentWeekQCStats = function(data) {
+                var chartData = {};
+                chartData.series = [];
+                chartData.data = [];
+                chartData.labels = [];
+                chartData.colors = [];
+                chartData.id = [];
+                chartData.qcOverall; // overall batch qcStatus for current week
+                chartData.displayWeek; // relevant week that is being displayed
+
+                angular.forEach(data, function(batch) {
+                    chartData.labels.push(batch.label);
+                    chartData.id.push(batch.id);
+                    chartData.qcOverall = batch.qcOverall;
+                    chartData.displayWeek = batch.displayWeek;
+                    var i = 0;
+                    angular.forEach(batch.qcStatus, function(value2, key2) {
+                        // Because the qcStatuses get randomized, this if else set orders them.
+                        if(key2 === "Poor"){
+                            i = 0;
+                        }
+                        else if(key2 === "Average"){
+                            i = 1;
+                        }
+                        else if(key2 === "Good"){
+                            i = 2;
+                        }
+                        else if(key2 === "Superstar"){
+                            i = 3;
+                        }
+                        if (chartData.data[i] === undefined) {
+                            chartData.data[i]=[];
+                            chartData.series[i]=key2;
+                            if (key2 === "Superstar"){
+                                chartData.colors[i] ="#393fef";
+                            }
+                            else if (key2 === "Good"){
+                                chartData.colors[i]="#18ad18";
+                            }
+                            else if (key2 === "Average"){
+                                chartData.colors[i] = "#f9e900";
+                            }
+                            else if (key2 === "Poor"){
+                                chartData.colors[i] = "#ea2825";
+                            }
+                        }
+                        chartData.data[i].push(value2);
+                        i++;
+                    });
 
 				});
-				
+
 				chartData.options = {
 					legend : {
 						display : true,
@@ -303,7 +307,7 @@ angular.module("charts").factory(
 							boxWidth : 10
 						}
 					},
-					tooltips: { 
+					tooltips: {
 						itemSort: function(a, b) { return b.datasetIndex - a.datasetIndex }
 					},
 					scales : {
@@ -326,7 +330,7 @@ angular.module("charts").factory(
 
 			barChart.getDummyBarChart = function(dataArray) {
 				/*
-				 * unused function declaration.. need clarification here (PW) 
+				 * unused function declaration.. need clarification here (PW)
 			 	var numberWithCommas = function(x) {
 					return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 				};*/

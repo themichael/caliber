@@ -40,20 +40,6 @@ angular
                                 $scope.qcOverallNotes[batchId] = (notes.qcStatus);
                             })
                     }
-                    
-                    // function that gets all the batches overall feedback and maps each batchId to the qcStatus for the current week.
-                    $scope.getOverallBatchFeedbackMap = function() {
-                    	var batchIdHolder = [];
-                    	for( var id in $scope.batches){
-                    		if((""+$scope.stackedBarIds).match(""+$scope.batches[id].batchId)){
-                    			batchIdHolder.push(id);
-                    		}
-                    	}
-						for ( var key in batchIdHolder) {
-							getOverallBatchFeedback($scope.batches[batchIdHolder[key]].batchId, $scope.batches[batchIdHolder[key]].weeks);
-						}
-					}
-	                    
 
 					// function to grab latest qc information from click
 					// event
@@ -108,13 +94,13 @@ angular
 					// function to get notes
 					function getNotes() {
 						// Check if there are no weeks
-						if ($scope.currentWeek !== undefined
+						if ($scope.displayWeek !== undefined
 								&& $scope.currentBatch !== undefined
 								&& $scope.currentBatch !== null) {
 							// Get qc batch notes for selected batch
 							caliberDelegate.qc
 									.batchNote($scope.currentBatch.batchId,
-											$scope.currentWeek)
+											$scope.displayWeek)
 									.then(
 											function(notes) {
 												// If no batch note found
@@ -127,7 +113,7 @@ angular
 															null,
 															null,
 															null,
-															$scope.currentWeek,
+															$scope.displayWeek,
 															$scope.currentBatch,
 															null,
 															"ROLE_QC",
@@ -150,7 +136,7 @@ angular
 							caliberDelegate.qc
 									.traineeNote(
 											$scope.currentBatch.batchId,
-											$scope.currentWeek)
+											$scope.displayWeek)
 									.then(
 											function(notes) {
 												$log.debug(notes);
@@ -183,7 +169,7 @@ angular
 																	id,
 																	content,
 																	status,
-																	$scope.currentWeek,
+																	$scope.displayWeek,
 																	null,
 																	$scope.currentBatch.trainees[i],
 																	"ROLE_QC",
@@ -197,7 +183,7 @@ angular
 							$scope.bnote = null;
 							for (var i = 0; i < $scope.currentBatch.trainees.length; i++) {
 								$scope.faces.push(new Note(null, null,
-										null, $scope.currentWeek,
+										null, $scope.displayWeek,
 										$scope.currentBatch,
 										$scope.currentBatch.trainees[i],
 										"ROLE_QC", "QC_TRAINEE", true));
@@ -310,9 +296,9 @@ angular
 						$scope.stackedBarSeries = barChartObj.series;
 						$scope.stackedBarOptions = barChartObj.options;
 						$scope.stackedBarColors = barChartObj.colors;
-						$scope.stackedBarIds = barChartObj.id; // define scope
-															// for batch ids
-
+						$scope.stackedBarIds = barChartObj.id; // define scope for batch ids
+						$scope.qcOverall = barChartObj.qcOverall;
+						$scope.displayWeek = barChartObj.displayWeek;
 					}
 
 					function createCurrentBatchesAverageScoreChart(data) {
