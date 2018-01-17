@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.beans.Trainee;
+import com.revature.caliber.beans.TraineeFlag;
 import com.revature.caliber.beans.TrainingStatus;
 
 /**
@@ -59,7 +60,7 @@ public class TraineeDAO {
 		return sessionFactory.getCurrentSession().createCriteria(Trainee.class)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
-	
+
 	/**
 	 * Find all trainees without condition. Useful for calculating report data
 	 * 
@@ -117,9 +118,8 @@ public class TraineeDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Trainee> findAllByTrainer(Integer trainerId) {
 		log.info("Fetch all trainees by trainer: " + trainerId);
-		return sessionFactory.getCurrentSession().createCriteria(Trainee.class)
-				.createAlias("batch", "b").createAlias("b.trainer", "t")
-				.createAlias(GRADES, "g", JoinType.LEFT_OUTER_JOIN)
+		return sessionFactory.getCurrentSession().createCriteria(Trainee.class).createAlias("batch", "b")
+				.createAlias("b.trainer", "t").createAlias(GRADES, "g", JoinType.LEFT_OUTER_JOIN)
 				.createAlias("notes", "n", JoinType.LEFT_OUTER_JOIN).add(Restrictions.eq("t.trainerId", trainerId))
 				.add(Restrictions.ne(TRAINING_STATUS, TrainingStatus.Dropped))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
@@ -135,7 +135,8 @@ public class TraineeDAO {
 	public Trainee findOne(Integer traineeId) {
 		log.info("Fetch trainee by id: " + traineeId);
 		return (Trainee) sessionFactory.getCurrentSession().createCriteria(Trainee.class)
-				.setFetchMode("batch", FetchMode.JOIN).setFetchMode("grades", FetchMode.JOIN).add(Restrictions.eq("traineeId", traineeId))
+				.setFetchMode("batch", FetchMode.JOIN).setFetchMode("grades", FetchMode.JOIN)
+				.add(Restrictions.eq("traineeId", traineeId))
 				.add(Restrictions.ne(TRAINING_STATUS, TrainingStatus.Dropped)).uniqueResult();
 	}
 
@@ -150,23 +151,26 @@ public class TraineeDAO {
 	public List<Trainee> findByEmail(String email) {
 		log.info(FETCH_TRAINEE + email);
 		return sessionFactory.getCurrentSession().createCriteria(Trainee.class)
-				.add(Restrictions.like("email", "%"+email+"%")).add(Restrictions.ne(TRAINING_STATUS, TrainingStatus.Dropped)).list();
+				.add(Restrictions.like("email", "%" + email + "%"))
+				.add(Restrictions.ne(TRAINING_STATUS, TrainingStatus.Dropped)).list();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Trainee> findByName(String name) {
 		log.info(FETCH_TRAINEE + name);
 		return sessionFactory.getCurrentSession().createCriteria(Trainee.class)
-				.add(Restrictions.like("name", "%"+name+"%")).add(Restrictions.ne(TRAINING_STATUS, TrainingStatus.Dropped)).list();
+				.add(Restrictions.like("name", "%" + name + "%"))
+				.add(Restrictions.ne(TRAINING_STATUS, TrainingStatus.Dropped)).list();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Trainee> findBySkypeId(String skypeId) {
 		log.info(FETCH_TRAINEE + skypeId);
 		return sessionFactory.getCurrentSession().createCriteria(Trainee.class)
-				.add(Restrictions.like("skypeId", "%"+skypeId+"%")).add(Restrictions.ne(TRAINING_STATUS, TrainingStatus.Dropped)).list();
+				.add(Restrictions.like("skypeId", "%" + skypeId + "%"))
+				.add(Restrictions.ne(TRAINING_STATUS, TrainingStatus.Dropped)).list();
 	}
 
 	/**
@@ -187,7 +191,7 @@ public class TraineeDAO {
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void update(Trainee trainee) {
-		log.info("Update trainee: " + trainee); 
+		log.info("Update trainee: " + trainee);
 		sessionFactory.getCurrentSession().saveOrUpdate(trainee);
 	}
 
