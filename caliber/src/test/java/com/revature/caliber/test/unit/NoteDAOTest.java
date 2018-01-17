@@ -345,4 +345,15 @@ public class NoteDAOTest extends CaliberTest {
 		// check if the individual notes size is equal to 16
 		assertEquals(16, notes.size());
 	}
+	/**
+	 * Tests finding individual notes all weeks
+	 * @see com.revature.caliber.data.NoteDAO#findAllQCTraineeNotesForAllWeeks(Integer)
+	 */
+	@Test 
+	public void testFindIndividualNotesAllWeeks() {
+		log.trace("Finding individual notes, all weeks");
+		List<Note> notes = noteDao.findAllQCTraineeNotesForAllWeeks(2201);
+		assertEquals(117, notes.size());
+	}
+	
 }
