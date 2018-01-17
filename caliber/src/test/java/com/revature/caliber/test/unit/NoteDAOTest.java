@@ -64,6 +64,24 @@ public class NoteDAOTest extends CaliberTest {
 	
 	/**
 	 * Test methods:
+	 * Positive tests for finding individual notes for trainee
+	 */
+	@Test
+	public void findAllQCIndividualNotes(){
+		log.trace("GETTING individual notes by Trainee");
+		//get trainee comparison
+		Trainee trainee = traineeDao.findOne(TEST_TRAINEE_ID);
+		
+		// get notes
+		List<Note> notes = noteDao.findQCIndividualNotes(trainee.getTraineeId());
+		
+		// compare with expected
+		assertEquals(notes.size(), 7);	
+		log.info(notes);
+	}
+	
+	/**
+	 * Test methods:
 	 * Positive tests for finding individual notes for a bacth in a given week
 	 * @see com.revature.caliber.data.NoteDAO#findAllBatchNotes(batch,week)
 	 */
