@@ -550,7 +550,7 @@ angular
 					/** create scopes for trainee form* */
 					$scope.traineeForm = {
 						name : null,
-						flagStatus : null,
+						flagStatus : 'NONE',
 						email : null,
 						skypeId : null,
 						phoneNumber : null,
@@ -572,7 +572,7 @@ angular
 						model : null
 					};
 					$scope.flagStatus = {
-							model: null
+							model: 'NONE'
 					}
 					/* Set default training status for new trainee */
 					$scope.trainingStatus = "Training";
@@ -613,7 +613,7 @@ angular
 						$log.debug(trainee);
 						$scope.traineeForm.name = trainee.name;
 						$scope.traineeForm.email = trainee.email;
-						$scope.traineeForm.flagStatus = trainer.flagStatus;
+						$scope.traineeForm.flagStatus = trainee.flagStatus;
 						$scope.traineeForm.skypeId = trainee.skypeId;
 						$scope.traineeForm.phoneNumber = trainee.phoneNumber;
 						$scope.traineeForm.profileUrl = trainee.profileUrl;
@@ -636,7 +636,7 @@ angular
 					$scope.resetTraineeForm = function() {
 						$scope.traineeFormName = "Add Trainee";
 						$scope.traineeForm.name = "";
-						$scope.traineeForm.flagStatus = "";
+						$scope.traineeForm.flagStatus = "NONE";
 						$scope.traineeForm.email = "";
 						$scope.traineeForm.skypeId = "";
 						$scope.traineeForm.phoneNumber = "";
