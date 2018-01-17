@@ -245,4 +245,14 @@ public class EvaluationService {
 		return noteDAO.findAllQCTraineeOverallNotes(traineeId);
 	}
 	
+	/**
+	 * Find all qc trainee notes for all weeks
+	 * @author Junaid syed TeamQCator
+	 * @return
+	 */
+	public List<Note> findAllQCTraineeNotesForAllWeeks(Integer batchId) {
+		log.debug("Find All QC Trainee Notes");
+		return noteDAO.findAllQCTraineeNotesForAllWeeks(batchId);
+	}	
+
 }
