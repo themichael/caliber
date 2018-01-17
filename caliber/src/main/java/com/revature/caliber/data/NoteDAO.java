@@ -205,6 +205,27 @@ public class NoteDAO {
 				.add(Restrictions.eq(QC_FEEDBACK, true))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
+	
+	/**
+	 * Returns all individual notes written by QC for a given week.
+	 * 
+	 * @param traineeId
+	 * @param week
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<Note> findQCIndividualNotes(Integer traineeId) {
+		log.info("Finding QC individual notes for trainee: " + traineeId);
+		return sessionFactory.getCurrentSession().createCriteria(Note.class)
+				.createAlias(TRAINEE, "t", JoinType.LEFT_OUTER_JOIN)
+				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped))
+				.add(Restrictions.eq(T_TRAINEE_ID, traineeId))
+				.add(Restrictions.eq("type", NoteType.QC_TRAINEE))
+				.add(Restrictions.eq(QC_FEEDBACK, true))
+				.addOrder(Order.asc("week"))
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+	}
 
 	/**
 	 * Returns all batch-level notes for a given week.
