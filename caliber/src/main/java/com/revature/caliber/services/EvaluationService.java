@@ -253,7 +253,6 @@ public class EvaluationService {
 	public List<Note> findAllQCTraineeNotesForAllWeeks(Integer batchId) {
 		log.debug("Find All QC Trainee Notes");
 		return noteDAO.findAllQCTraineeNotesForAllWeeks(batchId);
-	}
+	}	
 
-	
 }
