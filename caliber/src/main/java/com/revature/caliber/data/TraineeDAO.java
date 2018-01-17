@@ -192,12 +192,6 @@ public class TraineeDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void update(Trainee trainee) {
 		log.info("Update trainee: " + trainee);
-		if ((trainee.getTrainingStatus().equals(TrainingStatus.Dropped))
-				|| ((trainee.getTrainingStatus().equals(TrainingStatus.Employed)
-						&& !trainee.getFlagStatus().equals(TraineeFlag.TRAINER)))) {
-			trainee.setFlagStatus(TraineeFlag.NONE);
-			log.info("removing trainee flag for " + trainee.getName());
-		}
 		sessionFactory.getCurrentSession().saveOrUpdate(trainee);
 	}
 
