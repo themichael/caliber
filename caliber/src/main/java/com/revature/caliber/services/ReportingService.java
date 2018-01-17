@@ -17,11 +17,20 @@ import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
-import com.revature.caliber.beans.*;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.revature.caliber.beans.Assessment;
+import com.revature.caliber.beans.AssessmentType;
+import com.revature.caliber.beans.Batch;
+import com.revature.caliber.beans.Category;
+import com.revature.caliber.beans.Grade;
+import com.revature.caliber.beans.Note;
+import com.revature.caliber.beans.Panel;
+import com.revature.caliber.beans.PanelStatus;
+import com.revature.caliber.beans.QCStatus;
+import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.data.AssessmentDAO;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.GradeDAO;
@@ -151,12 +160,12 @@ public class ReportingService {
                 Map<QCStatus, Integer> qcStatusMapping = batchWeekQCStats.get(weekNum);
                 if (qcStatusMapping.values().stream().mapToInt(Number::intValue).sum() != 0) {
                 	//due to Hibernate issues, overallBatchStatus in the "batch" object is with the database: here, it is retrieved manually
-					QCStatus overallBatchStatus = noteDAO.findQCBatchNotes(batch.getBatchId(), weekNum).getQcStatus();
+					Note overallBatchNote = noteDAO.findQCBatchNotes(batch.getBatchId(), weekNum);
 					batchData.put("label", batch.getTrainer().getName().split(" ")[0] + " " + batch.getStartDate());
 					batchData.put("address", batch.getAddress());
 					batchData.put("qcStatus", qcStatusMapping);   // Batch ID
 					batchData.put("id", batch.getBatchId()); //Actual batch id
-					batchData.put("qcOverall", overallBatchStatus);
+					batchData.put("qcOverall", (overallBatchNote != null) ? overallBatchNote.getQcStatus() : QCStatus.Undefined);
                     batchData.put("displayWeek", weekNum);
                     results.add(batchData);
                     break;
