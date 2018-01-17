@@ -266,32 +266,8 @@ SET DEFINE OFF;
 --------------------------------------------------------
   ALTER TABLE "CALIBER"."CALIBER_TRAINEE" ADD CONSTRAINT "FK_I6XQ8I1717FWXU7UQBXHMGOWC" FOREIGN KEY ("BATCH_ID")
 	  REFERENCES "CALIBER"."CALIBER_BATCH" ("BATCH_ID") ENABLE;
---------------------------------------------------------
---  Triggers to remove flags from dropped or employeed trainees
---  To be done Java-side
---------------------------------------------------------
-
-/*
-CREATE OR REPLACE TRIGGER remove_flag_on_drop
-BEFORE UPDATE ON "CALIBER"."CALIBER_TRAINEE"
-FOR EACH ROW
-BEGIN
-    UPDATE "CALIBER"."CALIBER_TRAINEE" 
-    SET FLAG_STATUS = 'NONE' 
-    WHERE TRAINING_STATUS = 'Dropped';
-END;
 /
 
-CREATE OR REPLACE TRIGGER remove_flag_on_emp
-BEFORE UPDATE ON "CALIBER"."CALIBER_TRAINEE"
-FOR EACH ROW
-BEGIN
-    UPDATE "CALIBER"."CALIBER_TRAINEE" 
-    SET FLAG_STATUS = 'NONE' 
-    WHERE TRAINING_STATUS = 'Employed';
-END;
-/
-*/
 --------------------------------------------------------
 --  DDL for Table CALIBER_GRADE
 --------------------------------------------------------
