@@ -249,6 +249,52 @@
 					</div>
 				</div>
 
+				<!-- ******************************************************************************************-->
+				<!-- testing in progress -->
+				<!-- CHRISTINE'S QC BATCH REPORT VIEW -->
+				<!-- ******************************************************************************************-->
+
+				<div class="row" ng-if="batchOverall">
+					<div class="col-sm-12 col-md-12 col-lg-12">
+						<div class="row">
+							<div class="col-sm-12 col-md-12 col-lg-12">
+								<div class="panel panel-default">
+									<div class="panel-heading">Batch QC Report
+										<i ng-click="downloadChartButton($event)" class="clickableIcons glyphicon glyphicon-save"></i>
+									</div>
+									<div class="panel-body">
+										<div class="table-responsive">
+											<!-- <table id="tableBorder" class="table table-bordered" style="border-collapse: collapse;">
+												<tr id="headBorder">
+													<th>Trainee</th>
+													<th class="text-center" ng-repeat="label in weeklyProgressBatchOverallLabels track by $index">Week {{label}}</th>
+												</tr>
+												<tr ng-repeat="item in allTraineesPanelData">
+													<td class="col-sm-3 col-md-3 col-lg-3" ng-bind="item.trainee"></td>
+													<td class="text-center" ng-repeat="label in weeklyProgressBatchOverallLabels track by $index">
+														<i class="fa fa-smile-o fa-2x pick"></i>
+													</td>
+												</tr>
+												<tr id="overallRow">
+													<th class="col-sm-3 col-md-3 col-lg-3">Overall</th>
+													<td class="text-center" ng-repeat="label in weeklyProgressBatchOverallLabels track by $index">
+														<i class="fa fa-smile-o fa-2x pick"></i>
+													</td>
+												</tr>
+											</table> -->
+
+											<div ng-repeat="content in allQCTraineeNotesAllWeeks"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- END TESTING FOR CHRISTINE-->
+				<!-- end testing in progress-->
+				<!-- ****************************************************************************************** -->
+
 				<div class="row">
 					<div class="col-sm-5 col-md-5 col-lg-5">
 						<div class="panel panel-default">

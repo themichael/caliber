@@ -50,7 +50,10 @@ angular
 			$scope.batchOverall = false;
 			$scope.batchOverallTrainee = false;
 			$scope.allTrainees = [];
-			$scope.panelIndex = 0;			
+			$scope.panelIndex = 0;	
+			$scope.allQCTraineeNotesAllWeeks = [];
+			$scope.batchQCNotes = [];
+
 			// Used to sort trainees in batch
 			function compare(a, b) {
 				if (a.name < b.name)
@@ -232,6 +235,42 @@ angular
 						});
 			}
 			
+			//Get All Trainees (from current batch) QC Notes from all weeks 
+			(function(){	
+				caliberDelegate.qc.getAllQCTraineeNoteForAllWeeks($scope.currentBatch.batchId)
+				.then( 
+					//Success function passed into promise
+					(response) => {
+						NProgress.done();
+						allQCTraineeNotesAllWeeks = response;   
+						//console.log("AllQCTraineeNotesAllWeeks: " + JSON.stringify(allQCTraineeNotesAllWeeks)); 
+
+					}, 
+					//Failed function passed into promise
+					(response) => {
+						NProgress.done();
+						$log.debug("Failed to asynchronously pull data from backend. " + response);
+					}
+				);
+			})();
+
+			//swag
+			(function(){
+				caliberDelegate.qc.getAllQCBatchNotes($scope.currentBatch.batchId).then(
+					//Success function passed into promise					
+					(response) => {
+						NProgress.done();
+						batchQCNotes=response;
+						console.log("swaggie" + JSON.stringify(batchQCNotes));
+					},
+					//Failed function passed into promise
+					(response) => {
+						NProgress.done();
+						$log.debug("Failed to asynchronously pull data from backend. " + response);
+					}
+				)
+			})();
+
 			function displayTraineePanelFeedback(){	
 				caliberDelegate.panel.reportTraineePanels($scope.currentTrainee.traineeId).then(
 						function(response){

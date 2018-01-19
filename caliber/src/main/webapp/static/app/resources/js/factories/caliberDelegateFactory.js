@@ -278,6 +278,15 @@ angular.module("delegate")
 			}
 
 			/** ************************ QC **************************** */
+			delegate.qc.getAllQCTraineeNoteForAllWeeks = function(batchId){
+                return qcFactory.getAllQCTraineeNoteForAllWeeks(batchId);
+			};
+			
+			//swag
+			delegate.qc.getAllQCBatchNotes = function(batchId){
+				return qcFactory.getAllQCBatchNotes(batchId);
+			};
+						
 			delegate.qc.getAllBatches = function() {
 				return qcFactory.getAllBatches();
 			};
