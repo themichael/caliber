@@ -244,27 +244,31 @@ public class EvaluationService {
 		log.debug("Find All QC Trainee Notes for that trainee");
 		return noteDAO.findAllQCTraineeOverallNotes(traineeId);
 	}
-	
-	/**
-	 * Find all qc trainee notes for all weeks
-	 * @author Junaid syed TeamQCator
-	 * @return
-	 */
-	public List<Note> findAllQCTraineeNotesForAllWeeks(Integer batchId) {
-		log.debug("Find All QC Trainee Notes");
-		return noteDAO.findAllQCTraineeNotesForAllWeeks(batchId);
-	}	
 
-	
 	/**
-	 * noteDAO.findAllQCBatchNotes
-	 * @param Integer batchId: the id of the batch 
-	 * @author Jen TeamQCator
-	 * @return A list of QC batch notes, in ascending order by week 
-	 */
-	public List<Note> findAllQCBatchNotes(Integer batchId){
-		log.debug("Find All QC Batch Notes in ascending order by week");
-		return noteDAO.findAllQCBatchNotes(batchId);
-	}
+     * Find all qc trainee notes for all weeks
+     * @author Junaid syed TeamQCator
+     * @return
+     */
+    public List<List<Note>> findAllQCTraineeNotesForAllWeeks(Integer batchId) {
+        log.debug("Find All QC Trainee Notes");
+        List<Note> allNotes = noteDAO.findAllQCTraineeNotesForAllWeeks(batchId);
+        ArrayList<List<Note>> noteFormatted2d = new ArrayList<List<Note>>();
+        List<Note> traineeInfos = new ArrayList<Note>();
+        int currentId = allNotes.get(0).getTrainee().getTraineeId();
+        for( Note note : allNotes) {
+            if(note.getTrainee().getTraineeId() == currentId) {
+                traineeInfos.add(note);
+            }else {
+                noteFormatted2d.add(traineeInfos);
+                traineeInfos = new ArrayList<>();
+                if(note.getTrainee() !=null || note.getTrainee().getTraineeId() != 0 ) {
+                    currentId = note.getTrainee().getTraineeId();
+                    traineeInfos.add(note);
+                }
+            }
+        }        
+        return noteFormatted2d;
+    }
 	
 }

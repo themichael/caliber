@@ -236,40 +236,20 @@ angular
 			}
 			
 			//Get All Trainees (from current batch) QC Notes from all weeks 
-			(function(){	
+			function getAllQCTraineeNoteForAllWeeks() {
 				caliberDelegate.qc.getAllQCTraineeNoteForAllWeeks($scope.currentBatch.batchId)
-				.then( 
-					//Success function passed into promise
+					.then(
 					(response) => {
 						NProgress.done();
-						allQCTraineeNotesAllWeeks = response;   
-						//console.log("AllQCTraineeNotesAllWeeks: " + JSON.stringify(allQCTraineeNotesAllWeeks)); 
-
-					}, 
-					//Failed function passed into promise
-					(response) => {
-						NProgress.done();
-						$log.debug("Failed to asynchronously pull data from backend. " + response);
-					}
-				);
-			})();
-
-			//swag
-			(function(){
-				caliberDelegate.qc.getAllQCBatchNotes($scope.currentBatch.batchId).then(
-					//Success function passed into promise					
-					(response) => {
-						NProgress.done();
-						batchQCNotes=response;
-						console.log("swaggie" + JSON.stringify(batchQCNotes));
+						$scope.allQCTraineeNotesAllWeeks = response;
+						console.log($scope.allQCTraineeNotesAllWeeks);
 					},
-					//Failed function passed into promise
 					(response) => {
 						NProgress.done();
 						$log.debug("Failed to asynchronously pull data from backend. " + response);
 					}
-				)
-			})();
+					);
+			}
 
 			function displayTraineePanelFeedback(){	
 				caliberDelegate.panel.reportTraineePanels($scope.currentTrainee.traineeId).then(
@@ -538,6 +518,7 @@ angular
 				createAllTraineesAndBatchRadarData();
 				createWeeklyProgressBatchOverall();
 				getBatchOverallPanelTable();
+				getAllQCTraineeNoteForAllWeeks();
 			}
 
 			function createBatchOverallTrainee() {
