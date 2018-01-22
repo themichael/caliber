@@ -251,6 +251,23 @@ angular
 					);
 			}
 
+			
+			//Getting all QC batch notes (overall smiley) for all weeks
+						function getAllQCBatchNotes(){
+							caliberDelegate.qc.getAllQCBatchNotes($scope.currentBatch.batchId).then(
+								//Success function passed into promise                    
+								(response) => {
+									NProgress.done();
+									$scope.batchQCNotes = response;
+								},
+								//Failed function passed into promise
+								(response) => {
+									NProgress.done();
+									$log.debug("Failed to asynchronously pull data from backend. " + response);
+								}
+							)
+						};
+
 			function displayTraineePanelFeedback(){	
 				caliberDelegate.panel.reportTraineePanels($scope.currentTrainee.traineeId).then(
 						function(response){
@@ -519,6 +536,7 @@ angular
 				createWeeklyProgressBatchOverall();
 				getBatchOverallPanelTable();
 				getAllQCTraineeNoteForAllWeeks();
+				getAllQCBatchNotes();
 			}
 
 			function createBatchOverallTrainee() {

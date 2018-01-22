@@ -255,6 +255,9 @@ public class EvaluationService {
         List<Note> allNotes = noteDAO.findAllQCTraineeNotesForAllWeeks(batchId);
         ArrayList<List<Note>> noteFormatted2d = new ArrayList<List<Note>>();
         List<Note> traineeInfos = new ArrayList<Note>();
+        if(allNotes.size()<=0){
+        	return new ArrayList<List<Note>>();
+        }
         int currentId = allNotes.get(0).getTrainee().getTraineeId();
         for( Note note : allNotes) {
             if(note.getTrainee().getTraineeId() == currentId) {
@@ -269,6 +272,17 @@ public class EvaluationService {
             }
         }        
         return noteFormatted2d;
+    }
+    
+    /**
+     * noteDAO.findAllQCBatchNotes
+     * @param Integer batchId: the id of the batch 
+     * @author Jen TeamQCator
+     * @return A list of QC batch notes, in ascending order by week 
+     */
+    public List<Note> findAllQCBatchNotes(Integer batchId){
+        log.debug("Find All QC Batch Notes in ascending order by week");
+        return noteDAO.findAllQCBatchNotes(batchId);
     }
 	
 }

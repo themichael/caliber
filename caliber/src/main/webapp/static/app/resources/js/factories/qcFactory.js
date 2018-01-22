@@ -89,6 +89,21 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 		});
 	};
 
+
+    // Call EvaluationController's getAlllQCTraineeNoteOverallForAllWeeks method
+	qc.getAllQCBatchNotes = function(batchId) {
+        return $http({
+            url : "/qc/note/batch/all/" + batchId + "/",
+            method : "GET"
+        }).then(function(response) {
+            $log.log("QC Trainee Note for all weeks retrieved successfully");
+            return response.data;
+        }, function(response) {
+            $log.error("There was an error: " + response.status);
+        });
+    };
+
+
 	// Call EvaluationController's getTraineeOverallNotes method
 	qc.getTraineeOverallNote = function(traineeId) {
 		return $http({
