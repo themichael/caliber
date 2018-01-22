@@ -247,7 +247,7 @@ public class EvaluationService {
 
 	/**
      * Find all qc trainee notes for all weeks
-     * @author Junaid syed TeamQCator
+     * @author Junaid syed, Jenny Tran TeamQCator
      * @return
      */
     public List<List<Note>> findAllQCTraineeNotesForAllWeeks(Integer batchId) {
@@ -255,22 +255,25 @@ public class EvaluationService {
         List<Note> allNotes = noteDAO.findAllQCTraineeNotesForAllWeeks(batchId);
         ArrayList<List<Note>> noteFormatted2d = new ArrayList<List<Note>>();
         List<Note> traineeInfos = new ArrayList<Note>();
-        if(allNotes.size()<=0){
-        	return new ArrayList<List<Note>>();
+        if(allNotes==null || allNotes.size()<1) {
+            return new ArrayList<List<Note>>();
         }
         int currentId = allNotes.get(0).getTrainee().getTraineeId();
-        for( Note note : allNotes) {
-            if(note.getTrainee().getTraineeId() == currentId) {
-                traineeInfos.add(note);
+        for( int index =0; index<allNotes.size(); index++) {
+            if(allNotes.get(index).getTrainee().getTraineeId() == currentId) {
+                traineeInfos.add(allNotes.get(index));
             }else {
                 noteFormatted2d.add(traineeInfos);
                 traineeInfos = new ArrayList<>();
-                if(note.getTrainee() !=null || note.getTrainee().getTraineeId() != 0 ) {
-                    currentId = note.getTrainee().getTraineeId();
-                    traineeInfos.add(note);
+                if(allNotes.get(index).getTrainee() !=null || allNotes.get(index).getTrainee().getTraineeId() != 0 ) {
+                    currentId = allNotes.get(index).getTrainee().getTraineeId();
+                    traineeInfos.add(allNotes.get(index));
                 }
+            }if (index == allNotes.size()-1){
+                noteFormatted2d.add(traineeInfos);
             }
-        }        
+        }
+                    
         return noteFormatted2d;
     }
     
