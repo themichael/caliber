@@ -443,6 +443,10 @@ footer a, footer a:hover {
 .fa-minus{
 	color: rgb(252,221,115);
 }
+
+#overallRow{
+    border-top-width: thick; 
+}
 /********************************************************
 	Panels table
 *********************************************************/
