@@ -29,6 +29,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -81,11 +82,13 @@ public class Batch implements Serializable {
 	@Column(name = "TRAINING_TYPE")
 	private TrainingType trainingType;
 
+	@JsonFormat(shape=JsonFormat.Shape.STRING, timezone="EST", pattern = "yyyy-MM-dd")
 	@NotNull
 	@Temporal(TemporalType.DATE)
 	@Column(name = "START_DATE", nullable = false)
 	private Date startDate;
 
+	@JsonFormat(shape=JsonFormat.Shape.STRING, timezone="EST", pattern = "yyyy-MM-dd")
 	@NotNull
 	@Temporal(TemporalType.DATE)
 	@Column(name = "END_DATE", nullable = false)
