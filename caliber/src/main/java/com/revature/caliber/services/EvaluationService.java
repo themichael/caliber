@@ -1,9 +1,13 @@
 package com.revature.caliber.services;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Note;
+import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.NoteDAO;
 
@@ -244,83 +249,40 @@ public class EvaluationService {
 		log.debug("Find All QC Trainee Notes for that trainee");
 		return noteDAO.findAllQCTraineeOverallNotes(traineeId);
 	}
-
+	
 	/**
      * Find all qc trainee notes for all weeks
      * @return
      */
     public List<List<Note>> findAllQCTraineeNotesForAllWeeks(Integer batchId) {
         log.debug("Find All QC Trainee Notes");
-        List<Note> allNotes = noteDAO.findAllQCTraineeNotesForAllWeeks(batchId);
-        ArrayList<List<Note>> noteFormatted2d = new ArrayList<List<Note>>();
-        List<Note> traineeInfos = new ArrayList<Note>();
-        int weekCounter = 0;
-        
-        if(allNotes==null || allNotes.size()<1) {
-            return new ArrayList<List<Note>>();
+        List<Note> notes = noteDAO.findAllQCTraineeNotesForAllWeeks(batchId);
+        ArrayList<List<Note>> noteFormatted2d = new ArrayList<>();
+        notes = notes.stream().collect(Collectors.collectingAndThen(
+                Collectors.toCollection(() -> new TreeSet<>(
+                        Comparator.comparing(note -> note.getTrainee().getName() + note.getWeek()))
+                ), ArrayList::new));
+        if (notes == null || notes.size() < 1) {
+            return new ArrayList<>();
         }
-        int currentId = allNotes.get(0).getTrainee().getTraineeId();
-        
-        //checking for total number of weeks
-        for( int index =0; index<allNotes.size(); index++) {
-        	//here we need to find the number of weeks in  total
-        	if ( weekCounter < allNotes.get(index).getWeek()){
-        		weekCounter = allNotes.get(index).getWeek();
-        		System.out.println(weekCounter);
-        	}
-        }// this function will give us total number of weeks of qc
-         if (weekCounter == 1){ //there is only one week on qc notes present
-        	 currentId = allNotes.get(0).getTrainee().getTraineeId();
-             for( int index =0; index<allNotes.size(); index++) {
-                 if(allNotes.get(index).getTrainee().getTraineeId() == currentId) {
-                     traineeInfos.add(allNotes.get(index));
-                 }else {
-                     noteFormatted2d.add(traineeInfos);
-                     traineeInfos = new ArrayList<>();
-                     if(allNotes.get(index).getTrainee() !=null || allNotes.get(index).getTrainee().getTraineeId() != 0 ) {
-                         currentId = allNotes.get(index).getTrainee().getTraineeId();
-                         traineeInfos.add(allNotes.get(index));
-                     }
-                 }if (index == allNotes.size()-1){
-                     noteFormatted2d.add(traineeInfos);
-                 }
-             }
-                         
-             return noteFormatted2d;
-         } //this mehtod will only execute if weeks == 1
-        
-        //this method should execute if there are more than one week of qc notes
-        for( int index =0; index<allNotes.size(); index++) {
-        	weekCounter = index + 1; //will throw index out of bouds for last element
-        	//need validation for array size
-        	if (weekCounter >= allNotes.size()){
-        		weekCounter = index;
-        	}
-        	
-	        if((allNotes.get(index).getWeek() != allNotes.get(weekCounter).getWeek())){
-	        //***********************************************************************
-	            if(allNotes.get(index).getTrainee().getTraineeId() == currentId) {
-	                traineeInfos.add(allNotes.get(index));
-	            }else {
-	                noteFormatted2d.add(traineeInfos);
-	                traineeInfos = new ArrayList<>();
-	                if(allNotes.get(index).getTrainee() !=null || allNotes.get(index).getTrainee().getTraineeId() != 0 ) {
-	                    currentId = allNotes.get(index).getTrainee().getTraineeId();
-	                    traineeInfos.add(allNotes.get(index));
-	                }
-	            }
-	            if (index == allNotes.size()-1){
-                noteFormatted2d.add(traineeInfos);
-	            }
-	        }
 
-	        else{
-	        	System.out.println("duplicate found");
-	        }
-	        //**********************************************************************************
-	        //**********************************************************************************
-        
+        Trainee currentTrainee = null;
+        List<Note> traineeNotes = new ArrayList<>();
+        for (Note note : notes) {
+            Trainee aTrainee = note.getTrainee();
+            //trainee HAS changed
+            if (!aTrainee.equals(currentTrainee) || currentTrainee == null) {
+            	//if this is not the first itteration
+            	if (currentTrainee != null) {
+            		noteFormatted2d.add(traineeNotes);
+            	}
+                currentTrainee = aTrainee;
+                traineeNotes = new ArrayList<>(Collections.singletonList(note));
+            } else {//trainee HAS NOT changed
+            	traineeNotes.add(note);
+            }
         }
+        noteFormatted2d.add(traineeNotes);
         return noteFormatted2d;
     }
     
