@@ -9,8 +9,12 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Note;
+import com.revature.caliber.beans.NoteType;
+import com.revature.caliber.beans.QCStatus;
+import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.NoteDAO;
 
@@ -254,5 +258,66 @@ public class EvaluationService {
 		log.debug("Find All QC Trainee Notes");
 		return noteDAO.findAllQCTraineeNotesForAllWeeks(batchId);
 	}	
-
+	
+	public void calculateAverage(Integer weekId, Batch batch){
+		if(batch != null){
+			Note overallNote = noteDAO.findQCBatchNotes(batch.getBatchId(), weekId);
+			if(overallNote == null){
+				log.info("Creating a new overall Note for week " + weekId);
+				overallNote = new Note();
+				overallNote.setBatch(batch);
+				overallNote.setWeek(weekId.shortValue());
+				overallNote.setQcStatus(QCStatus.Undefined);
+				overallNote.setType(NoteType.QC_BATCH);
+				overallNote.setMaxVisibility(TrainerRole.ROLE_PANEL);
+				overallNote.setQcFeedback(true);
+				noteDAO.save(overallNote);
+			}
+			log.info("Calculating Average of note of week");
+			double average = 0.0f;
+			List<Note> traineeNoteList = noteDAO.findAllQCTraineeNotes(batch.getBatchId(), weekId);
+			int denominator = traineeNoteList.size();
+			for(Note note : traineeNoteList){
+				switch(note.getQcStatus()){
+				case Superstar:
+					average += 4;
+					break;
+				case Good:
+					average += 3;
+					break;
+				case Average:
+					average += 2;
+					break;
+				case Poor:
+					average += 1;
+					break;
+				default:
+					denominator--;
+				}
+			}
+			if(denominator != 0){
+				average /= denominator;
+			}
+			else{
+				average = 0.0f;
+			}	
+			if(average > 2.5){
+				overallNote.setQcStatus(QCStatus.Good);
+			}
+			else if(average >= 2 && average <= 2.5){
+				overallNote.setQcStatus(QCStatus.Average);
+			}
+			else if(average > 0 && average < 2){
+				overallNote.setQcStatus(QCStatus.Poor);
+			}
+			else{
+				overallNote.setQcStatus(QCStatus.Undefined);
+			}
+			log.info("The calculated average is: " + overallNote.getQcStatus());
+			noteDAO.update(overallNote);
+		}
+		else{
+			log.warn("The ASSIGN_NOTE_BATCH_ID Stored Procedure hasn't been ran yet to update Note's batch id.");
+		}
+	}
 }
