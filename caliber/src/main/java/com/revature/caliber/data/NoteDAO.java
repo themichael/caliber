@@ -286,14 +286,18 @@ public class NoteDAO {
 	 * Returns all QC notes for trainee in the batch for the week
 	 * 
 	 * @return
+	 * @param BatchID
+ 	 * @param week Number
+ 	 * @return List of notes
 	 */
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Note> findAllQCTraineeNotes(Integer batchId, Integer week) {
 		log.info("Find All QC Trainee notes");
-		return sessionFactory.getCurrentSession().createCriteria(Note.class)
-				.createAlias(TRAINEE, "t", JoinType.LEFT_OUTER_JOIN)
-				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped)).createAlias("t.batch", "b")
+		return sessionFactory.getCurrentSession().createCriteria(Note.class).createAlias(BATCH, "b")
+				.createAlias(B_TRAINEES, "t", JoinType.LEFT_OUTER_JOIN)
+				.createAlias(TRAINEE, "tr", JoinType.INNER_JOIN)
+				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped))
 				.add(Restrictions.eq(B_BATCH_ID, batchId)).add(Restrictions.eq("week", week.shortValue()))
 				.add(Restrictions.eq(QC_FEEDBACK, true)).add(Restrictions.eq("type", NoteType.QC_TRAINEE))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).addOrder(Order.asc("week")).list();
