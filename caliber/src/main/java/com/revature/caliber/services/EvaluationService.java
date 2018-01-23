@@ -255,25 +255,73 @@ public class EvaluationService {
         List<Note> allNotes = noteDAO.findAllQCTraineeNotesForAllWeeks(batchId);
         ArrayList<List<Note>> noteFormatted2d = new ArrayList<List<Note>>();
         List<Note> traineeInfos = new ArrayList<Note>();
+        int weekCounter = 0;
+        
         if(allNotes==null || allNotes.size()<1) {
             return new ArrayList<List<Note>>();
         }
         int currentId = allNotes.get(0).getTrainee().getTraineeId();
+        
+        //checking for total number of weeks
         for( int index =0; index<allNotes.size(); index++) {
-            if(allNotes.get(index).getTrainee().getTraineeId() == currentId) {
-                traineeInfos.add(allNotes.get(index));
-            }else {
+        	//here we need to find the number of weeks in  total
+        	if ( weekCounter < allNotes.get(index).getWeek()){
+        		weekCounter = allNotes.get(index).getWeek();
+        		System.out.println(weekCounter);
+        	}
+        }// this function will give us total number of weeks of qc
+         if (weekCounter == 1){ //there is only one week on qc notes present
+        	 currentId = allNotes.get(0).getTrainee().getTraineeId();
+             for( int index =0; index<allNotes.size(); index++) {
+                 if(allNotes.get(index).getTrainee().getTraineeId() == currentId) {
+                     traineeInfos.add(allNotes.get(index));
+                 }else {
+                     noteFormatted2d.add(traineeInfos);
+                     traineeInfos = new ArrayList<>();
+                     if(allNotes.get(index).getTrainee() !=null || allNotes.get(index).getTrainee().getTraineeId() != 0 ) {
+                         currentId = allNotes.get(index).getTrainee().getTraineeId();
+                         traineeInfos.add(allNotes.get(index));
+                     }
+                 }if (index == allNotes.size()-1){
+                     noteFormatted2d.add(traineeInfos);
+                 }
+             }
+                         
+             return noteFormatted2d;
+         } //this mehtod will only execute if weeks == 1
+        
+        //this method should execute if there are more than one week of qc notes
+        for( int index =0; index<allNotes.size(); index++) {
+        	weekCounter = index + 1; //will throw index out of bouds for last element
+        	//need validation for array size
+        	if (weekCounter >= allNotes.size()){
+        		weekCounter = index;
+        	}
+        	
+	        if((allNotes.get(index).getWeek() != allNotes.get(weekCounter).getWeek())){
+	        //***********************************************************************
+	            if(allNotes.get(index).getTrainee().getTraineeId() == currentId) {
+	                traineeInfos.add(allNotes.get(index));
+	            }else {
+	                noteFormatted2d.add(traineeInfos);
+	                traineeInfos = new ArrayList<>();
+	                if(allNotes.get(index).getTrainee() !=null || allNotes.get(index).getTrainee().getTraineeId() != 0 ) {
+	                    currentId = allNotes.get(index).getTrainee().getTraineeId();
+	                    traineeInfos.add(allNotes.get(index));
+	                }
+	            }
+	            if (index == allNotes.size()-1){
                 noteFormatted2d.add(traineeInfos);
-                traineeInfos = new ArrayList<>();
-                if(allNotes.get(index).getTrainee() !=null || allNotes.get(index).getTrainee().getTraineeId() != 0 ) {
-                    currentId = allNotes.get(index).getTrainee().getTraineeId();
-                    traineeInfos.add(allNotes.get(index));
-                }
-            }if (index == allNotes.size()-1){
-                noteFormatted2d.add(traineeInfos);
-            }
+	            }
+	        }
+
+	        else{
+	        	System.out.println("duplicate found");
+	        }
+	        //**********************************************************************************
+	        //**********************************************************************************
+        
         }
-                    
         return noteFormatted2d;
     }
     
