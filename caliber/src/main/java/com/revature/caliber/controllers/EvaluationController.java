@@ -258,7 +258,6 @@ public class EvaluationController {
 		
 	/**
 	 * Find all QC trainee notes in a batch for the week
-	 * @author Team-Qcator
 	 * @param batchId
 	 * @return
 	 */
@@ -271,7 +270,6 @@ public class EvaluationController {
 	
 	/**
      * Finding all QC Batch notes, in ascending order by week
-     * @author TeamQCaotr
      * @param batchId
      * @return List of all QC batch notes
      */

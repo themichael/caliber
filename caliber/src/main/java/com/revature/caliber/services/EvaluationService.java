@@ -247,7 +247,6 @@ public class EvaluationService {
 
 	/**
      * Find all qc trainee notes for all weeks
-     * @author Junaid syed, Jenny Tran TeamQCator
      * @return
      */
     public List<List<Note>> findAllQCTraineeNotesForAllWeeks(Integer batchId) {
@@ -328,7 +327,6 @@ public class EvaluationService {
     /**
      * noteDAO.findAllQCBatchNotes
      * @param Integer batchId: the id of the batch 
-     * @author Jen TeamQCator
      * @return A list of QC batch notes, in ascending order by week 
      */
     public List<Note> findAllQCBatchNotes(Integer batchId){
