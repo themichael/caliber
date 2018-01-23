@@ -286,7 +286,7 @@ angular
 								}
 							})
 							if($scope.individualNote==null){
-								$scope.individualNote = "No week "+$scope.week +" notes for "+$scope.person;
+								$scope.individualNote = "No available notes!";
 							}
 						}
 
