@@ -636,3 +636,7 @@ INTENDED FOR CHART DOWNLOAD ICON IF HOVER OVER CHANGE CURSOR TO POINTING
 	background-color: #FFFFFF;
 	transition: background-color 1.5s ease;
 }
+
+.mouse-over{
+	cursor: pointer;
+}

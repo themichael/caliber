@@ -272,18 +272,21 @@
 												</tr>
 												<tr ng-repeat="traineeInfo in allQCTraineeNotesAllWeeks">
 													<td class="col-sm-3 col-md-3 col-lg-3">{{traineeInfo[0].trainee.name}}</td>
-													<td class="text-center" ng-repeat="note in traineeInfo">
-														<div ng-if="note.qcStatus == 'Superstar'">
-															<i class="fa fa-star fa-2x pick "></i>
+													<td class="text-center " ng-repeat="status in traineeInfo">
+														<div ng-if="status.qcStatus == 'Superstar'" id="{{traineeInfo[0].trainee.name}}" value="{{status.noteId}}">
+															<a ng-click="populateModal(traineeInfo[0].trainee.name,status.noteId)" data-toggle="modal" data-target="#notesModal" class="fa fa-star fa-2x pick mouse-over"></a>
 														</div>
-														<div ng-if="note.qcStatus == 'Good'">
-															<i class="fa fa-smile-o fa-2x pick "></i>
+														<div ng-if="status.qcStatus == 'Good'" id="{{traineeInfo[0].trainee.name}}" value="{{status.noteId}}">
+															<a ng-click="populateModal(traineeInfo[0].trainee.name,status.noteId)" data-toggle="modal" data-target="#notesModal" class="fa fa-smile-o fa-2x pick mouse-over"></a>
 														</div>
-														<div ng-if="note.qcStatus == 'Average'">
-															<i class="fa fa-meh-o fa-2x pick "></i>
+														<div ng-if="status.qcStatus == 'Average'" id="{{traineeInfo[0].trainee.name}}" value="{{status.noteId}}">
+															<a ng-click="populateModal(traineeInfo[0].trainee.name,status.noteId)" data-toggle="modal" data-target="#notesModal" class="fa fa-meh-o fa-2x pick mouse-over"></a>
 														</div>
-														<div ng-if="note.qcStatus == 'Poor'">
-															<i class="fa fa-frown-o fa-2x pick "></i>
+														<div ng-if="status.qcStatus == 'Poor'" id="{{traineeInfo[0].trainee.name}}" value="{{status.noteId}}">
+															<a ng-click="populateModal(traineeInfo[0].trainee.name,status.noteId)" data-toggle="modal" data-target="#notesModal" class="fa fa-frown-o fa-2x pick mouse-over"></a>
+														</div>
+														<div ng-if="status.qcStatus == null || status.qcStatus == 'Undefined'" id="{{traineeInfo[0].trainee.name}}" value="{{status.noteId}}">
+															<a ng-click="populateModal(traineeInfo[0].trainee.name,status.noteId)" data-toggle="modal" data-target="#notesModal" class="fa fa-question-circle fa-2x mouse-over"></a>
 														</div>
 													</td>
 												</tr>
@@ -303,7 +306,7 @@
 														<div ng-if="note.qcStatus == 'Poor'">
 															<i class="fa fa-frown-o fa-2x pick"></i>
 														</div>
-														<div ng-if="note.qcStatus == null">
+														<div ng-if="note.qcStatus == null || note.qcStatus == 'Undefined'">
 															<i class="fa fa-question-circle fa-2x pick"></i>
 														</div>
 													</td>
@@ -641,5 +644,27 @@
 				</div>
 			</div>
 		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div id="notesModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content" ng-if="person && week">
+
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title text-center">{{person}} - Week {{week}} Notes </h4>
+			</div>
+			<div class="modal-body" ng-bind="individualNote">
+				<p>{{individualNote}}</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+
 	</div>
 </div>

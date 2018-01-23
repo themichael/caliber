@@ -52,6 +52,8 @@ angular
 			$scope.allTrainees = [];
 			$scope.panelIndex = 0;	
 			$scope.allQCTraineeNotesAllWeeks = [];
+			$scope.traineeNameAndNoteId = [];
+			$scope.individualNote=[];
 			$scope.batchQCNotes = [];
 
 			// Used to sort trainees in batch
@@ -267,6 +269,26 @@ angular
 								}
 							)
 						};
+
+						$scope.populateModal =function populateModal(id, value){
+							$scope.traineeNameAndNoteId = $scope.allQCTraineeNotesAllWeeks;
+							console.log($scope.traineeNameAndNoteId);
+							
+							$scope.traineeNameAndNoteId.forEach(function( key){
+								if(id === key[0]["trainee"]["name"]){
+									for(var i =0; key.length > i ; i++ ){
+										if(value === key[i]["noteId"]){
+											$scope.person=key[0]["trainee"]["name"];
+											$scope.week = key [i]["week"];
+											$scope.individualNote = key[i]["content"];
+										}
+									}
+								}
+							})
+							if($scope.individualNote==null){
+								$scope.individualNote = "No week "+$scope.week +" notes for "+$scope.person;
+							}
+						}
 
 			function displayTraineePanelFeedback(){	
 				caliberDelegate.panel.reportTraineePanels($scope.currentTrainee.traineeId).then(
