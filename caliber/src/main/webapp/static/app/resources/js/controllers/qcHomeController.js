@@ -117,7 +117,7 @@ angular
                                                 null,
                                                 null,
                                                 null,
-                                                $scope.displayWeek,
+                                                $scope.currentWeek,
                                                 $scope.currentBatch,
                                                 null,
                                                 "ROLE_QC",
@@ -187,7 +187,7 @@ angular
                             $scope.bnote = null;
                             for (var i = 0; i < $scope.currentBatch.trainees.length; i++) {
                                 $scope.faces.push(new Note(null, null,
-                                    null, $scope.displayWeek,
+                                    null, $scope.currentWeek,
                                     $scope.currentBatch,
                                     $scope.currentBatch.trainees[i],
                                     "ROLE_QC", "QC_TRAINEE", true));
@@ -241,6 +241,9 @@ angular
                             $scope.currentBatch.trainees.sort(compare);
                         }
 
+                        //set display week for modal header
+                        $scope.displayWeek = $scope.displayWeeksMap[$scope.currentBatch.batchId];
+                                                
                         // Set current week to first week
                         // If reports week is selected
                         if ($scope.reportCurrentWeek !== undefined
@@ -301,7 +304,7 @@ angular
                         $scope.stackedBarColors = barChartObj.colors;
                         $scope.stackedBarIds = barChartObj.id; // define scope for batch ids
                         $scope.qcOverall = barChartObj.qcOverall;
-						$scope.displayWeek = barChartObj.displayWeek;
+						$scope.displayWeeksMap = barChartObj.displayWeeksMap;
                     }
 
                     function createCurrentBatchesAverageScoreChart(data) {
