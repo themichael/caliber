@@ -55,6 +55,7 @@ angular
 			$scope.traineeNameAndNoteId = [];
 			$scope.individualNote=[];
 			$scope.batchQCNotes = [];
+			$scope.overallNameAndNoteId = [];
 
 			// Used to sort trainees in batch
 			function compare(a, b) {
@@ -252,6 +253,22 @@ angular
 					}
 					);
 			}
+
+			$scope.populateOverallModal = function populateOverallModal(value){
+				$scope.overallNameAndNoteId = $scope.batchQCNotes;
+				console.log($scope.overallNameAndNoteId);
+                $scope.overallNameAndNoteId.forEach(function( key){
+                    if(value === key["noteId"]){
+                        $scope.overallBatchWeek = key ["week"];
+                        $scope.batchNote = key["content"];
+                    }
+                
+                })
+                if($scope.batchNote==null){
+                    $scope.batchNote = "No available note";
+                }
+
+            }
 
 			
 			//Getting all QC batch notes (overall smiley) for all weeks

@@ -292,22 +292,22 @@
 												</tr>
 												<tr id="overallRow">
 													<th class="col-sm-3 col-md-3 col-lg-3">Overall</th>
-													<td class="text-center" ng-repeat="note in batchQCNotes ">
+													<td class="text-center" ng-repeat="note in batchQCNotes">
 
 														<div ng-if="note.qcStatus == 'Superstar'">
-															<i class="fa fa-star fa-2x pick"></i>
+															<a ng-click="populateOverallModal(note.noteId)" data-toggle="modal" data-target="#batchOverallModal" class="fa fa-star fa-2x pick mouse-over"></a>
 														</div>
 														<div ng-if="note.qcStatus == 'Good'">
-															<i class="fa fa-smile-o fa-2x pick"></i>
+															<a ng-click="populateOverallModal(note.noteId)" data-toggle="modal" data-target="#batchOverallModal" class="fa fa-smile-o fa-2x pick mouse-over"></a>
 														</div>
 														<div ng-if="note.qcStatus == 'Average'">
-															<i class="fa fa-meh-o fa-2x pick"></i>
+															<a ng-click="populateOverallModal(note.noteId)" data-toggle="modal" data-target="#batchOverallModal" class="fa fa-meh-o fa-2x pick mouse-over"></a>
 														</div>
 														<div ng-if="note.qcStatus == 'Poor'">
-															<i class="fa fa-frown-o fa-2x pick"></i>
+															<a ng-click="populateOverallModal(note.noteId)" data-toggle="modal" data-target="#batchOverallModal" class="fa fa-frown-o fa-2x pick mouse-over"></a>
 														</div>
 														<div ng-if="note.qcStatus == null || note.qcStatus == 'Undefined'">
-															<i class="fa fa-question-circle fa-2x pick"></i>
+															<a ng-click="populateOverallModal(note.noteId)" data-toggle="modal" data-target="#batchOverallModal" class="fa fa-question-circle fa-2x pick mouse-over"></a>
 														</div>
 													</td>
 												</tr>
@@ -660,6 +660,26 @@
 			</div>
 			<div class="modal-body" ng-bind="individualNote">
 				<p>{{individualNote}}</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal -->
+<div id="batchOverallModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+
+		<!-- Modal content-->
+		<div class="modal-content" ng-if="overallBatchWeek">
+
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title text-center">Batch Overall Notes - Week {{overallBatchWeek}}  </h4>
+			</div>
+			<div class="modal-body" ng-bind="batchNote">
+				<p>{{batchNote}}</p>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
