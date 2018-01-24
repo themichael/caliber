@@ -353,7 +353,7 @@ public class NoteDAOTest extends CaliberTest {
 	public void testFindIndividualNotesAllWeeks() {
 		log.trace("Finding individual notes, all weeks");
 		List<Note> notes = noteDao.findAllQCTraineeNotesForAllWeeks(2201);
-		assertEquals(117, notes.size());
+		assertEquals(122, notes.size());
 	}
 	
 }
