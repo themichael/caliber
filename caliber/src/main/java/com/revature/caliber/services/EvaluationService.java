@@ -34,7 +34,7 @@ public class EvaluationService {
 	private GradeDAO gradeDAO;
 	private NoteDAO noteDAO;
 	private static final String FINDING_WEEK = "Finding week ";
-	private static final int WEEK_STATIC_FACTOR = 0;
+	private static final String WEEK_STATIC_FACTOR = "0";
 
 	@Autowired
 	public void setGradeDAO(GradeDAO gradeDAO) {
@@ -290,7 +290,40 @@ public class EvaluationService {
             }
         }
         noteFormatted2d.add(traineeNotes);
-        return noteFormatted2d;
+        return formatJaggedArray(noteFormatted2d);
+    }
+    
+    /**
+     * Formats the jagged "2d" ArrayList of notes.  Inserts empty Notes into the missing spots so that the
+     * front end batch QC reports table will display correctly. 
+     * Will be called by findAllQCTraineeNotesForAllWeeks() method 
+     * 
+     * @return the Lists of Lists ("2d" ArrayList) formatted so that number of columns and rows are even 
+     */
+    public List<List<Note>> formatJaggedArray(List<List<Note>> jaggedArray){
+            int maxWeeks = 0;
+            for(List<Note> row : jaggedArray) {
+                short week = 0;
+                for(Note column : row) {
+                    week = column.getWeek();
+                    if(week > maxWeeks) {
+                        maxWeeks = week;
+                    }
+                }
+            }
+           
+            System.out.println("Max weeks: " + maxWeeks);
+            for(int row = 0; row < jaggedArray.size(); row++) {
+                for(short column = 0; column < maxWeeks ; column++ ) {                           
+                    if( jaggedArray.get(row).size() <= column || jaggedArray.get(row).get(column).getWeek() != column +1) {
+                        Note emptyNote = new Note();
+                        emptyNote.setWeek( (short) (column + 1 ));
+                        jaggedArray.get(row).add( column , emptyNote );
+                    }
+                }
+            }
+            System.out.println("JaggedArray: " + jaggedArray);
+            return jaggedArray;
     }
     
     /**
