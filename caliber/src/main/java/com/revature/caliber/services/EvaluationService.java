@@ -150,15 +150,7 @@ public class EvaluationService {
 	 */
 	public List<Note> findIndividualNotes(Integer batchId, Integer week) {
 		log.debug(FINDING_WEEK + week + " individual notes for batch: " + batchId);
-		List <Note> notesTemp = noteDAO.findIndividualNotes(batchId,week);
-		List <Note> notes = new ArrayList<>();
-		if(notesTemp !=null){
-			for(Note n : notesTemp){
-				n.setBatch(null);
-				notes.add(n);
-			}
-		}
-		return notes;
+		return noteDAO.findIndividualNotes(batchId,week);
 	}
 	
 	/**
@@ -169,11 +161,7 @@ public class EvaluationService {
 	 * @return 
 	 */
 	public Note findTraineeNote(Integer traineeId, Integer week) {
-		Note note = noteDAO.findTraineeNote(traineeId,week);
-		
-		note.setBatch(null);
-		
-		return note;
+		return noteDAO.findTraineeNote(traineeId,week);
 	}
 	
 	
@@ -185,11 +173,7 @@ public class EvaluationService {
 	 * @return 
 	 */
 	public Note findQCTraineeNote(Integer traineeId, Integer week) {
-		Note note = noteDAO.findQCTraineeNote(traineeId,week);
-		
-		note.setBatch(null);
-		
-		return note;
+		return noteDAO.findQCTraineeNote(traineeId,week);
 	}
 
 	/**
