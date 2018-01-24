@@ -34,6 +34,7 @@ public class EvaluationService {
 	private GradeDAO gradeDAO;
 	private NoteDAO noteDAO;
 	private static final String FINDING_WEEK = "Finding week ";
+	private static final int WEEK_STATIC_FACTOR = 0;
 
 	@Autowired
 	public void setGradeDAO(GradeDAO gradeDAO) {
@@ -260,7 +261,13 @@ public class EvaluationService {
         ArrayList<List<Note>> noteFormatted2d = new ArrayList<>();
         notes = notes.stream().collect(Collectors.collectingAndThen(
                 Collectors.toCollection(() -> new TreeSet<>(
-                        Comparator.comparing(note -> note.getTrainee().getName() + note.getWeek()))
+                        Comparator.comparing(note -> {
+                            String weekAsString = Short.toString(note.getWeek());
+                            return note.getTrainee().getName() +
+                                    ((weekAsString.length() == 1) ?
+                                    		WEEK_STATIC_FACTOR + weekAsString : weekAsString) +
+                                    note.getTrainee().getTraineeId();
+                        }))
                 ), ArrayList::new));
         if (notes == null || notes.size() < 1) {
             return new ArrayList<>();
@@ -272,7 +279,7 @@ public class EvaluationService {
             Trainee aTrainee = note.getTrainee();
             //trainee HAS changed
             if (!aTrainee.equals(currentTrainee) || currentTrainee == null) {
-            	//if this is not the first itteration
+            	//if this is not the first iteration
             	if (currentTrainee != null) {
             		noteFormatted2d.add(traineeNotes);
             	}
