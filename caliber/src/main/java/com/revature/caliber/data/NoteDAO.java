@@ -81,7 +81,8 @@ public class NoteDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Note> findBatchNotes(Integer batchId, Integer week) {
 		log.info("Finding batch notes for week " + week + BATCH + batchId);
-		return sessionFactory.getCurrentSession().createCriteria(Note.class).createAlias(BATCH, "b")
+		return sessionFactory.getCurrentSession().createCriteria(Note.class)
+				.createAlias(BATCH, "b")
 				.createAlias(B_TRAINEES, "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped))
 				.add(Restrictions.eq(B_BATCH_ID, batchId))
@@ -105,8 +106,10 @@ public class NoteDAO {
 	public List<Note> findIndividualNotes(Integer batchId, Integer week) {
 		log.info("Finding individual notes for week " + week + " " + BATCH + batchId);
 		return sessionFactory.getCurrentSession().createCriteria(Note.class)
+				.createAlias(BATCH, "b")
 				.createAlias(TRAINEE, "t", JoinType.LEFT_OUTER_JOIN)
-				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped)).createAlias("t.batch", "b")
+				.createAlias(B_TRAINEES, "bt", JoinType.LEFT_OUTER_JOIN)
+				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped))
 				.add(Restrictions.eq(B_BATCH_ID, batchId))
 				.add(Restrictions.eq("week", week.shortValue()))
 				.add(Restrictions.eq("type", NoteType.TRAINEE))
@@ -123,8 +126,11 @@ public class NoteDAO {
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public Note findTraineeNote(Integer traineeId, Integer week) {
-		return (Note) sessionFactory.getCurrentSession().createCriteria(Note.class).setFetchMode(BATCH, FetchMode.JOIN)
-				.createAlias(TRAINEE, "t").add(Restrictions.eq(T_TRAINEE_ID, traineeId))
+		return (Note) sessionFactory.getCurrentSession().createCriteria(Note.class)
+				.createAlias(BATCH, "b")
+				.createAlias(TRAINEE, "t", JoinType.LEFT_OUTER_JOIN)
+				.createAlias(B_TRAINEES, "bt", JoinType.LEFT_OUTER_JOIN)
+				.add(Restrictions.eq(T_TRAINEE_ID, traineeId))
 				.add(Restrictions.eq("week", week.shortValue())).add(Restrictions.eq("type", NoteType.TRAINEE))
 				.add(Restrictions.eq(QC_FEEDBACK, false))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).uniqueResult();
@@ -139,8 +145,11 @@ public class NoteDAO {
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public Note findQCTraineeNote(Integer traineeId, Integer week) {
-		return (Note) sessionFactory.getCurrentSession().createCriteria(Note.class).setFetchMode(BATCH, FetchMode.JOIN)
-				.createAlias(TRAINEE, "t").add(Restrictions.eq(T_TRAINEE_ID, traineeId))
+		return (Note) sessionFactory.getCurrentSession().createCriteria(Note.class)
+				.createAlias(BATCH, "b")
+				.createAlias(TRAINEE, "t", JoinType.LEFT_OUTER_JOIN)
+				.createAlias(B_TRAINEES, "bt", JoinType.LEFT_OUTER_JOIN)
+				.add(Restrictions.eq(T_TRAINEE_ID, traineeId))
 				.add(Restrictions.eq("week", week.shortValue())).add(Restrictions.eq("type", NoteType.QC_TRAINEE))
 				.add(Restrictions.eq(QC_FEEDBACK, true)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 				.uniqueResult();
@@ -156,7 +165,8 @@ public class NoteDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public Note findQCBatchNotes(Integer batchId, Integer week) {
 		log.info("Finding QC batch notes for week " + week + " " + BATCH + batchId);
-		return (Note) sessionFactory.getCurrentSession().createCriteria(Note.class).createAlias(BATCH, "b")
+		return (Note) sessionFactory.getCurrentSession().createCriteria(Note.class)
+				.createAlias(BATCH, "b")
 				.createAlias(B_TRAINEES, "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped))
 				.add(Restrictions.eq("type", NoteType.QC_BATCH))
@@ -177,7 +187,8 @@ public class NoteDAO {
 		log.info("Finding All batch notes for batch " + BATCH + batchId);
 		Calendar endDateLimit = Calendar.getInstance();	
 		endDateLimit.add(Calendar.MONTH, MONTHS_BACK);
-		return sessionFactory.getCurrentSession().createCriteria(Note.class).createAlias(BATCH, "b")
+		return sessionFactory.getCurrentSession().createCriteria(Note.class)
+				.createAlias(BATCH, "b")
 				.createAlias(B_TRAINEES, "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped))
 				.add(Restrictions.eq("type", NoteType.QC_BATCH))
@@ -197,7 +208,9 @@ public class NoteDAO {
 	public List<Note> findQCIndividualNotes(Integer traineeId, Integer week) {
 		log.info("Finding QC individual notes for week " + week + " for trainee: " + traineeId);
 		return sessionFactory.getCurrentSession().createCriteria(Note.class)
+				.createAlias(BATCH, "b")
 				.createAlias(TRAINEE, "t", JoinType.LEFT_OUTER_JOIN)
+				.createAlias(B_TRAINEES, "bt", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped))
 				.add(Restrictions.eq(T_TRAINEE_ID, traineeId))
 				.add(Restrictions.eq("week", week.shortValue()))
@@ -217,7 +230,8 @@ public class NoteDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Note> findAllBatchNotes(Integer batchId, Integer week) {
 		log.info("Finding All batch notes for week " + week + " " + BATCH + batchId);
-		return sessionFactory.getCurrentSession().createCriteria(Note.class).createAlias(BATCH, "b")
+		return sessionFactory.getCurrentSession().createCriteria(Note.class)
+				.createAlias(BATCH, "b")
 				.createAlias(B_TRAINEES, "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped))
 				.add(Restrictions.eq("type", NoteType.BATCH))
@@ -237,7 +251,9 @@ public class NoteDAO {
 	public List<Note> findAllIndividualNotes(Integer traineeId, Integer week) {
 		log.info("Finding All individual notes for week " + week + " for trainee: " + traineeId);
 		return sessionFactory.getCurrentSession().createCriteria(Note.class)
-				.createAlias(TRAINEE, "t", JoinType.LEFT_OUTER_JOIN).createAlias(BATCH, "b", JoinType.LEFT_OUTER_JOIN)
+				.createAlias(BATCH, "b")
+				.createAlias(TRAINEE, "t", JoinType.LEFT_OUTER_JOIN)
+				.createAlias(B_TRAINEES, "bt", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped))
 				.add(Restrictions.eq("type", NoteType.TRAINEE))
 				.add(Restrictions.eq(T_TRAINEE_ID, traineeId))
@@ -257,8 +273,9 @@ public class NoteDAO {
 	public List<Note> findAllPublicIndividualNotes(Integer traineeId) {
 		log.info("Finding All individual notes for trainee: " + traineeId);
 		return sessionFactory.getCurrentSession().createCriteria(Note.class)
-				.createAlias(TRAINEE, "t", JoinType.LEFT_OUTER_JOIN).createAlias(BATCH, "b", JoinType.LEFT_OUTER_JOIN)
-				.createAlias(B_TRAINEES, "batchmates", JoinType.LEFT_OUTER_JOIN)
+				.createAlias(BATCH, "b")
+				.createAlias(TRAINEE, "t", JoinType.LEFT_OUTER_JOIN)
+				.createAlias(B_TRAINEES, "bt", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped))
 				.add(Restrictions.eq("type", NoteType.TRAINEE))
 				.add(Restrictions.eq(T_TRAINEE_ID, traineeId)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
@@ -274,7 +291,8 @@ public class NoteDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Note> findAllQCBatchNotes(Integer batchId) {
 		log.info("Find All QC Batch notes");
-		return sessionFactory.getCurrentSession().createCriteria(Note.class).createAlias(BATCH, "b")
+		return sessionFactory.getCurrentSession().createCriteria(Note.class)
+				.createAlias(BATCH, "b")
 				.createAlias(B_TRAINEES, "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped))
 				.add(Restrictions.eq(B_BATCH_ID, batchId)).add(Restrictions.eq(QC_FEEDBACK, true))
@@ -286,14 +304,18 @@ public class NoteDAO {
 	 * Returns all QC notes for trainee in the batch for the week
 	 * 
 	 * @return
+	 * @param BatchID
+ 	 * @param week Number
+ 	 * @return List of notes
 	 */
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Note> findAllQCTraineeNotes(Integer batchId, Integer week) {
 		log.info("Find All QC Trainee notes");
 		return sessionFactory.getCurrentSession().createCriteria(Note.class)
-				.createAlias(TRAINEE, "t", JoinType.LEFT_OUTER_JOIN)
-				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped)).createAlias("t.batch", "b")
+				.createAlias(BATCH, "b")
+				.createAlias(B_TRAINEES, "t", JoinType.LEFT_OUTER_JOIN)
+				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped))
 				.add(Restrictions.eq(B_BATCH_ID, batchId)).add(Restrictions.eq("week", week.shortValue()))
 				.add(Restrictions.eq(QC_FEEDBACK, true)).add(Restrictions.eq("type", NoteType.QC_TRAINEE))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).addOrder(Order.asc("week")).list();
@@ -309,7 +331,9 @@ public class NoteDAO {
 	public List<Note> findAllQCTraineeOverallNotes(Integer traineeId) {
 		log.info("Find All QC Trainee notes for that trainee");
 		return sessionFactory.getCurrentSession().createCriteria(Note.class)
-				.createAlias(TRAINEE, "t", JoinType.LEFT_OUTER_JOIN).createAlias(BATCH, "b", JoinType.LEFT_OUTER_JOIN)
+				.createAlias(BATCH, "b")
+				.createAlias(TRAINEE, "t", JoinType.LEFT_OUTER_JOIN)
+				.createAlias(B_TRAINEES, "bt", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped))
 				.add(Restrictions.eq(T_TRAINEE_ID, traineeId)).add(Restrictions.eq(QC_FEEDBACK, true))
 				.add(Restrictions.eq("type", NoteType.QC_TRAINEE))
@@ -329,8 +353,9 @@ public class NoteDAO {
 	public List<Note> findAllQCTraineeNotesForAllWeeks(Integer batchId) {
 		log.info("Find All QC Trainee notes");
 		return sessionFactory.getCurrentSession().createCriteria(Note.class)
-				.createAlias(TRAINEE, "t", JoinType.LEFT_OUTER_JOIN)
-				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped)).createAlias("t.batch", "b")
+				.createAlias(BATCH, "b")
+				.createAlias(B_TRAINEES, "t", JoinType.LEFT_OUTER_JOIN)
+				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped))
 				.add(Restrictions.eq(B_BATCH_ID, batchId))
 				.add(Restrictions.eq(QC_FEEDBACK, true)).add(Restrictions.eq("type", NoteType.QC_TRAINEE))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).addOrder(Order.asc("week")).list();
