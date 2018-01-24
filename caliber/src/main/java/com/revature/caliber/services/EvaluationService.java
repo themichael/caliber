@@ -303,8 +303,8 @@ public class EvaluationService {
     public List<List<Note>> formatJaggedArray(List<List<Note>> jaggedArray){
             int maxWeeks = 0;
             for(List<Note> row : jaggedArray) {
-                short week = 0;
                 for(Note column : row) {
+                    short week = 0;
                     week = column.getWeek();
                     if(week > maxWeeks) {
                         maxWeeks = week;
@@ -317,6 +317,7 @@ public class EvaluationService {
                 for(short column = 0; column < maxWeeks ; column++ ) {                           
                     if( jaggedArray.get(row).size() <= column || jaggedArray.get(row).get(column).getWeek() != column +1) {
                         Note emptyNote = new Note();
+                        emptyNote.setNoteId(row + column); 	//testing
                         emptyNote.setWeek( (short) (column + 1 ));
                         jaggedArray.get(row).add( column , emptyNote );
                     }
