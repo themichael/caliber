@@ -255,14 +255,14 @@ angular.module("charts").factory(
                 chartData.labels = [];
                 chartData.colors = [];
                 chartData.id = [];
-                chartData.qcOverall; // overall batch qcStatus for current week
-                chartData.displayWeek; // relevant week that is being displayed
+                chartData.qcOverall = []; // overall qcStatus for current week for all batches
+                chartData.displayWeeksMap = {}; // key is batch id, with value as display week
 
                 angular.forEach(data, function(batch) {
                     chartData.labels.push(batch.label);
                     chartData.id.push(batch.id);
-                    chartData.qcOverall = batch.qcOverall;
-                    chartData.displayWeek = batch.displayWeek;
+                    chartData.qcOverall.push(batch.qcOverall);
+                    chartData.displayWeeksMap[batch.id] = batch.displayWeek;
                     var i = 0;
                     angular.forEach(batch.qcStatus, function(value2, key2) {
                         // Because the qcStatuses get randomized, this if else set orders them.
