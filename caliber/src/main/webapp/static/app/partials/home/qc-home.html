@@ -55,10 +55,9 @@
 											<th class="col-sm-2 col-md-2 col-lg-2">{{label}}</th>
 											<td class="col-sm-2 col-md-2 col-lg-2"
 												ng-repeat="series in stackedBarSeries track by $index">{{stackedBarData[$index][$parent.$index]}}</td>
-												<td class="overall-batch-health"
-												ng-class="{'color-red': {{'\'' + qcOverall + '\''}} === 'Poor', 'color-yellow': {{'\'' + qcOverall + '\''}} == 'Average', 'color-green': {{'\'' + qcOverall + '\''}} == 'Good'}">
-												{{ qcOverall != "Undefined" ? qcOverall : "-"}}
-											</td>
+												<td class="overall-batch-health" ng-class="{'color-red': qcOverall[$index] === 'Poor', 'color-yellow': qcOverall[$index] === 'Average', 'color-green': qcOverall[$index] === 'Good'}">
+													{{qcOverall[$index] !== "Undefined" ? qcOverall[$index] : "-" }}
+												</td>
 										</tr>
 									</tbody>
 								</table>
