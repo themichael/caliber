@@ -274,7 +274,7 @@
 													<td class="col-sm-3 col-md-3 col-lg-3">{{traineeInfo[0].trainee.name}}</td>
 													<td class="text-center " ng-repeat="status in traineeInfo">
 														<div ng-if="status.qcStatus == 'Superstar'" id="{{traineeInfo[0].trainee.name}}" value="{{status.noteId}}">
-															<a ng-click="populateModal(traineeInfo[0].trainee.name,status.noteId, )" data-toggle="modal" data-target="#notesModal" class="fa fa-star fa-2x pick mouse-over"></a>
+															<a ng-click="populateModal(traineeInfo[0].trainee.name,status.noteId)" data-toggle="modal" data-target="#notesModal" class="fa fa-star fa-2x pick mouse-over"></a>
 														</div>
 														<div ng-if="status.qcStatus == 'Good'" id="{{traineeInfo[0].trainee.name}}" value="{{status.noteId}}">
 															<a ng-click="populateModal(traineeInfo[0].trainee.name,status.noteId)" data-toggle="modal" data-target="#notesModal" class="fa fa-smile-o fa-2x pick mouse-over"></a>
