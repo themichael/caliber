@@ -313,7 +313,8 @@ public class NoteDAO {
 		log.info("Find All QC Trainee notes");
 		return sessionFactory.getCurrentSession().createCriteria(Note.class)
 				.createAlias(BATCH, "b")
-				.createAlias(B_TRAINEES, "t", JoinType.LEFT_OUTER_JOIN)
+				.createAlias(TRAINEE, "t", JoinType.LEFT_OUTER_JOIN)
+				.createAlias(B_TRAINEES, "bt", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped))
 				.add(Restrictions.eq(B_BATCH_ID, batchId)).add(Restrictions.eq("week", week.shortValue()))
 				.add(Restrictions.eq(QC_FEEDBACK, true)).add(Restrictions.eq("type", NoteType.QC_TRAINEE))
