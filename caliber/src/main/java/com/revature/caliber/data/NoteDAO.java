@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
-import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
@@ -354,7 +353,8 @@ public class NoteDAO {
 		log.info("Find All QC Trainee notes");
 		return sessionFactory.getCurrentSession().createCriteria(Note.class)
 				.createAlias(BATCH, "b")
-				.createAlias(B_TRAINEES, "t", JoinType.LEFT_OUTER_JOIN)
+				.createAlias(TRAINEE, "t")
+				.createAlias(B_TRAINEES, "bt", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped))
 				.add(Restrictions.eq(B_BATCH_ID, batchId))
 				.add(Restrictions.eq(QC_FEEDBACK, true)).add(Restrictions.eq("type", NoteType.QC_TRAINEE))
