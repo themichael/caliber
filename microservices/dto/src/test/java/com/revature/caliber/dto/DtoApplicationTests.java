@@ -1,13 +1,22 @@
 package com.revature.caliber.dto;
 
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockserver.client.server.MockServerClient;
+import org.mockserver.junit.MockServerRule;
+import org.mockserver.model.HttpRequest;
+import org.mockserver.model.HttpResponse;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class DtoApplicationTests {
+	@Rule
+	public MockServerRule mockServerRule = new MockServerRule(this);
+
+	private MockServerClient mockServerClient;
 
 	@Test
 	public void contextLoads() {
