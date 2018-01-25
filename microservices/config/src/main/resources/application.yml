@@ -1,8 +1,13 @@
 server:
   port: 8888
-spring:
+
+spring: 
   cloud:
-    config:
-      server:
-        git:
+    config: 
+      server: 
+        git: 
           uri: https://github.com/Revature-1704-Java/caliberconfig
+          repo: 
+            eureka: https://github.com/Revature-1704-Java/caliberconfig/eureka
+            zuul: https://github.com/Revature-1704-Java/caliberconfig/zuul
+
