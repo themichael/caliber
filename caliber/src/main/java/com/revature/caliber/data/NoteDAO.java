@@ -173,7 +173,7 @@ public class NoteDAO {
 				.add(Restrictions.eq(QC_FEEDBACK, true)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
 				.uniqueResult();
 	}
-	
+
 	/**
 	 * Returns all batch-level notes for a particular batch.
 	 * 
@@ -194,7 +194,7 @@ public class NoteDAO {
 				.add(Restrictions.eq(B_BATCH_ID, batchId))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
-	
+
 	/**
 	 * Returns all individual notes written by QC for a given week.
 	 * 
@@ -304,8 +304,8 @@ public class NoteDAO {
 	 * 
 	 * @return
 	 * @param BatchID
- 	 * @param week Number
- 	 * @return List of notes
+	 * @param week Number
+	 * @return List of notes
 	 */
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
@@ -360,5 +360,5 @@ public class NoteDAO {
 				.add(Restrictions.eq(QC_FEEDBACK, true)).add(Restrictions.eq("type", NoteType.QC_TRAINEE))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).addOrder(Order.asc("week")).list();
 	}
-	
+
 }
