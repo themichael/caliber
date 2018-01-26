@@ -239,6 +239,44 @@ angular
 				});
 		}
 
+
+		//Getting all QC batch notes (overall smiley) for all weeks
+		$scope.getAllQCBatchNotes = function getAllQCBatchNotes() {
+			caliberDelegate.qc.getAllQCBatchNotes($scope.currentBatch.batchId).then(
+				//Success function passed into promise                    
+				(response) => {
+					$scope.totalWeek = 0;
+					$scope.totalNumberOfWeeksInCurrentBatch = 0;
+					$scope.allQCTraineeNotesAllWeeks.forEach(function (key) {
+						for (var i = 0; key.length > i; i++) {
+							$scope.totalWeek = key[i]["week"];
+							if ($scope.totalNumberOfWeeksInCurrentBatch < $scope.totalWeek) {
+								$scope.totalNumberOfWeeksInCurrentBatch = $scope.totalWeek;
+							}
+						}
+					})
+					
+					NProgress.done();
+
+					for (let index = 0; index < $scope.totalNumberOfWeeksInCurrentBatch; index++) {
+						if (response[index] && response[index].week != index + 1) {
+							let weekNum = index + 1;
+							response.splice(index, 0, { week: weekNum });
+						} else if (response[index] == null) {
+							let weekNum = index + 1;
+							response.push({ week: weekNum });
+						}
+					}
+					$scope.batchQCNotes = response;
+				},
+				//Failed function passed into promise
+				(response) => {
+					NProgress.done();
+					$log.debug("Failed to asynchronously pull data from backend. " + response);
+				}
+			)
+		};
+
 		//Get All Trainees (from current batch) QC Notes from all weeks 
 		function getAllQCTraineeNoteForAllWeeks() {
 			caliberDelegate.qc.getAllQCTraineeNoteForAllWeeks($scope.currentBatch.batchId)
@@ -246,7 +284,7 @@ angular
 				(response) => {
 					NProgress.done();
 					$scope.allQCTraineeNotesAllWeeks = response;
-					console.log($scope.allQCTraineeNotesAllWeeks);
+					$scope.getAllQCBatchNotes();
 				},
 				(response) => {
 					NProgress.done();
@@ -274,43 +312,6 @@ angular
 			}
 
 		}
-
-
-		//Getting all QC batch notes (overall smiley) for all weeks
-		function getAllQCBatchNotes() {
-			caliberDelegate.qc.getAllQCBatchNotes($scope.currentBatch.batchId).then(
-				//Success function passed into promise                    
-				(response) => {
-
-					$scope.totalWeek = 0;
-					$scope.totalNumberOfWeeksInCurrentBatch = 0;
-					$scope.allQCTraineeNotesAllWeeks.forEach(function (key) {
-						for (var i = 0; key.length > i; i++) {
-							$scope.totalWeek = key[i]["week"];
-							if ($scope.totalNumberOfWeeksInCurrentBatch < $scope.totalWeek) {
-								$scope.totalNumberOfWeeksInCurrentBatch = $scope.totalWeek;
-							}
-						}
-					})
-
-					NProgress.done();
-
-					console.log($scope.totalNumberOfWeeksInCurrentBatch);
-					for (let index = 0; index < $scope.totalNumberOfWeeksInCurrentBatch; index++) {
-						if (response[index].week != index + 1) {
-							let weekNum = index + 1;
-							response.splice(index, 0, { week: weekNum });
-						}
-					}
-					$scope.batchQCNotes = response;
-				},
-				//Failed function passed into promise
-				(response) => {
-					NProgress.done();
-					$log.debug("Failed to asynchronously pull data from backend. " + response);
-				}
-			)
-		};
 
 		$scope.populateModal = function populateModal(id, value) {
 			$scope.traineeNameAndNoteId = $scope.allQCTraineeNotesAllWeeks;
@@ -600,7 +601,6 @@ angular
 			createWeeklyProgressBatchOverall();
 			getBatchOverallPanelTable();
 			getAllQCTraineeNoteForAllWeeks();
-			getAllQCBatchNotes();
 		}
 
 		function createBatchOverallTrainee() {
