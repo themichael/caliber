@@ -601,7 +601,6 @@ angular
 			createWeeklyProgressBatchOverall();
 			getBatchOverallPanelTable();
 			getAllQCTraineeNoteForAllWeeks();
-			getAllQCBatchNotes();
 		}
 
 		function createBatchOverallTrainee() {
