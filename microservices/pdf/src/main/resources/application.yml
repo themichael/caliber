@@ -12,3 +12,10 @@ eureka:
   client:
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
+      
+security:
+  basic:
+    enabled: false
+  user:
+    name: user
+    password: pass
