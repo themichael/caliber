@@ -22,43 +22,44 @@ public class RedirectToAuthenticationPreFilter extends ZuulFilter {
     @Override
     public Object run() {
         RequestContext ctx = RequestContext.getCurrentContext();
-        HttpServletRequest request = ctx.getRequest();
-        String requestUrl = request.getRequestURL();
+        String contextURI = (String) ctx.get("requestURI");
+        
 
         //these endpoints should bypass authentication
-        if(requestUrl.contains("/security/test"))
+        if(contextURI.contains("/security/test"))
         {
-            return new ModelAndView("forward:/security/authorize");
+            context.put("requestURI", "/security/authorize");
         }
-        if(requestUrl.contains("/revoke"))
+        else if(contextURI.contains("/revoke"))
         {
-            return new ModelAndView("forward:/security/revoke");
-        }
-        if(requestUrl.contains("/revoke"))
+            context.put("requestURI", "forward:/security/revoke");
+        } 
+        else if(contextURI.contains("/revoke"))
         {
-            return new ModelAndView("forward:/security/revoke");
+            context.put("requestURI", "forward:/security/revoke");
         }
-        if(requestUrl.contains("/authenticated_token"))
+        else if(contextURI.contains("/authenticated_token"))
         {
-            return new ModelAndView("forward:/security/authenticated_token");
+            context.put("requestURI", "forward:/security/authenticated_token");
         }
-        if(requestUrl.contains("/authenticated"))
+        else if(contextURI.contains("/authenticated"))
         {
-            return new ModelAndView("forward:/security/authenticated");
+            context.put("requestURI", "forward:/security/authenticated");
         }
+        else if
         // add code to exclude localhost:8080/ nothing or caliber/ nothing eventually
-        if(System.getEnv("CALIBER_DEV_MODE").equals("true"))
+        (System.getEnv("CALIBER_DEV_MODE").equals("true"))
         {
-            if(requestUrl.length() > 14 && requestUrl.substring(requestUrl.length() - 15).equals("localhost:8080/"))//ends with localhost:8080/
-            return new ModelAndView("forward:/security/");
+            if(contextURI.length() > 14 && contextURI.substring(contextURI.length() - 15).equals("localhost:8080/"))//ends with localhost:8080/
+            context.put("requestURI", "forward:/security/");
         }
         else
         {
-            if(requestUrl.length() > 7 && requestUrl.substring(requestUrl.length() - 8).equals("caliber/"))//ends with caliber/
-            return new ModelAndView("forward:/security/");
+            if(contextURI.length() > 7 && contextURI.substring(contextURI.length() - 8).equals("caliber/"))//ends with caliber/
+            context.put("requestURI", "forward:/security/");
         }
-
-        return new ModelAndView("forward:/security/authorize");//anything that is not one of those endpoints goes here
+        else
+            context.put("requestURI", "forward:/security/authorize");//anything that is not one of those endpoints goes here
         return null;
     }
  
