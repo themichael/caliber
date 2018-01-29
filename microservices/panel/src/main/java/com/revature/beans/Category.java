@@ -1,4 +1,4 @@
-package com.revature.category.beans;
+package com.revature.beans;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -19,12 +19,15 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-
+/**
+ * The type Category.
+ */
 @Entity
 @Table(name = "CALIBER_CATEGORY")
 @Cacheable
 @Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
-public class Category {
+public class Category implements Serializable {
+
 	private static final long serialVersionUID = 3363756954535297728L;
 
 	@Id
@@ -42,12 +45,10 @@ public class Category {
 	@Column(name = "IS_ACTIVE", nullable=false)
 	private boolean active;
 
-	
 	@OneToMany(mappedBy = "category")
 	@JsonIgnore
 	@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Assessment> assessments;
-	
 
 	/**
 	 * Instantiates a new Category.
@@ -118,22 +119,19 @@ public class Category {
 	 *
 	 * @return the assessments
 	 */
-	
 	public Set<Assessment> getAssessments() {
 		return assessments;
 	}
-	
+
 	/**
 	 * Sets assessments.
 	 *
 	 * @param assessments
 	 *            the assessments
 	 */
-	
 	public void setAssessments(Set<Assessment> assessments) {
 		this.assessments = assessments;
 	}
-	
 
 	@Override
 	public int hashCode() {
@@ -167,4 +165,5 @@ public class Category {
 	public String toString() {
 		return skillCategory;
 	}
+
 }
