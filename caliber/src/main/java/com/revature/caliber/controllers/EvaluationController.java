@@ -64,6 +64,19 @@ public class EvaluationController {
 	}
 
 	/**
+	 * Create grade with DTO
+	 *
+	 * @param grade
+	 * @return
+	 */
+	@RequestMapping(value = "/dto/grade", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Grade> createGradeByDTO(@Valid @RequestBody Grade grade) {
+		log.info("Saving grade: " + grade);
+		evaluationService.save(grade);
+		return new ResponseEntity<>(grade, HttpStatus.CREATED);
+	}
+
+	/**
 	 * Update grade
 	 *
 	 * @param grade
@@ -77,6 +90,19 @@ public class EvaluationController {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
+	/**
+	 * Update grade with DTO
+	 *
+	 * @param grade
+	 * @return
+	 */
+	@RequestMapping(value = "/dto/grade/", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Void> updateGradeByDTO(@Valid @RequestBody Grade grade) {
+		log.info("Updating grade: " + grade);
+		//evaluationService.update(grade);
+		// TODO: supporting implentation does not currently exist
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
 
 	/**
 	 * Returns grades for all trainees in the batch on a given week. Used to load

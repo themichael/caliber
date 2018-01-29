@@ -67,6 +67,21 @@ public class AssessmentController {
 	}
 
 	/**
+	 * Assessment created through DTO
+	 * 
+	 * @param assessment
+	 *            the assessment
+	 * @return the response entity
+	 */
+	@RequestMapping(value = "/dto/assessment/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public ResponseEntity<Void> createAssessmentByDTO(@Valid @RequestBody Assessment assessment) {
+		log.info("Creating assessment: " + assessment);
+		assessmentService.save(assessment);
+		return new ResponseEntity<>(HttpStatus.CREATED);
+	}
+
+	/**
 	 * Delete assessment response entity.
 	 *
 	 * @param id
