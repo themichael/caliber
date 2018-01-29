@@ -19,7 +19,8 @@ import com.revature.controller.PDFController;
 
 @RestController
 @PreAuthorize("isAuthenticated()")
-@CrossOrigin(origins = "http://ec2-54-163-132-124.compute-1.amazonaws.com")
+//@CrossOrigin(origins = "http://ec2-54-163-132-124.compute-1.amazonaws.com")
+//@CrossOrigin(origins = "http://localhost")
 public class PDFController {
 
 	private static final Logger log = Logger.getLogger(PDFController.class);
@@ -31,7 +32,7 @@ public class PDFController {
 	}
 
 	@RequestMapping(value = "/report/generate", method = RequestMethod.POST)
-	//@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER','PANEL')")
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER','PANEL')")
 	public HttpEntity<byte[]> generate(
 			@RequestParam(name = "title", value = "title", defaultValue = "Performance at a Glance") String title,
 			@RequestBody String html) {
