@@ -19,8 +19,7 @@ import com.revature.controller.PDFController;
 
 @RestController
 @PreAuthorize("isAuthenticated()")
-//@CrossOrigin(origins = "http://ec2-54-163-132-124.compute-1.amazonaws.com")
-//@CrossOrigin(origins = "http://localhost")
+@CrossOrigin(origins = "http://ec2-54-163-132-124.compute-1.amazonaws.com")
 public class PDFController {
 
 	private static final Logger log = Logger.getLogger(PDFController.class);
