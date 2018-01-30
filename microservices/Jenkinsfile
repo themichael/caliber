@@ -1,0 +1,33 @@
+pipeline {
+  agent any
+  
+  
+
+  stages {
+    stage ("Stopping"){
+    	steps {
+	  sh "docker-compose stop"
+	}
+   } 
+   stage ("Clean") {
+    	steps {
+	  sh "mvn clean"
+	}
+   }
+   stage ("Install") {
+        steps {
+	    sh "mvn install"
+	  }
+    }
+    stage ("Package"){
+        steps {
+	   sh "mvn package"
+  	}
+    }
+    stage ("Deploy Containers") {
+    	steps {
+	   sh "docker-compose up -d"
+ 	}
+    }
+  }
+}
