@@ -1,9 +1,5 @@
 pipeline {
   agent any
-  
- tools {
-        maven 'Maven 3.3.9'
-    }  
 
   stages {
      stage("Init"){
@@ -14,6 +10,11 @@ pipeline {
 		  '''
 	      }
        }
+     stage ("mvnw"){
+     	   steps {
+	   	 sh "mvnw clean install"
+		 }
+     }
 /*    stage ("Stopping"){
     	steps {
 	  sh "docker-compose stop"
