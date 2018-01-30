@@ -21,9 +21,10 @@ public class RedirectToAuthenticationPreFilter extends ZuulFilter {
  
     @Override
     public Object run() {
-        RequestContext ctx = RequestContext.getCurrentContext();
-        String contextURI = (String) ctx.get("requestURI");
+        RequestContext context = RequestContext.getCurrentContext();
+        String contextURI = (String) context.get("requestURI");
         
+        context.put("preRedirectRequestUri", contextURI);
 
         //these endpoints should bypass authentication
         if(contextURI.contains("/security/test"))
