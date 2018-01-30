@@ -3,12 +3,12 @@ pipeline {
   
   
 
-  stages {
-    stage ("Stopping"){
-    	steps {
-	  sh "docker-compose stop"
-	}
-   } 
+//  stages {
+//    stage ("Stopping"){
+//    	steps {
+//	  sh "docker-compose stop"
+//	}
+ //  } 
    stage ("Clean") {
     	steps {
 	  sh "mvn clean"
