@@ -3,7 +3,7 @@ pipeline {
   
   
 
-//  stages {
+  stages {
 //    stage ("Stopping"){
 //    	steps {
 //	  sh "docker-compose stop"
