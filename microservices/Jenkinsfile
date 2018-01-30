@@ -2,15 +2,23 @@ pipeline {
   agent any
   
  tools {
-        maven 'apache-maven-3.0.1' 
+        maven 'Maven 3.3.9'
     }  
 
   stages {
-//    stage ("Stopping"){
-//    	steps {
-//	  sh "docker-compose stop"
-//	}
- //  } 
+     stage("Init"){
+	steps {
+	      sh '''
+	      	  echo "PATH = ${PATH}
+		  echo "M2_HOME = ${M2_HOME}"
+		  '''
+	      }
+       }
+/*    stage ("Stopping"){
+    	steps {
+	  sh "docker-compose stop"
+	}
+  } 
    stage ("Clean") {
     	steps {
 	  sh "mvn clean"
@@ -31,5 +39,6 @@ pipeline {
 	   sh "docker-compose up -d"
  	}
     }
+*/
   }
 }
