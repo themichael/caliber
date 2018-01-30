@@ -2,6 +2,7 @@ package com.revature.caliber.controllers;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -67,10 +68,13 @@ public class DTOAssessmentController {
 	}
 	*/
 	
-	@RequestMapping(value = "/dto/create/assessment/{skillCategory}/{batchId}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/dto/create/assessment", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("permitAll()")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	public ResponseEntity<Void> createAssessment(@PathVariable String skillCategory, @PathVariable int batchId) {
+	public ResponseEntity<Void> createAssessment(@RequestBody Map<String, String> json) {
+		String skillCategory = json.get("skillCategory");
+		int batchId = Integer.parseInt(json.get("batchId"));
+		
 		String title = "";
 		Batch batch = trainingService.findBatch(batchId);
 		int rawScore = 70;
