@@ -8,8 +8,8 @@ services:
     build: ./config
 #  panel:
 #    build: ./panel
-  trainer:
-    build: ./trainer
+#  trainer:
+#   build: ./trainer
 #  pdf:
 #    build: ./pdf
 #  category:
