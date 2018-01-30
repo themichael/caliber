@@ -1,7 +1,9 @@
-version = "3"
+version: "3"
 services:
   zuul:
-    build: /zuul
+    build: ./zuul
+    ports: 
+    - "8181:8181"
 
 
   
