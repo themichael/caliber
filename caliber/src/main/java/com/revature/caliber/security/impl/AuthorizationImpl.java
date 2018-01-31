@@ -24,6 +24,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -84,6 +85,7 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 	 * @throws URISyntaxException
 	 */
 	@RequestMapping("/authenticated")
+	@PreAuthorize("@securityTest.canPass()")
 	public ModelAndView generateSalesforceToken(HttpServletRequest servletRequest, HttpServletResponse servletResponse,
 			@RequestParam(value = "code") String code, RedirectAttributes redirectAttributes)
 			throws IOException, URISyntaxException {
