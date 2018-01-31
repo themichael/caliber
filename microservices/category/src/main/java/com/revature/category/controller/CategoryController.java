@@ -67,6 +67,7 @@ public class CategoryController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP')")
 	public ResponseEntity<Category> updateCategory(@Valid @RequestBody Category category) {
+		
 		categoryService.updateCategory(category);
 		return new ResponseEntity<>(category, HttpStatus.OK);
 	}

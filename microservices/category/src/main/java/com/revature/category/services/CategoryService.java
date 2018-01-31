@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.category.beans.Category;
+import com.revature.category.message.MessageSender;
 
 /**
  * Provides logic concerning categories data. Application logic has no business
@@ -19,10 +20,10 @@ import com.revature.category.beans.Category;
  */
 @Service
 public class CategoryService {
-		/*
+		
 		private static final Logger log = Logger.getLogger(CategoryService.class);
-		private CategoryDAO categoryDAO;
-
+		//private CategoryDAO categoryDAO;
+/*
 		@Autowired
 		public void setCategoryDAO(CategoryDAO categoryDAO) {
 			this.categoryDAO = categoryDAO;
@@ -36,7 +37,8 @@ public class CategoryService {
 	
 		@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 		public List<Category> findAllActive() {
-			return null;
+			log.debug("requesting categories");
+			return MessageSender.send("findallactive");
 			/*
 			log.debug("Requesting categories");
 			return categoryDAO.findAllActive();
@@ -51,11 +53,10 @@ public class CategoryService {
 		 */
 	
 		public List<Category> findAll() {
-			return null;
-			/*
+			
 			log.debug("Requesting categories");
-			return categoryDAO.findAll();
-			*/
+			return MessageSender.send("findall");
+			
 		}
 	
 		/**
@@ -67,11 +68,10 @@ public class CategoryService {
 	
 		@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 		public Category findCategory(int categoryId) {
-			return null;
-			/*
+			
 			log.debug("Find category: " + categoryId);
-			return categoryDAO.findOne(categoryId);
-			*/
+			return MessageSender.send(categoryId);
+			
 		}
 	
 		/**
@@ -82,19 +82,17 @@ public class CategoryService {
 	
 		@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 		public void updateCategory(Category category) {
-			/*
+			
 			log.debug("Update category: " + category);
-			categoryDAO.update(category);
-			*/
+			MessageSender.send(category);
+			
 		}
 	
 	
 		@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 		public void saveCategory(Category category) {
-			/*
 			log.debug("Save category: " + category);
-			categoryDAO.save(category);
-			*/
+			MessageSender.send(category);
 		}
 		
 		
