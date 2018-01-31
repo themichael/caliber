@@ -4,8 +4,6 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -62,6 +60,13 @@ public class DTOController {
 		this.evaluationService = evaluationService;
 	}
 	
+	/**
+	 * Creates an Assessment with only a skill category and batch id passed in.
+	 * The Assessment is built up by calling various services to fill in missing information.
+	 * The Assessment is passed to the assessment service to be handled.
+	 * @param json A Map<String, String> derived from a Json containing only a "skillCategory" and "batchId" field
+	 * @return HttpStatus
+	 */
 	@RequestMapping(value = "/dto/assessment/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("permitAll()")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
@@ -96,6 +101,13 @@ public class DTOController {
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	
+	/**
+	 * Creates a grade from only an Assessment Id, score, and Trainee Id.
+	 * The grade is built up by building up an Assessment and Trainee object and using them to fill in missing information.
+	 * The grade is passed to the evaluation service to be handled.
+	 * @param json A Map<String, String> derived from a Json containing only an "assessmentId", "grade", and "trainee" field
+	 * @return The created Grade and a HttpStatus
+	 */
 	@RequestMapping(value = "/dto/grade/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("permitAll()")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
@@ -118,6 +130,14 @@ public class DTOController {
 		return new ResponseEntity<>(grade, HttpStatus.CREATED);
 	}
 	
+	/**
+	 * Updates a grade from only an Assessment Id, score, and Trainee Id.
+	 * The grade is built up by building up an Assessment and Trainee object and using them to fill in missing information.
+	 * The grade is passed to the evaluation service to be handled.
+	 * As of this moment (1/31/18) the evaluation service cannot modify existing grades, so a new grade is inserted instead.
+	 * @param json A Map<String, String> derived from a Json containing only an "assessmentId", "grade", and "trainee" field
+	 * @return HttpStatus
+	 */
 	@RequestMapping(value = "/dto/grade/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("permitAll()")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
@@ -132,43 +152,44 @@ public class DTOController {
 		
 		Trainee trainee = trainingService.findTrainee(traineeId);
 		
-		long gradeId = 0;
 		Date gradeDate = new Date();
 		Grade grade = new Grade(assessment, trainee, gradeDate, score);
 		
-		/*
-		// Find the grade associated with the given Assessment and Trainee Id
-		int week = assessment.getWeek();
-		Map<Integer, List<Grade>> table = evaluationService.findGradesByWeek(batchId, week);
-		
-		// Find the entry with the matching Trainee Id
-		Iterator<Entry<Integer, List<Grade>>> tableIter = table.entrySet().iterator();
-		while(tableIter.hasNext()) {
-			Entry<Integer, List<Grade>> entry = tableIter.next();
-			
-			if (entry.getKey() == trainee.getTraineeId()) {
-				// Find the matching the assessment from the list of Grades
-				Iterator<Grade> gradeIter = entry.getValue().iterator();
-				while(gradeIter.hasNext()) {
-					Grade gradeObj = gradeIter.next();
-					
-					if (gradeObj.getAssessment().getAssessmentId() == assessment.getAssessmentId()) {
-						// Extract the Grade information
-						gradeId = gradeObj.getGradeId();
-						gradeDate = gradeObj.getDateReceived();
-						break;
-					}
-				}
-			}
-		}
-		
-		if (gradeId != 0)
-			grade.setGradeId(gradeId);
-		grade.setDateReceived(gradeDate);*/
+		// Insert commented out code here if evaluation service becomes able to modify existing grades
 		
 		log.info("MSA Updating grade: " + grade);
 		evaluationService.update(grade);
 		
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
+	
+//	// Find the grade associated with the given Assessment and Trainee Id
+//	long gradeId = 0;
+//	int week = assessment.getWeek();
+//	Map<Integer, List<Grade>> table = evaluationService.findGradesByWeek(batchId, week);
+//	
+//	// Find the entry with the matching Trainee Id
+//	Iterator<Entry<Integer, List<Grade>>> tableIter = table.entrySet().iterator();
+//	while(tableIter.hasNext()) {
+//		Entry<Integer, List<Grade>> entry = tableIter.next();
+//		
+//		if (entry.getKey() == trainee.getTraineeId()) {
+//			// Find the matching the assessment from the list of Grades
+//			Iterator<Grade> gradeIter = entry.getValue().iterator();
+//			while(gradeIter.hasNext()) {
+//				Grade gradeObj = gradeIter.next();
+//				
+//				if (gradeObj.getAssessment().getAssessmentId() == assessment.getAssessmentId()) {
+//					// Extract the Grade information
+//					gradeId = gradeObj.getGradeId();
+//					gradeDate = gradeObj.getDateReceived();
+//					break;
+//				}
+//			}
+//		}
+//	}
+//	
+//	if (gradeId != 0)
+//		grade.setGradeId(gradeId);
+//	grade.setDateReceived(gradeDate);
 }
