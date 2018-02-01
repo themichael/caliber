@@ -1,7 +1,6 @@
 package com.revature.caliber.email;
 
 import java.io.IOException;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
@@ -21,6 +20,7 @@ import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.google.gson.JsonObject;
 import com.revature.caliber.beans.Assessment;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Grade;
@@ -208,27 +208,27 @@ public class Mailer implements Runnable {
 		 * Sends message to batchDAO service for the method findAll()
 		 * Returns the response as a list
 		 * */
-		List<Batch> response = (List<Batch>) rabbitMqTemplate.convertSendAndReceive("caliber.exchange", "caliber.queue", "findAll()");
+		JsonObject message = new JsonObject();
+		message.addProperty("methodName", "findAll");
+		List<Batch> response = (List<Batch>) rabbitMqTemplate.convertSendAndReceive("caliber.exchange", "caliber.queue", message);
 		return response;
 //		return this.batchDAO.findAll();
 	}
 	
 	private List<Assessment> getAssessments(int batchID) {
-		/*
-		 * Work in progress wait for dao team to figure out how to format message to grab info
-		 * */
-		String method_call = "findByBatch(" + batchID + ")";
-		List<Assessment> response = (List<Assessment>) rabbitMqTemplate.convertSendAndReceive("caliber.exchange", "caliber.queue", method_call);
+		JsonObject message = new JsonObject();
+		message.addProperty("methodName", "findByBatch");
+		message.addProperty("batchId", batchID);
+		List<Assessment> response = (List<Assessment>) rabbitMqTemplate.convertSendAndReceive("caliber.exchange", "caliber.queue", message);
 		return response;
 //		return this.assessmentDAO.findByBatchId(batchID);
 	}
 	
 	private int getActualNumberOfGrades(List<Assessment> expectedAssessments, int batchID){
-		/*
-		 * Work in progress wait for dao team to figure out how to format message to grab info
-		 * */
-		String method_call = "findByBatch(" + batchID + ")";
-		List<Grade> allGrades = (List<Grade>) rabbitMqTemplate.convertSendAndReceive("caliber.exchange", "caliber.queue", method_call);
+		JsonObject message = new JsonObject();
+		message.addProperty("methodName", "findByBatch");
+		message.addProperty("batchId", batchID);
+		List<Grade> allGrades = (List<Grade>) rabbitMqTemplate.convertSendAndReceive("caliber.exchange", "caliber.queue", message);
 //		List<Grade> allGrades = gradeDAO.findByBatch(batchID);
 		int gradeCounter = 0;
 		for(Grade grade: allGrades) {

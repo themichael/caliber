@@ -1,6 +1,7 @@
 package com.revature.caliberemailservice;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Set;
 
@@ -9,6 +10,7 @@ import org.junit.Test;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.google.gson.JsonObject;
 import com.revature.caliber.CaliberTest;
 import com.revature.caliber.beans.Trainer;
 //import com.revature.caliber.data.TrainerDAO;
@@ -56,29 +58,45 @@ public class MailerTest extends CaliberTest {
 	@Before
 	public void setUp() throws Exception {
 		this.trainersToSubmitGrades = this.mailer.getTrainersWhoNeedToSubmitGrades();
-		String method_call = "findByEmail(" + "grawyne@gmail.com" + ")";
-		this.gray = (Trainer) rabbitMqTemplate.convertSendAndReceive("caliber.exchange", "caliber.queue", method_call);
+		JsonObject jobj = new JsonObject();
+		jobj.addProperty("methodName", "findByEmail");
+		jobj.addProperty("email", "grawyne@gmail.com");
+		this.gray = (Trainer) rabbitMqTemplate.convertSendAndReceive("caliber.exchange", "caliber.queue", jobj);
 //		this.gray = this.trainerDAO.findByEmail("grawyne@gmail.com");
-		method_call = "findByEmail(" + "patrick.walsh@revature.com" + ")";
-		this.patrick = (Trainer) rabbitMqTemplate.convertSendAndReceive("caliber.exchange", "caliber.queue", method_call);
+		jobj = new JsonObject();
+		jobj.addProperty("methodName", "findByEmail");
+		jobj.addProperty("email", "patrick.walsh@revature.com");
+		this.patrick = (Trainer) rabbitMqTemplate.convertSendAndReceive("caliber.exchange", "caliber.queue", jobj);
 //		this.patrick = this.trainerDAO.findByEmail("patrick.walsh@revature.com");
-		method_call = "findByEmail(" + "pjw6193@hotmail.com" + ")";
-		this.dan = (Trainer) rabbitMqTemplate.convertSendAndReceive("caliber.exchange", "caliber.queue", method_call);
+		jobj = new JsonObject();
+		jobj.addProperty("methodName", "findByEmail");
+		jobj.addProperty("email", "pjw6193@hotmail.com");
+		this.dan = (Trainer) rabbitMqTemplate.convertSendAndReceive("caliber.exchange", "caliber.queue", jobj);
 //		this.dan = this.trainerDAO.findByEmail("pjw6193@hotmail.com");
-		method_call = "findByEmail(" + "owallace@mailinator.com" + ")";
-		this.orson = (Trainer) rabbitMqTemplate.convertSendAndReceive("caliber.exchange", "caliber.queue", method_call);
+		jobj = new JsonObject();
+		jobj.addProperty("methodName", "findByEmail");
+		jobj.addProperty("email", "owallace@mailinator.com");
+		this.orson = (Trainer) rabbitMqTemplate.convertSendAndReceive("caliber.exchange", "caliber.queue", jobj);
 //		this.orson = this.trainerDAO.findByEmail("owallace@mailinator.com");
-		method_call = "findByEmail(" + "slevinson@mailinator.com" + ")";
-		this.shelby = (Trainer) rabbitMqTemplate.convertSendAndReceive("caliber.exchange", "caliber.queue", method_call);
+		jobj = new JsonObject();
+		jobj.addProperty("methodName", "findByEmail");
+		jobj.addProperty("email", "slevinson@mailinator.com");
+		this.shelby = (Trainer) rabbitMqTemplate.convertSendAndReceive("caliber.exchange", "caliber.queue", jobj);
 //		this.shelby = this.trainerDAO.findByEmail("slevinson@mailinator.com");
-		method_call = "findByEmail(" + "wpayne@mailinator.com" + ")";
-		this.walter = (Trainer) rabbitMqTemplate.convertSendAndReceive("caliber.exchange", "caliber.queue", method_call);
+		jobj = new JsonObject();
+		jobj.addProperty("methodName", "findByEmail");
+		jobj.addProperty("email", "wpayne@mailinator.com");
+		this.walter = (Trainer) rabbitMqTemplate.convertSendAndReceive("caliber.exchange", "caliber.queue", jobj);
 //		this.walter = this.trainerDAO.findByEmail("wpayne@mailinator.com");
-		method_call = "findByEmail(" + "nchurch@mailinator.com" + ")";
-		this.natalie = (Trainer) rabbitMqTemplate.convertSendAndReceive("caliber.exchange", "caliber.queue", method_call);
+		jobj = new JsonObject();
+		jobj.addProperty("methodName", "findByEmail");
+		jobj.addProperty("email", "nchurch@mailinator.com");
+		this.natalie = (Trainer) rabbitMqTemplate.convertSendAndReceive("caliber.exchange", "caliber.queue", jobj);
 //		this.natalie = this.trainerDAO.findByEmail("nchurch@mailinator.com");
-		method_call = "findByEmail(" + "aradcliff@mailinator.com" + ")";
-		this.archer = (Trainer) rabbitMqTemplate.convertSendAndReceive("caliber.exchange", "caliber.queue", method_call);
+		jobj = new JsonObject();
+		jobj.addProperty("methodName", "findByEmail");
+		jobj.addProperty("email", "aradcliff@mailinator.com");
+		this.archer = (Trainer) rabbitMqTemplate.convertSendAndReceive("caliber.exchange", "caliber.queue", jobj);
 //		this.archer = this.trainerDAO.findByEmail("aradcliff@mailinator.com");
 	}
 
