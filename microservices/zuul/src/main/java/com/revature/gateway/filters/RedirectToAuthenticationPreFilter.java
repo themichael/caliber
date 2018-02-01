@@ -35,7 +35,7 @@ public class RedirectToAuthenticationPreFilter extends ZuulFilter {
             }
         }
         
-        if(hasRole)//if the user has already logged in, they will have a cookie named role
+        if(!hasRole)//if the user has already logged in, they will have a cookie named role
         {
             context.put("preRedirectRequestUri", contextURI);
 
@@ -60,11 +60,8 @@ public class RedirectToAuthenticationPreFilter extends ZuulFilter {
             {
                 context.put("requestURI", "forward:/security/authenticated");
             }
-            else if
-            // add code to exclude localhost:8080/ nothing or caliber/ nothing eventually
-            (System.getEnv("CALIBER_DEV_MODE").equals("true"))
+            else if(contextURI.length() > 14 && contextURI.substring(contextURI.length() - 15).equals("localhost:8080/"))//ends with localhost:8080/
             {
-                if(contextURI.length() > 14 && contextURI.substring(contextURI.length() - 15).equals("localhost:8080/"))//ends with localhost:8080/
                 context.put("requestURI", "forward:/security/");
             }
             else
