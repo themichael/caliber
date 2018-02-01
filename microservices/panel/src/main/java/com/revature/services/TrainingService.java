@@ -5,18 +5,15 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.log4j.Logger;
+import org.apache.tomcat.jni.Address;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.revature.beans.Address;
 import com.revature.beans.Batch;
 import com.revature.beans.Trainee;
 import com.revature.beans.Trainer;
 import com.revature.beans.TrainerRole;
-//import com.revature.data.AddressDAO;
-//import com.revature.data.BatchDAO;
-//import com.revature.data.TraineeDAO;
-//import com.revature.caliber.data.TrainerDAO;
+import com.revature.data.*;
 
 /**
  * Provides logic concerning trainer and trainee data. Application logic has no
@@ -30,7 +27,6 @@ import com.revature.beans.TrainerRole;
 public class TrainingService {
 
 	private static final Logger log = Logger.getLogger(TrainingService.class);
-	/*
 	private TrainerDAO trainerDAO;
 	private TraineeDAO traineeDAO;
 	private BatchDAO batchDAO;
@@ -55,7 +51,6 @@ public class TrainingService {
 	public void setAddressDAO(AddressDAO addressDAO) {
 		this.addressDAO = addressDAO;
 	}
-	*/
 
 	/*
 	 *******************************************************
@@ -70,35 +65,26 @@ public class TrainingService {
 	 * @param location
 	 */
 	public void createLocation(Address location) {
-		/*
 		log.debug("Creating Location " + location);
 		addressDAO.save(location);
-		*/
 		;
 	}
 
 	public void update(Address location) {
-		/*
 		log.debug("Update location: " + location);
 		addressDAO.update(location);
-		/*
 	}
 
 	public List<Address> findAllLocations() {
-	/*
 		log.debug("Finding all locations");
 		return addressDAO.findAll();
-		*/
 	}
-	
+
 	public Address findById(int id) {
-		return null;
-		/*
 		log.info("Getting Address with ID " + id);
 		Address address = addressDAO.getAddressById(id);
 		log.info("Got " + address);
 		return address;
-		*/
 	}
 
 	/*
@@ -114,11 +100,9 @@ public class TrainingService {
 	 * @param trainer
 	 */
 	public void createTrainer(Trainer trainer) {
-		/*
 		log.debug("Creating Trainer " + trainer);
 		trainerDAO.save(trainer);
 		;
-		*/
 	}
 
 	/**
@@ -128,14 +112,9 @@ public class TrainingService {
 	 * @return
 	 */
 	public Trainer findTrainer(String email) {
-		return null;
-		/*
 		log.debug("Find trainer by email " + email);
 		return trainerDAO.findByEmail(email);
-		*/
 	}
-	
-	
 
 	/**
 	 * FIND ALL TRAINERS
@@ -143,11 +122,8 @@ public class TrainingService {
 	 * @return
 	 */
 	public List<Trainer> findAllTrainers() {
-		return null;
-		/*
 		log.debug("Finding all trainers");
 		return trainerDAO.findAll();
-		*/
 	}
 
 	/**
@@ -156,10 +132,8 @@ public class TrainingService {
 	 * @param trainer
 	 */
 	public void update(Trainer trainer) {
-		/*
 		log.debug("Update trainer: " + trainer);
 		trainerDAO.update(trainer);
-		*/
 	}
 
 	/**
@@ -169,11 +143,8 @@ public class TrainingService {
 	 * @return
 	 */
 	public Trainer findTrainer(Integer trainerId) {
-		return null;
-		/*
 		log.debug("Find trainer by id: " + trainerId);
 		return trainerDAO.findOne(trainerId);
-		*/
 	}
 
 	/**
@@ -183,22 +154,17 @@ public class TrainingService {
 	 * @param trainer
 	 **/
 	public void makeInactive(Trainer trainer) {
-		/*
 		log.debug(trainer + " is now inactive");
 		trainer.setTier(TrainerRole.ROLE_INACTIVE);
 		trainerDAO.update(trainer);
-		*/
 	}
 
 	/**
 	 * Find all distinct titles that have been given to trainers
 	 **/
 	public List<String> findAllTrainerTitles() {
-		return null;
-		/*
 		log.debug("Found all trainer titles");
 		return trainerDAO.findAllTrainerTitles();
-		*/
 	}
 
 	/*
@@ -210,16 +176,13 @@ public class TrainingService {
 
 	/**
 	 * Returns a list of commonly used locations. Allows user to select from
-	 * locations, but also add new locations manually. Suggested UI component is the
-	 * HTML5 <datalist>
+	 * locations, but also add new locations manually. Suggested UI component is
+	 * the HTML5 <datalist>
 	 *
 	 * @return
 	 */
 	public List<Address> findCommonLocations() {
-		return null;
-		/*
 		return addressDAO.findAll();
-		*/
 	}
 
 	/**
@@ -228,7 +191,6 @@ public class TrainingService {
 	 * @param batchId
 	 */
 	public void addWeek(Integer batchId) {
-		/*
 		log.debug("Adding week to batch: " + batchId);
 		Batch batch = batchDAO.findOne(batchId);
 		if (batch == null)
@@ -236,7 +198,6 @@ public class TrainingService {
 		int weeks = batch.getWeeks();
 		batch.setWeeks(++weeks);
 		batchDAO.update(batch);
-		*/
 	}
 
 	/**
@@ -245,10 +206,8 @@ public class TrainingService {
 	 * @param batch
 	 */
 	public void save(Batch batch) {
-		/*
 		log.debug("Saving batch: " + batch);
 		batchDAO.save(batch);
-		*/
 	}
 
 	/**
@@ -257,11 +216,8 @@ public class TrainingService {
 	 * @return
 	 */
 	public List<Batch> findAllBatches() {
-		/*
 		log.debug("Find all batches");
 		return batchDAO.findAll();
-		*/
-		return null;
 	}
 
 	/**
@@ -270,11 +226,8 @@ public class TrainingService {
 	 * @return
 	 */
 	public List<Batch> findAllCurrentBatches() {
-		/*
 		log.debug("Find all current batches");
 		return batchDAO.findAllCurrent();
-		*/
-		return null;
 	}
 
 	/**
@@ -284,11 +237,8 @@ public class TrainingService {
 	 * @return
 	 */
 	public List<Batch> findAllBatches(int trainerId) {
-		/*
 		log.debug("Find all batches for trainer: " + trainerId);
 		return batchDAO.findAllByTrainer(trainerId);
-		*/
-		return null;
 	}
 
 	/**
@@ -298,11 +248,8 @@ public class TrainingService {
 	 * @return
 	 */
 	public List<Batch> findAllCurrentBatches(int trainerId) {
-		/*
 		log.debug("Find all current batches for trainer: " + trainerId);
 		return batchDAO.findAllCurrent(trainerId);
-		*/
-		return null;
 	}
 
 	/**
@@ -312,11 +259,8 @@ public class TrainingService {
 	 * @return
 	 */
 	public Batch findBatch(Integer batchId) {
-		/*
 		log.debug("Finding batch with id: " + batchId);
 		return batchDAO.findOne(batchId);
-		*/
-		return null;
 	}
 
 	/**
@@ -325,10 +269,8 @@ public class TrainingService {
 	 * @param batch
 	 */
 	public void update(Batch batch) {
-		/*
 		log.debug("Update batch " + batch);
 		batchDAO.update(batch);
-		*/
 	}
 
 	/**
@@ -337,11 +279,9 @@ public class TrainingService {
 	 * @param batch
 	 */
 	public void delete(Batch batch) {
-		/*
 		Batch fullBatch = batchDAO.findOneWithDroppedTrainees(batch.getBatchId());
 		log.debug("Delete batch " + fullBatch);
 		batchDAO.delete(fullBatch);
-		*/
 	}
 
 	/*
@@ -356,10 +296,8 @@ public class TrainingService {
 	 * @param trainee
 	 */
 	public void save(Trainee trainee) {
-		/*
 		log.debug("Save trainee: " + trainee);
 		traineeDAO.save(trainee);
-		*/
 	}
 
 	/**
@@ -368,26 +306,19 @@ public class TrainingService {
 	 * @return
 	 */
 	public List<Trainee> findAllTrainees() {
-		/*
 		log.debug("Find all trainees");
 		return traineeDAO.findAll();
-		*/
-		return null;
 	}
 
 	/**
 	 * FIND ALL TRAINEES BY BATCH ID
 	 *
-	 *
 	 * @param batchId
 	 * @return
 	 */
 	public List<Trainee> findAllTraineesByBatch(Integer batchId) {
-		/*
 		log.debug("Find trainees by batch");
 		return traineeDAO.findAllByBatch(batchId);
-		*/
-		return null;
 	}
 
 	/**
@@ -397,11 +328,8 @@ public class TrainingService {
 	 * @return
 	 */
 	public List<Trainee> findAllDroppedTraineesByBatch(Integer batchId) {
-		/*
 		log.debug("Find dropped trainees by batch");
 		return traineeDAO.findAllDroppedByBatch(batchId);
-		*/
-		return null;
 	}
 
 	/**
@@ -411,11 +339,8 @@ public class TrainingService {
 	 * @return
 	 */
 	public List<Trainee> findAllTraineesByTrainer(int trainerId) {
-		/*
 		log.debug("Find trainees by trainer id: " + trainerId);
 		return traineeDAO.findAllByTrainer(trainerId);
-		*/
-		return null;
 	}
 
 	/**
@@ -425,11 +350,8 @@ public class TrainingService {
 	 * @return
 	 */
 	public Trainee findTrainee(Integer traineeId) {
-		/*
 		log.debug("Find trainee by id: " + traineeId);
 		return traineeDAO.findOne(traineeId);
-		*/
-		return null;
 	}
 
 	/**
@@ -439,7 +361,6 @@ public class TrainingService {
 	 * @return
 	 */
 	public Set<Trainee> search(String searchTerm) {
-		/*
 		log.debug("Find trainee : " + searchTerm);
 		Set<Trainee> result = new HashSet<>();
 		List<Trainee> traineeByEmail = traineeDAO.findByEmail(searchTerm);
@@ -449,10 +370,7 @@ public class TrainingService {
 		List<Trainee> traineeBySkypeId = traineeDAO.findBySkypeId(searchTerm);
 		result.addAll(traineeBySkypeId);
 		return result;
-		*/
-		return null;
 	}
-	
 
 	/**
 	 * DELETE TRAINEE
@@ -460,10 +378,8 @@ public class TrainingService {
 	 * @param trainee
 	 */
 	public void delete(Trainee trainee) {
-		/*
 		log.debug("Delete trainee " + trainee);
 		traineeDAO.delete(trainee);
-		*/
 	}
 
 	/**
@@ -472,10 +388,8 @@ public class TrainingService {
 	 * @param trainee
 	 */
 	public void update(Trainee trainee) {
-		/*
 		log.debug("Update trainee " + trainee);
 		traineeDAO.update(trainee);
-		*/
 	}
 
 }

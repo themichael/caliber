@@ -24,8 +24,8 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 /**
- * Notes and results for each category that the panelist
- * goes over with the associate.
+ * Notes and results for each category that the panelist goes over with the
+ * associate.
  * 
  * @author Patrick Walsh
  *
@@ -33,7 +33,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 @Entity
 @Table(name = "CALIBER_PANEL_FEEDBACK")
 @Cacheable
-@Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class PanelFeedback {
 
 	@Id
@@ -41,28 +41,28 @@ public class PanelFeedback {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PANEL_FEEDBACK_ID_SEQUENCE")
 	@SequenceGenerator(name = "PANEL_FEEDBACK_ID_SEQUENCE", sequenceName = "PANEL_FEEDBACK_ID_SEQUENCE")
 	private long id;
-	
+
 	@NotNull
-	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
-	@JoinColumn(name="CATEGORY_ID", nullable=false)
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "CATEGORY_ID", nullable = false)
 	private Category technology;
-	
+
 	@NotNull
 	@Enumerated(EnumType.STRING)
 	@Column(name = "PANEL_STATUS", nullable = false)
 	private PanelStatus status;
-	
+
 	@Min(0)
 	@Max(10)
 	@NotNull
 	@Column(name = "PANEL_RESULT")
 	private int result;
-	
+
 	@Column(name = "PANELIST_COMMENTS")
 	private String comment;
-	
-	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-	@JoinColumn(name="PANEL_ID", nullable=false)
+
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name = "PANEL_ID", nullable = false)
 	@JsonBackReference(value = "feedback")
 	private Panel panel;
 
@@ -147,7 +147,7 @@ public class PanelFeedback {
 		if (panel == null) {
 			if (other.panel != null)
 				return false;
-		} 
+		}
 		if (result != other.result)
 			return false;
 		if (status != other.status)
@@ -165,5 +165,5 @@ public class PanelFeedback {
 		return "PanelFeedback [id=" + id + ", technology=" + technology + ", status=" + status + ", result=" + result
 				+ ", comment=" + comment + "]";
 	}
-	
+
 }
