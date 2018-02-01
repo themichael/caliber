@@ -10,3 +10,4 @@ spring:
           repo: 
             eureka: https://github.com/Revature-1704-Java/caliberconfig/eureka
             zuul: https://github.com/Revature-1704-Java/caliberconfig/zuul
+
