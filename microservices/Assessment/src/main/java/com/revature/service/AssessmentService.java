@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.beans.Assessment;
+import com.revature.message.MessageSender;
 //import com.revature.caliber.data.AssessmentDAO;
 @Service
 public class AssessmentService {
@@ -74,6 +75,7 @@ public class AssessmentService {
 		log.debug("Find assessment by week number " + week + " for batch " + batchId + " ");
 		return assessmentDAO.findByWeek(batchId, week);
 		*/
+		MessageSender.send(batchId, week);
 		return null;
 	}
 	
@@ -83,11 +85,12 @@ public class AssessmentService {
 	 * @return
 	 */
 	public List<Assessment> findAssessmentByBatchId(Integer batchId) {
+		List<Assessment> assess = MessageSender.send1(batchId);
 		/*
 		log.debug("Find assessment by batchId " + batchId + " ");
 		return assessmentDAO.findByBatchId(batchId);
 		*/
-		return null;
+		return assess;
 	}
 
 	/**
@@ -95,11 +98,12 @@ public class AssessmentService {
 	 * @param assessment
 	 */
 	public Assessment update(Assessment assessment) {
+		Assessment ass = MessageSender.send1(assessment);
 		/*
 		log.info("Updating assessment " + assessment);
 		
 		assessmentDAO.update(assessment);*/
-		return null;
+		return ass;
 	}
 
 	/**
@@ -107,6 +111,7 @@ public class AssessmentService {
 	 * @param assessment
 	 */
 	public void delete(Assessment assessment) {
+		MessageSender.send(assessment);
 		/*
 		log.debug("Deleting assessment " + assessment);
 		//load assessment into persistent state

@@ -1,14 +1,14 @@
 server:
-  port: 5253
+  port: 5255
   
 spring:
   application:
-    name: category-service
+    name: assessment-service
   rabbitmq:
     host: localhost
     port: 5672
     username: guest
-    password: guest
+    password: guest 
     
 eureka:
   instance:
@@ -20,3 +20,4 @@ eureka:
 security:
   basic:
     enabled: false
+   
