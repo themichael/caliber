@@ -38,11 +38,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.fasterxml.jackson.core.JsonParser.Feature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.revature.caliber.beans.Trainer;
-import com.revature.caliber.beans.TrainerRole;
-import com.revature.caliber.exceptions.NotAuthorizedException;
-import com.revature.caliber.security.models.SalesforceToken;
-import com.revature.caliber.security.models.SalesforceUser;
+import com.revature.security.beans.Trainer;
+import com.revature.security.beans.TrainerRole;
+import com.revature.security.exceptions.NotAuthorizedException;
+import com.revature.security.models.SalesforceToken;
+import com.revature.security.models.SalesforceUser;
 import com.revature.security.Authorization;
 
 /**
@@ -255,6 +255,7 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 	 */
 	private void authorize(String jsonString, SalesforceUser salesforceUser, HttpServletResponse servletResponse)
 			throws IOException {
+		try {
 		JSONObject jsonObject = new JSONObject(jsonString);
 		if (jsonObject.getString("email").equals(salesforceUser.getEmail())) {
 			log.info("Logged in user " + jsonObject.getString("email") + " now hasRole: "
@@ -272,6 +273,8 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 				salesforceUser.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(auth);
 		servletResponse.addCookie(new Cookie("role", jsonObject.getString("tier")));
+		}catch(Exception e) { e.getMessage();}
+		
 	}
 
 	/**

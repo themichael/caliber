@@ -8,7 +8,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.revature.caliber.beans.Trainer;
+import com.revature.security.beans.Trainer;
 
 /**
  * The type Salesforce user.

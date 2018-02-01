@@ -1,4 +1,4 @@
-package com.revature.caliber.security.universal;
+package com.revature.security.universal;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
