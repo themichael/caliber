@@ -2,6 +2,14 @@
 *  A filter is too restrictive to do all of the needed authentication, redirect to authentication service
 *  instead
 */
+package com.revature.gateway.filters;
+
+import com.netflix.zuul.ZuulFilter;
+import com.netflix.zuul.context.RequestContext;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+
 public class RedirectToAuthenticationPreFilter extends ZuulFilter {
  
     @Override
@@ -24,18 +32,21 @@ public class RedirectToAuthenticationPreFilter extends ZuulFilter {
         RequestContext context = RequestContext.getCurrentContext();
         HttpServletRequest request = context.getRequest();
         String contextURI = (String) context.get("requestURI");
+        System.out.println("Request  URI " + request.getRequestURI());
 
         Cookie[] cookies = request.getCookies();
         boolean hasRole = false;
-        for(cookie c : cookies)
+        if(cookies != null && cookies.length > 0) {
+        for(Cookie c : cookies)
         {
             if(c.getName().equals("role"))
             {
                 hasRole = true;
             }
         }
+        }
         
-        if(!hasRole)//if the user has already logged in, they will have a cookie named role
+        if(hasRole)//if the user has already logged in, they will have a cookie named role
         {
             context.put("preRedirectRequestUri", contextURI);
 
@@ -69,9 +80,9 @@ public class RedirectToAuthenticationPreFilter extends ZuulFilter {
                 if(contextURI.length() > 7 && contextURI.substring(contextURI.length() - 8).equals("caliber/"))//ends with caliber/
                 context.put("requestURI", "forward:/security/");
             }
-            else
-                context.put("requestURI", "forward:/security/authorize");//anything that is not one of those endpoints goes here
         }
+        else
+          context.put("requestURI", "forward:/security/authorize");//anything that is not one of those endpoints goes here
         return null;
     }
  

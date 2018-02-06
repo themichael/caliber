@@ -18,7 +18,7 @@ public class AuthorizedController {
 	@RequestMapping("/authorize")
 	public ModelAndView authorized(HttpServletRequest request) {
 		Cookie[] cookies = request.getCookies();
-        String role ="";
+        String role ="No role";
         if(cookies!=null) {
         for (Cookie c : cookies)
         {
@@ -31,7 +31,7 @@ public class AuthorizedController {
         
 		//if(c.getValue!= )
         
-        return new ModelAndView("foward: " + "http://www.google.com");
-	}
+        return new ModelAndView("redirect:" + "/security/caliber/");
+}
 }
 

@@ -1,3 +1,17 @@
+server:
+  port: 8183
+
+spring:
+  application:
+    name: dto
+
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
 security:
   basic:
     enabled: false

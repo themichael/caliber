@@ -1,6 +1,17 @@
 server:
   port: 8182
- 
+
+spring:
+  application:
+    name: security
+
+eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
 security:
   basic:
     enabled: false

@@ -11,9 +11,10 @@ eureka:
       defaultZone: http://localhost:8761/eureka
       
 zuul:
-  tguprefix: /
   routes:
-    app:
-      path: /**
-      #This should point to your personal Tomcat server port that caliber is running on
-      url: http://localhost:5252
+    security-by-service:
+      path: /security/**
+      serviceId: security
+    dto-by-service:
+      path: /dto/**
+      serviceId: dto
