@@ -32,7 +32,7 @@ public class AuthorizedController {
         
 		//if(c.getValue!= )
         
-        return new ModelAndView("redirect:" + "/security/caliber/");
+        return new ModelAndView("redirect:" + "/");
 }
 }
 

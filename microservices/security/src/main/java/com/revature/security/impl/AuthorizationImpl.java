@@ -50,7 +50,6 @@ import com.revature.security.Authorization;
  * Created by louislopez on 1/18/17.
  */
 @Controller
-@CrossOrigin
 public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implements Authorization {
 	@Value("/caliber/")
 	private String forwardUrl;
