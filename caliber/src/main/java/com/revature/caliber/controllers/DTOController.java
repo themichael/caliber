@@ -70,9 +70,9 @@ public class DTOController {
 	@RequestMapping(value = "/dto/assessment/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("permitAll()")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	public ResponseEntity<Void> createAssessment(@RequestBody Map<String, String> json) {
-		String skillCategory = json.get("skillCategory");
-		int batchId = Integer.parseInt(json.get("batchId"));
+	public ResponseEntity<Long> createAssessment(@RequestBody Map<String, String> json) {
+		String skillCategory = json.get("category");
+		int batchId = Integer.parseInt(json.get("batch"));
 		
 		String title = "";
 		Batch batch = trainingService.findBatch(batchId);
@@ -98,7 +98,8 @@ public class DTOController {
 		Assessment assessment = new Assessment(title, batch, rawScore, type, week, category);
 		assessmentService.save(assessment);
 		log.info("MSA Creating assessment: " + assessment);
-		return new ResponseEntity<>(HttpStatus.CREATED);
+		
+		return new ResponseEntity<>(assessment.getAssessmentId(), HttpStatus.CREATED);
 	}
 	
 	/**
@@ -111,7 +112,7 @@ public class DTOController {
 	@RequestMapping(value = "/dto/grade/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("permitAll()")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	public ResponseEntity<Grade> createGrade(@RequestBody Map<String, String> json) {
+	public ResponseEntity<Void> createGrade(@RequestBody Map<String, String> json) {
 		int assessmentId = Integer.parseInt(json.get("assessmentId"));
 		double score = Double.parseDouble(json.get("grade"));
 		int traineeId = Integer.parseInt(json.get("trainee"));
@@ -127,7 +128,7 @@ public class DTOController {
 		log.info("MSA Saving grade: " + grade);
 		evaluationService.save(grade);
 		
-		return new ResponseEntity<>(grade, HttpStatus.CREATED);
+		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 	
 	/**
