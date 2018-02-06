@@ -72,7 +72,8 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 	@RequestMapping("/")
 	public ModelAndView openAuthURI() {
 		if (debug) {
-			return new ModelAndView(REDIRECT + redirectUrl);
+			//return new ModelAndView(REDIRECT + redirectUrl);
+      return new ModelAndView(REDIRECT + "/revoke");
 		}
 		log.debug("redirecting to salesforce authorization");
 		return new ModelAndView(REDIRECT + loginURL + authURL + "?response_type=code&client_id=" + clientId

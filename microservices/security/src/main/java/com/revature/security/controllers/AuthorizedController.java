@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@CrossOrigin
+//@CrossOrigin
 //@PreAuthorize("isAuthenticated()")
 public class AuthorizedController {
 	
@@ -28,6 +28,7 @@ public class AuthorizedController {
             }
         }
         }
+        System.out.println("ROLE: " + role);
         
 		//if(c.getValue!= )
         

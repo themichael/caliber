@@ -31,8 +31,9 @@ public class RedirectToAuthenticationPreFilter extends ZuulFilter {
     public Object run() {
         RequestContext context = RequestContext.getCurrentContext();
         HttpServletRequest request = context.getRequest();
-        String contextURI = (String) context.get("requestURI");
-        System.out.println("Request  URI " + request.getRequestURI());
+        //String requestURI = (String) context.get("requestURI");
+        String requestURI = request.getRequestURI();
+        System.out.println("Request  URI " + requestURI);
 
         Cookie[] cookies = request.getCookies();
         boolean hasRole = false;
@@ -48,36 +49,36 @@ public class RedirectToAuthenticationPreFilter extends ZuulFilter {
         
         if(hasRole)//if the user has already logged in, they will have a cookie named role
         {
-            context.put("preRedirectRequestUri", contextURI);
+            context.put("preRedirectRequestUri",requestURI );
 
             //these endpoints should bypass authentication
-            if(contextURI.contains("/security/test"))
+            if(requestURI.contains("/security/test"))
             {
                 context.put("requestURI", "/security/authorize");
             }
-            else if(contextURI.contains("/revoke"))
+            else if(requestURI.contains("/revoke"))
             {
                 context.put("requestURI", "forward:/security/revoke");
             } 
-            else if(contextURI.contains("/revoke"))
+            else if(requestURI.contains("/revoke"))
             {
                 context.put("requestURI", "forward:/security/revoke");
             }
-            else if(contextURI.contains("/authenticated_token"))
+            else if(requestURI.contains("/authenticated_token"))
             {
                 context.put("requestURI", "forward:/security/authenticated_token");
             }
-            else if(contextURI.contains("/authenticated"))
+            else if(requestURI.contains("/authenticated"))
             {
                 context.put("requestURI", "forward:/security/authenticated");
             }
-            else if(contextURI.length() > 14 && contextURI.substring(contextURI.length() - 15).equals("localhost:8080/"))//ends with localhost:8080/
+            else if(requestURI.length() > 14 && requestURI.substring(requestURI.length() - 15).equals("localhost:8080/"))//ends with localhost:8080/
             {
                 context.put("requestURI", "forward:/security/");
             }
             else
             {
-                if(contextURI.length() > 7 && contextURI.substring(contextURI.length() - 8).equals("caliber/"))//ends with caliber/
+                if(requestURI.length() > 7 && requestURI.substring(requestURI.length() - 8).equals("caliber/"))//ends with caliber/
                 context.put("requestURI", "forward:/security/");
             }
         }
