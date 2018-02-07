@@ -47,16 +47,12 @@ public class RedirectToAuthenticationPreFilter extends ZuulFilter {
         }
         }
         
-        if(hasRole)//if the user has already logged in, they will have a cookie named role
+        if(!hasRole)//if the user has already logged in, they will have a cookie named role
         {
-            context.put("preRedirectRequestUri",requestURI );
+            context.addZuulRequestHeader("preRedirectRequestUri",requestURI );
 
             //these endpoints should bypass authentication
-            if(requestURI.contains("/security/test"))
-            {
-                context.put("requestURI", "/security/authorize");
-            }
-            else if(requestURI.contains("/revoke"))
+            if(requestURI.contains("/revoke"))
             {
                 context.put("requestURI", "forward:/security/revoke");
             } 
@@ -72,9 +68,8 @@ public class RedirectToAuthenticationPreFilter extends ZuulFilter {
             {
                 context.put("requestURI", "forward:/security/authenticated");
             }
-            else if(requestURI.length() > 14 && requestURI.substring(requestURI.length() - 15).equals("localhost:8080/"))//ends with localhost:8080/
-            {
-                context.put("requestURI", "forward:/security/");
+            else if(requestURI.contains("/dto/")) {
+              context.put("requestURI", "forward:/security/authorize");
             }
             else
             {

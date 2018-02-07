@@ -53,6 +53,7 @@ import com.revature.security.Authorization;
 public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implements Authorization {
 	@Value("/caliber/")
 	private String forwardUrl;
+  private String preRedirect;
 	private static final Logger log = Logger.getLogger(AuthorizationImpl.class);
 	@Value("#{systemEnvironment['CALIBER_DEV_MODE']}")
 	private boolean debug;
@@ -71,13 +72,12 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 	@RequestMapping("/")
 	public ModelAndView openAuthURI() {
 		if (debug) {
-			//return new ModelAndView(REDIRECT + redirectUrl);
-      return new ModelAndView(REDIRECT + "/revoke");
-		}
+			return new ModelAndView(REDIRECT + redirectUrl);
+    }
 		log.debug("redirecting to salesforce authorization");
 		return new ModelAndView(REDIRECT + loginURL + authURL + "?response_type=code&client_id=" + clientId
 				+ "&redirect_uri=" + redirectUri);
-	}
+  }
 
 	/**
 	 * Retrieves Salesforce authentication token from Salesforce REST API
@@ -87,7 +87,7 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 	 */
 	@RequestMapping("/authenticated")
 	public ModelAndView generateSalesforceToken(HttpServletRequest servletRequest, HttpServletResponse servletResponse,
-			@RequestParam(value = "code") String code, RedirectAttributes redirectAttributes)
+      @RequestParam(value = "code") String code, RedirectAttributes redirectAttributes)
 			throws IOException, URISyntaxException {
 
 		log.debug("in authenticated method");
@@ -113,7 +113,10 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 			log.error("error thrown:", e);
 			return new ModelAndView("redirect:/");
 		}
-
+    preRedirect = servletRequest.getHeader("preRedirectRequestUri");
+    System.out.println("preRedirect second: " + preRedirect);
+    if(preRedirect != null && preRedirect.contains("dto/")) return new ModelAndView(REDIRECT + preRedirect);
+    System.out.println("preRedirect final: " + preRedirect);
 		log.debug("Forwarding to : " + redirectUrl);
 		return new ModelAndView(REDIRECT + redirectUrl);
 	}

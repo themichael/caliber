@@ -17,22 +17,30 @@ public class AuthorizedController {
 	
 	@RequestMapping("/authorize")
 	public ModelAndView authorized(HttpServletRequest request) {
+    String preRedirect = request.getHeader("preRedirectRequestUri");
+    System.out.println(preRedirect);
 		Cookie[] cookies = request.getCookies();
-        String role ="No role";
+        String role ="";
         if(cookies!=null) {
         for (Cookie c : cookies)
-        {
+          {
             if(c.getName().equals("role"))
             {
                 role=c.getValue();
             }
+          }
         }
+        
+        if(preRedirect.contains("dto/")) {
+          return new ModelAndView("redirect:" + preRedirect);
         }
-        System.out.println("ROLE: " + role);
-        
-		//if(c.getValue!= )
-        
-        return new ModelAndView("redirect:" + "/");
-}
+        if(role.equals("")) {
+          return new ModelAndView("forward:" + "/");
+        }
+        if(preRedirect == null) {
+          return new ModelAndView("forward" + "/");
+        }
+        return new ModelAndView("redirect:" + preRedirect); 
+    }
 }
 
