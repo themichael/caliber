@@ -1,0 +1,1 @@
+Added messaging in place of DAO calls to Batch and Trainer services. Messaging is implemented in the SalesforceMessageSender class. The JsonObject passed in as a message argument should have a property "methodName" with the value being the name of the method that should be called on the DAO to return the necessary information.

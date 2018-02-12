@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.revature.caliber.exceptions.PDFGenerationException;
 import com.revature.caliber.services.PDFService;
@@ -35,7 +36,9 @@ public class PDFController {
 			@RequestParam(name = "title", value = "title", defaultValue = "Performance at a Glance") String title,
 			@RequestBody String html) {
 		try {
+			RestTemplate restTemplate = new RestTemplate();
 			byte[] pdf = pdfService.generatePDF(title, html);
+			//byte[] pdf = restTemplate.postForObject("http://localhost:8081/pdf/report/generate", html, byte[].class, title);
 
 			HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(new MediaType("application", "pdf"));

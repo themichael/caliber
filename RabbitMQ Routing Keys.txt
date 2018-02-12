@@ -1,0 +1,12 @@
+New RabbitMQ URL: ec2-34-227-76-119.compute-1.amazonaws.com
+Bean            Queue Name                                     Routing Key for Single Objects        Routing Key for Lists
+Address         revature.caliber.repos.address(.list)          oEKQeav8rcejeYgq                      Jf2zpP6hPvPHEXsV
+Assessment      revature.caliber.repos.assessment(.list)       F82jS9KJpwqLk3dj                      7c6tMqRRPpZ8Z7xh
+Batch           revature.caliber.repos.batch(.list)            XLNbCWqQzFHr9JfZ                      BSVihZkuxwdg9Dxy   
+Category        revature.caliber.repos.category(.list)         utMPxDus2M9qy9Bh                      nsDnbip35CAcdNkK
+Grade           revature.caliber.repos.grade(.list)            aYF4wPtsGMjq72Lu                      V6hbpnyZRH8ZQQ9e   
+Note            revature.caliber.repos.note(.list)             JBPpcrjZn59EGH4k                      cf22J9CGs8V95Rbm
+Panel           revature.caliber.repos.panel(.list)            B8ptbVDNyVB28mVA                      8AzDbkAUCZn9Z2T3
+PanelFeedback   revature.caliber.repos.panelfeedback(.list)    4jZ2GMxLP7VyQPBn                      5MKVoktka2jXh9yR
+Trainee         revature.caliber.repos.trainee(.list)          JyoH3uRmktGn9MnW                      eRQ7GaBRnHgGdV9D
+Trainer         revature.caliber.repos.trainer(.list)          9xdaX72tPYuz8xDP                      EEQ29PJxAy9Xr4x5

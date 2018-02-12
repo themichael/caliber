@@ -19,7 +19,7 @@ angular
 
 					report.batchWeekQCPie = function(batchId, weekNum) {
 						return $http({
-								url : "/all/reports/batch/" + batchId
+								url : "http://localhost:8081/reporting/all/reports/batch/" + batchId
 											+ "/week/" + weekNum + "/pie",
 								method : "GET"
 						})
@@ -38,7 +38,7 @@ angular
 
 					report.batchCurrentWeekQCPie = function(batchId) {
 						return $http({
-							url : "/all/reports/batch/" + batchId + "/pie/",
+							url : "http://localhost:8081/reporting/all/reports/batch/" + batchId + "/pie/",
 							method : "GET"
 						})
 								.then(

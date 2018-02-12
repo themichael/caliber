@@ -1,0 +1,6 @@
+spring: 
+  application: 
+    name: pdf
+  cloud:
+    config:
+      uri: http://localhost:8888

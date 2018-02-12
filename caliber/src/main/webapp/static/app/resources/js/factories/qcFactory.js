@@ -1,6 +1,6 @@
 /**
  * API that makes qc related AJAX calls to the backend
- * 
+ *
  * @param $log
  * @param $http
  * @returns {{}}
@@ -13,7 +13,7 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 	/** ************************* Batch *********************** */
 	qc.getAllBatches = function() {
 		return $http({
-			url : "/qc/batch/all/",
+			url : "http://localhost:8081/batch/qc/batch/all/", //added "batch" and localhost in front
 			method : "GET"
 		}).then(function(response) {
 			$log.log("Batches retrieved successfully");
@@ -27,7 +27,7 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 	// Call EvaluationController's findQCBatchNotes method
 	qc.getQCBatchNote = function(batchId, week) {
 		return $http({
-			url : "/qc/note/batch/" + batchId + "/" + week + "/",
+			url : "http://localhost:8081/note/qc/note/batch/" + batchId + "/" + week + "/",
 			method : "GET"
 		}).then(function(response) {
 			$log.log("QC Batch Note retrieved successfully");
@@ -40,7 +40,7 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 	// Call EvaluationController's getAllQCTraineeNotes method
 	qc.getAQCTraineeNote = function(traineeId, week) {
 		return $http({
-			url : "/qc/note/atrainee/" + traineeId + "/" + week + "/",
+			url : "http://localhost:8081/note/qc/note/atrainee/" + traineeId + "/" + week + "/",
 			method : "GET"
 		}).then(function(response) {
 			$log.log("QC Trainee Note retrieved successfully");
@@ -49,11 +49,11 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 			$log.error("There was an error: " + response.status);
 		});
 	};
-	
-	
+
+
 	qc.getTraineeWeek = function(traineeId, week) {
 		return $http({
-			url : "/vp/note/trainee/" + traineeId + "/" + week + "/",
+			url : "http://localhost:8081/note/vp/note/trainee/" + traineeId + "/" + week + "/",
 			method : "GET"
 		}).then(function(response) {
 			$log.log("QC Trainee Note retrieved successfully");
@@ -62,11 +62,11 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 			$log.error("There was an error: " + response.status);
 		});
 	};
-	
+
 	// Call EvaluationController's getAllQCTraineeNotes method
 	qc.getAllQCTraineeNote = function(batchId, week) {
 		return $http({
-			url : "/qc/note/trainee/" + batchId + "/" + week + "/",
+			url : "http://localhost:8081/note/qc/note/trainee/" + batchId + "/" + week + "/",
 			method : "GET"
 		}).then(function(response) {
 			$log.log("QC Trainee Note retrieved successfully");
@@ -75,11 +75,11 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 			$log.error("There was an error: " + response.status);
 		});
 	};
-	
+
 	// Call EvaluationController's getTraineeOverallNotes method
 	qc.getTraineeOverallNote = function(traineeId) {
 		return $http({
-			url : "/qc/note/trainee/" + traineeId + "/",
+			url : "http://localhost:8081/note/qc/note/trainee/" + traineeId + "/",
 			method : "GET"
 		}).then(function(response) {
 			$log.log("QC Trainee Overall Note retrieved successfully");
@@ -147,11 +147,11 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 			$log.error("There was an error: " + response.status);
 		});
 	};
-	
+
 	// get all assessment categories for the week
 	qc.getAllAssessmentCategories = function(batchId, weekId) {
 		return $http({
-			url : "/all/assessments/categories/batch/" + batchId + "/week/" + weekId + "/",
+			url : "https://localhost:8081/reporting/all/assessments/categories/batch/" + batchId + "/week/" + weekId + "/",
 			method : "GET"
 		}).then(function(response) {
 			$log.debug("Assessments categories retrieved successfully");
@@ -166,7 +166,7 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 	// create note
 	qc.createNote = function(noteObj) {
 		return $http({
-			url : "/note/create/",
+			url : "http://localhost:8081/note/note/create/",
 			method : "POST",
 			data : noteObj
 		}).then(function(response) {
@@ -181,13 +181,13 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 	//
 	/**
 	 * Update note
-	 * 
+	 *
 	 * @param noteObj
 	 * @returns {*}
 	 */
 	qc.updateNote = function(noteObj) {
 		return $http({
-			url : "/note/update/",
+			url : "http://localhost:8081/note/note/update/",
 			method : "POST",
 			data : noteObj
 		}).then(function(response) {
@@ -200,7 +200,7 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 	//gets QCtrainee note
 	qc.getQCTraineeNote = function(traineeId,week){
 		return $http({
-			url: "/qc/note/trainee/" + traineeId + "/for/"+ week,
+			url: "http://localhost:8081/note/qc/note/trainee/" + traineeId + "/for/"+ week,
 			method:"GET"
 		}).then(function(response){
 			$log.debug("Notes successfully fetched");
@@ -209,11 +209,11 @@ angular.module("api").factory("qcFactory", function($log, $http) {
 				return response.data;
 			}else{
 				return response;
-			}				
+			}
 		},function(response){
 			$log.error("Error retrieving " + response.status);
 		})
 	};
-	
+
 	return qc;
 });

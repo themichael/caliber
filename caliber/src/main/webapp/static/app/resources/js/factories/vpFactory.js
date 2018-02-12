@@ -1,6 +1,6 @@
 /**
  * API for making vp related AJAX calls to the backend
- * 
+ *
  * @param $log
  * @param $http
  * @returns {{}}
@@ -16,7 +16,7 @@ angular
 					// Get all batches
 					vp.getAllBatches = function() {
 						return $http({
-							url : "/vp/batch/all/",
+							url : "http://localhost:8081/batch/vp/batch/all/", //added "batch" and localhost in front
 							method : "GET"
 						})
 								.then(
@@ -34,7 +34,7 @@ angular
 					// Get all current batches
 					vp.getAllCurrentBatches = function() {
 						return $http({
-							url : "/vp/batch/all/current",
+							url : "http://localhost:8081/batch/vp/batch/all/current", //added "batch" and localhost in front
 							method : "GET"
 						})
 								.then(
@@ -48,11 +48,11 @@ angular
 													+ response.status);
 										});
 					};
-				
+
 					// Get all Categories
 					vp.getAllCategories = function() {
 						return $http({
-							url : "/vp/category",
+							url : "http://localhost:8081/category/vp/category",
 							method : "GET"
 						})
 								.then(
@@ -71,7 +71,7 @@ angular
 					// Update a category
 					vp.updateCategory = function(category) {
 						return $http({
-							url : "/vp/category/update",
+							url : "http://localhost:8081/category/vp/category/update",
 							method : "PUT",
 							data : category
 						}).then(
@@ -88,7 +88,7 @@ angular
 					// Save new category
 					vp.saveCategory = function(category) {
 						return $http({
-							url : "/vp/category",
+							url : "http://localhost:8081/category/vp/category",
 							method : "POST",
 							data : category
 						}).then(
@@ -107,7 +107,7 @@ angular
 					// Save new location
 					vp.saveLocation = function(location) {
 						return $http({
-							url : "/vp/location/create",
+							url : "http://localhost:8081/address/vp/location/create",
 							method : "POST",
 							data : location
 						}).then(
@@ -129,7 +129,7 @@ angular
 					// JSON else 415
 					vp.deactivateTrainer = function(trainerObj) {
 						return $http({
-							url : "/vp/trainer/delete",
+							url : "http://localhost:8081/trainer/vp/trainer/delete",
 							method : "DELETE",
 							data : trainerObj,
 							headers : {
@@ -151,7 +151,7 @@ angular
 					// Deactivate location
 					vp.deactivateLocation = function(locationObj) {
 						return $http({
-							url : "/vp/location/delete",
+							url : "http://localhost:8081/address/vp/location/delete",
 							method : "DELETE",
 							data : locationObj,
 							headers : {
@@ -171,7 +171,7 @@ angular
 					// Update selected location
 					vp.updateLocation = function(locationObj) {
 						return $http({
-							url : "/vp/location/update",
+							url : "http://localhost:8081/address/vp/location/update",
 							method : "PUT",
 							data : locationObj,
 							headers : {
@@ -190,11 +190,11 @@ angular
 											return false;
 										});
 					};
-					
+
 					// Update selected location active status
 					vp.reactivateLocation = function(locationObj) {
 						return $http({
-							url : "/vp/location/reactivate",
+							url : "http://localhost:8081/address/vp/location/reactivate",
 							method : "PUT",
 							data : locationObj,
 							headers : {
@@ -218,7 +218,7 @@ angular
 					vp.createLocation = function(locationObj) {
 						$log.debug(locationObj);
 						return $http({
-							url : "/vp/location/create",
+							url : "http://localhost:8081/address/vp/location/create",
 							method : "POST",
 							data : locationObj
 						})
@@ -241,7 +241,7 @@ angular
 					// Get all locations
 					vp.getAllLocations = function() {
 						return $http({
-							url : "/all/location/all/",
+							url : "http://localhost:8081/address/all/location/all/",
 							method : "GET"
 						})
 								.then(
@@ -256,13 +256,13 @@ angular
 													+ response.status);
 										});
 					};
-					
+
 					/*******TRAINERS************/
 
 					// Update selected trainer
 					vp.updateTrainer = function(trainerObj) {
 						return $http({
-							url : "/vp/trainer/update",
+							url : "http://localhost:8081/trainer/vp/trainer/update",
 							method : "PUT",
 							data : trainerObj
 						})
@@ -281,12 +281,12 @@ angular
 
 					/**
 					 * returns all titles
-					 * 
+					 *
 					 * @returns {*}
 					 */
 					vp.getAllTrainersTitle = function() {
 						return $http({
-							url : "/vp/trainer/titles/",
+							url : "http://localhost:8081/trainer/vp/trainer/titles/",
 							method : "GET"
 						})
 								.then(
@@ -303,14 +303,14 @@ angular
 					};
 
 					/**
-					 * 
+					 *
 					 * @param trainerObj
 					 * @returns {*}
 					 */
 					vp.createTrainer = function(trainerObj) {
 						$log.debug(trainerObj);
 						return $http({
-							url : "/vp/trainer/create",
+							url : "http://localhost:8081/trainer/vp/trainer/create",
 							method : "POST",
 							data : trainerObj
 						}).then(
@@ -329,7 +329,7 @@ angular
 					vp.getTrainerEmail = function(trainerEmail) {
 						return $http(
 								{
-									url : "/training/trainer/byemail/"
+									url : "http://localhost:8081/trainer/training/trainer/byemail/"
 											+ trainerEmail + "/",
 									method : "GET",
 								}).then(
@@ -345,6 +345,6 @@ angular
 									return response;
 								});
 					};
-					
+
 					return vp;
 				});

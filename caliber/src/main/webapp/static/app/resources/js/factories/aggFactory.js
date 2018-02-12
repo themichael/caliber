@@ -5,14 +5,14 @@ angular.module("api").factory(
 
 			var agg = {};
 			/**
-			 * 
+			 *
 			 * @param traineeId
 			 * @returns {*}
 			 */
 			agg.techTrainee = function(traineeId) {
 				return $http({
 					//url : "/all/tech/trainee/" + traineeId,
-					url: "/all/reports/trainee/" + traineeId + "/radar-trainee-overall",
+					url: "http://localhost:8081/reporting/all/reports/trainee/" + traineeId + "/radar-trainee-overall",
 					method : "GET"
 				}).then(function(response) {
 					$log.debug("Agg - Tech - trainee -- success");
@@ -24,7 +24,7 @@ angular.module("api").factory(
 
 			};
 			/**
-			 * 
+			 *
 			 * @param traineeId
 			 * @returns {*}
 			 */
@@ -32,7 +32,7 @@ angular.module("api").factory(
 			agg.weekTrainee = function(traineeId) {
 				return $http({
 					//url : "/all/agg/week/trainee/" + traineeId,
-					url : "/all/reports/trainee/" + traineeId + "/radar-trainee-overall",
+					url : "http://localhost:8081/reporting/all/reports/trainee/" + traineeId + "/radar-trainee-overall",
 					method : "GET"
 				}).then(function(response) {
 					$log.debug("Agg - Week - trainee -- success");
@@ -44,14 +44,14 @@ angular.module("api").factory(
 			};
 
 			/**
-			 * 
+			 *
 			 * @param batchId
 			 * @returns {*}
 			 */
 			agg.techBatch = function(batchId) {
 				return $http({
 					//url : "/all/agg/tech/batch/" + batchId,
-					url: "/all/reports/batch/" + batchId + "/overall/radar-batch-overall",
+					url: "http://localhost:8081/reporting/all/reports/batch/" + batchId + "/overall/radar-batch-overall",
 					method : "GET"
 				}).then(function(response) {
 					$log.debug("Agg - Tech - Batch -- success");
@@ -63,7 +63,7 @@ angular.module("api").factory(
 			};
 
 			/**
-			 * 
+			 *
 			 * @param batchId
 			 * @returns {*}
 			 */
@@ -82,7 +82,7 @@ angular.module("api").factory(
 			};
 
 			/**
-			 * 
+			 *
 			 * @returns {*}
 			 */
 			agg.techAllBatch = function() {
@@ -99,7 +99,7 @@ angular.module("api").factory(
 			};
 
 			/**
-			 * 
+			 *
 			 * @param trainerId
 			 * @returns {*}
 			 */
@@ -116,7 +116,7 @@ angular.module("api").factory(
 				});
 			};
 			/**
-			 * 
+			 *
 			 * @param trainerId
 			 * @returns {*}
 			 */
@@ -134,12 +134,12 @@ angular.module("api").factory(
 			};
 
 			/**
-			 * 
+			 *
 			 */
 			agg.reportLineChart = function(week, traineeId) {
 				return $http(
 						{
-							url : "/all/reports/batch/week/" + week
+							url : "http://localhost:8081/reporting/all/reports/batch/week/" + week
 									+ "/trainee/" + traineeId,
 							method : "GET"
 						}).then(function(response) {
@@ -151,12 +151,12 @@ angular.module("api").factory(
 				});
 			};
 			/**
-			 * 
+			 *
 			 */
 			agg.reporAssesmentChart = function(batchId, week) {
 				return $http(
 						{
-							url : "/all/reports/batch/" + batchId + "/week/"
+							url : "http://localhost:8081/all/reports/batch/" + batchId + "/week/"
 									+ week + "/barAssesment",
 							method : "GET"
 						}).then(function(response) {

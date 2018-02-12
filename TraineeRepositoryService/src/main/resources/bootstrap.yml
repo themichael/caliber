@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: trainee
+  cloud:
+    config:
+      uri: http://localhost:8888
+      

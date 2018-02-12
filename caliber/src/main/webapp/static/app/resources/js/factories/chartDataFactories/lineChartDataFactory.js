@@ -21,7 +21,7 @@ angular
 							week, traineeId) {
 						return $http(
 								{
-									url : "/all/reports/batch/" + batchId
+									url : "http://localhost:8081/reporting/all/reports/batch/" + batchId
 											+ "/week/" + week + "/trainee/"
 											+ traineeId
 											+ "/line-trainee-up-to-week",
@@ -45,7 +45,7 @@ angular
 
 						return $http(
 								{
-									url : "/all/reports/batch/" + batchId
+									url : "http://localhost:8081/reporting/all/reports/batch/" + batchId
 											+ "/overall/trainee/" + traineeId
 											+ "/line-trainee-overall",
 									method : "GET"
@@ -66,7 +66,7 @@ angular
 					report.getBatchOverallLineChartData = function(batchId) {
 						return $http(
 								{
-									url : "/all/reports/batch/" + batchId
+									url : "http://localhost:8081/reporting/all/reports/batch/" + batchId
 											+ " /overall/line-batch-overall",
 									method : "GET"
 								})
@@ -89,7 +89,7 @@ angular
 					 */
 					report.getCurrentBatchesAverageScoreChartData = function() {
 						return $http({
-							url : '/all/reports/dashboard',
+							url : 'http://localhost:8081/reporting/all/reports/dashboard',
 							method : "GET"
 						})
 								.then(
@@ -110,7 +110,7 @@ angular
 					 */
 					report.getCurrentPanelsLineChartData = function() {
 						return $http({
-							url : '/all/reports/biweeklyPanelResults',
+							url : 'http://localhost:8081/reporting/all/reports/biweeklyPanelResults',
 							method : "GET"
 						})
 								.then(

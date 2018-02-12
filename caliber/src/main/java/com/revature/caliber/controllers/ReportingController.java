@@ -102,7 +102,7 @@ public class ReportingController {
 	 * Stacked Bar Charts
 	 *******************************************************
 	 */
-	@RequestMapping(value = "/all/reports/batch/week/stacked-bar-current-week", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "http://localhost:8081/reporting/all/reports/batch/week/stacked-bar-current-week", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'STAGING', 'PANEL')")
 	public ResponseEntity<List<Object>> getAllBatchesCurrentWeekQCStackedBarChart() {
 		log.info("getAllBatchesCurrentWeekQCStats   ===>   /all/reports/batch/week/stacked-bar-current-week");
