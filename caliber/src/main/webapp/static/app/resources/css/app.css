@@ -443,6 +443,10 @@ footer a, footer a:hover {
 .fa-minus{
 	color: rgb(252,221,115);
 }
+
+#overallRow{
+    border-top-width: thick; 
+}
 /********************************************************
 	Panels table
 *********************************************************/
@@ -631,4 +635,8 @@ INTENDED FOR CHART DOWNLOAD ICON IF HOVER OVER CHANGE CURSOR TO POINTING
 .no-highlight {
 	background-color: #FFFFFF;
 	transition: background-color 1.5s ease;
+}
+
+.mouse-over{
+	cursor: pointer;
 }
