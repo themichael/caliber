@@ -157,22 +157,33 @@ public class EvaluationService {
 			// QCs
 			boolean flagged = false;
 			// current week
-			flagged = (notes.get(note.getWeek() - 1).getQcStatus().equals(QCStatus.Poor)
-					|| notes.get(note.getWeek() - 1).getQcStatus().equals(QCStatus.Average))
-					// previous week
-					&& (notes.get(note.getWeek() - 2).getQcStatus().equals(QCStatus.Poor)
-							|| notes.get(note.getWeek() - 2).getQcStatus().equals(QCStatus.Average)) ? true : false;
-			if (flagged) {
-				// save the flag status in database
-				Trainee trainee = traineeDAO.findOne(note.getTrainee().getTraineeId());
-				trainee.setFlagStatus(TraineeFlag.RED);
-				// concat a generated flag message at the end of the current trainee notes
-				if (trainee.getFlagNotes() != null && !trainee.getFlagNotes().contains("Trainee was automatically flagged by Caliber"))
-					trainee.setFlagNotes("Trainee was automatically flagged by Caliber. " + trainee.getFlagNotes());
-				else
-					trainee.setFlagNotes("Trainee was automatically flagged by Caliber. ");
-				
-				traineeDAO.update(trainee);
+			try {
+				flagged = (notes.get(note.getWeek() - 1).getQcStatus().equals(QCStatus.Poor)
+						|| notes.get(note.getWeek() - 1).getQcStatus().equals(QCStatus.Average))
+						// previous week
+						&& (notes.get(note.getWeek() - 2).getQcStatus().equals(QCStatus.Poor)
+								|| notes.get(note.getWeek() - 2).getQcStatus().equals(QCStatus.Average)) ? true : false;
+				if (flagged) {
+					// save the flag status in database
+					Trainee trainee = traineeDAO.findOne(note.getTrainee().getTraineeId());
+					trainee.setFlagStatus(TraineeFlag.RED);
+					// concat a generated flag message at the end of the current trainee notes
+					if (trainee.getFlagNotes() != null
+							&& !trainee.getFlagNotes().contains("Trainee was automatically flagged by Caliber"))
+						trainee.setFlagNotes("Trainee was automatically flagged by Caliber. " + trainee.getFlagNotes());
+					else
+						trainee.setFlagNotes("Trainee was automatically flagged by Caliber. ");
+
+					traineeDAO.update(trainee);
+				} else {
+					// remove the flag status in database
+					Trainee trainee = traineeDAO.findOne(note.getTrainee().getTraineeId());
+					trainee.setFlagStatus(TraineeFlag.NONE);
+					traineeDAO.update(trainee);
+				}
+			} catch (Exception e) {
+				log.info("Failed to autoflag associate with note: " + note);
+				log.info(e);
 			}
 		}
 	}
