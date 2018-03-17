@@ -312,7 +312,7 @@ public class EvaluationService {
                 }
             }
            
-            System.out.println("Max weeks: " + maxWeeks);
+            log.info("Max weeks: " + maxWeeks);
             for(int row = 0; row < jaggedArray.size(); row++) {
                 for(short column = 0; column < maxWeeks ; column++ ) {                           
                     if( jaggedArray.get(row).size() <= column || jaggedArray.get(row).get(column).getWeek() != column +1) {
@@ -323,7 +323,7 @@ public class EvaluationService {
                     }
                 }
             }
-            System.out.println("JaggedArray: " + jaggedArray);
+            log.info("JaggedArray: " + jaggedArray);
             return jaggedArray;
     }
     
