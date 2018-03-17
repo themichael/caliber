@@ -1,9 +1,13 @@
 package com.revature.caliber.services;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +19,7 @@ import com.revature.caliber.beans.Note;
 import com.revature.caliber.beans.NoteType;
 import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.beans.TrainerRole;
+import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.NoteDAO;
 
@@ -33,6 +38,7 @@ public class EvaluationService {
 	private GradeDAO gradeDAO;
 	private NoteDAO noteDAO;
 	private static final String FINDING_WEEK = "Finding week ";
+	private static final String WEEK_STATIC_FACTOR = "0";
 
 	@Autowired
 	public void setGradeDAO(GradeDAO gradeDAO) {
@@ -304,4 +310,91 @@ public class EvaluationService {
 			log.warn("The ASSIGN_NOTE_BATCH_ID Stored Procedure hasn't been ran yet to update Note's batch id.");
 		}
 	}
+	
+	/**
+     * Find all qc trainee notes for all weeks
+     * @return
+     */
+    public List<List<Note>> findAllQCTraineeNotesForAllWeeksWhichPatrickFindsVeryDifficultToUnderstandWTFIsGoingOn(Integer batchId) {
+        log.debug("Find All QC Trainee Notes");
+        List<Note> notes = noteDAO.findAllQCTraineeNotesForAllWeeks(batchId);
+        ArrayList<List<Note>> noteFormatted2d = new ArrayList<>();
+        notes = notes.stream().collect(Collectors.collectingAndThen(
+                Collectors.toCollection(() -> new TreeSet<>(
+                        Comparator.comparing(note -> {
+                            String weekAsString = Short.toString(note.getWeek());
+                            return note.getTrainee().getName() +
+                                    ((weekAsString.length() == 1) ?
+                                    		WEEK_STATIC_FACTOR + weekAsString : weekAsString) +
+                                    note.getTrainee().getTraineeId();
+                        }))
+                ), ArrayList::new));
+        if (notes == null || notes.size() < 1) {
+            return new ArrayList<>();
+        }
+
+        Trainee currentTrainee = null;
+        List<Note> traineeNotes = new ArrayList<>();
+        for (Note note : notes) {
+            Trainee aTrainee = note.getTrainee();
+            //trainee HAS changed
+            if (!aTrainee.equals(currentTrainee) || currentTrainee == null) {
+            	//if this is not the first iteration
+            	if (currentTrainee != null) {
+            		noteFormatted2d.add(traineeNotes);
+            	}
+                currentTrainee = aTrainee;
+                traineeNotes = new ArrayList<>(Collections.singletonList(note));
+            } else {//trainee HAS NOT changed
+            	traineeNotes.add(note);
+            }
+        }
+        noteFormatted2d.add(traineeNotes);
+        return formatJaggedArray(noteFormatted2d);
+    }
+    
+    /**
+     * Formats the jagged "2d" ArrayList of notes.  Inserts empty Notes into the missing spots so that the
+     * front end batch QC reports table will display correctly. 
+     * Will be called by findAllQCTraineeNotesForAllWeeks() method 
+     * 
+     * @return the Lists of Lists ("2d" ArrayList) formatted so that number of columns and rows are even 
+     */
+    public List<List<Note>> formatJaggedArray(List<List<Note>> jaggedArray){
+            int maxWeeks = 0;
+            for(List<Note> row : jaggedArray) {
+                for(Note column : row) {
+                    short week = 0;
+                    week = column.getWeek();
+                    if(week > maxWeeks) {
+                        maxWeeks = week;
+                    }
+                }
+            }
+           
+            log.info("Max weeks: " + maxWeeks);
+            for(int row = 0; row < jaggedArray.size(); row++) {
+                for(short column = 0; column < maxWeeks ; column++ ) {                           
+                    if( jaggedArray.get(row).size() <= column || jaggedArray.get(row).get(column).getWeek() != column +1) {
+                        Note emptyNote = new Note();
+                        emptyNote.setNoteId(row + column); 	//testing
+                        emptyNote.setWeek( (short) (column + 1 ));
+                        jaggedArray.get(row).add( column , emptyNote );
+                    }
+                }
+            }
+            log.info("JaggedArray: " + jaggedArray);
+            return jaggedArray;
+    }
+    
+    /**
+     * noteDAO.findAllQCBatchNotes
+     * @param Integer batchId: the id of the batch 
+     * @return A list of QC batch notes, in ascending order by week 
+     */
+    public List<Note> findAllQCBatchNotes(Integer batchId){
+        log.debug("Find All QC Batch Notes in ascending order by week");
+        return noteDAO.findAllQCBatchNotes(batchId);
+    }
+
 }

@@ -193,7 +193,7 @@ public class NoteDAOTest extends CaliberTest {
 		
 		// get all QC batch notes
 		List<Note> actual = noteDao.findAllBatchQcNotes(TEST_QCBATCH_ID);
-		
+				
 		// compare with expected size
 		assertEquals(7, actual.size());
 	}
