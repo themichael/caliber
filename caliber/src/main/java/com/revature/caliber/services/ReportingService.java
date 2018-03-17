@@ -159,7 +159,8 @@ public class ReportingService {
 			for (Integer i = batchWeekQCStats.size(); i > 0; i--) {
 				Map<QCStatus, Integer> temp = batchWeekQCStats.get(i);
 				if (temp.values().stream().mapToInt(Number::intValue).sum() != 0) {
-					batchData.put("label", b.getTrainer().getName().split(" ")[0] +" "+ b.getStartDate());
+					//.split(" ")[0] ???
+					batchData.put("label", b.getTrainer().getName() +" "+ b.getStartDate());
 					batchData.put("address", b.getAddress());
 					batchData.put("qcStatus", temp);   // Batch ID
 					batchData.put("id", b.getBatchId()); //Actual batch id
@@ -439,9 +440,9 @@ public class ReportingService {
 		batches.parallelStream().forEach(batch -> {
 			Map<String, Object> batchObject = new HashMap<>();
 			List<Trainee> trainees = new ArrayList<>(batch.getTrainees());
-
+			// .split(" ")[0] ???
 			batchObject.put("label",
-					batch.getTrainer().getName().split(" ")[0] +" "+ batch.getStartDate());
+					batch.getTrainer().getName() +" "+ batch.getStartDate());
 			batchObject.put("grades", utilAvgBatchOverall(trainees, batch.getWeeks()));
 			batchObject.put("address", batch.getAddress());
 			results.add(batchObject);

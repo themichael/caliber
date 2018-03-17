@@ -111,7 +111,7 @@ public class EvaluationController {
 	 * @return
 	 */
 	@RequestMapping(value = "/note/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER','PANEL')")
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER')")
 	public ResponseEntity<Integer> createNote(@Valid @RequestBody Note note) {
 		log.info("Creating note: " + note);
 		return new ResponseEntity<>(evaluationService.save(note), HttpStatus.CREATED);
@@ -124,7 +124,7 @@ public class EvaluationController {
 	 * @return
 	 */
 	@RequestMapping(value = "/note/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER','PANEL')")
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER')")
 	public ResponseEntity<Note> updateNote(@Valid @RequestBody Note note) {
 		log.info("Updating note: " + note);
 		evaluationService.update(note);
