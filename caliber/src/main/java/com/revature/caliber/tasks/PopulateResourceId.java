@@ -29,9 +29,9 @@ public class PopulateResourceId {
 			}
 		}
 		
-		if(!batchUpdated && !cTrainingName.contains("FAKE BATCH")) {
+	/*	if(!batchUpdated && !cTrainingName.contains("FAKE BATCH")) {
 			caliberBatch.setTrainingName(cTrainingName+" FAKE BATCH");
-		}
+		}*/
 		
 		return batchUpdated;
 	}

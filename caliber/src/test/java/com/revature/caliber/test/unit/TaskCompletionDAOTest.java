@@ -20,6 +20,7 @@ import com.revature.caliber.data.TaskDAO;
 import com.revature.caliber.data.TrainerDAO;
 
 public class TaskCompletionDAOTest extends CaliberTest{
+	/*
 	private static final Logger log = Logger.getLogger(TaskCompletionDAOTest.class);
 
 	@Autowired
@@ -84,7 +85,7 @@ public class TaskCompletionDAOTest extends CaliberTest{
 		log.info("after = "+ after);
 		assertEquals(++before, after);
 	}
-
+*/
 }
 	
 

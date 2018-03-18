@@ -24,36 +24,36 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * @author Patrick Walsh
  *
  */
-@Entity
+/*@Entity
 @Table(name = "CALIBER_TASK")
 @Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)*/
 public class TrainerTask {
 
-	@Id
+	/*@Id
 	@Column(name = "TASK_ID")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TASK_ID_SEQUENCE")
-	@SequenceGenerator(name = "TASK_ID_SEQUENCE", sequenceName = "TASK_ID_SEQUENCE")
+	@SequenceGenerator(name = "TASK_ID_SEQUENCE", sequenceName = "TASK_ID_SEQUENCE")*/
 	private int id;
 
-	@Column(name = "TASK_DESCRIPTION")
+	//@Column(name = "TASK_DESCRIPTION")
 	private String description;
 
 	/**
 	 * Priority is used to rank the order the tasks need to appear on the UI
 	 */
-	@Column(name = "TASK_PRIORITY")
+	//@Column(name = "TASK_PRIORITY")
 	private int priority;
 
 	/**
 	 * Only active tasks are displayed on the UI
 	 */
 	
-	@Column(name = "IS_ACTIVE")
+	//@Column(name = "IS_ACTIVE")
 	private int active;
 
-	@OneToMany(mappedBy = "taskCompleted")
-	@JsonIgnore
+//	@OneToMany(mappedBy = "taskCompleted")
+//	@JsonIgnore
 	private Set<TrainerTaskCompletion> evaluations;
 
 	public TrainerTask() {

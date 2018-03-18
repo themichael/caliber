@@ -13,6 +13,8 @@ import com.revature.caliber.beans.TrainerTask;
 import com.revature.caliber.data.TaskDAO;
 
 public class TaskDAOTest extends CaliberTest{
+	
+	/*
 	private static final Logger log = Logger.getLogger(TaskDAOTest.class);
 
 	@Autowired
@@ -44,6 +46,7 @@ public class TaskDAOTest extends CaliberTest{
 		Integer after = jdbcTemplate.queryForObject(TASK_COUNT, Integer.class);
 		assertEquals(++before, after);
 	}
+	*/
 
 }
 	
