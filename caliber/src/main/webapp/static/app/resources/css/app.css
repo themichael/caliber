@@ -443,6 +443,10 @@ footer a, footer a:hover {
 .fa-minus{
 	color: rgb(252,221,115);
 }
+
+#overallRow{
+    border-top-width: thick; 
+}
 /********************************************************
 	Panels table
 *********************************************************/
@@ -473,6 +477,16 @@ footer a, footer a:hover {
 .color-red {
 	font-weight: bold;
   	color: red;
+}
+
+.color-white {
+	font-weight: bold;
+  	color: white;
+}
+
+.color-orange{
+	font-weight: bold;
+  	color: #F26925;
 }
 
 /**********************
@@ -583,7 +597,7 @@ INTENDED FOR CHART DOWNLOAD ICON IF HOVER OVER CHANGE CURSOR TO POINTING
   width: 300px;
   vertical-align: middle;
   white-space: nowrap;
-  position: relative;
+  position: relative;  
 }
 
 .container-1 .icon{
@@ -631,4 +645,12 @@ INTENDED FOR CHART DOWNLOAD ICON IF HOVER OVER CHANGE CURSOR TO POINTING
 .no-highlight {
 	background-color: #FFFFFF;
 	transition: background-color 1.5s ease;
+}
+
+.mouse-over{
+	cursor: pointer;
+}
+
+.hideDropdown input::-webkit-calendar-picker-indicator {
+	display: none;
 }

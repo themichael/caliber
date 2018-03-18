@@ -1,4 +1,4 @@
- package com.revature.caliber.beans;
+package com.revature.caliber.beans;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -25,18 +25,14 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.OrderBy;
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
- * The type Trainee.
- * 
- * (NOTE) Further iterations should include the following from the Salesforce:
- * recruiter_name, account_name, project_completion This way we can analyze
- * performance based on where they went to college, who recruited them, and if
- * they finished RevaturePro.
+ * The type Trainee
  */
 @Entity
 @Table(name = "CALIBER_TRAINEE")
@@ -84,27 +80,34 @@ public class Trainee implements Serializable {
 
 	@Column(name = "PROFILE_URL")
 	private String profileUrl;
-	
+
 	// new columns
 	@Column(name = "RECRUITER_NAME")
 	private String recruiterName;
-	
+
 	@Column(name = "COLLEGE")
 	private String college;
-	
+
 	@Column(name = "DEGREE")
 	private String degree;
-	
+
 	@Column(name = "MAJOR")
 	private String major;
-	
+
 	@Column(name = "TECH_SCREENER_NAME")
 	private String techScreenerName;
-	
+
 	@Column(name = "REVPRO_PROJECT_COMPLETION")
 	private String projectCompletion;
 	// end of new columns
-	
+
+	@Enumerated(EnumType.STRING)
+	@Column(name = "FLAG_STATUS")
+	private TraineeFlag flagStatus;
+
+	@Length(min = 0, max = 4000)
+	@Column(name = "FLAG_NOTES", length = 4000)
+	private String flagNotes;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "trainee", cascade = CascadeType.ALL)
@@ -115,7 +118,7 @@ public class Trainee implements Serializable {
 	@OneToMany(mappedBy = "trainee", cascade = CascadeType.ALL)
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Note> notes;
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "trainee", cascade = CascadeType.ALL)
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -124,10 +127,12 @@ public class Trainee implements Serializable {
 
 	public Trainee() {
 		super();
+		this.flagStatus = TraineeFlag.NONE;
 	}
 
 	/**
 	 * Constructor used mostly for testing. Default TrainingStatus as Training
+	 * 
 	 * @param name
 	 * @param resourceId
 	 * @param email
@@ -298,9 +303,10 @@ public class Trainee implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Trainee [traineeId=" + traineeId +", name=" + name + ", email=" + email + ", trainingStatus="
-				+ trainingStatus + ", major=" + major +  "]";
+		return "Trainee [traineeId=" + traineeId + ", name=" + name + ", email=" + email + ", trainingStatus="
+				+ trainingStatus + ", major=" + major + "]";
 	}
+	
 
 	public String getRecruiterName() {
 		return recruiterName;
@@ -348,5 +354,21 @@ public class Trainee implements Serializable {
 
 	public void setProjectCompletion(String projectCompletion) {
 		this.projectCompletion = projectCompletion;
+	}
+	
+	public TraineeFlag getFlagStatus() {
+		return flagStatus;
+	}
+
+	public void setFlagStatus(TraineeFlag flagStatus) {
+		this.flagStatus = flagStatus;
+	}
+
+	public String getFlagNotes() {
+		return flagNotes;
+	}
+
+	public void setFlagNotes(String flagNotes) {
+		this.flagNotes = flagNotes;
 	}
 }

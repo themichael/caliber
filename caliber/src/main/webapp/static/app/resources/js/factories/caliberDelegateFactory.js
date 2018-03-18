@@ -106,7 +106,20 @@ angular.module("delegate")
 			delegate.all.getAllTraineesFromBatch = function(resourceId) {
 				return allFactory.getAllTraineesFromBatch(resourceId);
 			};
-
+			
+			/*delegate.all.getAllActiveTasks = function() {
+				return allFactory.getAllActiveTasks();
+			};
+			
+			delegate.all.getAllCompletedTasks = function() {
+				return allFactory.getAllCompletedTasks();
+			};
+			
+			delegate.all.getAllTasksByTrainerId = function(id) {
+				return allFactory.getAllTasksByTrainerId(id);
+			};*/
+			
+		
 			/** *********************** Enum constants *************************** */
 
 			delegate.all.enumCommonLocations = function() {
@@ -235,7 +248,17 @@ angular.module("delegate")
 			delegate.vp.saveCategory = function(category) {
 				return vpFactory.saveCategory(category);
 			};
+			/*
 
+			delegate.vp.saveOrUpdateTask = function(task) {
+				return vpFactory.saveOrUpdateTask(task);
+			};
+			
+			delegate.vp.saveTaskCompletion = function(taskCompletion) {
+				return vpFactory.saveTaskCompletion(taskCompletion);
+			};
+			*/
+			
 			delegate.vp.deactivateTrainer = function(trainerObj) {
 				return vpFactory.deactivateTrainer(trainerObj);
 			}
@@ -278,6 +301,14 @@ angular.module("delegate")
 			}
 
 			/** ************************ QC **************************** */
+			delegate.qc.getAllQCTraineeNoteForAllWeeks = function(batchId){
+                return qcFactory.getAllQCTraineeNoteForAllWeeks(batchId);
+			};
+			
+			delegate.qc.getAllQCBatchNotes = function(batchId){
+                return qcFactory.getAllQCBatchNotes(batchId);
+            };
+
 			delegate.qc.getAllBatches = function() {
 				return qcFactory.getAllBatches();
 			};

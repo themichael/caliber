@@ -10,8 +10,7 @@
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h4 class="modal-title" id="traineeModalLabel">Quality Audit
-					Report</h4>
+				<h4 class="modal-title" id="traineeModalLabel">Quality Audit Report - Week {{displayWeek}}</h4>
 			</div>
 			<div class="modal-body">
 				<div class="col-sm-12 col-md-12 col-lg-12 top5">
@@ -26,6 +25,7 @@
 								</tr>
 								<tr>
 									<th>Trainee</th>
+									<th></th>
 									<th>Individual Feedback</th>
 									<th>Notes</th>
 								</tr>
@@ -33,11 +33,10 @@
 							<tbody>
 								<tr ng-repeat="trainee in currentBatch.trainees track by $index">
 									<td class="col-sm-2 col-md-2 col-lg-2">{{ trainee.name }}</td>
-									<td>{{faces[$index].qcStatus ? faces[$index].qcStatus :
+									<td>{{faces[$index].qcStatus && faces[$index].qcStatus != "Undefined" ? faces[$index].qcStatus :
 										"-"}}</td>
-									<td class="col-sm-9 col-md-9 col-lg-9">{{faces[$index].content
+									<td class="col-sm-9 col-md-9 col-lg-9">{{faces[$index].content && faces[$index].content != "Undefined"
 										? faces[$index].content : "-"}}</td>
-									<td><ul class="nav nav-tabs">
 								</tr>
 							</tbody>
 						</table>

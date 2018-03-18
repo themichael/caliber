@@ -64,6 +64,24 @@ public class NoteDAOTest extends CaliberTest {
 	
 	/**
 	 * Test methods:
+	 * Positive tests for finding individual notes for trainee
+	 */
+	@Test
+	public void findAllQCIndividualNotes(){
+		log.trace("GETTING individual notes by Trainee");
+		//get trainee comparison
+		Trainee trainee = traineeDao.findOne(TEST_TRAINEE_ID);
+		
+		// get notes
+		List<Note> notes = noteDao.findQCIndividualNotes(trainee.getTraineeId());
+		
+		// compare with expected
+		assertEquals(notes.size(), 7);	
+		log.info(notes);
+	}
+	
+	/**
+	 * Test methods:
 	 * Positive tests for finding individual notes for a bacth in a given week
 	 * @see com.revature.caliber.data.NoteDAO#findAllBatchNotes(batch,week)
 	 */
@@ -193,7 +211,7 @@ public class NoteDAOTest extends CaliberTest {
 		
 		// get all QC batch notes
 		List<Note> actual = noteDao.findAllBatchQcNotes(TEST_QCBATCH_ID);
-		
+				
 		// compare with expected size
 		assertEquals(7, actual.size());
 	}
@@ -345,4 +363,15 @@ public class NoteDAOTest extends CaliberTest {
 		// check if the individual notes size is equal to 16
 		assertEquals(16, notes.size());
 	}
+	/**
+	 * Tests finding individual notes all weeks
+	 * @see com.revature.caliber.data.NoteDAO#findAllQCTraineeNotesForAllWeeks(Integer)
+	 */
+	@Test 
+	public void testFindIndividualNotesAllWeeks() {
+		log.trace("Finding individual notes, all weeks");
+		List<Note> notes = noteDao.findAllQCTraineeNotesForAllWeeks(2201);
+		assertEquals(117, notes.size());
+	}
+	
 }

@@ -2,9 +2,11 @@ package com.revature.caliber.pdf;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.log4j.Logger;
@@ -73,8 +75,15 @@ public class RevaturePDF {
 		formattedHtml = formattedHtml.replaceAll(" class=\"glyphicon glyphicon-remove fa-2x panel-glyph\">", ">Fail");
 		formattedHtml = formattedHtml.replaceAll(" class=\"fa fa-minus fa-2x panel-glyph\">", ">N/A");
 		
+		// Replace smiley icons with readable values
+		formattedHtml = formattedHtml.replaceAll(" class=\"fa fa-star fa-2x pick mouse-over\">", ">Superstar");
+		formattedHtml = formattedHtml.replaceAll(" class=\"fa fa-smile-o fa-2x pick mouse-over\">", ">Good");
+		formattedHtml = formattedHtml.replaceAll(" class=\"fa fa-meh-o fa-2x pick mouse-over\">", ">Average");
+		formattedHtml = formattedHtml.replaceAll(" class=\"fa fa-frown-o fa-2x pick mouse-over\">", ">Poor");
+		formattedHtml = formattedHtml.replaceAll(" class=\"fa fa-question-circle fa-2x mouse-over\">", ">N/A");
+		
 		log.trace(formattedHtml);
-
+		
 		// initialize document state
 		this.document = new Document(PageSize.A4, marginLeft, marginRight, marginTop, marginBottom);
 		this.title = title;

@@ -27,6 +27,8 @@ import com.revature.caliber.beans.Address;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
+import com.revature.caliber.beans.TrainerTask;
+import com.revature.caliber.beans.TrainerTaskCompletion;
 import com.revature.caliber.security.models.SalesforceUser;
 import com.revature.caliber.services.TrainingService;
 
@@ -51,7 +53,6 @@ public class TrainingController {
 
 	/*
 	 *******************************************************
-
 	 * LOCATION SERVICES
 	 *
 	 *******************************************************
@@ -134,7 +135,6 @@ public class TrainingController {
 
 	/*
 	 *******************************************************
-
 	 * TRAINER SERVICES
 	 *
 	 *******************************************************
@@ -356,7 +356,7 @@ public class TrainingController {
 		return new ResponseEntity<>(trainingService.findCommonLocations(), HttpStatus.OK);
 	}
 
-	/*
+	/*get
 	 *******************************************************
 	 * TRAINEE SERVICES
 	 *
@@ -407,11 +407,11 @@ public class TrainingController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER','PANEL')")
 	public ResponseEntity<Void> updateTrainee(@Valid @RequestBody Trainee trainee) {
-		log.info("Updating trainee: " + trainee);
 		trainingService.update(trainee);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
+	
 	/**
 	 * Delete trainee
 	 *
@@ -445,7 +445,7 @@ public class TrainingController {
 	@RequestMapping(value = "/all/trainee/getByEmail/{traineeEmail}", method = RequestMethod.GET)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'PANEL')")
-	public ResponseEntity<Trainee> retreiveTraineeByEmail(@PathVariable String traineeEmail) {
+	public ResponseEntity<Trainee> retreiveTraineeByEmail() {
 		/* 
 		 1. at some point, we will have unique constraint on trainee email.
 		 	this method will check the database before adding the new trainee
@@ -466,4 +466,73 @@ public class TrainingController {
 	private Trainer getPrincipal(Authentication auth) {
 		return ((SalesforceUser) auth.getPrincipal()).getCaliberUser();
 	}
+	
+	/*
+	 *******************************************************
+	 * TASK SERVICES
+	 *
+	 *******************************************************
+	 */
+	
+	
+	/**
+	 * Returns all active tasks from the database`
+	 *
+	 * @return
+	 */
+	@RequestMapping(value = "/all/tasks/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	@PreAuthorize("hasAnyRole('VP')")
+	public ResponseEntity<List<TrainerTask>> getAllActiveTasks() {
+		log.info("Fetching all active tasks");
+		List<TrainerTask> tasks = trainingService.findAllActiveTasks();
+		return new ResponseEntity<>(tasks, HttpStatus.OK);
+	}
+	
+	/**
+	 * Returns all completed tasks
+	 *
+	 * @return
+	 */
+	@RequestMapping(value = "/all/tasks/trainer", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	@PreAuthorize("hasAnyRole('VP')")
+	public ResponseEntity<List<TrainerTaskCompletion>> getAllCompletedTasks() {
+		log.info("Fetching all completed tasks");
+		List<TrainerTaskCompletion> tasks = trainingService.findAllCompletedTasks();
+		return new ResponseEntity<>(tasks, HttpStatus.OK);
+	}
+	
+	/**
+	 * Returns all completed tasks by trainerId
+	 *
+	 * @return
+	 */
+	@RequestMapping(value = "/all/tasks/trainer/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	@PreAuthorize("hasAnyRole('VP')")
+	public ResponseEntity<List<TrainerTaskCompletion>> getAllTasksByTrainerId(@PathVariable int id) {
+		log.info("Fetching all completed tasks for trainer with id " + id);
+		List<TrainerTaskCompletion> tasks = trainingService.findAllTasksByTrainerId(id);
+		return new ResponseEntity<>(tasks, HttpStatus.OK);
+	}
+	
+	//Calls a method that creates a new task
+	@RequestMapping(value = "/vp/task", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	@PreAuthorize("hasAnyRole('VP')")
+	public ResponseEntity<TrainerTask> saveOrUpdateTask(@Valid @RequestBody TrainerTask task) {
+		trainingService.saveOrUpdateTask(task);
+		return new ResponseEntity<>(task, HttpStatus.CREATED);
+	}
+	
+	//Saves a completed task
+	@RequestMapping(value = "/vp/task/completed", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	@PreAuthorize("hasAnyRole('VP')")
+	public ResponseEntity<TrainerTaskCompletion> saveTaskCompletopn(@Valid @RequestBody TrainerTaskCompletion taskCompletion) {
+		trainingService.saveTaskCompletion(taskCompletion);
+		return new ResponseEntity<>(taskCompletion, HttpStatus.CREATED);
+	}
+	
 }

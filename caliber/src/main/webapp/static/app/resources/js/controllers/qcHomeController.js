@@ -98,13 +98,13 @@ angular
                     // function to get notes
                     function getNotes() {
                         // Check if there are no weeks
-                        if ($scope.currentWeek !== undefined
+                        if ($scope.displayWeek !== undefined
                             && $scope.currentBatch !== undefined
                             && $scope.currentBatch !== null) {
                             // Get qc batch notes for selected batch
                             caliberDelegate.qc
                                 .batchNote($scope.currentBatch.batchId,
-                                    $scope.currentWeek)
+                                    $scope.displayWeek)
                                 .then(
                                     function(notes) {
                                         // If no batch note found
@@ -140,7 +140,7 @@ angular
                             caliberDelegate.qc
                                 .traineeNote(
                                     $scope.currentBatch.batchId,
-                                    $scope.currentWeek)
+                                    $scope.displayWeek)
                                 .then(
                                     function(notes) {
                                         $log.debug(notes);
@@ -173,7 +173,7 @@ angular
                                                     id,
                                                     content,
                                                     status,
-                                                    $scope.currentWeek,
+                                                    $scope.displayWeek,
                                                     null,
                                                     $scope.currentBatch.trainees[i],
                                                     "ROLE_QC",
@@ -241,6 +241,9 @@ angular
                             $scope.currentBatch.trainees.sort(compare);
                         }
 
+                        //set display week for modal header
+                        $scope.displayWeek = $scope.displayWeeksMap[$scope.currentBatch.batchId];
+                                                
                         // Set current week to first week
                         // If reports week is selected
                         if ($scope.reportCurrentWeek !== undefined
@@ -299,8 +302,9 @@ angular
                         $scope.stackedBarSeries = barChartObj.series;
                         $scope.stackedBarOptions = barChartObj.options;
                         $scope.stackedBarColors = barChartObj.colors;
-                        $scope.stackedBarIds = barChartObj.id; // define scope
-                        // for batch ids
+                        $scope.stackedBarIds = barChartObj.id; // define scope for batch ids
+                        $scope.qcOverall = barChartObj.qcOverall;
+						$scope.displayWeeksMap = barChartObj.displayWeeksMap;
                     }
 
                     function createCurrentBatchesAverageScoreChart(data) {

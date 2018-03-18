@@ -84,6 +84,7 @@ angular
 						$log.debug($scope.batches);
 
 					})();
+					
 
 					/** Filter batches by year * */
 					$scope.years = addYears();
@@ -530,10 +531,26 @@ angular
 					 * ************************** Trainees
 					 * ****************************
 					 */
+					
+					//Set flags to color in database
+					$scope.init = function(trainee, index){
+						var flagElement = document.getElementsByClassName("glyphicon-flag")[index];
+						var flagColor = trainee.flagStatus;
+						if(flagColor === 'RED'){
+							flagElement.setAttribute("class","glyphicon glyphicon-flag color-red");
+						}else if(flagColor === 'GREEN'){
+							flagElement.setAttribute("class","glyphicon glyphicon-flag color-green");
+						}else if(flagColor === 'TRAINER'){
+							flagElement.setAttribute("class","glyphicon glyphicon-flag color-orange");
+						}else{
+							flagElement.setAttribute("class","glyphicon glyphicon-flag color-white");
+						}
+					}
 
 					/** create scopes for trainee form* */
 					$scope.traineeForm = {
 						name : null,
+						flagStatus : 'NONE',
 						email : null,
 						skypeId : null,
 						phoneNumber : null,
@@ -554,6 +571,9 @@ angular
 					$scope.email = {
 						model : null
 					};
+					$scope.flagStatus = {
+							model: 'NONE'
+					}
 					/* Set default training status for new trainee */
 					$scope.trainingStatus = "Training";
 					$scope.trainingStatuses = {
@@ -593,6 +613,7 @@ angular
 						$log.debug(trainee);
 						$scope.traineeForm.name = trainee.name;
 						$scope.traineeForm.email = trainee.email;
+						$scope.traineeForm.flagStatus = trainee.flagStatus;
 						$scope.traineeForm.skypeId = trainee.skypeId;
 						$scope.traineeForm.phoneNumber = trainee.phoneNumber;
 						$scope.traineeForm.profileUrl = trainee.profileUrl;
@@ -615,6 +636,7 @@ angular
 					$scope.resetTraineeForm = function() {
 						$scope.traineeFormName = "Add Trainee";
 						$scope.traineeForm.name = "";
+						$scope.traineeForm.flagStatus = "NONE";
 						$scope.traineeForm.email = "";
 						$scope.traineeForm.skypeId = "";
 						$scope.traineeForm.phoneNumber = "";
@@ -673,6 +695,7 @@ angular
 					/** Create new Trainee Object * */
 					function createTraineeObject(trainee) {
 						trainee.name = $scope.traineeForm.name;
+						trainee.flagStatus = $scope.traineeForm.flagStatus;
 						trainee.email = $scope.traineeForm.email;
 						trainee.skypeId = $scope.traineeForm.skypeId;
 						trainee.phoneNumber = $scope.traineeForm.phoneNumber;
@@ -792,5 +815,78 @@ angular
 							function() {
 								$("body").addClass("modal-open");
 							});
-
+					
+					/** creates a function triggered by a click on the trainee's name, that toggles the color of the flag
+					 *  and opens an input box to comment on the color change 
+					 */
+					var status = null;
+					$scope.toggleColor = function(trainee, index) {
+						var flagElement = document.getElementsByClassName("glyphicon-flag")[index];
+						var initialStatus = trainee.flagStatus;
+				        if (flagElement.getAttribute("class") === "glyphicon glyphicon-flag color-white") {
+				        		status = "RED";
+				        		flagElement.setAttribute("class","glyphicon glyphicon-flag color-red");
+				        } else if (flagElement.getAttribute("class") === "glyphicon glyphicon-flag color-red") {
+				        		status = "GREEN";
+				        		flagElement.setAttribute("class","glyphicon glyphicon-flag color-green");
+				        } else if (flagElement.getAttribute("class") === "glyphicon glyphicon-flag color-green") {
+				        		status = "TRAINER";
+				        		flagElement.setAttribute("class","glyphicon glyphicon-flag color-orange");
+				        } else if (flagElement.getAttribute("class") === "glyphicon glyphicon-flag color-orange") {
+				        		status = "NONE";
+				        		flagElement.setAttribute("class","glyphicon glyphicon-flag color-white");
+				        }
+				        if(initialStatus !== status){
+				        		commentBox(flagElement, status, initialStatus, index, trainee);
+				        } else {
+				        		flagElement.nextSibling.nextSibling.setAttribute("style","display:none;");
+				        }
+				    }
+					
+					/** opens up a comment form box when the flag color changes 
+					 */
+					function commentBox(flag, status, initialStatus, index, trainee){
+						flag.nextSibling.nextSibling.removeAttribute("style");
+						flag.nextSibling.nextSibling.setAttribute("style","display:inline-block; position:absolute; padding:5px; border-radius:5px; margin-left:5px; background-color: white; border: solid #ccc 1px; z-index: 1");
+						$scope.closeComment = function(){
+							document.getElementsByClassName("commentForm")[index].setAttribute("style","display:none;");
+							if(initialStatus === "RED"){
+								flag.setAttribute("class","glyphicon glyphicon-flag color-red");
+							} else if (initialStatus === "GREEN"){
+								flag.setAttribute("class","glyphicon glyphicon-flag color-green");
+							} else if (initialStatus === "TRAINER"){
+								flag.setAttribute("class","glyphicon glyphicon-flag color-orange");
+							} else {
+								flag.setAttribute("class","glyphicon glyphicon-flag color-white");
+							}
+						}
+						trainee.batch = {
+	                            batchId : $scope.currentBatch.batchId
+	                        };
+					}
+					
+					/** saves changes the flag status in the javascript object and persists it back to the database
+					 *  upon submission of the comment form and closes the form
+					 */
+					$scope.updateFlag = function(trainee, index){
+						trainee.flagStatus = status;
+						caliberDelegate.all
+                        	.updateTrainee(trainee);
+						document.getElementsByClassName("commentForm")[index].setAttribute("style","display:none;");
+					}
+					
+					//show flagNotes when hovering over flag
+					$scope.showNotes = function(index){
+							if($scope.currentBatch.trainees[index].flagNotes != null){
+								document.getElementsByClassName("notes")[index].setAttribute("style",
+								"z-index: 1; display:inline-block; position:absolute; padding:5px; " +
+								"border: 1px solid #CCC; border-radius: 5px; background-color: white");
+							}
+					}
+					 					
+ 					//hide flagNotes when no there is no flag hover 
+ 					$scope.hideNotes = function(index){
+							document.getElementsByClassName("notes")[index].setAttribute("style", "display: none");
+		 			}
+					
 				});

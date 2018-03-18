@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Note;
+import com.revature.caliber.beans.NoteType;
 import com.revature.caliber.services.EvaluationService;
 
 /**
@@ -111,10 +112,12 @@ public class EvaluationController {
 	 * @return
 	 */
 	@RequestMapping(value = "/note/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER','PANEL')")
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER')")
 	public ResponseEntity<Integer> createNote(@Valid @RequestBody Note note) {
 		log.info("Creating note: " + note);
-		return new ResponseEntity<>(evaluationService.save(note), HttpStatus.CREATED);
+		Integer id = evaluationService.save(note);
+		calculateAverage(note);
+		return new ResponseEntity<>(id, HttpStatus.CREATED);
 	}
 
 	/**
@@ -124,11 +127,27 @@ public class EvaluationController {
 	 * @return
 	 */
 	@RequestMapping(value = "/note/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER','PANEL')")
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER')")
 	public ResponseEntity<Note> updateNote(@Valid @RequestBody Note note) {
 		log.info("Updating note: " + note);
 		evaluationService.update(note);
+		calculateAverage(note);
 		return new ResponseEntity<>(note, HttpStatus.CREATED);
+	}
+
+	/**
+	 * Checks if the given note is of the right type
+	 * If it, passes the notes weekId, and the note's batch to the calculate average method
+	 * 
+	 * @param note to check
+	 * @return
+	 */
+	private void calculateAverage(Note note){
+		if(note.getType() == NoteType.QC_TRAINEE){
+			log.info("Calculating Overall note");
+			log.info(note);
+			evaluationService.calculateAverage(new Integer(note.getWeek()), note.getBatch());
+		}
 	}
 
 	/*
@@ -256,4 +275,30 @@ public class EvaluationController {
 	public ResponseEntity<List<Note>> findAllTraineeNotes(@PathVariable Integer traineeId) {
 		return new ResponseEntity<>(evaluationService.findAllIndividualNotesOverall(traineeId), HttpStatus.OK);
 	}
+	
+		
+	/**
+	 * Find all QC trainee notes in a batch for the week
+	 * @param batchId
+	 * @return
+	 */
+	@RequestMapping(value = "/qc/note/trainee/all/{batchId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING','PANEL')")
+	public ResponseEntity<List<List<Note>>> getAllQCTraineeNotesForAllWeeks(@PathVariable Integer batchId) {
+		log.info("Getting all trainee notes by QC");
+		return new ResponseEntity<>(evaluationService.findAllQCTraineeNotesForAllWeeks(batchId), HttpStatus.OK);
+	}		
+	
+	/**
+     * Finding all QC Batch notes, in ascending order by week
+     * @param batchId
+     * @return List of all QC batch notes
+     */
+    @RequestMapping(value = "/qc/note/batch/all/{batchId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING','PANEL')")
+    public ResponseEntity<List<Note>> getAllQCBatchNotes(@PathVariable Integer batchId){
+        log.info("Getting all QC batch notes by batch ID");
+        return new ResponseEntity<>(evaluationService.findAllQCBatchNotes(batchId), HttpStatus.OK);
+    }
+		
 }

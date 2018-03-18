@@ -1,5 +1,6 @@
 package com.revature.caliber.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -164,6 +165,15 @@ public class TypeController {
 	public ResponseEntity<List<String>> allInterviewFormat() {
 		log.info("Fetching Interview Format");
 		List<String> types = Stream.of(InterviewFormat.values()).map(Enum::name).collect(Collectors.toList());
+		types = hyphenate(types);
 		return new ResponseEntity<>(types, HttpStatus.OK);
 	}
+	
+    public static List<String> hyphenate(List<String> list) {
+        List<String> hyphenatedlist = new ArrayList<>();
+        for(String s: list) {
+        hyphenatedlist.add(s.replace("_", "-"));
+        }
+		return hyphenatedlist;
+    }
 }

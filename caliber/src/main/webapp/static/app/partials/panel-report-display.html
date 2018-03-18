@@ -45,8 +45,9 @@
 									<strong>Recording Consent</strong>
 								</div>
 								<div class="col-4 col-sm-6 add-space">
-									<span ng-if ="traineePanelData[panelIndex].recordingConsent == true ">Yes</span>
-									<span ng-if ="traineePanelData[panelIndex].recordingConsent == false ">No</span>
+									<span ng-if ="traineePanelData[panelIndex].recordingConsent == 'Yes' ">Yes</span>
+									<span ng-if ="traineePanelData[panelIndex].recordingConsent == 'No' ">No</span>
+									<span ng-if ="traineePanelData[panelIndex].recordingConsent == 'Did Not Ask' ">Did Not Ask</span>
 								</div>
 								<div class="col-8 col-sm-6 add-space">
 									<strong>Recording Link</strong>

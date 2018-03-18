@@ -49,7 +49,7 @@ public class SalesforceDAO {
 
 	@Value("#{systemEnvironment['SALESFORCE_INSTANCE_URL']}")
 	private String salesforceInstanceUrl;
-	@Value("/services/data/v39.0/query/")
+	@Value("/services/data/v39.0/query/") // UNKNOWN HOST OR SERVICE 1/17/2018
 	private String salesforceApiUrl;
 
 	//////////// SOQL - Salesforce Object Query Language //////////////
