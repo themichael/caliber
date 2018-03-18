@@ -147,6 +147,24 @@ public class Trainee implements Serializable {
 		this.batch = batch;
 	}
 
+	public Trainee(String name, String email, TrainingStatus trainingStatus, String phoneNumber, String skypeId,
+			String profileUrl, String recruiterName, String college, String degree, String major,
+			String techScreenerName, String projectCompletion) {
+		super();
+		this.name = name;
+		this.email = email;
+		this.trainingStatus = trainingStatus;
+		this.phoneNumber = phoneNumber;
+		this.skypeId = skypeId;
+		this.profileUrl = profileUrl;
+		this.recruiterName = recruiterName;
+		this.college = college;
+		this.degree = degree;
+		this.major = major;
+		this.techScreenerName = techScreenerName;
+		this.projectCompletion = projectCompletion;
+	}
+
 	public int getTraineeId() {
 		return traineeId;
 	}
