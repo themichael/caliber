@@ -13,6 +13,20 @@ public enum SkillType implements Serializable{
 	SDET("SDET"),
 	@JsonProperty("BPM")
 	BPM("BPM"),
+	@JsonProperty("Appian BPM")
+	APPIAN("Appian BPM"),
+	@JsonProperty("PEGA BPM")
+	PEGA("PEGA BPM"),
+	@JsonProperty("Microsoft Dynamics 365")
+	DYNAMICS("Microsoft Dynamics 365"),
+	@JsonProperty("JTA")
+	JTA("JTA"),
+	@JsonProperty("Microservices")
+	MICROSERVICES("Microservices"),
+	@JsonProperty("Oracle Fusion")
+	FUSION("Oracle Fusion"),
+	@JsonProperty("Salesforce")
+	SALESFORCE("Salesforce"),
 	@JsonProperty("Other")
 	OTHER("Other");
 	

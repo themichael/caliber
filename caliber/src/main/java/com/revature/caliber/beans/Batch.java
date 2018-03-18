@@ -164,6 +164,19 @@ public class Batch implements Serializable {
 		this.location = location;
 	}
 
+	public Batch(String resourceId, String trainingName, Trainer trainer, Trainer coTrainer, SkillType skillType,
+			TrainingType trainingType, Date startDate, Date endDate) {
+		super();
+		this.resourceId = resourceId;
+		this.trainingName = trainingName;
+		this.trainer = trainer;
+		this.coTrainer = coTrainer;
+		this.skillType = skillType;
+		this.trainingType = trainingType;
+		this.startDate = startDate;
+		this.endDate = endDate;
+	}
+
 	public int getBatchId() {
 		return batchId;
 	}

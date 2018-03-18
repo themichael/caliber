@@ -12,6 +12,7 @@ import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.TriggerContext;
@@ -110,6 +111,7 @@ public class BatchUpdateTest extends CaliberTest{
 	 */
 	
 	@Test
+	@Ignore
 	public void testScheduler() {
 		org.springframework.scheduling.support.CronTrigger trigger = new CronTrigger("0 0 0 * * *");
 		Calendar today = Calendar.getInstance();
@@ -138,6 +140,7 @@ public class BatchUpdateTest extends CaliberTest{
 	}
 	
 	@Test
+	@Ignore
 	public void compareBatchTest() {
 		List<Batch> caliberBatches = new ArrayList<>();
 		List<Batch> salesforceBatches = new ArrayList<>();
