@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,6 +18,7 @@ import com.revature.caliber.services.SalesforceService;
 
 @RestController
 @PreAuthorize("isAuthenticated()")
+@CrossOrigin(origins = "http://ec2-54-163-132-124.compute-1.amazonaws.com")
 public class SalesforceController {
 
 	private static final Logger log = Logger.getLogger(SalesforceController.class);
