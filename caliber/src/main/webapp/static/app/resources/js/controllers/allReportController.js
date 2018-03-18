@@ -1026,6 +1026,8 @@ angular
 
 		//DOWNLOAD INDIVIDUAL CHART AS PDF
 		$scope.downloadChartButton = function ($event) {
+			// indicate to user the PDF is processing
+			$scope.reticulatingSplines = true;
 			//GET CURRENT ELEMENT'S PARENT'S PARENT'S PARENT
 			var element = $event.target.parentElement.parentElement;
 			var doc = new jsPDF('p', 'mm', 'a4');
@@ -1035,10 +1037,14 @@ angular
 				var filename = element.childNodes[1].innerText.trim() + '.pdf';
 				doc.save(filename);
 			});
+			// indicate to user the PDF is finished processing
+			$scope.reticulatingSplines = false;
 		};
 
 		//DOWNLOAD ALL TRAINEE CHART AS PDF
 		$scope.downloadAllChartButton = function () {
+			// indicate to user the PDF is processing
+			$scope.reticulatingSplines = true;
 			//GET CALIBER CONTAINER ID THAT CONSIST OF ALL THE CHARTS UNDER REPORT
 			var element = angular.element(document.querySelector('#caliber-container')).children()[0];
 			var cumulativeScores = element.children[0].children[0].children[0];
@@ -1066,6 +1072,8 @@ angular
 				}
 			};
 			recursiveAddHtml(10);
+			// indicate to user the PDF is finished processing
+			$scope.reticulatingSplines = false;
 		};
 
 		// Gets notes (trainer and QC) for a specific trainee and

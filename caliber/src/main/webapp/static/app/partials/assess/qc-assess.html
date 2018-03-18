@@ -76,7 +76,7 @@
 						</thead>
 						<tbody>
 							<!-- Displays a list of all trainees still active in the batch -->
-							<tr ng-repeat="trainee in currentBatch.trainees track by $index">
+							<tr role="button" ng-repeat="trainee in currentBatch.trainees track by $index">
 								<td ng-click="toggleColor(trainee, $index)">{{trainee.name}}</td>
 									<td><span ng-mouseover="showNotes($index)" ng-mouseleave="hideNotes($index)" 
 									ng-init="init(trainee, $index)" class="glyphicon glyphicon-flag"></span>
