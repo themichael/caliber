@@ -65,6 +65,20 @@ public class SalesforceTransformerToCaliber {
 			return SkillType.SDET;
 		case "BPM":
 			return SkillType.BPM;
+		case "Appian BPM":
+			return SkillType.APPIAN;	
+		case "PEGA BPM":
+			return SkillType.PEGA;
+		case "Microsoft Dynamics 365":
+			return SkillType.DYNAMICS;
+		case "JTA":
+			return SkillType.JTA;
+		case "Microservices":
+			return SkillType.MICROSERVICES;
+		case "Oracle Fusion":
+			return SkillType.FUSION;
+		case "Salesforce":
+			return SkillType.SALESFORCE;
 		default:
 			return SkillType.OTHER;
 		}
