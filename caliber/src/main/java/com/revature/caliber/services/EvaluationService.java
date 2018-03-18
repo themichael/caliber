@@ -239,16 +239,6 @@ public class EvaluationService {
 		return noteDAO.findAllQCTraineeOverallNotes(traineeId);
 	}
 	
-	/**
-	 * Find all qc trainee notes for all weeks
-	 * @author Junaid syed TeamQCator
-	 * @return
-	 */
-	public List<Note> findAllQCTraineeNotesForAllWeeks(Integer batchId) {
-		log.debug("Find All QC Trainee Notes");
-		return noteDAO.findAllQCTraineeNotesForAllWeeks(batchId);
-	}	
-	
 	public void calculateAverage(Integer weekId, Batch batch){
 		if(batch != null){
 			Note overallNote = noteDAO.findQCBatchNotes(batch.getBatchId(), weekId);
@@ -315,7 +305,7 @@ public class EvaluationService {
      * Find all qc trainee notes for all weeks
      * @return
      */
-    public List<List<Note>> findAllQCTraineeNotesForAllWeeksWhichPatrickFindsVeryDifficultToUnderstandWTFIsGoingOn(Integer batchId) {
+    public List<List<Note>> findAllQCTraineeNotesForAllWeeks(Integer batchId) {
         log.debug("Find All QC Trainee Notes");
         List<Note> notes = noteDAO.findAllQCTraineeNotesForAllWeeks(batchId);
         ArrayList<List<Note>> noteFormatted2d = new ArrayList<>();

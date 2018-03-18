@@ -284,7 +284,7 @@ public class EvaluationController {
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING','PANEL')")
 	public ResponseEntity<List<List<Note>>> getAllQCTraineeNotesForAllWeeks(@PathVariable Integer batchId) {
 		log.info("Getting all trainee notes by QC");
-		return new ResponseEntity<>(evaluationService.findAllQCTraineeNotesForAllWeeksWhichPatrickFindsVeryDifficultToUnderstandWTFIsGoingOn(batchId), HttpStatus.OK);
+		return new ResponseEntity<>(evaluationService.findAllQCTraineeNotesForAllWeeks(batchId), HttpStatus.OK);
 	}		
 	
 	/**
