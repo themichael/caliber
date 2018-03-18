@@ -1,6 +1,9 @@
 angular.module("api").factory("allFactory", function($log, $http) {
 
 	$log.debug("Booted all api factory");
+	/**
+	 * commented-out Trainer Task code is in service of incomplete issue #791
+	 */
 
 	var all = {};
 
@@ -528,6 +531,7 @@ angular.module("api").factory("allFactory", function($log, $http) {
 	 * 
 	 * @returns {*}
 	 */
+	/*
 	all.getAllActiveTasks = function() {
 		return $http({
 			url : "/all/tasks/all/",
@@ -539,12 +543,13 @@ angular.module("api").factory("allFactory", function($log, $http) {
 		}, function(response) {
 			$log.error("There was an error: " + response.status);
 		});
-	};
+	}; */
 	
 	/**
 	 * 
 	 * @returns {*}
 	 */
+	/*
 	all.getAllCompletedTasks = function() {
 		return $http({
 			url : "/all/tasks/trainer/",
@@ -557,11 +562,12 @@ angular.module("api").factory("allFactory", function($log, $http) {
 			$log.error("There was an error: " + response.status);
 		});
 	};
-	
+	*/
 	/**
 	 * 
 	 * @returns {*}
 	 */
+	/*
 	all.getAllTasksByTrainerId = function(id) {
 		return $http({
 			url : "/all/tasks/trainer/" + id + "/",
@@ -574,7 +580,7 @@ angular.module("api").factory("allFactory", function($log, $http) {
 			$log.error("There was an error: " + response.status);
 		});
 	};
-
+	*/
 	/***************************************************************************
 	 * Server generates PDF from HTML Download via response data
 	 * 

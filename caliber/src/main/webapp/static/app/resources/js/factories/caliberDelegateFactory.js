@@ -107,7 +107,7 @@ angular.module("delegate")
 				return allFactory.getAllTraineesFromBatch(resourceId);
 			};
 			
-			delegate.all.getAllActiveTasks = function() {
+			/*delegate.all.getAllActiveTasks = function() {
 				return allFactory.getAllActiveTasks();
 			};
 			
@@ -117,7 +117,7 @@ angular.module("delegate")
 			
 			delegate.all.getAllTasksByTrainerId = function(id) {
 				return allFactory.getAllTasksByTrainerId(id);
-			};
+			};*/
 			
 		
 			/** *********************** Enum constants *************************** */
@@ -248,6 +248,7 @@ angular.module("delegate")
 			delegate.vp.saveCategory = function(category) {
 				return vpFactory.saveCategory(category);
 			};
+			/*
 
 			delegate.vp.saveOrUpdateTask = function(task) {
 				return vpFactory.saveOrUpdateTask(task);
@@ -256,6 +257,7 @@ angular.module("delegate")
 			delegate.vp.saveTaskCompletion = function(taskCompletion) {
 				return vpFactory.saveTaskCompletion(taskCompletion);
 			};
+			*/
 			
 			delegate.vp.deactivateTrainer = function(trainerObj) {
 				return vpFactory.deactivateTrainer(trainerObj);

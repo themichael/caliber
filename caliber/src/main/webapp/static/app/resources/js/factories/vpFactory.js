@@ -123,6 +123,7 @@ angular
 
 					};
 
+					/*
 					// Save new task
 					vp.saveOrUpdateTask = function(task) {
 						return $http({
@@ -159,7 +160,7 @@ angular
 													+ response, status);
 								});
 
-					};
+					};*/
 					
 
 					// deactivate trainer needed to force content type to be
