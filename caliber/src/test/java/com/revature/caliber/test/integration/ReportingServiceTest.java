@@ -688,7 +688,7 @@ public class ReportingServiceTest extends CaliberTest {
 			LocalDate expect = LocalDate.now();
 			expect = expect.minusDays(7);
 			
-			assertEquals("Patrick Walsh" + expect, (String) test.get("label"));
+			assertEquals("Patrick Walsh " + expect, (String) test.get("label"));
 			
 			//asserts the address by making sure that the "street" component of address is what's expected
 			Address address = (Address) test.get("address");
