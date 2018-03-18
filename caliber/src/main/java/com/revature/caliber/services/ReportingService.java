@@ -441,7 +441,6 @@ public class ReportingService {
 		batches.parallelStream().forEach(batch -> {
 			Map<String, Object> batchObject = new HashMap<>();
 			List<Trainee> trainees = new ArrayList<>(batch.getTrainees());
-
 			batchObject.put("label", batch.getTrainer().getName() + " " + batch.getStartDate());
 			batchObject.put("grades", utilAvgBatchOverall(trainees, batch.getWeeks()));
 			batchObject.put("address", batch.getAddress());

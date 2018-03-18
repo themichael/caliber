@@ -35,6 +35,11 @@
 							<td>{{trainer.email}}</td>
 							<td>{{trainer.tier.substr(5)}}</td>
 							<!-- Buttons -->
+							<!--  <td><a role="button" class="pull-right"
+								ng-click="populateTrainer($index)" data-toggle="modal"
+								data-target="#trainerTaskModal"><span
+									ng-class="{'glyphicon glyphicon-list-alt' : trainer.title == 'Junior Trainer'}" aria-hidden="true"></span></a></td>
+							-->
 							<td><a role="button" class="pull-right"
 								ng-click="populateTrainer($index)" data-toggle="modal"
 								data-target="#editTrainerModal"><span
@@ -62,4 +67,6 @@
 	<div ui-view="delete-trainer-form"></div>
 	<!-- confirm, and error models for trainees -->
 	<div ui-view="trainer-extra-modals"></div>
+	<!-- modal form for trainer checklist -->
+	<!--  div ui-view="trainer-checklist-form"></div> -->
 </div>

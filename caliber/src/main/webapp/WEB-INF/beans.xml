@@ -13,5 +13,4 @@
 
 	<import resource="classpath:beans.xml" />
 	<import resource="classpath:spring-security.xml" />
-
 </beans>

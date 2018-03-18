@@ -5,6 +5,8 @@
  * Daniel worked on viewing all trainers, Stanley worked on adding trainers,
  * Roderick worked on editing trainers, Adam worked on delete functionality for
  * trainers.
+ * 
+ * Commented-out code related to trainer tasks refers to incomplete issue #791
  * ******************************************************************************
  */
 
@@ -12,22 +14,31 @@ angular
 		.module("vp")
 		.controller(
 				"vpTrainerController",
-				function($scope, $log, caliberDelegate) {
+				function($scope, $cookies, $log, caliberDelegate) {
+					// $scope.allActiveTasks;
+					var currentUserId = $cookies.get("id");
+					var currentUser;
 					$log.debug("Booted trainer manage controller.");
-					$log.debug('test trainermanager cntroller -j');
+					$log.debug('test trainermanager controller -j');
 					/**
 					 * ************************** Batch
 					 * ****************************
 					 */
 
 					/** On page start --> load all trainers * */
-
 					$scope.loadAllTrainers = function() {
-						caliberDelegate.all.getAllTrainers().then(
-								function(trainers) {
-									$log.debug(trainers);
-									$scope.allTrainers = trainers;
-								});
+						caliberDelegate.all
+								.getAllTrainers()
+								.then(
+										function(trainers) {
+											$log.debug(trainers);
+											$scope.allTrainers = trainers;
+											for (var i = 0; i < trainers.length; i++) {
+												if (currentUserId == trainers[i].trainerId) {
+													currentUser = trainers[i];
+												}
+											}
+										});
 					};
 
 					var submitTier = function(tier) {
@@ -52,7 +63,7 @@ angular
 						$scope.trainerTiers = filteredTiers;
 					});
 
-					// load tainers titles
+					// load trainers' titles
 					caliberDelegate.vp.trainersTitles().then(function(titles) {
 						$log.debug(titles);
 						$scope.trainersTitles = titles;
@@ -127,6 +138,7 @@ angular
 						$scope.trainerForm.tier = $scope.allTrainers[index].tier
 								.substr(5);
 						$scope.Save = "Update";
+
 					};
 
 					/** Update Trainer Input * */
@@ -154,5 +166,4 @@ angular
 										});
 						angular.element("#deleteTrainerModal").modal("hide");
 					};
-
 				});

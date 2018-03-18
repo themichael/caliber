@@ -1,6 +1,9 @@
 angular.module("api").factory("allFactory", function($log, $http) {
 
 	$log.debug("Booted all api factory");
+	/**
+	 * commented-out Trainer Task code is in service of incomplete issue #791
+	 */
 
 	var all = {};
 
@@ -521,7 +524,63 @@ angular.module("api").factory("allFactory", function($log, $http) {
 			return response.data;
 		});
 	};
-
+	
+	/** *********************** Trainer Tasks********************* */
+	
+	/**
+	 * 
+	 * @returns {*}
+	 */
+	/*
+	all.getAllActiveTasks = function() {
+		return $http({
+			url : "/all/tasks/all/",
+			method : "GET"
+		}).then(function(response) {
+			$log.debug("Trainer tasks successfully retrieved");
+			$log.debug(response);
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	}; */
+	
+	/**
+	 * 
+	 * @returns {*}
+	 */
+	/*
+	all.getAllCompletedTasks = function() {
+		return $http({
+			url : "/all/tasks/trainer/",
+			method : "GET"
+		}).then(function(response) {
+			$log.debug("Trainer tasks successfully retrieved");
+			$log.debug(response);
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	};
+	*/
+	/**
+	 * 
+	 * @returns {*}
+	 */
+	/*
+	all.getAllTasksByTrainerId = function(id) {
+		return $http({
+			url : "/all/tasks/trainer/" + id + "/",
+			method : "GET"
+		}).then(function(response) {
+			$log.debug("Trainer tasks successfully retrieved");
+			$log.debug(response);
+			return response.data;
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+		});
+	};
+	*/
 	/***************************************************************************
 	 * Server generates PDF from HTML Download via response data
 	 * 
@@ -541,4 +600,5 @@ angular.module("api").factory("allFactory", function($log, $http) {
 	};
 
 	return all;
+	
 });

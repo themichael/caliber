@@ -14,8 +14,10 @@ import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Note;
 import com.revature.caliber.beans.QCStatus;
+import com.revature.caliber.beans.TraineeFlag;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.NoteDAO;
+import com.revature.caliber.data.TraineeDAO;
 import com.revature.caliber.services.EvaluationService;
 
 public class EvaluationServiceTest extends CaliberTest{
@@ -31,6 +33,21 @@ public class EvaluationServiceTest extends CaliberTest{
 	BatchDAO batchDAO;
 	@Autowired
 	NoteDAO noteDAO;
+	@Autowired
+	TraineeDAO traineeDAO;
+	
+	/**
+	 * @see com.revature.caliber.services.EvaluationService#checkIfTraineeShouldBeFlagged(Note note)
+	 */
+	@Test
+	public void checkIfTraineeShouldBeFlagged() {
+		Note note = noteDAO.findQCTraineeNote(5530, 5);
+		note.setQcStatus(QCStatus.Average);
+		noteDAO.update(note);
+		evaluationService.checkIfTraineeShouldBeFlagged(note); // should be flagged
+		log.info("Trainee flag after check: " + traineeDAO.findOne(5530).getFlagStatus());
+		assertEquals(TraineeFlag.RED, traineeDAO.findOne(5530).getFlagStatus());
+	}
 	
 	/**
 	 * Test methods:

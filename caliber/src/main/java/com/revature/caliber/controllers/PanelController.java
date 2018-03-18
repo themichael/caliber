@@ -23,8 +23,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.caliber.beans.Panel;
-import com.revature.caliber.beans.PanelFeedback;
-import com.revature.caliber.beans.PanelStatus;
 import com.revature.caliber.exceptions.MalformedRequestException;
 import com.revature.caliber.security.models.SalesforceUser;
 import com.revature.caliber.services.PanelService;

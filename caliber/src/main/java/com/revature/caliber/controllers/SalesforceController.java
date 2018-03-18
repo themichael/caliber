@@ -71,7 +71,6 @@ public class SalesforceController {
 	 * @return Batches in JSON
 	 */
 	@RequestMapping(value = "/all/batch/import/log", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING', 'PANEL')")
 	public String logBatches(@RequestParam(required=false) String resourceId) {
 		if(resourceId == null)
 			return salesforceService.logBatches();
