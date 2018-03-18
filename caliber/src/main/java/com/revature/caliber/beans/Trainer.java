@@ -68,20 +68,27 @@ public class Trainer implements Serializable {
 	@JsonIgnore
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Batch> batches;
-	
+
 	/**
 	 * Any evaluations that the trainer has undergone
 	 */
-	@OneToMany(mappedBy="trainer")
-	@JsonIgnore
-	private Set<TrainerTaskCompletion> evaluations;
-	
-	/**
-	 * Any evaluations that the user has checked off on behalf of another trainer
+	/*
+	 * @OneToMany(mappedBy="trainer")
+	 * 
+	 * @JsonIgnore
 	 */
-	@OneToMany(mappedBy="checkedBy")
-	@JsonIgnore
-	private Set<TrainerTaskCompletion> checkOffs;
+	// private Set<TrainerTaskCompletion> evaluations;
+
+	/**
+	 * Any evaluations that the user has checked off on behalf of another
+	 * trainer
+	 */
+	/*
+	 * @OneToMany(mappedBy="checkedBy")
+	 * 
+	 * @JsonIgnore
+	 */
+	// private Set<TrainerTaskCompletion> checkOffs;
 
 	public Trainer() {
 		super();
@@ -142,22 +149,18 @@ public class Trainer implements Serializable {
 	public void setBatches(Set<Batch> batches) {
 		this.batches = batches;
 	}
-
-	public Set<TrainerTaskCompletion> getEvaluations() {
-		return evaluations;
-	}
-
-	public void setEvaluations(Set<TrainerTaskCompletion> evaluations) {
-		this.evaluations = evaluations;
-	}
-
-	public Set<TrainerTaskCompletion> getCheckOffs() {
-		return checkOffs;
-	}
-
-	public void setCheckOffs(Set<TrainerTaskCompletion> checkOffs) {
-		this.checkOffs = checkOffs;
-	}
+	/*
+	 * public Set<TrainerTaskCompletion> getEvaluations() { return evaluations;
+	 * }
+	 * 
+	 * public void setEvaluations(Set<TrainerTaskCompletion> evaluations) {
+	 * this.evaluations = evaluations; }
+	 * 
+	 * public Set<TrainerTaskCompletion> getCheckOffs() { return checkOffs; }
+	 * 
+	 * public void setCheckOffs(Set<TrainerTaskCompletion> checkOffs) {
+	 * this.checkOffs = checkOffs; }
+	 */
 
 	@Override
 	public int hashCode() {

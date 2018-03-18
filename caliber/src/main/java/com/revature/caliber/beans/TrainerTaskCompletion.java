@@ -22,16 +22,16 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Entity
+/*@Entity
 @Table(name = "CALIBER_TASK_COMPLETION")
 @Cacheable
-@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)*/
 public class TrainerTaskCompletion {
 
-	@Id
+/*	@Id
 	@Column(name = "TASK_COMPLETION_ID")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TASK_COMPLETION_ID_SEQUENCE")
-	@SequenceGenerator(name = "TASK_COMPLETION_ID_SEQUENCE", sequenceName = "TASK_COMPLETION_ID_SEQUENCE")
+	@SequenceGenerator(name = "TASK_COMPLETION_ID_SEQUENCE", sequenceName = "TASK_COMPLETION_ID_SEQUENCE")*/
 	private int id;
 
 	/**
@@ -40,9 +40,9 @@ public class TrainerTaskCompletion {
 	 * Use LAZY fetching with a join predicate in the Hibernate Criteria when the
 	 * data is needed on the UI (only on the VP's Trainer page)
 	 */
-	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+/*	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	@JoinColumn(name = "TRAINER_ID", nullable = false)
-	@JsonProperty
+	@JsonProperty*/
 	private Trainer trainer;
 
 	/**
@@ -51,21 +51,21 @@ public class TrainerTaskCompletion {
 	 * Use LAZY fetching with a join predicate in the Hibernate Criteria when the
 	 * data is needed on the UI (only on the VP's Trainer page)
 	 */
-	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+	/*@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	@JoinColumn(name = "CHECKED_BY", nullable = false)
-	@JsonProperty
+	@JsonProperty*/
 	private Trainer checkedBy;
 
-	@Temporal(TemporalType.DATE)
-	@Column(name = "COMPLETION_DATE", nullable = false)
+	/*@Temporal(TemporalType.DATE)
+	@Column(name = "COMPLETION_DATE", nullable = false)*/
 	private Date completionDate;
 
 	/**
 	 * The task that was completed
 	 */
-	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+/*	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	@JoinColumn(name = "TASK_ID", nullable = false)
-	@JsonProperty
+	@JsonProperty*/
 	private TrainerTask taskCompleted;
 
 	public TrainerTaskCompletion() {

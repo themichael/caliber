@@ -9,7 +9,8 @@ angular
 				this.weekNumb = weekNumb;
 				this.assessments = assessments;
 			}
-			// this is use to set false on the no trainees for the batch notification.
+			// this is use to set false on the no trainees for the batch
+			// notification.
 			$scope.noTrainees = false;					
 			$log.debug("Booted Trainer Aesess Controller");
 
@@ -29,7 +30,7 @@ angular
 				this.qcStatus = status;
 			}
 			
-			//Set flags to color in database
+			// Set flags to color in database
 			$scope.init = function(trainee, index){
 				var flagElement = document.getElementsByClassName("glyphicon-flag")[index];
 				var flagColor = trainee.flagStatus;
@@ -53,7 +54,8 @@ angular
 						});
 			};
 
-			// Loads all grades for the week with the BatchID and weekID as a param.
+			// Loads all grades for the week with the BatchID and weekID as a
+			// param.
 			$scope.getAllGradesForWeek=function(batchId,weekId) {							
 				caliberDelegate.all
 				.getGradesForWeek(batchId,
@@ -135,7 +137,8 @@ angular
 				if (!allBatches) 
 					return;
 				if (allBatches.length > 0) { 
-					// if currentBatch is not yet in the scope, run for assess batch..
+					// if currentBatch is not yet in the scope, run for assess
+					// batch..
 					// else this controller is being used for reportsController
 					if(!$scope.currentBatch){
 						$scope.currentBatch = allBatches[0];
@@ -163,7 +166,8 @@ angular
 									$log.debug(noteTypes);
 								});
 
-						// loading all assement type for create assement drop down
+						// loading all assement type for create assement drop
+						// down
 						$scope.assessmentType = {
 								model : null,
 								options : []
@@ -177,7 +181,8 @@ angular
 								});
 						$log.debug("Batches " + allBatches);
 						if(!$scope.currentWeek){ 
-							// if currentWeek is not yet in the scope, run for assess batch
+							// if currentWeek is not yet in the scope, run for
+							// assess batch
 							var totalWeeks = allBatches[allBatches.length-1].weeks; // the
 							// number of weeks for that batch
 
@@ -231,9 +236,10 @@ angular
 			}
 
 			/**
-			 * When selecting a year the batch drop down will change to the latest batch of 
-			 * that year. If there aren't any batch for the year that is selected then the 
-			 * No Batch will be display check the view for ng-show author: Kam Lam
+			 * When selecting a year the batch drop down will change to the
+			 * latest batch of that year. If there aren't any batch for the year
+			 * that is selected then the No Batch will be display check the view
+			 * for ng-show author: Kam Lam
 			 */
 			$scope.selectYear = function(index) {
 				$scope.selectedYear = $scope.years[index];
@@ -287,11 +293,11 @@ angular
 
 					for (var i = 0; i < $scope.batches.length; i++) {
 						$log.debug("Current Year: " + $scope.selectedYear);
-						if ($scope.selectedYear === parseInt($scope.batches[i].startDate)) {
+						var date = new Date($scope.batches[i].startDate);
+						if ($scope.selectedYear === parseInt(date.getFullYear())) {
 							$scope.batchesByYear.push($scope.batches[i]);
 							$log.debug($scope.batches[i]);
 						}
-						$log.debug($scope.selectedYear + " === " + parseInt($scope.batches[i].startDate))
 					}
 					$log.debug($scope.batches + ", " +$scope.batchesByYear);
 
@@ -354,15 +360,16 @@ angular
 									$scope.currentBatch.arrayWeeks.push($scope.currentBatch.weeks);
 									$scope.showActiveWeek($scope.currentBatch.weeks);
 									$scope.selectWeek($scope.currentBatch.weeks-1);
-									//the new index of the week selected
+									// the new index of the week selected
 								});
 					} 
 				};
 
 				/*
-				 * select assessment from list it is basically what it said, is the select assessment 
-				 * from list function Takes in an index as passed through the view. The current view is set
-				 * to false, see the view as reference author: Kam Lam
+				 * select assessment from list it is basically what it said, is
+				 * the select assessment from list function Takes in an index as
+				 * passed through the view. The current view is set to false,
+				 * see the view as reference author: Kam Lam
 				 */
 				$scope.selectAssessment = function(index) {
 					$scope.currentAssessment = $scope.currentAssessment[index];
@@ -411,8 +418,9 @@ angular
 
 				/** *******TrainerBatch Notes********** */	
 
-				// This function passes the batchID and week param to get the batch 
-				//notes for that week Author: Kam Lam
+				// This function passes the batchID and week param to get the
+				// batch
+				// notes for that week Author: Kam Lam
 				$scope.getTBatchNote = function (batchId, week){
 					caliberDelegate.trainer
 					.getTrainerBatchNote(batchId, week)
@@ -453,7 +461,8 @@ angular
 										$scope.currentAssessments);
 								$scope.currentBatch.displayWeek = week;
 								$scope.currentBatch.arrayWeeks = [];
-								// create array of assessments mapped by assessment Id;
+								// create array of assessments mapped by
+								// assessment Id;
 								$scope.assessmentsById=[];
 
 								$scope.generateArrAssessmentById(data);
@@ -461,7 +470,8 @@ angular
 								for(var i = 1; i <= $scope.currentBatch.weeks; i++){
 									$scope.currentBatch.arrayWeeks.push(i);
 								}
-								// Parse the current batch year from date to int. For the selectedYear function.
+								// Parse the current batch year from date to
+								// int. For the selectedYear function.
 								 var date = new Date($scope.currentBatch.startDate);
 								 $scope.selectedYear = parseInt(date.getFullYear());
 								// initializing the batchYears function.
@@ -478,18 +488,16 @@ angular
 				$scope.doGetAllAssessmentsAvgForWeek = function(batchId, week){
 					caliberDelegate.all.getAssessmentsAverageForWeek(batchId, week)
 					.then(function(response){
-						$timeout(function(){
-							if(response && response !== "NaN"){
-								$scope.allAssessmentsAvgForWeek = response.toFixed(2).toString() + '%';
-							}else{
-								$scope.allAssessmentsAvgForWeek = false;
-							}
-						},4000);															
+						if(response && response !== "NaN"){
+							$scope.allAssessmentsAvgForWeek = response.toFixed(2).toString() + '%';
+						}else{
+							$scope.allAssessmentsAvgForWeek = false;
+						}															
 					});
 				};
 
 				/** *******Save TrainerBatch Notes********** */	
-				//Updating and Creating batch notes -  Author: Kam Lam
+				// Updating and Creating batch notes - Author: Kam Lam
 				$scope.saveTrainerNotes = function(batchNoteId) {
 					$log.debug("Saving note: " + $scope.trainerBatchNote);
 					// Create note
@@ -515,7 +523,8 @@ angular
 						caliberDelegate.trainer.updateNote($scope.trainerBatchNote);
 					}
 				};
-				 // Array of assessments by assessment id used to store raw score and to calculate weight score - jack			
+				 // Array of assessments by assessment id used to store raw
+					// score and to calculate weight score - jack
 				$scope.generateArrAssessmentById = function(assessments){
 					var totalRawScore = 0;
 					if(assessments !== undefined){
@@ -539,7 +548,8 @@ angular
 					return (rawScore/totalRawScore) * 100;
 				};
 				/**
-				 * Updates Grade if exists, else create new Grade, then saves to $scope
+				 * Updates Grade if exists, else create new Grade, then saves to
+				 * $scope
 				 * 
 				 * @param gradeId
 				 * @param traineeId
@@ -548,7 +558,8 @@ angular
 				$scope.updateGrade = function(trainee,assessment) {
 					var score = $scope.trainees[trainee.traineeId].assessments[assessment.assessmentId].score;
 					if(score !== null && score !== undefined && score !=="" && score >= 0){
-						//replaces 0 with arbitrary low number for valid average calculations in the back-end - Trevor Lory
+						// replaces 0 with arbitrary low number for valid
+						// average calculations in the back-end - Trevor Lory
 						if(score === 0) {
 							score = 0.00001;
 						}
@@ -562,11 +573,13 @@ angular
 								dateReceived : new Date(),
 								score :score,
 						};
-						//if assessment object has gradeId, define it in grade object
+						// if assessment object has gradeId, define it in grade
+						// object
 						if($scope.trainees[trainee.traineeId].assessments[assessment.assessmentId].gradeId){
 							grade.gradeId = $scope.trainees[trainee.traineeId].assessments[assessment.assessmentId].gradeId;
 						}
-						// adds new Grade if not exists, else update, response contains the ID of the created/updated Grade
+						// adds new Grade if not exists, else update, response
+						// contains the ID of the created/updated Grade
 
 						caliberDelegate.trainer.addGrade(grade).then(
 								function(response) {
@@ -598,7 +611,8 @@ angular
 						return false;
 					}else if($scope.grades[traineeId]){
 						angular.forEach($scope.grades[traineeId],function(grade){
-							//create a assessment object that contains gradeId for each $scope.trainees[trainee]
+							// create a assessment object that contains gradeId
+							// for each $scope.trainees[trainee]
 
 							if(grade.assessment !== undefined && (grade.assessment.assessmentId === assessmentId)){
 								if($scope.trainees[traineeId].assessments[grade.assessment.assessmentId] === undefined){
@@ -606,7 +620,8 @@ angular
 								}
 								if($scope.trainees[traineeId].assessments[grade.assessment.assessmentId].gradeId === undefined){
 									$scope.trainees[traineeId].assessments[grade.assessment.assessmentId].gradeId = grade.gradeId;
-									//replaces 0.00001 to 0 for correct display of almost zero - Trevor Lory
+									// replaces 0.00001 to 0 for correct display
+									// of almost zero - Trevor Lory
 									if(grade.score <= 0.00001) {
 										$scope.trainees[traineeId].assessments[grade.assessment.assessmentId].score = 0;
 									}
@@ -634,7 +649,8 @@ angular
 							type:"TRAINEE",
 							batch:$scope.currentBatch
 					};
-					// if noteId exists, add it to noteObj to get noteObj in db to update
+					// if noteId exists, add it to noteObj to get noteObj in db
+					// to update
 					if($scope.trainees[traineeId].note.noteId !== undefined){
 						noteObj.noteId = traineeNote.noteId;
 					}
@@ -650,7 +666,8 @@ angular
 				};
 
 				$scope.getTotalAssessmentAvgForWeek = function(assessment,trainees){
-					// assessmentTotals will assessment objects, each with properties total and count - jack
+					// assessmentTotals will assessment objects, each with
+					// properties total and count - jack
 					if($scope.assessmentTotals === undefined) 
 						$scope.assessmentTotals=[];
 					if($scope.assessmentTotals[assessment.assessmentId] === undefined) 
@@ -661,10 +678,12 @@ angular
 					for(var traineeKey in trainees){
 						// checks if trainee has assessment
 						if(trainees[traineeKey].assessments[assessment.assessmentId]){
-							// Only increment count and add to total if score is greater than or equal to 0 -jack / trevor
+							// Only increment count and add to total if score is
+							// greater than or equal to 0 -jack / trevor
 							var score = trainees[traineeKey].assessments[assessment.assessmentId].score;
 							if(score >= 0){
-								//replaces 0 with arbitrary low number for valid average calculations - Trevor Lory
+								// replaces 0 with arbitrary low number for
+								// valid average calculations - Trevor Lory
 								if(score === 0) {
 									score = 0.00001;
 								}
@@ -681,7 +700,13 @@ angular
 				$scope.showCheck = false;
 				$scope.showFloppy = true;
 
-				// All cells on Trainer Assess update the DB using ng-blur event.
+				/**
+				 * doBurrito is called when the Save button is clicked
+				 * The button does nothing but tricks the user into
+				 * invoking the ng-blur on the field they are focused.
+				 * @author Jack Duong
+				 * @author Patrick Walsh (approver)
+				 */
 				$scope.doBurrito =function(){
 					$scope.showFloppy = false;
 					$timeout(function(){
@@ -719,7 +744,8 @@ angular
 					 * UPDATE ASSESSMENT
 					 **********************************************************/
 
-					// sets the update assessment model with the current assessment data
+					// sets the update assessment model with the current
+					// assessment data
 					$scope.setUpdateAssessmentToCurrent = function(index){
 						$log.debug(index);
 						$scope.updateAssessmentModel.category = $scope.currentAssessments[index].category;
@@ -773,7 +799,8 @@ angular
 						});
 					};
 					
-					 //set children of modal to false on click to prevent modal from fading out - jack
+					 // set children of modal to false on click to prevent
+						// modal from fading out - jack
 					 
 					$scope.preventModalClose = function(){
 						$(".editAssessModal .modal-body, .editAssessModal .modal-footer, .editAssessModal form").on("click", function(e){
@@ -805,9 +832,9 @@ angular
 						return 1;
 					return 0;
 				}
-				/***********************************************************
+				/***************************************************************
 				 * UPDATE ASSESSMENT
-				 **********************************************************/
+				 **************************************************************/
 				$scope.updateAssessment = function(assessment,event,modalId,index){
 					event.stopPropagation();
 					if($scope.updateAssessmentModel !==undefined){
@@ -856,8 +883,8 @@ angular
 					});
 				};
 				/*
-				 * set children of modal to false on click to prevent modal
-				 * from fading out when clicking on child elements - jack
+				 * set children of modal to false on click to prevent modal from
+				 * fading out when clicking on child elements - jack
 				 */
 				$scope.preventModalClose = function(){
 					$(".editAssessModal .modal-body, .editAssessModal .modal-footer, .editAssessModal form").on("click", function(e){
@@ -873,7 +900,8 @@ angular
 					$('#'+str).modal('toggle');
 				};
 
-				// this method will return the proper string depending if there is an average for the week or not
+				// this method will return the proper string depending if there
+				// is an average for the week or not
 
 				$scope.boldBatchAverage = function(){
 					if($scope.allAssessmentsAvgForWeek){
@@ -885,7 +913,8 @@ angular
 					}
 				};
 				/*
-				 * if grade is less than 0 or greater than 100 return true; This will set css class .has-error to grade input box - hack
+				 * if grade is less than 0 or greater than 100 return true; This
+				 * will set css class .has-error to grade input box - hack
 				 */
 				$scope.validateGrade=function(grade){
 					if(grade > 0 && grade <=100){
@@ -912,7 +941,8 @@ angular
 
 				}
 				var status =  null;
-				//toggles the color of the flag and opens an input box to comment on the color change 
+				// toggles the color of the flag and opens an input box to
+				// comment on the color change
 				$scope.toggleColor = function(trainee, index) {
 					var flagElement = document.getElementsByClassName("glyphicon-flag")[index];
 					var initialStatus = trainee.flagStatus;
@@ -936,7 +966,7 @@ angular
 			        }
 			    }
 				
-				// opens up a comment form box when the flag color changes 
+				// opens up a comment form box when the flag color changes
 				function commentBox(flag, status, initialStatus, index, trainee){
 					flag.nextSibling.nextSibling.removeAttribute("style");
 					flag.nextSibling.nextSibling.setAttribute("style","display:inline-block; position:absolute; padding:5px; border-radius:5px; margin-left:5px; background-color: white; border: solid #ccc 1px; z-index: 1");
@@ -957,7 +987,7 @@ angular
                         };
 				}
 				
-				//save changes to flag and persist back to database
+				// save changes to flag and persist back to database
 				$scope.updateFlag = function(trainee, index){
 					trainee.flagStatus = status;
 					caliberDelegate.all
@@ -965,7 +995,7 @@ angular
 					document.getElementsByClassName("commentForm")[index].setAttribute("style","display:none;");
 				}
 				
-				//show flagNotes when hovering over flag
+				// show flagNotes when hovering over flag
 				$scope.showNotes = function(index){
 					if($scope.currentBatch.trainees[index].flagNotes != null){
 						document.getElementsByClassName("notes")[index].setAttribute("style",
@@ -974,7 +1004,7 @@ angular
 					}
 				}
 				 					
-				//hide flagNotes when no there is no flag hover 
+				// hide flagNotes when no there is no flag hover
 				$scope.hideNotes = function(index){
 					document.getElementsByClassName("notes")[index].setAttribute("style", "display: none");
 	 			}
