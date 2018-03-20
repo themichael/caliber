@@ -275,7 +275,21 @@ angular
 					$log.debug("Failed to asynchronously pull data from backend. " + response);
 				}
 			)
-		};
+		}
+		
+		//Get Trainee name based on QC Trainee Notes
+		$scope.getQCTraineeName = function getQCTraineeName(traineeInfo) {
+			let traineeName;
+			traineeInfo.forEach(function(traineeNote) {
+				//Make sure QC Trainee note has the trainee object
+				if(traineeNote.trainee) {
+					//Return the first encounter of trainee object name
+					traineeName = traineeNote.trainee.name;
+					return;
+				}
+			});
+			return traineeName;
+		}
 
 		//Get All Trainees (from current batch) QC Notes from all weeks 
 		function getAllQCTraineeNoteForAllWeeks() {
@@ -295,7 +309,6 @@ angular
 
 		$scope.populateOverallModal = function populateOverallModal(value) {
 			$scope.overallNameAndNoteId = $scope.batchQCNotes;
-			console.log($scope.overallNameAndNoteId);
 			$scope.overallNameAndNoteId.forEach(function (key) {
 				if (value.noteId === key["noteId"]) {
 					$scope.overallBatchWeek = key["week"];
@@ -303,7 +316,7 @@ angular
 				}
 			})
 			if ($scope.batchNote == null) {
-				$scope.batchNote = "No available note";
+				$scope.batchNote = "No available notes.";
 				if (value.week != null) {
 					$scope.overallBatchWeek = value.week;
 				} else {
@@ -313,18 +326,15 @@ angular
 
 		}
 
-		$scope.populateModal = function populateModal(id, value) {
-			$scope.traineeNameAndNoteId = $scope.allQCTraineeNotesAllWeeks;
-			console.log($scope.traineeNameAndNoteId);
-
-			$scope.traineeNameAndNoteId.forEach(function (key) {
-				if (id === key[0]["trainee"]["name"]) {
-					for (var i = 0; key.length > i; i++) {
-						if (value === key[i]["noteId"]) {
-							$scope.person = key[0]["trainee"]["name"];
-							$scope.week = key[i]["week"];
-							$scope.individualNote = key[i]["content"];
-						}
+		$scope.populateModal = function populateModal(traineeName, noteId) {		
+			//Look for the right note
+			$scope.allQCTraineeNotesAllWeeks.forEach(function (traineeNotes) {		
+				for (var i = 0; i < traineeNotes.length; i++) {
+					if (traineeNotes[i]["noteId"] === noteId) {
+						$scope.person = $scope.getQCTraineeName(traineeNotes);
+						$scope.week = traineeNotes[i]["week"];
+						$scope.individualNote = traineeNotes[i]["content"];
+						return;
 					}
 				}
 			})
