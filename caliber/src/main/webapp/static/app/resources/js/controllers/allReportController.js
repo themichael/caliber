@@ -282,7 +282,6 @@ angular
 			let traineeName;
 			traineeInfo.forEach(function(traineeNote) {
 				//Make sure QC Trainee note has the trainee object
-				
 				if(traineeNote.trainee) {
 					//Return the first encounter of trainee object name
 					traineeName = traineeNote.trainee.name;
