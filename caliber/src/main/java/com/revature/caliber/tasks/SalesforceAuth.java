@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonParser.Feature;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.data.TrainerDAO;
@@ -111,6 +112,20 @@ public class SalesforceAuth {
 			log.info("Accessing Salesforce API using token:  " + accessTokenJson.getAccessToken());
 		}catch(Exception e){
 			log.error(e);
+			httpClient = HttpClientBuilder.create().build();
+			post = new HttpPost(salesforceUrl + accessTokenUri);
+			parameters = new ArrayList<>();
+			parameters.add(new BasicNameValuePair("grant_type", PASS));
+			parameters.add(new BasicNameValuePair("client_secret", salesforceSecret));
+			parameters.add(new BasicNameValuePair("client_id", salesforceId));
+			parameters.add(new BasicNameValuePair("username", username));
+			parameters.add(new BasicNameValuePair(PASS, password));
+			post.setEntity(new UrlEncodedFormEntity(parameters));
+			response = httpClient.execute(post);
+			ObjectMapper mapper = new ObjectMapper();
+			mapper.configure(Feature.ALLOW_NUMERIC_LEADING_ZEROS, true);
+			log.error(mapper.readValue(response.getEntity().getContent(),
+					JsonNode.class)); 
 		}
 	}
 }
