@@ -314,7 +314,6 @@ angular
 
 		$scope.populateOverallModal = function populateOverallModal(value) {
 			$scope.overallNameAndNoteId = $scope.batchQCNotes;
-			console.log($scope.overallNameAndNoteId);
 			$scope.overallNameAndNoteId.forEach(function (key) {
 				if (value.noteId === key["noteId"]) {
 					$scope.overallBatchWeek = key["week"];
@@ -322,7 +321,7 @@ angular
 				}
 			})
 			if ($scope.batchNote == null) {
-				$scope.batchNote = "No available note";
+				$scope.batchNote = "No available notes.";
 				if (value.week != null) {
 					$scope.overallBatchWeek = value.week;
 				} else {
