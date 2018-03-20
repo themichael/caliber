@@ -334,6 +334,7 @@ angular
 						$scope.person = $scope.getQCTraineeName(traineeNotes);
 						$scope.week = traineeNotes[i]["week"];
 						$scope.individualNote = traineeNotes[i]["content"];
+						return;
 					}
 				}
 			})
