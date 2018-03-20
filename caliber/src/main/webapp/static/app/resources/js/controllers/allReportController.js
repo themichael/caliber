@@ -256,6 +256,10 @@ angular
 						}
 					})
 					
+//					for(let testIndex = 0; testIndex < $scope.allQCTraineeNotesAllWeeks.length; testIndex++) {
+//						console.log($scope.allQCTraineeNotesAllWeeks[testIndex]);
+//					}
+					
 					NProgress.done();
 
 					for (let index = 0; index < $scope.totalNumberOfWeeksInCurrentBatch; index++) {
@@ -275,7 +279,22 @@ angular
 					$log.debug("Failed to asynchronously pull data from backend. " + response);
 				}
 			)
-		};
+		}
+		
+		//Get Trainee name based on QC Trainee Notes
+		$scope.getQCTraineeName = function getQCTraineeName(traineeInfo) {
+			let traineeName;
+			traineeInfo.forEach(function(traineeNote) {
+				//Make sure QC Trainee note has the trainee object
+				
+				if(traineeNote.trainee) {
+					//Return the first encounter of trainee object name
+					traineeName = traineeNote.trainee.name;
+					return;
+				}
+			});
+			return traineeName;
+		}
 
 		//Get All Trainees (from current batch) QC Notes from all weeks 
 		function getAllQCTraineeNoteForAllWeeks() {

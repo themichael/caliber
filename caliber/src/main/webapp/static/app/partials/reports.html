@@ -297,46 +297,46 @@
 														{{item.week}}</th>
 												</tr>
 												<tr ng-repeat="traineeInfo in allQCTraineeNotesAllWeeks">
-													<td class="col-sm-3 col-md-3 col-lg-3">{{traineeInfo[0].trainee.name}}</td>
+													<td class="col-sm-3 col-md-3 col-lg-3">{{getQCTraineeName(traineeInfo)}}</td>
 													<td class="text-center " ng-repeat="status in traineeInfo">
 														<div ng-if="status.qcStatus == 'Superstar'"
-															id="{{traineeInfo[0].trainee.name}}"
+															id="{{getQCTraineeName(traineeInfo)}}"
 															value="{{status.noteId}}">
 															<a
-																ng-click="populateModal(traineeInfo[0].trainee.name,status.noteId)"
+																ng-click="populateModal(getQCTraineeName(traineeInfo),status.noteId)"
 																data-toggle="modal" data-target="#notesModal"
 																class="fa fa-star fa-2x pick mouse-over"></a>
 														</div>
 														<div ng-if="status.qcStatus == 'Good'"
-															id="{{traineeInfo[0].trainee.name}}"
+															id="{{getQCTraineeName(traineeInfo)}}"
 															value="{{status.noteId}}">
 															<a
-																ng-click="populateModal(traineeInfo[0].trainee.name,status.noteId)"
+																ng-click="populateModal(getQCTraineeName(traineeInfo),status.noteId)"
 																data-toggle="modal" data-target="#notesModal"
 																class="fa fa-smile-o fa-2x pick mouse-over"></a>
 														</div>
 														<div ng-if="status.qcStatus == 'Average'"
-															id="{{traineeInfo[0].trainee.name}}"
+															id="{{getQCTraineeName(traineeInfo)}}"
 															value="{{status.noteId}}">
 															<a
-																ng-click="populateModal(traineeInfo[0].trainee.name,status.noteId)"
+																ng-click="populateModal(getQCTraineeName(traineeInfo),status.noteId)"
 																data-toggle="modal" data-target="#notesModal"
 																class="fa fa-meh-o fa-2x pick mouse-over"></a>
 														</div>
 														<div ng-if="status.qcStatus == 'Poor'"
-															id="{{traineeInfo[0].trainee.name}}"
+															id="{{getQCTraineeName(traineeInfo)}}"
 															value="{{status.noteId}}">
 															<a
-																ng-click="populateModal(traineeInfo[0].trainee.name,status.noteId)"
+																ng-click="populateModal(getQCTraineeName(traineeInfo),status.noteId)"
 																data-toggle="modal" data-target="#notesModal"
 																class="fa fa-frown-o fa-2x pick mouse-over"></a>
 														</div>
 														<div
 															ng-if="status.qcStatus == null || status.qcStatus == 'Undefined'"
-															id="{{traineeInfo[0].trainee.name}}"
+															id="{{getQCTraineeName(traineeInfo)}}"
 															value="{{status.noteId}}">
 															<a
-																ng-click="populateModal(traineeInfo[0].trainee.name,status.noteId)"
+																ng-click="populateModal(getQCTraineeName(traineeInfo),status.noteId)"
 																data-toggle="modal" data-target="#notesModal"
 																class="fa fa-question-circle fa-2x mouse-over"></a>
 														</div>
