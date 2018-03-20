@@ -332,18 +332,14 @@ angular
 
 		}
 
-		$scope.populateModal = function populateModal(id, value) {
-			$scope.traineeNameAndNoteId = $scope.allQCTraineeNotesAllWeeks;
-			console.log($scope.traineeNameAndNoteId);
-
-			$scope.traineeNameAndNoteId.forEach(function (key) {
-				if (id === key[0]["trainee"]["name"]) {
-					for (var i = 0; key.length > i; i++) {
-						if (value === key[i]["noteId"]) {
-							$scope.person = key[0]["trainee"]["name"];
-							$scope.week = key[i]["week"];
-							$scope.individualNote = key[i]["content"];
-						}
+		$scope.populateModal = function populateModal(traineeName, noteId) {		
+			//Look for the right note
+			$scope.allQCTraineeNotesAllWeeks.forEach(function (traineeNotes) {		
+				for (var i = 0; i < traineeNotes.length; i++) {
+					if (traineeNotes[i]["noteId"] === noteId) {
+						$scope.person = $scope.getQCTraineeName(traineeNotes);
+						$scope.week = traineeNotes[i]["week"];
+						$scope.individualNote = traineeNotes[i]["content"];
 					}
 				}
 			})
