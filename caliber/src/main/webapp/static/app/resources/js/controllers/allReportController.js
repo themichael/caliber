@@ -256,10 +256,6 @@ angular
 						}
 					})
 					
-//					for(let testIndex = 0; testIndex < $scope.allQCTraineeNotesAllWeeks.length; testIndex++) {
-//						console.log($scope.allQCTraineeNotesAllWeeks[testIndex]);
-//					}
-					
 					NProgress.done();
 
 					for (let index = 0; index < $scope.totalNumberOfWeeksInCurrentBatch; index++) {
