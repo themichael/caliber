@@ -27,28 +27,30 @@ public class BatchUpdate {
 	@Autowired
 	private TraineeDAO traineeDao;
 
-	/*
-	 * Test Method: Used cron to perform midnight execution To update batches
+	/**
+	 * Used cron to perform midnight execution To update batches
 	 */
-
 	// @Scheduled(cron = "0 0/5 * * * ?") //Every 5 minutes (testing)
 	@Scheduled(cron = "0 0 0 * * *") // Midnight
 	public void updateBatchTask() {
+		try {
+			log.info("Update Batch Task");
+			boolean userSet = salesforceAuth.setUser();
+			if (userSet) {
+				List<Batch> caliberBatches = batchDao.findAll();
+				log.info("Caliber Batch list size: " + caliberBatches.size());
+				List<Batch> salesforceBatches = salesforceDao.getAllRelevantBatches();
 
-		log.info("Update Batch Task");
-		boolean userSet = salesforceAuth.setUser();
-		if (userSet) {
-			List<Batch> caliberBatches = batchDao.findAll();
-			log.info("Caliber Batch list size: " + caliberBatches.size());
-			List<Batch> salesforceBatches = salesforceDao.getAllRelevantBatches();
+				compareBatches(caliberBatches, salesforceBatches);
+			} else {
+				log.error("Unable to perform BatchUpdate");
+			}
 
-			compareBatches(caliberBatches, salesforceBatches);
-		} else {
-			log.error("Unable to perform BatchUpdate");
+			salesforceAuth.clearUser();
+			log.info("End of Update Task");
+		} catch (Exception e) {
+			log.fatal(e);
 		}
-
-		salesforceAuth.clearUser();
-		log.info("End of Update Task");
 	}
 
 	/*
@@ -59,15 +61,20 @@ public class BatchUpdate {
 	 * the function
 	 */
 	public boolean compareBatches(List<Batch> caliberBatches, List<Batch> salesforceBatches) {
+		log.info("Comparing batches...");
 		for (int sIndex = 0; sIndex < salesforceBatches.size(); sIndex++) {
 			for (int cIndex = 0; cIndex < caliberBatches.size(); cIndex++) {
 				// if resourceIds are same, update all the datas with fresh Salesforce data
+				log.info("Caliber batch: " + caliberBatches.get(cIndex).getResourceId() + " === " + "Salesforce batch: "
+						+ salesforceBatches.get(sIndex).getResourceId());
 				if (caliberBatches.get(cIndex).getResourceId().equals(salesforceBatches.get(sIndex).getResourceId())) {
 					// extract salesforce data and save
 					updateBatch(caliberBatches.get(cIndex), salesforceBatches.get(sIndex));
-					for(Trainee trainee : caliberBatches.get(cIndex).getTrainees()) {
-						for(Trainee salesforceTrainee : salesforceBatches.get(sIndex).getTrainees()) {
-							if(trainee.getResourceId().equals(salesforceTrainee.getResourceId())) {
+					for (Trainee trainee : caliberBatches.get(cIndex).getTrainees()) {
+						for (Trainee salesforceTrainee : salesforceBatches.get(sIndex).getTrainees()) {
+							log.info("Caliber trainee: " + trainee.getResourceId() + " === " + "Salesforce trainee: "
+									+ salesforceTrainee.getResourceId());
+							if (trainee.getResourceId().equals(salesforceTrainee.getResourceId())) {
 								// extract salesforce data and save
 								updateTrainee(trainee, salesforceTrainee);
 							}
@@ -80,28 +87,36 @@ public class BatchUpdate {
 	}
 
 	private void updateTrainee(Trainee caliberTrainee, Trainee salesforceTrainee) {
-		caliberTrainee.setTrainingStatus(salesforceTrainee.getTrainingStatus());
-		caliberTrainee.setCollege(salesforceTrainee.getCollege());
-		caliberTrainee.setDegree(salesforceTrainee.getDegree());
-		caliberTrainee.setEmail(salesforceTrainee.getEmail());
-		caliberTrainee.setMajor(salesforceTrainee.getMajor());
-		caliberTrainee.setName(salesforceTrainee.getName());
-		caliberTrainee.setPhoneNumber(salesforceTrainee.getPhoneNumber());
-		caliberTrainee.setProjectCompletion(salesforceTrainee.getProjectCompletion());
-		caliberTrainee.setRecruiterName(salesforceTrainee.getRecruiterName());
-		caliberTrainee.setTechScreenerName(salesforceTrainee.getTechScreenerName());
-		traineeDao.update(caliberTrainee);
+		try {
+			caliberTrainee.setTrainingStatus(salesforceTrainee.getTrainingStatus());
+			caliberTrainee.setCollege(salesforceTrainee.getCollege());
+			caliberTrainee.setDegree(salesforceTrainee.getDegree());
+			caliberTrainee.setEmail(salesforceTrainee.getEmail());
+			caliberTrainee.setMajor(salesforceTrainee.getMajor());
+			caliberTrainee.setName(salesforceTrainee.getName());
+			caliberTrainee.setPhoneNumber(salesforceTrainee.getPhoneNumber());
+			caliberTrainee.setProjectCompletion(salesforceTrainee.getProjectCompletion());
+			caliberTrainee.setRecruiterName(salesforceTrainee.getRecruiterName());
+			caliberTrainee.setTechScreenerName(salesforceTrainee.getTechScreenerName());
+			traineeDao.update(caliberTrainee);
+		} catch (Exception e) {
+			log.fatal(e);
+		}
 	}
 
 	private void updateBatch(Batch caliberBatch, Batch salesforceBatch) {
-		caliberBatch.setTrainer(salesforceBatch.getTrainer());
-		caliberBatch.setCoTrainer(salesforceBatch.getCoTrainer());
-		caliberBatch.setEndDate(salesforceBatch.getEndDate());
-		caliberBatch.setSkillType(salesforceBatch.getSkillType());
-		caliberBatch.setStartDate(salesforceBatch.getStartDate());
-		caliberBatch.setTrainingName(salesforceBatch.getTrainingName());
-		caliberBatch.setTrainingType(salesforceBatch.getTrainingType());
-		batchDao.update(caliberBatch);
+		try {
+			caliberBatch.setTrainer(salesforceBatch.getTrainer());
+			caliberBatch.setCoTrainer(salesforceBatch.getCoTrainer());
+			caliberBatch.setEndDate(salesforceBatch.getEndDate());
+			caliberBatch.setSkillType(salesforceBatch.getSkillType());
+			caliberBatch.setStartDate(salesforceBatch.getStartDate());
+			caliberBatch.setTrainingName(salesforceBatch.getTrainingName());
+			caliberBatch.setTrainingType(salesforceBatch.getTrainingType());
+			batchDao.update(caliberBatch);
+		} catch (Exception e) {
+			log.fatal(e);
+		}
 	}
 
 }
