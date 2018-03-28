@@ -53,12 +53,12 @@ public class BatchUpdate {
 		}
 	}
 
-	/*
-	 * Compares a Batch from Caliber with it's SalesForce data (based on the
-	 * Resource id) and updates the Caliber Batch if a change has occurred
-	 *
-	 * Junit tests will fail unless you comment out all of the DAO update lines in
-	 * the function
+	/**
+	 * Grabs all batches from Salesforce and all batches from Caliber.
+	 * For each of the Caliber batches, it checks against all the Salesforce batches..
+	 * if the resourceIds match, then the batch details in Caliber need to be updated with
+	 * the data in the Salesforce. Furthermore, we then need to check each of the
+	 * trainees in that batch and update their information from the salesforce as well.
 	 */
 	public boolean compareBatches(List<Batch> caliberBatches, List<Batch> salesforceBatches) {
 		log.info("Comparing batches...");
@@ -67,13 +67,20 @@ public class BatchUpdate {
 				// if resourceIds are same, update all the datas with fresh Salesforce data
 				log.info("Caliber batch: " + caliberBatches.get(cIndex).getResourceId() + " === " + "Salesforce batch: "
 						+ salesforceBatches.get(sIndex).getResourceId());
+				// if caliber batch does not have resourceId, it cannot be synced. continue...
+				if(caliberBatches.get(cIndex).getResourceId() == null)
+					continue;
 				if (caliberBatches.get(cIndex).getResourceId().equals(salesforceBatches.get(sIndex).getResourceId())) {
 					// extract salesforce data and save
 					updateBatch(caliberBatches.get(cIndex), salesforceBatches.get(sIndex));
+					// extract trainee information from Salesforce and update the trainees in the Caliber batch
 					for (Trainee trainee : caliberBatches.get(cIndex).getTrainees()) {
-						for (Trainee salesforceTrainee : salesforceBatches.get(sIndex).getTrainees()) {
+						for (Trainee salesforceTrainee : salesforceDao.getBatchDetails(caliberBatches.get(cIndex).getResourceId())) {
 							log.info("Caliber trainee: " + trainee.getResourceId() + " === " + "Salesforce trainee: "
 									+ salesforceTrainee.getResourceId());
+							// if caliber trainee does not have resourceId, it cannot be synced. continue...
+							if(trainee.getResourceId() == null)
+								continue;
 							if (trainee.getResourceId().equals(salesforceTrainee.getResourceId())) {
 								// extract salesforce data and save
 								updateTrainee(trainee, salesforceTrainee);
