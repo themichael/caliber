@@ -6,6 +6,9 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
@@ -32,6 +35,7 @@ public class BatchUpdate {
 	 */
 	@Scheduled(cron = "0 0/60 * * * ?") //Every 60 minutes
 	//@Scheduled(cron = "0 0 0 * * *") // Midnight
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public void updateBatchTask() {
 		try {
 			log.info("Update Batch Task");
@@ -60,6 +64,7 @@ public class BatchUpdate {
 	 * the data in the Salesforce. Furthermore, we then need to check each of the
 	 * trainees in that batch and update their information from the salesforce as well.
 	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public boolean compareBatches(List<Batch> caliberBatches, List<Batch> salesforceBatches) {
 		log.info("Comparing batches...");
 		for (int sIndex = 0; sIndex < salesforceBatches.size(); sIndex++) {
@@ -94,6 +99,7 @@ public class BatchUpdate {
 		return true;
 	}
 
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	private void updateTrainee(Trainee caliberTrainee, Trainee salesforceTrainee) {
 		try {
 			caliberTrainee.setTrainingStatus(salesforceTrainee.getTrainingStatus());
@@ -112,6 +118,7 @@ public class BatchUpdate {
 		}
 	}
 
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	private void updateBatch(Batch caliberBatch, Batch salesforceBatch) {
 		try {
 			caliberBatch.setTrainer(salesforceBatch.getTrainer());
