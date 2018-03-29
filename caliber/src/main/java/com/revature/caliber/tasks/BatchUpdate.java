@@ -30,8 +30,8 @@ public class BatchUpdate {
 	/**
 	 * Used cron to perform midnight execution To update batches
 	 */
-	// @Scheduled(cron = "0 0/5 * * * ?") //Every 5 minutes (testing)
-	@Scheduled(cron = "0 0 0 * * *") // Midnight
+	@Scheduled(cron = "0 0/60 * * * ?") //Every 60 minutes
+	//@Scheduled(cron = "0 0 0 * * *") // Midnight
 	public void updateBatchTask() {
 		try {
 			log.info("Update Batch Task");
@@ -64,24 +64,25 @@ public class BatchUpdate {
 		log.info("Comparing batches...");
 		for (int sIndex = 0; sIndex < salesforceBatches.size(); sIndex++) {
 			for (int cIndex = 0; cIndex < caliberBatches.size(); cIndex++) {
-				// if resourceIds are same, update all the datas with fresh Salesforce data
-				log.info("Caliber batch: " + caliberBatches.get(cIndex).getResourceId() + " === " + "Salesforce batch: "
-						+ salesforceBatches.get(sIndex).getResourceId());
 				// if caliber batch does not have resourceId, it cannot be synced. continue...
 				if(caliberBatches.get(cIndex).getResourceId() == null)
 					continue;
+				// if resourceIds are same, update all the datas with fresh Salesforce data
 				if (caliberBatches.get(cIndex).getResourceId().equals(salesforceBatches.get(sIndex).getResourceId())) {
+					log.info("Caliber batch: " + caliberBatches.get(cIndex).getResourceId() + " === " + "Salesforce batch: "
+							+ salesforceBatches.get(sIndex).getResourceId());
 					// extract salesforce data and save
 					updateBatch(caliberBatches.get(cIndex), salesforceBatches.get(sIndex));
+					
 					// extract trainee information from Salesforce and update the trainees in the Caliber batch
 					for (Trainee trainee : caliberBatches.get(cIndex).getTrainees()) {
 						for (Trainee salesforceTrainee : salesforceDao.getBatchDetails(caliberBatches.get(cIndex).getResourceId())) {
-							log.info("Caliber trainee: " + trainee.getResourceId() + " === " + "Salesforce trainee: "
-									+ salesforceTrainee.getResourceId());
 							// if caliber trainee does not have resourceId, it cannot be synced. continue...
 							if(trainee.getResourceId() == null)
 								continue;
 							if (trainee.getResourceId().equals(salesforceTrainee.getResourceId())) {
+								log.info("Caliber trainee: " + trainee.getResourceId() + " === " + "Salesforce trainee: "
+										+ salesforceTrainee.getResourceId());
 								// extract salesforce data and save
 								updateTrainee(trainee, salesforceTrainee);
 							}
