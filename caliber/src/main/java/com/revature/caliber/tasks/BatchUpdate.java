@@ -15,6 +15,7 @@ import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.SalesforceDAO;
 import com.revature.caliber.data.TraineeDAO;
+import com.revature.caliber.data.TrainerDAO;
 
 @Component
 public class BatchUpdate {
@@ -29,6 +30,8 @@ public class BatchUpdate {
 	private BatchDAO batchDao;
 	@Autowired
 	private TraineeDAO traineeDao;
+	@Autowired
+	private TrainerDAO trainerDao;
 
 	/**
 	 * Used cron to perform midnight execution To update batches
@@ -121,8 +124,10 @@ public class BatchUpdate {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	private void updateBatch(Batch caliberBatch, Batch salesforceBatch) {
 		try {
-			caliberBatch.setTrainer(salesforceBatch.getTrainer());
-			caliberBatch.setCoTrainer(salesforceBatch.getCoTrainer());
+			if(salesforceBatch.getTrainer() != null)
+				caliberBatch.setTrainer(trainerDao.findByEmail(salesforceBatch.getTrainer().getEmail()));
+			if(salesforceBatch.getCoTrainer() != null)
+				caliberBatch.setCoTrainer(trainerDao.findByEmail(salesforceBatch.getCoTrainer().getEmail()));
 			caliberBatch.setEndDate(salesforceBatch.getEndDate());
 			caliberBatch.setSkillType(salesforceBatch.getSkillType());
 			caliberBatch.setStartDate(salesforceBatch.getStartDate());
