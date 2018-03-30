@@ -61,6 +61,16 @@ public class SalesforceDAO {
 	@Value("select id, name, batch_start_date__c, batch_end_date__c, "
 			+ "batch_trainer__r.name, batch_trainer__r.email, Co_Trainer__r.name, Co_Trainer__r.email, "
 			+ "Skill_Type__c, Location__c, Type__c from training__c "
+			+ "where batch_trainer__r.name != null")
+	private String allBatches;
+	
+	/**
+	 * Will change as of version 2.0 Salesforce API in August/September 2017
+	 * timeframe Used to populate the dropdown list of importable batches.
+	 */
+	@Value("select id, name, batch_start_date__c, batch_end_date__c, "
+			+ "batch_trainer__r.name, batch_trainer__r.email, Co_Trainer__r.name, Co_Trainer__r.email, "
+			+ "Skill_Type__c, Location__c, Type__c from training__c "
 			+ "where batch_trainer__r.name != null and batch_start_date__c >= THIS_YEAR")
 	private String relevantBatches;
 
@@ -86,13 +96,47 @@ public class SalesforceDAO {
 	 * 
 	 * @return
 	 */
+	public List<Batch> getAllBatches() {
+		List<Batch> allBatchesList = new LinkedList<>();
+
+		try {
+			SalesforceBatchResponse response = new ObjectMapper().readValue(
+					getFromSalesforce(allBatches).getEntity().getContent(), SalesforceBatchResponse.class);
+			log.debug("Found " + response.getTotalSize() + " batches: " + response);
+			transformer = new SalesforceTransformerToCaliber();
+
+			for (SalesforceBatch salesForceBatch : response.getRecords()) {
+				allBatchesList.add(transformer.transformBatch(salesForceBatch));
+			}
+		} catch (IOException e) {
+			log.error("Cannot get Salesforce batches:  " + e);
+			// log the Salesforce error JSON
+			ObjectMapper mapper = new ObjectMapper();
+			try {
+				log.error(
+						mapper.readValue(getFromSalesforce(allBatches).getEntity().getContent(), JsonNode.class));
+			} catch (IOException e1) {
+				log.error("Cannot get Salesforce error message:  " + e1);
+			}
+			throw new ServiceNotAvailableException();
+		}
+
+		return allBatchesList;
+	}
+	
+	/**
+	 * Get all the batches in the current year and future years. Access data
+	 * using the Salesforce REST API
+	 * 
+	 * @return
+	 */
 	public List<Batch> getAllRelevantBatches() {
 		List<Batch> relevantBatchesList = new LinkedList<>();
 
 		try {
 			SalesforceBatchResponse response = new ObjectMapper().readValue(
 					getFromSalesforce(relevantBatches).getEntity().getContent(), SalesforceBatchResponse.class);
-			log.info("Found " + response.getTotalSize() + " batches: " + response);
+			log.debug("Found " + response.getTotalSize() + " batches: " + response);
 			transformer = new SalesforceTransformerToCaliber();
 
 			for (SalesforceBatch salesForceBatch : response.getRecords()) {
@@ -127,7 +171,7 @@ public class SalesforceDAO {
 		try {
 			SalesforceTraineeResponse response = new ObjectMapper()
 					.readValue(getFromSalesforce(query).getEntity().getContent(), SalesforceTraineeResponse.class);
-			log.info(response);
+			log.debug(response);
 
 			transformer = new SalesforceTransformerToCaliber();
 			for (SalesforceTrainee trainee : response.getRecords()) {
