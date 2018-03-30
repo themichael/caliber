@@ -25,8 +25,12 @@ public class SalesforceTransformerToCaliber {
 		batch.setResourceId(salesforceBatch.getId());
 		batch.setTrainingName(salesforceBatch.getName());
 		batch.setStartDate(salesforceBatch.getBatchStartDate());
-		batch.setTrainer(transformTrainer(salesforceBatch.getTrainer()));
-		batch.setCoTrainer(transformTrainer(salesforceBatch.getCotrainer()));
+		if(salesforceBatch.getTrainer() != null) {
+			batch.setTrainer(transformTrainer(salesforceBatch.getTrainer()));
+		}
+		if(salesforceBatch.getCotrainer() != null) {
+			batch.setCoTrainer(transformTrainer(salesforceBatch.getCotrainer()));
+		}
 		batch.setEndDate(salesforceBatch.getBatchEndDate());
 		batch.setResourceId(salesforceBatch.getId());
 		batch.setSkillType(transformSkillType(salesforceBatch));
