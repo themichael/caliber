@@ -13,9 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.data.BatchDAO;
-import com.revature.caliber.data.SalesforceDAO;
 import com.revature.caliber.data.TraineeDAO;
 import com.revature.caliber.data.TrainerDAO;
+import com.revature.caliber.services.SalesforceService;
 
 @Component
 public class BatchUpdate {
@@ -25,7 +25,7 @@ public class BatchUpdate {
 	@Autowired
 	private SalesforceAuth salesforceAuth;
 	@Autowired
-	private SalesforceDAO salesforceDao;
+	private SalesforceService salesforceService;
 	@Autowired
 	private BatchDAO batchDao;
 	@Autowired
@@ -46,7 +46,7 @@ public class BatchUpdate {
 			if (userSet) {
 				List<Batch> caliberBatches = batchDao.findAll();
 				log.info("Caliber Batch list size: " + caliberBatches.size());
-				List<Batch> salesforceBatches = salesforceDao.getAllBatches();
+				List<Batch> salesforceBatches = salesforceService.getAllBatches();
 
 				compareBatches(caliberBatches, salesforceBatches);
 			} else {
@@ -84,7 +84,7 @@ public class BatchUpdate {
 					
 					// extract trainee information from Salesforce and update the trainees in the Caliber batch
 					for (Trainee trainee : caliberBatches.get(cIndex).getTrainees()) {
-						for (Trainee salesforceTrainee : salesforceDao.getBatchDetails(caliberBatches.get(cIndex).getResourceId())) {
+						for (Trainee salesforceTrainee : salesforceService.getAllTraineesFromBatch(caliberBatches.get(cIndex).getResourceId())) {
 							// if caliber trainee does not have resourceId, it cannot be synced. continue...
 							if(trainee.getResourceId() == null)
 								continue;

@@ -40,6 +40,33 @@ public class SalesforceService {
 	}
 	
 	/**
+	 * FIND ALL SALESFORCE BATCHES
+	 * 
+	 * @return List of Batches
+	 */
+	public List<Batch> getAllBatches() {
+		log.debug("Find all current batches by year");
+		List<Batch> allSalesForceBatches = salesforceDAO.getAllBatches();
+
+		// load trainer and co-trainer from Caliber DB
+		Map<String, Trainer> trainerMap = loadTrainers();
+		for (Batch batch : allSalesForceBatches) {
+			if(batch.getTrainer() == null) {
+				// if trainer is null, pass to a default trainer
+				batch.setTrainer(trainerMap.get("patrick.walsh@revature.com"));
+			}
+			else{
+				batch.setTrainer(trainerMap.get(batch.getTrainer().getEmail()));
+			}
+			batch.setCoTrainer(trainerMap.get(batch.getCoTrainer().getEmail()));
+			log.debug(batch.getTrainer());
+			log.debug(batch.getCoTrainer());
+		}
+
+		return allSalesForceBatches;
+	}
+	
+	/**
 	 * FIND ALL CURRENT SALESFORCE BATCHES
 	 * 
 	 * @return List of Batches
@@ -52,7 +79,13 @@ public class SalesforceService {
 		// load trainer and co-trainer from Caliber DB
 		Map<String, Trainer> trainerMap = loadTrainers();
 		for (Batch batch : allSalesForceBatches) {
-			batch.setTrainer(trainerMap.get(batch.getTrainer().getEmail()));
+			if(batch.getTrainer() == null) {
+				// if trainer is null, pass to a default trainer
+				batch.setTrainer(trainerMap.get("patrick.walsh@revature.com"));
+			}
+			else{
+				batch.setTrainer(trainerMap.get(batch.getTrainer().getEmail()));
+			}
 			batch.setCoTrainer(trainerMap.get(batch.getCoTrainer().getEmail()));
 			log.debug(batch.getTrainer());
 			log.debug(batch.getCoTrainer());
