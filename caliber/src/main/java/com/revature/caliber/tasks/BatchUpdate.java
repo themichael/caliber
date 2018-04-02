@@ -36,8 +36,8 @@ public class BatchUpdate {
 	/**
 	 * Used cron to perform midnight execution To update batches
 	 */
-	@Scheduled(cron = "0 0/60 * * * ?") //Every 60 minutes
-	//@Scheduled(cron = "0 0 0 * * *") // Midnight
+	//@Scheduled(cron = "0 0/60 * * * ?") //Every 60 minutes
+	@Scheduled(cron = "0 0 0 * * *") // Midnight
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public void updateBatchTask() {
 		try {
@@ -45,7 +45,7 @@ public class BatchUpdate {
 			boolean userSet = salesforceAuth.setUser();
 			if (userSet) {
 				List<Batch> caliberBatches = batchDao.findAll();
-				log.info("Caliber Batch list size: " + caliberBatches.size());
+				log.debug("Caliber Batch list size: " + caliberBatches.size());
 				List<Batch> salesforceBatches = salesforceDao.getAllRelevantBatches();
 
 				compareBatches(caliberBatches, salesforceBatches);
@@ -77,7 +77,7 @@ public class BatchUpdate {
 					continue;
 				// if resourceIds are same, update all the datas with fresh Salesforce data
 				if (caliberBatches.get(cIndex).getResourceId().equals(salesforceBatches.get(sIndex).getResourceId())) {
-					log.info("Caliber batch: " + caliberBatches.get(cIndex).getResourceId() + " === " + "Salesforce batch: "
+					log.debug("Caliber batch: " + caliberBatches.get(cIndex).getResourceId() + " === " + "Salesforce batch: "
 							+ salesforceBatches.get(sIndex).getResourceId());
 					// extract salesforce data and save
 					updateBatch(caliberBatches.get(cIndex), salesforceBatches.get(sIndex));
@@ -89,7 +89,7 @@ public class BatchUpdate {
 							if(trainee.getResourceId() == null)
 								continue;
 							if (trainee.getResourceId().equals(salesforceTrainee.getResourceId())) {
-								log.info("Caliber trainee: " + trainee.getResourceId() + " === " + "Salesforce trainee: "
+								log.debug("Caliber trainee: " + trainee.getResourceId() + " === " + "Salesforce trainee: "
 										+ salesforceTrainee.getResourceId());
 								// extract salesforce data and save
 								updateTrainee(trainee, salesforceTrainee);
