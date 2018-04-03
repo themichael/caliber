@@ -66,9 +66,19 @@ public class SalesforceDAO {
 
 	/**
 	 * Will change as of version 2.0 Salesforce API in August/September 2017
+	 * timeframe. Used to get all batches for the nightly Salesforce sync
+	 */
+	@Value("select id, name, batch_start_date__c, batch_end_date__c, "
+			+ "batch_trainer__r.name, batch_trainer__r.email, Co_Trainer__r.name, Co_Trainer__r.email, "
+			+ "Skill_Type__c, Location__c, Type__c from training__c "
+			+ "where batch_trainer__r.name != null")
+	private String allBatches;
+	
+	/**
+	 * Will change as of version 2.0 Salesforce API in August/September 2017
 	 * timeframe Once user selects a batch to import, use this to load all the
-	 * Trainee details. ResourceId *MUST* be surrounded in single quotes to
-	 * function properly
+	 * Trainee details. ResourceId *MUST* be surrounded in single quotes to function
+	 * properly
 	 */
 	@Value("select id, name, training_status__c, phone, email, MobilePhone, Training_Batch__c ,"
 			+ " Training_Batch__r.name, Training_Batch__r.batch_start_date__c, Training_Batch__r.batch_end_date__c,"
@@ -81,37 +91,54 @@ public class SalesforceDAO {
 	//////////// REST Consumer Methods -- Salesforce REST API //////////////
 
 	/**
-	 * Get all the batches in the current year and future years. Access data
-	 * using the Salesforce REST API
+	 * Get all the batches in the current year and future years. Access data using
+	 * the Salesforce REST API
+	 * 
+	 * @return
+	 */
+	public List<Batch> getAllBatches() {
+		return askSalesforceForBatches(allBatches);
+	}
+	
+	/**
+	 * Get all the batches in the current year and future years. Access data using
+	 * the Salesforce REST API
 	 * 
 	 * @return
 	 */
 	public List<Batch> getAllRelevantBatches() {
-		List<Batch> relevantBatchesList = new LinkedList<>();
+		return askSalesforceForBatches(relevantBatches);
+	}
+
+	/**
+	 * Helper method to get batches from Salesforce based on the given SOQL query
+	 * 
+	 * @param query
+	 * @return
+	 */
+	private List<Batch> askSalesforceForBatches(String query) {
+		List<Batch> batchesList = new LinkedList<>();
 
 		try {
-			SalesforceBatchResponse response = new ObjectMapper().readValue(
-					getFromSalesforce(relevantBatches).getEntity().getContent(), SalesforceBatchResponse.class);
-			log.info("Found " + response.getTotalSize() + " batches: " + response);
-			transformer = new SalesforceTransformerToCaliber();
+			SalesforceBatchResponse response = new ObjectMapper()
+					.readValue(getFromSalesforce(query).getEntity().getContent(), SalesforceBatchResponse.class);
+			log.debug("Found " + response.getTotalSize() + " batches: " + response);
 
 			for (SalesforceBatch salesForceBatch : response.getRecords()) {
-				relevantBatchesList.add(transformer.transformBatch(salesForceBatch));
+				batchesList.add(transformer.transformBatch(salesForceBatch));
 			}
 		} catch (IOException e) {
 			log.error("Cannot get Salesforce batches:  " + e);
 			// log the Salesforce error JSON
 			ObjectMapper mapper = new ObjectMapper();
 			try {
-				log.error(
-						mapper.readValue(getFromSalesforce(relevantBatches).getEntity().getContent(), JsonNode.class));
+				log.error(mapper.readValue(getFromSalesforce(query).getEntity().getContent(), JsonNode.class));
 			} catch (IOException e1) {
 				log.error("Cannot get Salesforce error message:  " + e1);
 			}
 			throw new ServiceNotAvailableException();
 		}
-
-		return relevantBatchesList;
+		return batchesList;
 	}
 
 	/**
@@ -127,9 +154,7 @@ public class SalesforceDAO {
 		try {
 			SalesforceTraineeResponse response = new ObjectMapper()
 					.readValue(getFromSalesforce(query).getEntity().getContent(), SalesforceTraineeResponse.class);
-			log.info(response);
-
-			transformer = new SalesforceTransformerToCaliber();
+			log.debug(response);
 			for (SalesforceTrainee trainee : response.getRecords()) {
 				trainees.add(transformer.transformTrainee(trainee));
 			}
@@ -171,8 +196,8 @@ public class SalesforceDAO {
 	}
 
 	/**
-	 * Helper method to return the Salesforce access_token being managed by
-	 * Spring Security
+	 * Helper method to return the Salesforce access_token being managed by Spring
+	 * Security
 	 * 
 	 * @return
 	 */
@@ -185,9 +210,9 @@ public class SalesforceDAO {
 	}
 
 	/**
-	 * Get all the batches in the current year and future years. Access data
-	 * using the Salesforce REST API. Returns as String in case the result is
-	 * not actually a batch. Used to debug environment issues.
+	 * Get all the batches in the current year and future years. Access data using
+	 * the Salesforce REST API. Returns as String in case the result is not actually
+	 * a batch. Used to debug environment issues.
 	 * 
 	 * @return
 	 */
@@ -203,8 +228,8 @@ public class SalesforceDAO {
 
 	/**
 	 * Get batch details. Access data using the Salesforce REST API. Returns as
-	 * String in case the result is not actually a batch. Used to debug
-	 * environment issues.
+	 * String in case the result is not actually a batch. Used to debug environment
+	 * issues.
 	 * 
 	 * @return
 	 */
