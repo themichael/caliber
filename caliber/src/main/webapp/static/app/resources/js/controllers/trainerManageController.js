@@ -220,31 +220,18 @@ angular
 
 					/** Validation for the dates * */
 					$scope.checkDates = function() {
-						var start = $scope.startDate.model;
-						$scope.startDate.model = new Date(moment(
-								$scope.startDate.model, "YYYY-MM-DD").format(
-								"YYYY/MM/DD"));
-
-						var end = $scope.endDate.model;
-						$scope.endDate.model = new Date(moment(
-								$scope.endDate.model, "YYYY-MM-DD").format(
-								"YYYY/MM/DD"));
+						$scope.startDate.model = new Date($scope.startDate.model);
+						$scope.endDate.model = new Date($scope.endDate.model);
 
 						$log.info($scope.startDate);
 
 						if ($scope.endDate.model > $scope.startDate.model
 								&& $scope.trainer.model !== $scope.coTrainer.model) {
 							$log.debug("True");
-							// revert dates to original format
-							$scope.startDate.model = start;
-							$scope.endDate.model = end;
 							$scope.addNewBatch();
 						} else {
 							$log.info("False");
 							angular.element("#checkBatchModal").modal("show");
-							// revert dates to original format
-							$scope.startDate.model = start;
-							$scope.endDate.model = end;
 							return false;
 						}
 
@@ -275,8 +262,8 @@ angular
 						} else {
 							$scope.coTrainer.model = ""
 						}
-						$scope.startDate.model = batch.startDate;
-						$scope.endDate.model = batch.endDate;
+						$scope.startDate.model = new Date(batch.startDate);
+						$scope.endDate.model = new Date(batch.endDate);
 						$scope.goodGradeThreshold.model = batch.goodGradeThreshold;
 						$scope.borderlineGradeThreshold.model = batch.borderlineGradeThreshold;
 					}
