@@ -134,12 +134,12 @@ public class BatchUpdate {
 				log.info("Trainer is null for " + salesforceBatch.getTrainingName());
 				caliberBatch.setTrainer(trainerDao.findByEmail(SalesforceService.DEFAULT_TRAINER));
 				log.info("Trainer is now " + SalesforceService.DEFAULT_TRAINER + " for "
-						+ salesforceBatch.getTrainingName());
+						+ caliberBatch.getTrainingName());
 			}
 			if (salesforceBatch.getCoTrainer() != null) {
-				log.info("Cotrainer for " + salesforceBatch.getTrainingName() + " is: "
-						+ salesforceBatch.getCoTrainer());
 				caliberBatch.setCoTrainer(trainerDao.findByEmail(salesforceBatch.getCoTrainer().getEmail()));
+				log.info("Cotrainer for " + salesforceBatch.getTrainingName() + " is: "
+						+ caliberBatch.getCoTrainer());
 			}
 			caliberBatch.setEndDate(salesforceBatch.getEndDate());
 			caliberBatch.setSkillType(salesforceBatch.getSkillType());
