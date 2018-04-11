@@ -75,6 +75,9 @@ public class SalesforceTransformerToCaliber {
 	 * @return
 	 */
 	public String guessEmail(String name) {
+		if(name == null) {
+			return null;
+		}
 		String[] firstLast = name.split(" ");
 		if(firstLast.length < 2) {
 			return null; // trainer has only 1 name.. looking at you, Cher
