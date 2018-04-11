@@ -61,6 +61,7 @@ public class SalesforceTransformerToCaliber {
 		String email = guessEmail(batchTrainer.getName());
 		if (email != null) {
 			trainer.setEmail(email);
+			logger.info("Guessed co-trainer email as: " + email);
 			return trainer;
 		}else {
 			return null;
