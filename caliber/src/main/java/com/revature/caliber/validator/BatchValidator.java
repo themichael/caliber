@@ -17,6 +17,9 @@ public class BatchValidator implements ConstraintValidator<ValidBatch, Batch> {
 
 	@Override
 	public boolean isValid(Batch batch, ConstraintValidatorContext ctx) {
+		if(batch == null) {
+			return false;
+		}
 		if (batch.getEndDate().before(batch.getStartDate())
 				|| batch.getBorderlineGradeThreshold() > batch.getGoodGradeThreshold()
 				|| batch.getTrainer().equals(batch.getCoTrainer())) {
