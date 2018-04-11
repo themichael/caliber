@@ -16,6 +16,7 @@ import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.SalesforceDAO;
 import com.revature.caliber.data.TraineeDAO;
 import com.revature.caliber.data.TrainerDAO;
+import com.revature.caliber.services.SalesforceService;
 
 @Component
 public class BatchUpdate {
@@ -36,7 +37,7 @@ public class BatchUpdate {
 	/**
 	 * Used cron to perform midnight execution To update batches
 	 */
-	//@Scheduled(cron = "0 0/60 * * * ?") //Every 60 minutes
+	@Scheduled(cron = "0 0/30 * * * ?") //Every 30 minutes
 	@Scheduled(cron = "0 0 0 * * *") // Midnight
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public void updateBatchTask() {
@@ -124,10 +125,14 @@ public class BatchUpdate {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	private void updateBatch(Batch caliberBatch, Batch salesforceBatch) {
 		try {
-			if(salesforceBatch.getTrainer() != null)
+			if(salesforceBatch.getTrainer() != null) {
 				caliberBatch.setTrainer(trainerDao.findByEmail(salesforceBatch.getTrainer().getEmail()));
-			if(salesforceBatch.getCoTrainer() != null)
+			}else {
+				caliberBatch.setTrainer(trainerDao.findByEmail(SalesforceService.DEFAULT_TRAINER));
+			}
+			if(salesforceBatch.getCoTrainer() != null) {
 				caliberBatch.setCoTrainer(trainerDao.findByEmail(salesforceBatch.getCoTrainer().getEmail()));
+			}
 			caliberBatch.setEndDate(salesforceBatch.getEndDate());
 			caliberBatch.setSkillType(salesforceBatch.getSkillType());
 			caliberBatch.setStartDate(salesforceBatch.getStartDate());

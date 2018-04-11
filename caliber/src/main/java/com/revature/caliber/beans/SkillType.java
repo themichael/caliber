@@ -23,10 +23,16 @@ public enum SkillType implements Serializable{
 	JTA("JTA"),
 	@JsonProperty("Microservices")
 	MICROSERVICES("Microservices"),
-	@JsonProperty("Oracle Fusion")
+	@JsonProperty("Oracle Fusion Middleware")
 	FUSION("Oracle Fusion"),
 	@JsonProperty("Salesforce")
 	SALESFORCE("Salesforce"),
+	@JsonProperty("Business Analyst")
+	BA("Business Analyst"),
+	@JsonProperty("System Admin")
+	SYSADMIN("System Admin"),
+	@JsonProperty("QA")
+	QA("QA"),
 	@JsonProperty("Other")
 	OTHER("Other");
 	
