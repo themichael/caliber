@@ -39,7 +39,7 @@ public class SalesforceTransformerToCaliber {
 	public Trainer transformTrainer(BatchTrainer batchTrainer) {
 		Trainer trainer = new Trainer();
 		if (batchTrainer == null) {
-			return trainer;
+			return null;
 		}
 		trainer.setName(batchTrainer.getName());
 		trainer.setEmail(batchTrainer.getEmail());
@@ -54,7 +54,7 @@ public class SalesforceTransformerToCaliber {
 	public Trainer transformCoTrainer(SalesforceTrainee batchTrainer) {
 		Trainer trainer = new Trainer();
 		if (batchTrainer == null) {
-			return trainer;
+			return null;
 		}
 		trainer.setName(batchTrainer.getName());
 		// generate email
