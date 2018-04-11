@@ -27,8 +27,8 @@ public class SalesforceBatch extends SalesforceRecord{
 	private BatchTrainer trainer;
 	
 	@JsonProperty("Co_Trainer__r")
-	@JsonSerialize(as=BatchTrainer.class)
-	private BatchTrainer cotrainer;
+	@JsonSerialize(as=SalesforceTrainee.class)
+	private SalesforceTrainee cotrainer;
 	
 	@JsonProperty("Skill_Type__c")
 	private String skillType;
@@ -75,11 +75,11 @@ public class SalesforceBatch extends SalesforceRecord{
 		this.trainer = trainer;
 	}
 
-	public BatchTrainer getCotrainer() {
+	public SalesforceTrainee getCotrainer() {
 		return cotrainer;
 	}
 
-	public void setCotrainer(BatchTrainer cotrainer) {
+	public void setCotrainer(SalesforceTrainee cotrainer) {
 		this.cotrainer = cotrainer;
 	}
 

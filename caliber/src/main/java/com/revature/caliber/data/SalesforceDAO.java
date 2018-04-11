@@ -61,7 +61,8 @@ public class SalesforceDAO {
 	@Value("select id, name, batch_start_date__c, batch_end_date__c, "
 			+ "batch_trainer__r.name, batch_trainer__r.email, Co_Trainer__r.name, Co_Trainer__r.email, "
 			+ "Skill_Type__c, Location__c, Type__c from training__c "
-			+ "where batch_trainer__r.name != null and batch_start_date__c >= THIS_YEAR")
+			+ "where batch_start_date__c >= THIS_YEAR")
+			//+ "where batch_trainer__r.name != null and batch_start_date__c >= THIS_YEAR")
 	private String relevantBatches;
 
 	/**

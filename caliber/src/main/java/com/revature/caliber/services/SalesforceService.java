@@ -19,7 +19,8 @@ import com.revature.caliber.data.TrainerDAO;
 public class SalesforceService {
 
 	private static final Logger log = Logger.getLogger(SalesforceService.class);
-
+	public static final String DEFAULT_TRAINER = "patrick.walsh@revature.com";
+	
 	@Autowired
 	private SalesforceDAO salesforceDAO;
 	@Autowired
@@ -38,7 +39,7 @@ public class SalesforceService {
 	public void setSalesforceDAO(SalesforceDAO salesforceDAO) {
 		this.salesforceDAO = salesforceDAO;
 	}
-	
+
 	/**
 	 * FIND ALL CURRENT SALESFORCE BATCHES
 	 * 
@@ -52,12 +53,17 @@ public class SalesforceService {
 		// load trainer and co-trainer from Caliber DB
 		Map<String, Trainer> trainerMap = loadTrainers();
 		for (Batch batch : allSalesForceBatches) {
-			batch.setTrainer(trainerMap.get(batch.getTrainer().getEmail()));
+			// null Salesforce trainer problem.. 
+			if (batch.getTrainer() == null) {
+				batch.setTrainer(trainerDAO.findOne(trainerMap.get(DEFAULT_TRAINER).getTrainerId()));
+			} else {
+				batch.setTrainer(trainerMap.get(batch.getTrainer().getEmail()));
+			}
 			batch.setCoTrainer(trainerMap.get(batch.getCoTrainer().getEmail()));
 			log.debug(batch.getTrainer());
 			log.debug(batch.getCoTrainer());
 		}
-		
+
 		// Removing batches already in Caliber database
 		for (int cIndex = 0; cIndex < allCaliberBatches.size(); cIndex++) {
 			String cResourceId = allCaliberBatches.get(cIndex).getResourceId();
@@ -95,12 +101,13 @@ public class SalesforceService {
 		log.debug("Find all trainees");
 		return salesforceDAO.getBatchDetails(resourceId);
 	}
-	
+
 	/**
 	 * Debug method to check Salesforce data
+	 * 
 	 * @return
 	 */
-	public String logBatches(){
+	public String logBatches() {
 		String message = salesforceDAO.getSalesforceResponseString();
 		log.warn(message);
 		return message;
@@ -108,12 +115,13 @@ public class SalesforceService {
 
 	/**
 	 * Debug method to check Salesforce data
+	 * 
 	 * @return
 	 */
-	public String logBatches(String resourceId){
+	public String logBatches(String resourceId) {
 		String message = salesforceDAO.getSalesforceTraineeResponseString(resourceId);
 		log.warn(message);
 		return message;
 	}
-	
+
 }

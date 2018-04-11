@@ -16,7 +16,7 @@ import com.revature.salesforce.beans.SalesforceTrainee;
 public class SalesforceTransformerToCaliber {
 
 	private static final Logger logger = Logger.getLogger(SalesforceTransformerToCaliber.class);
-
+	
 	public Batch transformBatch(SalesforceBatch salesforceBatch) {
 		Batch batch = new Batch();
 		if (salesforceBatch == null) {
@@ -26,7 +26,7 @@ public class SalesforceTransformerToCaliber {
 		batch.setTrainingName(salesforceBatch.getName());
 		batch.setStartDate(salesforceBatch.getBatchStartDate());
 		batch.setTrainer(transformTrainer(salesforceBatch.getTrainer()));
-		batch.setCoTrainer(transformTrainer(salesforceBatch.getCotrainer()));
+		batch.setCoTrainer(transformCoTrainer(salesforceBatch.getCotrainer()));
 		batch.setEndDate(salesforceBatch.getBatchEndDate());
 		batch.setResourceId(salesforceBatch.getId());
 		batch.setSkillType(transformSkillType(salesforceBatch));
@@ -35,7 +35,7 @@ public class SalesforceTransformerToCaliber {
 		return batch;
 	}
 
-	// TO DO - Tranform batchtrainers into trainers
+	// Tranform batchtrainers into trainers
 	public Trainer transformTrainer(BatchTrainer batchTrainer) {
 		Trainer trainer = new Trainer();
 		if (batchTrainer == null) {
@@ -44,6 +44,45 @@ public class SalesforceTransformerToCaliber {
 		trainer.setName(batchTrainer.getName());
 		trainer.setEmail(batchTrainer.getEmail());
 		return trainer;
+	}
+	
+	/**
+	 * Salesforce v1 stores the Cotrainer with the Trainee record and not the Trainer record... #hackamania
+	 * @param batchTrainer
+	 * @return
+	 */
+	public Trainer transformCoTrainer(SalesforceTrainee batchTrainer) {
+		Trainer trainer = new Trainer();
+		if (batchTrainer == null) {
+			return trainer;
+		}
+		trainer.setName(batchTrainer.getName());
+		// generate email
+		String email = guessEmail(batchTrainer.getName());
+		if (email != null) {
+			trainer.setEmail(email);
+			return trainer;
+		}else {
+			return null;
+		}
+	}
+	
+	/**
+	 * Guess the email as first.last@revature.com
+	 * If it cannot be computed, return null and not all to be saved as cotrainer
+	 * 
+	 * @param name
+	 * @return
+	 */
+	public String guessEmail(String name) {
+		if(name == null) {
+			return null;
+		}
+		String[] firstLast = name.split(" ");
+		if(firstLast.length < 2) {
+			return null; // trainer has only 1 name.. looking at you, Cher
+		}
+		return new StringBuilder().append(firstLast[0]).append(".").append(firstLast[1]).append("@revature.com").toString().toLowerCase();
 	}
 
 	public SkillType transformSkillType(SalesforceBatch salesforceBatch) {
@@ -57,9 +96,9 @@ public class SalesforceTransformerToCaliber {
 
 	private SkillType transformSkillTypeHelper(String skillType) {
 		switch (skillType) {
-		case "J2EE":
+		case "Full Stack Java/JEE":
 			return SkillType.J2EE;
-		case ".NET":
+		case "Full Stack .NET":
 			return SkillType.NET;
 		case "SDET":
 			return SkillType.SDET;
@@ -69,16 +108,22 @@ public class SalesforceTransformerToCaliber {
 			return SkillType.APPIAN;	
 		case "PEGA BPM":
 			return SkillType.PEGA;
-		case "Microsoft Dynamics 365":
+		case "Dynamics CRM":
 			return SkillType.DYNAMICS;
-		case "JTA":
+		case "Full Stack JTA":
 			return SkillType.JTA;
 		case "Microservices":
 			return SkillType.MICROSERVICES;
-		case "Oracle Fusion":
+		case "Oracle Fusion Middleware":
 			return SkillType.FUSION;
 		case "Salesforce":
 			return SkillType.SALESFORCE;
+		case "Business Analyst":
+			return SkillType.BA;
+		case "System Admin":
+			return SkillType.SYSADMIN;
+		case "QA":
+			return SkillType.QA;
 		default:
 			return SkillType.OTHER;
 		}
