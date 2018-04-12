@@ -20,7 +20,7 @@ public class SalesforceService {
 
 	private static final Logger log = Logger.getLogger(SalesforceService.class);
 	public static final String DEFAULT_TRAINER = "patrick.walsh@revature.com";
-	
+
 	@Autowired
 	private SalesforceDAO salesforceDAO;
 	@Autowired
@@ -53,13 +53,17 @@ public class SalesforceService {
 		// load trainer and co-trainer from Caliber DB
 		Map<String, Trainer> trainerMap = loadTrainers();
 		for (Batch batch : allSalesForceBatches) {
-			// null Salesforce trainer problem.. 
+			// null Salesforce trainer problem..
 			if (batch.getTrainer() == null) {
 				batch.setTrainer(trainerDAO.findOne(trainerMap.get(DEFAULT_TRAINER).getTrainerId()));
 			} else {
 				batch.setTrainer(trainerMap.get(batch.getTrainer().getEmail()));
 			}
-			batch.setCoTrainer(trainerMap.get(batch.getCoTrainer().getEmail()));
+
+			if (batch.getCoTrainer() != null) {
+				batch.setCoTrainer(trainerMap.get(batch.getCoTrainer().getEmail()));
+			}
+			
 			log.debug(batch.getTrainer());
 			log.debug(batch.getCoTrainer());
 		}
