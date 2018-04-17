@@ -17,14 +17,23 @@ public class BatchValidator implements ConstraintValidator<ValidBatch, Batch> {
 
 	@Override
 	public boolean isValid(Batch batch, ConstraintValidatorContext ctx) {
-		if(batch == null) {
+		if (batch == null) {
 			return false;
 		}
-		if (batch.getEndDate().before(batch.getStartDate())
-				|| batch.getBorderlineGradeThreshold() > batch.getGoodGradeThreshold()
-				|| batch.getTrainer().equals(batch.getCoTrainer())) {
-			return false;
+		
+		boolean endDateBeforeStartDate = batch.getEndDate().before(batch.getStartDate());
+		boolean poorGradeGreaterThanGoodGrade = batch.getBorderlineGradeThreshold() > batch.getGoodGradeThreshold();
+		boolean cotrainerSameAsTrainer = false;
+
+		if (batch.getTrainer() != null) {
+			cotrainerSameAsTrainer = batch.getTrainer().equals(batch.getCoTrainer());
 		}
-		return true;
+
+		// validate the batch
+		if (endDateBeforeStartDate || poorGradeGreaterThanGoodGrade || cotrainerSameAsTrainer) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 }
