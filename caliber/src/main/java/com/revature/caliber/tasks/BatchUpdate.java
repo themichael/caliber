@@ -73,6 +73,8 @@ public class BatchUpdate {
 	public boolean compareBatches(List<Batch> caliberBatches, List<Batch> salesforceBatches) {
 		log.info("Comparing batches...");
 		for (int sIndex = 0; sIndex < salesforceBatches.size(); sIndex++) {
+			if(salesforceBatches.get(sIndex).getTrainer() == null)
+				continue;
 			for (int cIndex = 0; cIndex < caliberBatches.size(); cIndex++) {
 				// if caliber batch does not have resourceId, it cannot be synced. continue...
 				if (caliberBatches.get(cIndex).getResourceId() == null)

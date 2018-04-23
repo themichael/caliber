@@ -3,7 +3,6 @@ package com.revature.caliber.salesforce;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.SkillType;
 import com.revature.caliber.beans.Trainee;
