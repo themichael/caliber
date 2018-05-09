@@ -37,8 +37,8 @@ public class BatchUpdate {
 	/**
 	 * Used cron to perform midnight execution To update batches
 	 */
-	//	@Scheduled(cron = "0 0/2 * * * ?") // Every 2 minutes
-	@Scheduled(cron = "0 0 0 * * *") // Midnight
+	@Scheduled(cron = "0 0/2 * * * ?") // Every 2 minutes
+	//@Scheduled(cron = "0 0 0 * * *") // Midnight
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public void updateBatchTask() {
 		try {
