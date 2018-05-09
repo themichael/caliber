@@ -245,7 +245,7 @@ public class BatchDAO {
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void update(Batch batch) {
-		log.debug("Updating batch: " + batch + " Trainer: " + batch.getTrainer() + " Cotrainer: " + batch.getCoTrainer());
+		log.info("Updating batch: " + batch + " Trainer: " + batch.getTrainer() + " Cotrainer: " + batch.getCoTrainer());
 		batch.setStartDate(new Date(batch.getStartDate().getTime() + TimeUnit.DAYS.toMillis(1)));
 		batch.setEndDate(new Date(batch.getEndDate().getTime() + TimeUnit.DAYS.toMillis(1)));
 		sessionFactory.getCurrentSession().saveOrUpdate(batch);

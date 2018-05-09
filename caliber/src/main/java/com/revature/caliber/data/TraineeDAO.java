@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.beans.Trainee;
-import com.revature.caliber.beans.TraineeFlag;
 import com.revature.caliber.beans.TrainingStatus;
 
 /**
@@ -191,6 +190,7 @@ public class TraineeDAO {
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void update(Trainee trainee) {
+		log.info("Updating trainee " + trainee);
 		sessionFactory.getCurrentSession().saveOrUpdate(trainee);
 	}
 

@@ -47,7 +47,7 @@ public class BatchUpdate {
 			if (userSet) {
 				List<Batch> caliberBatches = batchDao.findAll();
 				log.debug("Caliber Batch list size: " + caliberBatches.size());
-				List<Batch> salesforceBatches = salesforceDao.getAllBatches();
+				List<Batch> salesforceBatches = salesforceDao.getAllRelevantBatches();
 
 				compareBatches(caliberBatches, salesforceBatches);
 			} else {
