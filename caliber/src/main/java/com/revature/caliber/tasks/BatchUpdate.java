@@ -38,7 +38,7 @@ public class BatchUpdate {
 	 * Used cron to perform midnight execution To update batches
 	 */
 	@Scheduled(cron = "0 0/2 * * * ?") // Every 2 minutes
-	//@Scheduled(cron = "0 0 0 * * *") // Midnight
+	// @Scheduled(cron = "0 0 0 * * *") // Midnight
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public void updateBatchTask() {
 		try {
@@ -73,7 +73,7 @@ public class BatchUpdate {
 	public boolean compareBatches(List<Batch> caliberBatches, List<Batch> salesforceBatches) {
 		log.debug("Comparing batches...");
 		for (int sIndex = 0; sIndex < salesforceBatches.size(); sIndex++) {
-			if(salesforceBatches.get(sIndex).getTrainer() == null) {
+			if (salesforceBatches.get(sIndex).getTrainer() == null) {
 				log.info(salesforceBatches.get(sIndex).getResourceId() + " batch trainer is null");
 				continue;
 			}
@@ -83,8 +83,8 @@ public class BatchUpdate {
 					continue;
 				// if resourceIds are same, update all the datas with fresh Salesforce data
 				if (caliberBatches.get(cIndex).getResourceId().equals(salesforceBatches.get(sIndex).getResourceId())) {
-					log.info("Caliber batch: " + caliberBatches.get(cIndex).getResourceId() + " === "
-							+ "Salesforce batch: " + salesforceBatches.get(sIndex).getResourceId());
+					log.info("Found batch match: " + salesforceBatches.get(sIndex).getResourceId() + " "
+							+ salesforceBatches.get(sIndex).getTrainingName());
 					// extract salesforce data and save
 					updateBatch(caliberBatches.get(cIndex), salesforceBatches.get(sIndex));
 
@@ -97,8 +97,7 @@ public class BatchUpdate {
 							if (trainee.getResourceId() == null)
 								continue;
 							if (trainee.getResourceId().equals(salesforceTrainee.getResourceId())) {
-								log.info("Caliber trainee: " + trainee.getResourceId() + " === "
-										+ "Salesforce trainee: " + salesforceTrainee.getResourceId());
+								log.info("Updating trainee: " + salesforceTrainee.getResourceId() + " " + trainee);
 								// extract salesforce data and save
 								updateTrainee(trainee, salesforceTrainee);
 							}
@@ -142,8 +141,7 @@ public class BatchUpdate {
 			}
 			if (salesforceBatch.getCoTrainer() != null) {
 				caliberBatch.setCoTrainer(trainerDao.findByEmail(salesforceBatch.getCoTrainer().getEmail()));
-				log.info("Cotrainer for " + salesforceBatch.getTrainingName() + " is: "
-						+ caliberBatch.getCoTrainer());
+				log.info("Cotrainer for " + salesforceBatch.getTrainingName() + " is: " + caliberBatch.getCoTrainer());
 			}
 			caliberBatch.setEndDate(salesforceBatch.getEndDate());
 			caliberBatch.setSkillType(salesforceBatch.getSkillType());
