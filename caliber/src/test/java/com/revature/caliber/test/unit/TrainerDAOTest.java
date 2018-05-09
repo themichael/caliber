@@ -31,26 +31,26 @@ public class TrainerDAOTest extends CaliberTest {
 
 	@Test
 	public void testFindAllTrainerTitles() {
-		log.info("Find all trainer titles");
+		log.debug("Find all trainer titles");
 		assertTrue(trainerDAO.findAllTrainerTitles().containsAll(TRAINER_TITLES));
 	}
 
 	@Test
 	public void testFindByEmail() {
-		log.info("Find trainer by email");
+		log.debug("Find trainer by email");
 		Trainer expected = new Trainer("Patrick Walsh", TRAINER_TITLES.get(2), PAT_MAIL, TrainerRole.ROLE_VP);
 		assertEquals(expected, trainerDAO.findByEmail(PAT_MAIL));
 	}
 
 	@Test
 	public void testFindAll() {
-		log.info("Find all trainers");
+		log.debug("Find all trainers");
 		assertEquals(27, trainerDAO.findAll().size());
 	}
 
 	@Test
 	public void testSave() {
-		log.info("Save a new trainer");
+		log.debug("Save a new trainer");
 		int before = trainerDAO.findAll().size();
 		trainerDAO.save(new Trainer("Alex Cobian", TRAINER_TITLES.get(1), "cobian448@yahoo.com", TrainerRole.ROLE_VP));
 		int after = trainerDAO.findAll().size();
@@ -59,14 +59,14 @@ public class TrainerDAOTest extends CaliberTest {
 
 	@Test
 	public void testFindOne() {
-		log.info("Find trainer by id");
+		log.debug("Find trainer by id");
 		Trainer expected = new Trainer("Patrick Walsh", TRAINER_TITLES.get(2), PAT_MAIL, TrainerRole.ROLE_VP);
 		assertEquals(expected, trainerDAO.findOne(1));
 	}
 
 	@Test
 	public void testUpdate() {
-		log.info("Update trainer");
+		log.debug("Update trainer");
 		//Test for name update
 		Trainer expected = trainerDAO.findByEmail(PAT_MAIL);
 		expected.setName("Success Walsh");

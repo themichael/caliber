@@ -30,7 +30,7 @@ public class TaskDAOTest extends CaliberTest{
 	
 	@Test
 	public void testFindAllActive() {
-		log.info("FIND ALL ACTIVE TASKS TEST");
+		log.debug("FIND ALL ACTIVE TASKS TEST");
 		Long sizeActual = jdbcTemplate.queryForObject(ACTIVE_TASK_COUNT, Long.class);
 		List<TrainerTask> tasks = dao.findAllActiveTasks();
 		Long sizeExpected = (long) tasks.size();
@@ -39,7 +39,7 @@ public class TaskDAOTest extends CaliberTest{
 	
 	@Test
 	public void save() {
-		log.info("Testing save method from TaskDAO");
+		log.debug("Testing save method from TaskDAO");
 		TrainerTask newTask = new TrainerTask("Gets Revature logo inner lip tattoo",2);
 		Integer before = jdbcTemplate.queryForObject(TASK_COUNT, Integer.class);
 		dao.saveOrUpdateTask(newTask);

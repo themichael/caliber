@@ -45,7 +45,7 @@ public class EvaluationServiceTest extends CaliberTest{
 		note.setQcStatus(QCStatus.Average);
 		noteDAO.update(note);
 		evaluationService.checkIfTraineeShouldBeFlagged(note); // should be flagged
-		log.info("Trainee flag after check: " + traineeDAO.findOne(5530).getFlagStatus());
+		log.debug("Trainee flag after check: " + traineeDAO.findOne(5530).getFlagStatus());
 		assertEquals(TraineeFlag.RED, traineeDAO.findOne(5530).getFlagStatus());
 	}
 	

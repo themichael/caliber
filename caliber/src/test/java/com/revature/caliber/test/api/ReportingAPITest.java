@@ -62,7 +62,7 @@ public class ReportingAPITest extends AbstractAPITest{
 	@Test
 	public void testGetBatchComparisonAvg(){
 		String date = "Wed Sep 21 15:48:45 EDT 2016";
-		log.info("Here it is testGetBatchComparisonAvg Test");
+		log.debug("Here it is testGetBatchComparisonAvg Test");
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 		.when().get(baseUrl+"all/reports/compare/skill/(All)/training/(All)/date/"+date).then()
 		.assertThat().statusCode(200);
@@ -71,7 +71,7 @@ public class ReportingAPITest extends AbstractAPITest{
 	
 	@Test
 	public void testGetBatchWeekPieChart() throws JsonProcessingException {
-		log.info("TESTING getBatchWeekPieChart");		
+		log.debug("TESTING getBatchWeekPieChart");		
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 			.when().get(baseUrl + "all/reports/batch/2200/week/1/pie")
 			.then().assertThat().statusCode(200);
@@ -87,7 +87,7 @@ public class ReportingAPITest extends AbstractAPITest{
 	 * */
 	@Test
 	public void testGetPieChartCurrentWeekQCStatus() {
-		log.info("TESTING getPieChartCurrentWeekQCStatus");
+		log.debug("TESTING getPieChartCurrentWeekQCStatus");
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 			.when().get(baseUrl + "all/reports/batch/2200/pie")
 			.then().assertThat().statusCode(404);
@@ -102,7 +102,7 @@ public class ReportingAPITest extends AbstractAPITest{
 	 **/
 	@Test
 	public void testGetAllBatchesCurrentWeekQCStackedBarChart() {
-		log.info("TESTING getAllBatchesCurrentWeekQCStackedBarChart");
+		log.debug("TESTING getAllBatchesCurrentWeekQCStackedBarChart");
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 			.when().get(baseUrl + "all/reports/batch/week/stacked-bar-current-week")
 			.then().assertThat().statusCode(200);
@@ -118,7 +118,7 @@ public class ReportingAPITest extends AbstractAPITest{
 	 * */
 	@Test
 	public void testGetBatchWeekAvgBarChart() {
-		log.info("TESTING getBatchWeekAvgBarChart");
+		log.debug("TESTING getBatchWeekAvgBarChart");
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 			.when().get(baseUrl + "all/reports/batch/2200/week/1/bar-batch-week-avg")
 			.then().assertThat().statusCode(200);
@@ -140,8 +140,8 @@ public class ReportingAPITest extends AbstractAPITest{
 	 **/
 	@Test
 	public void testGetBatchWeekSortedBarChart() {
-		log.info("TESTING getBatchWeekSortedBarChart");
-		log.info("TESTING getBatchWeekAvgBarChart");
+		log.debug("TESTING getBatchWeekSortedBarChart");
+		log.debug("TESTING getBatchWeekAvgBarChart");
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 			.when().get(baseUrl + "all/reports/batch/2200/week/1/bar-batch-weekly-sorted")
 			.then().assertThat().statusCode(200);
@@ -160,7 +160,7 @@ public class ReportingAPITest extends AbstractAPITest{
 	 */
 	@Test
 	public void getTraineeOverallRadarChart() throws Exception{
-		log.info("Validate trainee's overall radar chart");
+		log.debug("Validate trainee's overall radar chart");
 		Map<String, Double> expected = new HashMap<>();
 		given().
 			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
@@ -182,7 +182,7 @@ public class ReportingAPITest extends AbstractAPITest{
 	  */
 	@Test
 	public void testGetBatchOverallTraineeBarChart() throws Exception{
-		log.info("GetBatchOverallTraineeBarChart Test");
+		log.debug("GetBatchOverallTraineeBarChart Test");
 		
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 		.when().get(baseUrl + "all/reports/batch/{batchId}/overall/trainee/{traineeId}/bar-batch-overall-trainee", 
@@ -200,7 +200,7 @@ public class ReportingAPITest extends AbstractAPITest{
 	  */ 
 	@Test
 	public void testGetBatchOverallBarChart() throws Exception{
-		log.info("GetBatchOverallBarChart Test");
+		log.debug("GetBatchOverallBarChart Test");
 		
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 		.when().get(baseUrl + "all/reports/batch/{batchId}/overall/bar-batch-overall", traineeValue[0])
@@ -214,7 +214,7 @@ public class ReportingAPITest extends AbstractAPITest{
 	 */
 	@Test
 	public void testGetBatchOverallRadarChart() throws Exception{
-		log.info("Validate batch's overall radar chart");
+		log.debug("Validate batch's overall radar chart");
 		Map<String, Double> expected = new HashMap<>();
 		given().
 			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
@@ -233,7 +233,7 @@ public class ReportingAPITest extends AbstractAPITest{
 	 */
 	@Test
 	public void testGetBatchAllTraineesRadarChart() throws Exception{
-		log.info("Validate batch's overall radar chart");
+		log.debug("Validate batch's overall radar chart");
 		Map<String, Map<String, Double>> expected = new HashMap<>();
 		given().
 			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
@@ -252,7 +252,7 @@ public class ReportingAPITest extends AbstractAPITest{
 	 */
 	@Test
 	public void testGetBatchWeekAverageValue() throws Exception{
-		log.info("Validate retrieval of batch's overall average in a week");
+		log.debug("Validate retrieval of batch's overall average in a week");
 		
 		Double expected = new Double(80.26d);
 		Double actual = 
@@ -275,7 +275,7 @@ public class ReportingAPITest extends AbstractAPITest{
 	 */
 	@Test
 	public void testGetTechnologiesForTheWeek() throws Exception{
-		log.info("Validate retrieval of batch's technologies learned in a week");
+		log.debug("Validate retrieval of batch's technologies learned in a week");
 		
 		Set<String> expected = new HashSet<>();
 		expected.add("AWS");
@@ -304,7 +304,7 @@ public class ReportingAPITest extends AbstractAPITest{
 	  */ 
 	@Test
 	public void testGetBatchWeekTraineeBarChart() throws Exception {
-		log.info("GetBatchWeekTraineeBarChart Test");
+		log.debug("GetBatchWeekTraineeBarChart Test");
 		
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 		.when().get(baseUrl + "all/reports/batch/{batchId}/overall/trainee/{traineeId}/bar-batch-overall-trainee", 
@@ -315,7 +315,7 @@ public class ReportingAPITest extends AbstractAPITest{
 	//Tests if the returned JSON matches the expected values returned from a Map
 	@Test
 	public void testgetTraineeOverallLineChart(){
-		log.info("testgetTraineeOverallLineChart Test");
+		log.debug("testgetTraineeOverallLineChart Test");
 		//The arrays are set up so the nth elemnt in batchId matches the nth element in traineeId
 		Integer[] batchId = new Integer[]{2200,2050,2150};
 		Integer[] traineeId = new Integer[]{5503,5350,5467};
@@ -348,7 +348,7 @@ public class ReportingAPITest extends AbstractAPITest{
 	  */  
 	@Test
 	public void testGetTraineeUpToWeekLineChart() throws Exception {
-		log.info("GetTraineeUpToWeekLineChart Test");
+		log.debug("GetTraineeUpToWeekLineChart Test");
 		
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 		.when().get(baseUrl + "all/reports/batch/{batchId}/week"
@@ -360,7 +360,7 @@ public class ReportingAPITest extends AbstractAPITest{
 
 	@Test
 	public void testGetBatchOverallLineChart() throws Exception {
-		log.info("Get Overall Line Chart for batch 2200");
+		log.debug("Get Overall Line Chart for batch 2200");
 		Double[] overall = new Double[]{75.7, 89.2, 77.9, 80.6, 77.8, 83.5, 83.5, 87.4, 77.9};
 		Map<Integer, Double> expected = new HashMap<>();
 		for(int i = 0; i < overall.length; i++){
@@ -382,7 +382,7 @@ public class ReportingAPITest extends AbstractAPITest{
 
 	@Test
 	public void testGetCurrentBatchesLineChart() throws Exception {
-		log.info("Getting All Current Batches Line charts");
+		log.debug("Getting All Current Batches Line charts");
 		given().
 			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
 		when().

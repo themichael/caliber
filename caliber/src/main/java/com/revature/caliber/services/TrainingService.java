@@ -103,9 +103,9 @@ public class TrainingService {
 	}
 	
 	public Address findById(int id) {
-		log.info("Getting Address with ID " + id);
+		log.debug("Getting Address with ID " + id);
 		Address address = addressDAO.getAddressById(id);
-		log.info("Got " + address);
+		log.debug("Got " + address);
 		return address;
 	}
 

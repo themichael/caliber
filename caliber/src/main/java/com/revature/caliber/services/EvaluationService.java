@@ -189,8 +189,8 @@ public class EvaluationService {
 					traineeDAO.update(trainee);
 				}
 			} catch (Exception e) {
-				log.info("Failed to autoflag associate with note: " + note);
-				log.info(e);
+				log.debug("Failed to autoflag associate with note: " + note);
+				log.debug(e);
 			}
 		}
 	}
@@ -306,7 +306,7 @@ public class EvaluationService {
 		if (batch != null) {
 			Note overallNote = noteDAO.findQCBatchNotes(batch.getBatchId(), weekId);
 			if (overallNote == null) {
-				log.info("Creating a new overall Note for week " + weekId);
+				log.debug("Creating a new overall Note for week " + weekId);
 				overallNote = new Note();
 				overallNote.setBatch(batch);
 				overallNote.setWeek(weekId.shortValue());
@@ -316,7 +316,7 @@ public class EvaluationService {
 				overallNote.setQcFeedback(true);
 				noteDAO.save(overallNote);
 			}
-			log.info("Calculating Average of note of week");
+			log.debug("Calculating Average of note of week");
 			double average = 0.0f;
 			List<Note> traineeNoteList = noteDAO.findAllQCTraineeNotes(batch.getBatchId(), weekId);
 			int denominator = traineeNoteList.size();
@@ -352,7 +352,7 @@ public class EvaluationService {
 			} else {
 				overallNote.setQcStatus(QCStatus.Undefined);
 			}
-			log.info("The calculated average is: " + overallNote.getQcStatus());
+			log.debug("The calculated average is: " + overallNote.getQcStatus());
 			noteDAO.update(overallNote);
 		} else {
 			log.warn("The ASSIGN_NOTE_BATCH_ID Stored Procedure hasn't been ran yet to update Note's batch id.");
@@ -419,7 +419,7 @@ public class EvaluationService {
 			}
 		}
 
-		log.info("Max weeks: " + maxWeeks);
+		log.debug("Max weeks: " + maxWeeks);
 		for (int row = 0; row < jaggedArray.size(); row++) {
 			for (short column = 0; column < maxWeeks; column++) {
 				if (jaggedArray.get(row).size() <= column || jaggedArray.get(row).get(column).getWeek() != column + 1) {
@@ -430,7 +430,7 @@ public class EvaluationService {
 				}
 			}
 		}
-		log.info("JaggedArray: " + jaggedArray);
+		log.debug("JaggedArray: " + jaggedArray);
 		return jaggedArray;
 	}
 

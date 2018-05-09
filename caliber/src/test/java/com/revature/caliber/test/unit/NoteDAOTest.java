@@ -77,7 +77,7 @@ public class NoteDAOTest extends CaliberTest {
 		
 		// compare with expected
 		assertEquals(notes.size(), 7);	
-		log.info(notes);
+		log.debug(notes);
 	}
 	
 	/**

@@ -42,7 +42,7 @@ public class BatchUpdate {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public void updateBatchTask() {
 		try {
-			log.info("Update Batch Task");
+			log.debug("Update Batch Task");
 			boolean userSet = salesforceAuth.setUser();
 			if (userSet) {
 				List<Batch> caliberBatches = batchDao.findAll();
@@ -55,7 +55,7 @@ public class BatchUpdate {
 			}
 
 			salesforceAuth.clearUser();
-			log.info("End of Update Task");
+			log.debug("End of Update Task");
 		} catch (Exception e) {
 			log.fatal(e);
 		}
@@ -71,17 +71,19 @@ public class BatchUpdate {
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public boolean compareBatches(List<Batch> caliberBatches, List<Batch> salesforceBatches) {
-		log.info("Comparing batches...");
+		log.debug("Comparing batches...");
 		for (int sIndex = 0; sIndex < salesforceBatches.size(); sIndex++) {
-			if(salesforceBatches.get(sIndex).getTrainer() == null)
+			if(salesforceBatches.get(sIndex).getTrainer() == null) {
+				log.info(salesforceBatches.get(sIndex).getResourceId() + " batch trainer is null");
 				continue;
+			}
 			for (int cIndex = 0; cIndex < caliberBatches.size(); cIndex++) {
 				// if caliber batch does not have resourceId, it cannot be synced. continue...
 				if (caliberBatches.get(cIndex).getResourceId() == null)
 					continue;
 				// if resourceIds are same, update all the datas with fresh Salesforce data
 				if (caliberBatches.get(cIndex).getResourceId().equals(salesforceBatches.get(sIndex).getResourceId())) {
-					log.debug("Caliber batch: " + caliberBatches.get(cIndex).getResourceId() + " === "
+					log.info("Caliber batch: " + caliberBatches.get(cIndex).getResourceId() + " === "
 							+ "Salesforce batch: " + salesforceBatches.get(sIndex).getResourceId());
 					// extract salesforce data and save
 					updateBatch(caliberBatches.get(cIndex), salesforceBatches.get(sIndex));
@@ -95,7 +97,7 @@ public class BatchUpdate {
 							if (trainee.getResourceId() == null)
 								continue;
 							if (trainee.getResourceId().equals(salesforceTrainee.getResourceId())) {
-								log.debug("Caliber trainee: " + trainee.getResourceId() + " === "
+								log.info("Caliber trainee: " + trainee.getResourceId() + " === "
 										+ "Salesforce trainee: " + salesforceTrainee.getResourceId());
 								// extract salesforce data and save
 								updateTrainee(trainee, salesforceTrainee);

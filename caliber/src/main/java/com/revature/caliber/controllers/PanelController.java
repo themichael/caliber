@@ -81,7 +81,7 @@ public class PanelController {
 		}
 		List<Panel> panels = panelService.findByTraineeId(traineeId);
 		HttpStatus status = panels.isEmpty() ? HttpStatus.NO_CONTENT : HttpStatus.OK;
-		log.info(panels);
+		log.debug(panels);
 		return new ResponseEntity<>(panels, status);
 	}
 
@@ -108,7 +108,7 @@ public class PanelController {
 	@PreAuthorize("hasAnyRole('VP','PANEL')")
 	public ResponseEntity<Panel> savePanel(@Valid @RequestBody Panel panel) throws MalformedRequestException {
 		SalesforceUser user = (SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		log.info(user.getEmail());
+		log.debug(user.getEmail());
 		panel.setPanelist(trainingService.findTrainer(user.getEmail()));
 		panelService.createPanel(panel);
 		return new ResponseEntity<>(panel, HttpStatus.CREATED);
@@ -119,7 +119,7 @@ public class PanelController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP', 'TRAINER', 'PANEL')")
 	public ResponseEntity<Void> deleteAssessment(@PathVariable int panelId) {
-		log.info("Deleting panel: " + panelId);
+		log.debug("Deleting panel: " + panelId);
 		if (panelService.findById(panelId) == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
@@ -137,7 +137,7 @@ public class PanelController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'STAGING','PANEL')")
 	public ResponseEntity<List<Panel>> getAllRecentRepanel() {
-		log.info("Fetching all trainees whose last panel status was Repanel");
+		log.debug("Fetching all trainees whose last panel status was Repanel");
 		List<Panel> panels = panelService.findAllRecentRepanel();
 		if (panels == null || panels.isEmpty())
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -149,7 +149,7 @@ public class PanelController {
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING', 'PANEL')")
 	public ResponseEntity<List<Map<String, String>>> getBatchAllTraineesPanelTable(
 			@PathVariable Integer batchId) {
-		log.info("getBatchOverallPanelTable   ===>   /all/reports/batch/{batchId}/overall/panel-batch-overall");
+		log.debug("getBatchOverallPanelTable   ===>   /all/reports/batch/{batchId}/overall/panel-batch-overall");
 		if (panelService.getBatchPanels(batchId).isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}

@@ -42,7 +42,7 @@ public class AssessmentDAOTest extends CaliberTest{
 	public void saveAssessmentTest() {
 
 		
-		log.info("ATTEMPTING TO SAVE A NEW ASSESSMENT INTO THE DATABASE");
+		log.debug("ATTEMPTING TO SAVE A NEW ASSESSMENT INTO THE DATABASE");
 		List<Assessment> assessments1 = assessmentDao.findAll();
 		
 		Assessment assessment = assessmentDao.findAll().get(1);
@@ -72,7 +72,7 @@ public class AssessmentDAOTest extends CaliberTest{
 	@Test
 	public void findOneAssessmentTest() {
 		
-		log.info("SEARCHING FOR A SINGLE ASSESSMENT IN THE DATABASE");
+		log.debug("SEARCHING FOR A SINGLE ASSESSMENT IN THE DATABASE");
 		int assessmentId = 2074;
 		assessmentDao.findOne(assessmentId);
 		assertEquals(assessmentId, assessmentDao.findOne(assessmentId).getAssessmentId());
@@ -96,7 +96,7 @@ public class AssessmentDAOTest extends CaliberTest{
 		
 		List<Assessment> assessments = assessmentDao.findAll();
 		
-		log.info("Number of assessments found in the database (should match the number of assessments in the CALIBER_ASSESSMENT table): " + assessments.size());
+		log.debug("Number of assessments found in the database (should match the number of assessments in the CALIBER_ASSESSMENT table): " + assessments.size());
 		
 		assertNotNull(assessments);
 		
@@ -138,7 +138,7 @@ public class AssessmentDAOTest extends CaliberTest{
 	@Test
 	public void findByBatchIdAssessmentDAOTest() {
 		
-		log.info("FIND BY BATCH ID ASSESSMENT DAO");
+		log.debug("FIND BY BATCH ID ASSESSMENT DAO");
 		Assessment assessment =assessmentDao.findAll().get(0);
 		List<Assessment> assesments = assessmentDao.findByBatchId(2050);
 		assertEquals(assessment, assesments.get(0));
@@ -152,19 +152,19 @@ public class AssessmentDAOTest extends CaliberTest{
 	@Test
 	public void updateAssessmentDAOTest() {
 		
-		log.info("UPDATE ASSESSMENT DAO");
+		log.debug("UPDATE ASSESSMENT DAO");
 		Assessment assessment =assessmentDao.findOne(2058);
 
 		assertNotEquals(2099, assessment.getRawScore());
 		
 		
-		log.info("Before Update "+ assessment);
+		log.debug("Before Update "+ assessment);
 		assessment.setRawScore(2099);
 		assessmentDao.update(assessment);
-		log.info("After Update "+ assessment);
+		log.debug("After Update "+ assessment);
 		
 		assessment =assessmentDao.findOne(2058);
-		log.info("After getting again "+ assessment);
+		log.debug("After getting again "+ assessment);
 
 
 		assertEquals(2099, assessment.getRawScore());
@@ -178,7 +178,7 @@ public class AssessmentDAOTest extends CaliberTest{
 	@Test
 	public void deleteAssessmentDAOTest() {
 		
-		log.info("DELETE ASSESSMENT DAO");
+		log.debug("DELETE ASSESSMENT DAO");
 		Long beforeTest = jdbcTemplate.queryForObject(ASSESSMENT_COUNT, Long.class);
 		assessmentDao.delete(assessmentDao.findAll().get(1));
 		Long afterTest = jdbcTemplate.queryForObject(ASSESSMENT_COUNT, Long.class);

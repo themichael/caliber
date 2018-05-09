@@ -119,7 +119,7 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 	@RequestMapping(value = "/authenticated_token")
 	public void authenticateAPI(HttpServletRequest servletRequest, HttpServletResponse servletResponse)
 			throws IOException, URISyntaxException {
-		log.info("API log in test");
+		log.debug("API log in test");
 		String salesTokenString = servletRequest.getParameter("salestoken");
 		
 		try {
@@ -153,12 +153,12 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 		// logout and clear Spring Security Context
 		servletRequest.logout();
 		SecurityContextHolder.clearContext();
-		log.info("User has logged out");
+		log.debug("User has logged out");
 		return new ModelAndView(REDIRECT + REVATURE);
 	}
 
 	private void revokeToken(String token) throws ClientProtocolException, IOException {
-		log.info("POST " + loginURL + revokeUrl);
+		log.debug("POST " + loginURL + revokeUrl);
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(loginURL + revokeUrl);
 		post.setHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -166,7 +166,7 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 		parameters.add(new BasicNameValuePair("token", token));
 		post.setEntity(new UrlEncodedFormEntity(parameters));
 		HttpResponse response = httpClient.execute(post);
-		log.info("Revoke token : " + response.getStatusLine().getStatusCode() + " "
+		log.debug("Revoke token : " + response.getStatusLine().getStatusCode() + " "
 				+ response.getStatusLine().getReasonPhrase());
 	}
 
@@ -217,7 +217,7 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 			log.fatal("Training API returned: " + jsonString);
 			throw new NotAuthorizedException();
 		}
-		log.info(jsonString);
+		log.debug(jsonString);
 		return jsonString;
 	}
 	
@@ -257,7 +257,7 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 			throws IOException {
 		JSONObject jsonObject = new JSONObject(jsonString);
 		if (jsonObject.getString("email").equals(salesforceUser.getEmail())) {
-			log.info("Logged in user " + jsonObject.getString("email") + " now hasRole: "
+			log.debug("Logged in user " + jsonObject.getString("email") + " now hasRole: "
 					+ jsonObject.getString("tier"));
 			salesforceUser.setRole(jsonObject.getString("tier"));
 			salesforceUser.setCaliberUser(new ObjectMapper().readValue(jsonString, Trainer.class));
@@ -285,7 +285,7 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 	private SalesforceToken getSalesforceToken(String token) throws IOException {
 		log.debug("Checking for the salesforce token");
 		if (token != null) {
-			log.info("Parse salesforce token from forwarded request: " + token);
+			log.debug("Parse salesforce token from forwarded request: " + token);
 			try {
 				ObjectMapper mapper = new ObjectMapper();
 				mapper.configure(Feature.ALLOW_NUMERIC_LEADING_ZEROS, true);

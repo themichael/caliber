@@ -52,7 +52,7 @@ public class BootController extends AbstractSalesforceSecurityHelper {
      */
     @RequestMapping(value = "/caliber")
     public String devHomePage(HttpServletRequest servletRequest, HttpServletResponse servletResponse){
-        log.info("Returning index");
+        log.debug("Returning index");
         try{
 	        if(debug){
 	            // fake Salesforce User
@@ -97,7 +97,7 @@ public class BootController extends AbstractSalesforceSecurityHelper {
             log.fatal("Training API returned: " + jsonString);
             throw new NotAuthorizedException();
         }
-        log.info(jsonString);
+        log.debug(jsonString);
         return jsonString;
     }
     /**
@@ -114,7 +114,7 @@ public class BootController extends AbstractSalesforceSecurityHelper {
             throws IOException {
         JSONObject jsonObject = new JSONObject(jsonString);
         if (jsonObject.getString("email").equals(salesforceUser.getEmail())) {
-            log.info("Logged in user " + jsonObject.getString("email") + " now hasRole: "
+            log.debug("Logged in user " + jsonObject.getString("email") + " now hasRole: "
                     + jsonObject.getString("tier"));
             salesforceUser.setRole(jsonObject.getString("tier"));
             salesforceUser.setCaliberUser(new ObjectMapper().readValue(jsonString, Trainer.class));

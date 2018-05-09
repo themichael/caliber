@@ -69,7 +69,7 @@ public class PanelFeedbackDAOTest extends CaliberTest {
 	 */
 	@Test
 	public void saveFeedbackDAO() {
-		log.info("Saving a new Feedback using PanelFeedbackDAO");
+		log.debug("Saving a new Feedback using PanelFeedbackDAO");
 		int before = jdbcTemplate.queryForObject(PANEL_FEEDBACK_COUNT, Integer.class);
 		PanelFeedback panelFeedback = new PanelFeedback();
 		Panel panel = new Panel();
@@ -88,7 +88,7 @@ public class PanelFeedbackDAOTest extends CaliberTest {
 
 		dao.save(panelFeedback);
 		long panelFeedbackid = panelFeedback.getId();
-		log.info("panelFeedbackId: " + panelFeedbackid);
+		log.debug("panelFeedbackId: " + panelFeedbackid);
 		int after = jdbcTemplate.queryForObject(PANEL_FEEDBACK_COUNT, Integer.class);
 		assertEquals(panelFeedback.toString(), dao.findOne(panelFeedbackid).toString());
 		assertEquals(++before, after);
@@ -99,7 +99,7 @@ public class PanelFeedbackDAOTest extends CaliberTest {
 	 */
 	@Test
 	public void findAllFeedbackDAO() {
-		log.info("Getting all feedback using PanelFeedbackDAO getAll function");
+		log.debug("Getting all feedback using PanelFeedbackDAO getAll function");
 		long num = jdbcTemplate.queryForObject(PANEL_FEEDBACK_COUNT, Long.class);
 		assertNotNull(dao.findAll());
 		assertEquals(dao.findAll().size(), num);
@@ -110,7 +110,7 @@ public class PanelFeedbackDAOTest extends CaliberTest {
 	 */
 	@Test
 	public void getFeedbackByIdDAO() {
-		log.info("Finding feedback by panel id");
+		log.debug("Finding feedback by panel id");
 		long panelFId = 140;
 		int expected = 70;
 		assertEquals(dao.findOne(panelFId).getPanel().getId(), expected);
@@ -121,7 +121,7 @@ public class PanelFeedbackDAOTest extends CaliberTest {
 	 */
 	@Test
 	public void nullGetPanelFeedbackByInt() {
-		log.info("Attempting to get a panel that doesn't exist");
+		log.debug("Attempting to get a panel that doesn't exist");
 		PanelFeedback feedback = dao.findOne(99999999);
 		assertNull(feedback);
 	}
@@ -132,7 +132,7 @@ public class PanelFeedbackDAOTest extends CaliberTest {
 	 */
 	@Test
 	public void updateFeedbackDAO() {
-		log.info("UpdateFeedbackDAO Test");
+		log.debug("UpdateFeedbackDAO Test");
 		String comment = "11111";
 		long panelFId = 10;
 

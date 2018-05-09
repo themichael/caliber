@@ -61,7 +61,7 @@ public class AssessmentController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP', 'TRAINER')")
 	public ResponseEntity<Void> createAssessment(@Valid @RequestBody Assessment assessment) {
-		log.info("Creating assessment: " + assessment);
+		log.debug("Creating assessment: " + assessment);
 		assessmentService.save(assessment);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
@@ -77,7 +77,7 @@ public class AssessmentController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP', 'TRAINER')")
 	public ResponseEntity<Void> deleteAssessment(@PathVariable Long id) {
-		log.info("Deleting assessment: " + id);
+		log.debug("Deleting assessment: " + id);
 		Assessment assessment = new Assessment();
 		assessment.setAssessmentId(id);
 		assessmentService.delete(assessment);
@@ -95,7 +95,7 @@ public class AssessmentController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP', 'TRAINER')")
 	public ResponseEntity<Assessment> updateAssessment(@Valid @RequestBody Assessment assessment) {
-		log.info("Updating assessment: " + assessment);
+		log.debug("Updating assessment: " + assessment);
 		assessmentService.update(assessment);
 		return new ResponseEntity<>(assessment, HttpStatus.OK);
 	}

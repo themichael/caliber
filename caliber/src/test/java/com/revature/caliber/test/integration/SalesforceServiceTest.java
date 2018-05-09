@@ -25,8 +25,8 @@ public class SalesforceServiceTest extends CaliberTest{
 	@Ignore
 	@Test
 	public void getAllRelevantBatchesTest(){
-		log.info("Testing SalesforceService.getAllRelevantBatches()");
+		log.debug("Testing SalesforceService.getAllRelevantBatches()");
 		List<Batch> batches = salesforceService.getAllRelevantBatches();
-		log.info(batches);
+		log.debug(batches);
 	}
 }

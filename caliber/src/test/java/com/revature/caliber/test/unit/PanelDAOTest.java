@@ -55,7 +55,7 @@ public class PanelDAOTest extends CaliberTest {
 	 */
 	@Test
 	public void findAllTest() {
-		log.info("Testing the PanelDAO.findAll()");
+		log.debug("Testing the PanelDAO.findAll()");
 		String sql = "SELECT * FROM CALIBER_PANEL";
 		int expect = jdbcTemplate.queryForList(sql).size();
 		int actual = panelDAO.findAll().size();
@@ -67,7 +67,7 @@ public class PanelDAOTest extends CaliberTest {
 	 */
 	@Test
 	public void findAllByTraineeTest() {
-		log.info("Testing the PanelDAO.findAllByTraineeTest()");
+		log.debug("Testing the PanelDAO.findAllByTraineeTest()");
 		
 		// positive testing
 		Integer traineeId = 5500;
@@ -89,7 +89,7 @@ public class PanelDAOTest extends CaliberTest {
 	 */
 	@Test
 	public void findOneTest() {
-		log.info("Testing method PanelDAO.findOne(Integer panelId)");
+		log.debug("Testing method PanelDAO.findOne(Integer panelId)");
 		int expected = 40;
 		int actual = panelDAO.findOne(expected).getId();
 		assertEquals(expected, actual);
@@ -99,7 +99,7 @@ public class PanelDAOTest extends CaliberTest {
 			panelDAO.findOne(expected).getId();
 			fail();
 		} catch (Exception e) {
-			log.info(e);
+			log.debug(e);
 		}
 	}
 
@@ -108,7 +108,7 @@ public class PanelDAOTest extends CaliberTest {
 	 */
 	@Test
 	public void updateTest() {
-		log.info("Testing method PanelDAO.update(Panel panel)");
+		log.debug("Testing method PanelDAO.update(Panel panel)");
 		Panel testPanel = panelDAO.findOne(1);
 		testPanel.setPanelRound(100);
 		panelDAO.update(testPanel);
@@ -120,7 +120,7 @@ public class PanelDAOTest extends CaliberTest {
 			panelDAO.update(testPanel);
 			fail();
 		} catch (Exception e) {
-			log.info(e);
+			log.debug(e);
 		}
 	}
 
@@ -129,7 +129,7 @@ public class PanelDAOTest extends CaliberTest {
 	 */
 	@Test
 	public void saveTest() {
-		log.info("Saving a new Panel using PanelDAO");
+		log.debug("Saving a new Panel using PanelDAO");
 		int before = jdbcTemplate.queryForObject(PANEL_COUNT, Integer.class);
 		Panel p = getPanel();
 
@@ -152,7 +152,7 @@ public class PanelDAOTest extends CaliberTest {
 	 */
 	@Test
 	public void findAllRepanelTest() {
-		log.info("Testing the PanelDAO.findAllRepanelTest()");
+		log.debug("Testing the PanelDAO.findAllRepanelTest()");
 
 		String sql = "SELECT * FROM CALIBER_PANEL WHERE panel_status = 'Repanel'";
 		int expect = jdbcTemplate.queryForList(sql).size();
@@ -166,12 +166,12 @@ public class PanelDAOTest extends CaliberTest {
 	 */
 	@Test
 	public void deletePanelTest() {
-		log.info("DELETE PANEL DAO");
+		log.debug("DELETE PANEL DAO");
 		
 		// positive testing
 		int beforeTest = jdbcTemplate.queryForObject(PANEL_COUNT, Integer.class);
 		Panel p = panelDAO.findOne(1);
-		log.info("panel: " + p);
+		log.debug("panel: " + p);
 		panelDAO.delete(p.getId());
 		int afterTest = jdbcTemplate.queryForObject(PANEL_COUNT, Integer.class);
 		assertEquals(--beforeTest, afterTest);

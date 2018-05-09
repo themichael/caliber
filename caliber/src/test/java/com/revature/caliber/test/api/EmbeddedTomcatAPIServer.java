@@ -28,12 +28,12 @@ public class EmbeddedTomcatAPIServer{
 		return new ServletContextListener() {
 			@Override
 			public void contextInitialized(ServletContextEvent sce) {
-				log.info("ServletContext initialized");
+				log.debug("ServletContext initialized");
 			}
 
 			@Override
 			public void contextDestroyed(ServletContextEvent sce) {
-				log.info("ServletContext destroyed");
+				log.debug("ServletContext destroyed");
 			}
 		};
 	}

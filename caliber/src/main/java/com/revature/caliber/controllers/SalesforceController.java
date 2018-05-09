@@ -38,7 +38,7 @@ public class SalesforceController {
 	 */
 	@RequestMapping(value="/salesforce/token", method=RequestMethod.GET)
 	public String getSalesforceToken() {
-		log.info("Getting access_token for testing purposes only!");
+		log.debug("Getting access_token for testing purposes only!");
 		return ((SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
 				.getSalesforceToken().getAccessToken();
 	}

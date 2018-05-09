@@ -36,7 +36,7 @@ public class AddressDAO {
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void save(Address address) {
-		log.info("Saving Address " + address);
+		log.debug("Saving Address " + address);
 		sessionFactory.getCurrentSession().save(address);
 	}
 
@@ -47,7 +47,7 @@ public class AddressDAO {
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public List<String> getAll() {
-		log.info("Fetching all Addresses");
+		log.debug("Fetching all Addresses");
 		List<String> addresses = new ArrayList<>();
 		List<Address> addList = sessionFactory.getCurrentSession().createQuery("FROM Address ORDER BY state").list();
 		for (Address address : addList) {
@@ -62,7 +62,7 @@ public class AddressDAO {
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Address> findAll() {
-		log.info("Finding all locations");
+		log.debug("Finding all locations");
 		return sessionFactory.getCurrentSession().createCriteria(Address.class)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
@@ -75,7 +75,7 @@ public class AddressDAO {
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public Address getAddressById(int id) {
-		log.info("Fetching address with id " + id);
+		log.debug("Fetching address with id " + id);
 		return (Address) sessionFactory.getCurrentSession().get(Address.class, id);
 	}
 
@@ -86,7 +86,7 @@ public class AddressDAO {
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void update(Address toUpdate) {
-		log.info("Updating " + toUpdate);
+		log.debug("Updating " + toUpdate);
 		sessionFactory.getCurrentSession().saveOrUpdate(toUpdate);
 	}
 }

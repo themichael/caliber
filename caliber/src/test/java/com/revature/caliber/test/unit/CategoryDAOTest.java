@@ -28,7 +28,7 @@ public class CategoryDAOTest extends CaliberTest {
 	 */
 	@Test
 	public void findAll() {
-		log.info("Testing findAll method from CategoryDAO");
+		log.debug("Testing findAll method from CategoryDAO");
 		int expected = dao.findAll().size();
 		int actual = jdbcTemplate.queryForObject(CATEGORY_COUNT, Integer.class);
 		assertEquals(expected, actual);
@@ -40,7 +40,7 @@ public class CategoryDAOTest extends CaliberTest {
 	 */
 	@Test
 	public void findAllActive() {
-		log.info("Testing findAllActive from CategoryDAO");
+		log.debug("Testing findAllActive from CategoryDAO");
 		int expected = dao.findAllActive().size();
 		int actual = jdbcTemplate.queryForObject(ACTIVE_CATEGORY,Integer.class);
 		assertEquals(expected, actual);
@@ -52,7 +52,7 @@ public class CategoryDAOTest extends CaliberTest {
 	 */
 	@Test
 	public void findOne() {
-		log.info("Testing findOne method from CategoryDAO");
+		log.debug("Testing findOne method from CategoryDAO");
 		Category myCat = dao.findOne(1);
 		assertNotNull(myCat);
 		assertTrue(dao.findOne(1) instanceof Category);
@@ -64,7 +64,7 @@ public class CategoryDAOTest extends CaliberTest {
 	 */
 	@Test
 	public void update() {
-		log.info("Testing update from CategoryDAO");
+		log.debug("Testing update from CategoryDAO");
 		String skillName = "Revature Pro";
 		Category myCat = dao.findOne(1);
 		myCat.setSkillCategory(skillName);
@@ -77,7 +77,7 @@ public class CategoryDAOTest extends CaliberTest {
 	 */
 	@Test
 	public void save() {
-		log.info("Testing save method from CategoryDAO");
+		log.debug("Testing save method from CategoryDAO");
 		Category newCat = new Category("Underwater Basket Weaving", false);
 		Long before = jdbcTemplate.queryForObject(CATEGORY_COUNT, Long.class);
 		dao.save(newCat);

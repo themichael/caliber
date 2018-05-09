@@ -225,7 +225,7 @@ public class EvaluationAPITest extends AbstractAPITest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void getAllQCTraineeNotes() {
-		log.info("API Testing getAllQCTraineeNotes");
+		log.debug("API Testing getAllQCTraineeNotes");
 
 		List<Note> notes = new ArrayList<>();
 		notes = given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).when()
