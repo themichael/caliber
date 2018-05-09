@@ -68,7 +68,7 @@ public class TrainingController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP')")
 	public ResponseEntity<Address> createLocation(@Valid @RequestBody Address location) {
-		log.info("Saving location: " + location);
+		log.debug("Saving location: " + location);
 		trainingService.createLocation(location);
 		return new ResponseEntity<>(location, HttpStatus.CREATED);
 	}
@@ -84,7 +84,7 @@ public class TrainingController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP')")
 	public ResponseEntity<Void> updateLocation(@Valid @RequestBody Address location) {
-		log.info("Updating location: " + location);
+		log.debug("Updating location: " + location);
 		trainingService.update(location);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
@@ -98,7 +98,7 @@ public class TrainingController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING', 'PANEL')")
 	public ResponseEntity<List<Address>> getAllLocations() {
-		log.info("Fetching all locations");
+		log.debug("Fetching all locations");
 		List<Address> locations = trainingService.findAllLocations();
 		return new ResponseEntity<>(locations, HttpStatus.OK);
 	}
@@ -113,7 +113,7 @@ public class TrainingController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP')")
 	public ResponseEntity<Void> removeLocation(@Valid @RequestBody Address location) {
-		log.info("Deactivating location: " + location);
+		log.debug("Deactivating location: " + location);
 		trainingService.update(location);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
@@ -128,7 +128,7 @@ public class TrainingController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP')")
 	public ResponseEntity<Void> reactivateLocation(@Valid @RequestBody Address location) {
-		log.info("Updating location: " + location);
+		log.debug("Updating location: " + location);
 		trainingService.update(location);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
@@ -151,7 +151,7 @@ public class TrainingController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP')")
 	public ResponseEntity<Trainer> createTrainer(@Valid @RequestBody Trainer trainer) {
-		log.info("Saving trainer: " + trainer);
+		log.debug("Saving trainer: " + trainer);
 		trainingService.createTrainer(trainer);
 		return new ResponseEntity<>(trainer, HttpStatus.CREATED);
 	}
@@ -167,7 +167,7 @@ public class TrainingController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP')")
 	public ResponseEntity<Void> updateTrainer(@Valid @RequestBody Trainer trainer) {
-		log.info("Updating trainer: " + trainer);
+		log.debug("Updating trainer: " + trainer);
 		trainingService.update(trainer);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
@@ -183,7 +183,7 @@ public class TrainingController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("permitAll")
 	public ResponseEntity<Trainer> findTrainer(@PathVariable String email) {
-		log.info("Find trainer by email " + email);
+		log.debug("Find trainer by email " + email);
 		Trainer trainer = trainingService.findTrainer(email);
 		return new ResponseEntity<>(trainer, HttpStatus.OK);
 	}
@@ -198,7 +198,7 @@ public class TrainingController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP')")
 	public ResponseEntity<Void> makeInactive(@Valid @RequestBody Trainer trainer) {
-		log.info("Updating trainer: " + trainer);
+		log.debug("Updating trainer: " + trainer);
 		trainingService.makeInactive(trainer);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
@@ -212,7 +212,7 @@ public class TrainingController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP', 'TRAINER', 'STAGING', 'QC', 'PANEL')")
 	public ResponseEntity<List<String>> getAllTrainersTitles() {
-		log.info("Fetching all trainers titles");
+		log.debug("Fetching all trainers titles");
 		List<String> trainers = trainingService.findAllTrainerTitles();
 		return new ResponseEntity<>(trainers, HttpStatus.OK);
 	}
@@ -226,7 +226,7 @@ public class TrainingController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP', 'TRAINER', 'STAGING', 'QC', 'PANEL')")
 	public ResponseEntity<List<Trainer>> getAllTrainers() {
-		log.info("Fetching all trainers");
+		log.debug("Fetching all trainers");
 		List<Trainer> trainers = trainingService.findAllTrainers();
 		return new ResponseEntity<>(trainers, HttpStatus.OK);
 	}
@@ -249,7 +249,7 @@ public class TrainingController {
 	@PreAuthorize("hasAnyRole('VP', 'TRAINER', 'STAGING', 'PANEL')")
 	public ResponseEntity<List<Batch>> findAllBatchesByTrainer(Authentication auth) {
 		Trainer userPrincipal = getPrincipal(auth);
-		log.info("Getting all batches for trainer: " + userPrincipal);
+		log.debug("Getting all batches for trainer: " + userPrincipal);
 		List<Batch> batches = trainingService.findAllBatches(userPrincipal.getTrainerId());
 		return new ResponseEntity<>(batches, HttpStatus.OK);
 	}
@@ -265,7 +265,7 @@ public class TrainingController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'PANEL')")
 	public ResponseEntity<Batch> createBatch(@Valid @RequestBody Batch batch) {
-		log.info("Saving batch: " + batch);
+		log.debug("Saving batch: " + batch);
 		trainingService.save(batch);
 		return new ResponseEntity<>(batch, HttpStatus.CREATED);
 	}
@@ -280,7 +280,7 @@ public class TrainingController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'PANEL')")
 	public ResponseEntity<Void> updateBatch(@Valid @RequestBody Batch batch) {
-		log.info("Updating batch: " + batch);
+		log.debug("Updating batch: " + batch);
 		trainingService.update(batch);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
@@ -297,7 +297,7 @@ public class TrainingController {
 	public ResponseEntity<Void> deleteBatch(@PathVariable int id) {
 		Batch batch = new Batch();
 		batch.setBatchId(id);
-		log.info("Deleting batch: " + id);
+		log.debug("Deleting batch: " + id);
 		trainingService.delete(batch);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
@@ -312,7 +312,7 @@ public class TrainingController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING', 'PANEL')")
 	public ResponseEntity<List<Batch>> getAllCurrentBatches() {
-		log.info("Fetching all current batches");
+		log.debug("Fetching all current batches");
 		List<Batch> batches = trainingService.findAllCurrentBatches();
 		return new ResponseEntity<>(batches, HttpStatus.OK);
 	}
@@ -327,7 +327,7 @@ public class TrainingController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'STAGING', 'PANEL')")
 	public ResponseEntity<List<Batch>> getAllBatches() {
-		log.info("Fetching all batches");
+		log.debug("Fetching all batches");
 		List<Batch> batches = trainingService.findAllBatches();
 		return new ResponseEntity<>(batches, HttpStatus.OK);
 
@@ -343,7 +343,7 @@ public class TrainingController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP', 'QC','TRAINER', 'PANEL')")
 	public ResponseEntity<Void> createWeek(@PathVariable int batchId) {
-		log.info("Adding week to batch: " + batchId);
+		log.debug("Adding week to batch: " + batchId);
 		trainingService.addWeek(batchId);
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
@@ -352,7 +352,7 @@ public class TrainingController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP', 'STAGING', 'QC', 'TRAINER', 'PANEL')")
 	public ResponseEntity<List<Address>> findCommonLocations() {
-		log.info("Fetching common training locations");
+		log.debug("Fetching common training locations");
 		return new ResponseEntity<>(trainingService.findCommonLocations(), HttpStatus.OK);
 	}
 
@@ -366,7 +366,7 @@ public class TrainingController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING', 'PANEL')")
 	public ResponseEntity<List<Trainee>> findAllByBatch(@RequestParam(required = true) Integer batch) {
-		log.info("Finding trainees for batch: " + batch);
+		log.debug("Finding trainees for batch: " + batch);
 		List<Trainee> trainees = trainingService.findAllTraineesByBatch(batch);
 		return new ResponseEntity<>(trainees, HttpStatus.OK);
 	}
@@ -375,7 +375,7 @@ public class TrainingController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING', 'PANEL')")
 	public ResponseEntity<List<Trainee>> findAllDroppedByBatch(@RequestParam(required = true) Integer batch) {
-		log.info("Finding dropped trainees for batch: " + batch);
+		log.debug("Finding dropped trainees for batch: " + batch);
 		List<Trainee> trainees = trainingService.findAllDroppedTraineesByBatch(batch);
 		return new ResponseEntity<>(trainees, HttpStatus.OK);
 	}
@@ -391,7 +391,7 @@ public class TrainingController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'PANEL')")
 	public ResponseEntity<Trainee> createTrainee(@Valid @RequestBody Trainee trainee) {
-		log.info("Saving trainee: " + trainee);
+		log.debug("Saving trainee: " + trainee);
 		trainingService.save(trainee);
 		return new ResponseEntity<>(trainee, HttpStatus.CREATED);
 	}
@@ -425,7 +425,7 @@ public class TrainingController {
 	public ResponseEntity<Void> deleteTrainee(@PathVariable int id) {
 		Trainee trainee = new Trainee();
 		trainee.setTraineeId(id);
-		log.info("Deleting trainee: " + id);
+		log.debug("Deleting trainee: " + id);
 		trainingService.delete(trainee);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
@@ -484,7 +484,7 @@ public class TrainingController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP')")
 	public ResponseEntity<List<TrainerTask>> getAllActiveTasks() {
-		log.info("Fetching all active tasks");
+		log.debug("Fetching all active tasks");
 		List<TrainerTask> tasks = trainingService.findAllActiveTasks();
 		return new ResponseEntity<>(tasks, HttpStatus.OK);
 	}
@@ -498,7 +498,7 @@ public class TrainingController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP')")
 	public ResponseEntity<List<TrainerTaskCompletion>> getAllCompletedTasks() {
-		log.info("Fetching all completed tasks");
+		log.debug("Fetching all completed tasks");
 		List<TrainerTaskCompletion> tasks = trainingService.findAllCompletedTasks();
 		return new ResponseEntity<>(tasks, HttpStatus.OK);
 	}
@@ -512,7 +512,7 @@ public class TrainingController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP')")
 	public ResponseEntity<List<TrainerTaskCompletion>> getAllTasksByTrainerId(@PathVariable int id) {
-		log.info("Fetching all completed tasks for trainer with id " + id);
+		log.debug("Fetching all completed tasks for trainer with id " + id);
 		List<TrainerTaskCompletion> tasks = trainingService.findAllTasksByTrainerId(id);
 		return new ResponseEntity<>(tasks, HttpStatus.OK);
 	}

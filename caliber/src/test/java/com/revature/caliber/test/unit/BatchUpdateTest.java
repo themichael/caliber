@@ -83,7 +83,7 @@ public class BatchUpdateTest extends CaliberTest{
 		
 		this.caliberBatch = batchDao.findOneWithDroppedTrainees(2201);
 		this.caliberBatch.setTrainees(caliberTrainees);
-		log.info("CaliberBatch: "+ caliberBatch.getResourceId());
+		log.debug("CaliberBatch: "+ caliberBatch.getResourceId());
 		
 		this.salesforceTrainer.setName("Tom Riddle");
 		this.salesforceTrainer.setEmail("voldemort@gmail.com");
@@ -119,7 +119,7 @@ public class BatchUpdateTest extends CaliberTest{
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
 		final Date yesterday = today.getTime();
 		String lastMessage = (sdf.format(yesterday)) + " : [Yesterday]";
-		log.info(lastMessage);
+		log.debug(lastMessage);
 		Date nextExecution = trigger.nextExecutionTime(
 				new TriggerContext() {
 					@Override
@@ -136,7 +136,7 @@ public class BatchUpdateTest extends CaliberTest{
 					}
 				});
 		String nextMessage = sdf.format(nextExecution) + " : [Execution] ";
-		log.info(nextMessage);
+		log.debug(nextMessage);
 	}
 	
 	@Test
@@ -147,7 +147,7 @@ public class BatchUpdateTest extends CaliberTest{
 		caliberBatches.add(caliberBatch);
 		salesforceBatches.add(salesforceBatch);
 		boolean updated = batchUpdate.compareBatches(caliberBatches, salesforceBatches);
-		log.info("Batches were updated: "+updated);
+		log.debug("Batches were updated: "+updated);
 		assertTrue(updated);
 	}
 	

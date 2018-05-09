@@ -19,12 +19,12 @@ public class Salesforce extends CaliberTest{
 	
 	@Test
 	public void go(){
-		log.info("Getting batches");
+		log.debug("Getting batches");
 		List<Batch> batches = salesforceDAO.getAllRelevantBatches();
-		log.info(batches);
-		log.info("Getting batch details");
+		log.debug(batches);
+		log.debug("Getting batch details");
 		List<Trainee> trainees = salesforceDAO.getBatchDetails("a0Yi000000F0b7I");
-		log.info(trainees);
+		log.debug(trainees);
 	}
 	
 }

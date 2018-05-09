@@ -52,7 +52,7 @@ public class TaskCompletionDAOTest extends CaliberTest{
 	
 	@Test
 	public void testFindAllCompleted() {
-		log.info("FIND ALL COMPLETED TASKS");
+		log.debug("FIND ALL COMPLETED TASKS");
 		Long sizeActual = jdbcTemplate.queryForObject(TASK_COMPLETION_COUNT, Long.class);
 		List<TrainerTaskCompletion> tasks = dao.findAllCompletedTasks();
 		Long sizeExpected = (long) tasks.size();
@@ -61,7 +61,7 @@ public class TaskCompletionDAOTest extends CaliberTest{
 	
 	@Test
 	public void testFindCompletedByTrainerId() {
-		log.info("FIND ALL COMPLETED TASKS BY TRAINER ID");
+		log.debug("FIND ALL COMPLETED TASKS BY TRAINER ID");
 		Long sizeActual = jdbcTemplate.queryForObject(TASK_BY_TRAINER_ID_COUNT + "42", Long.class);
 		List<TrainerTaskCompletion> tasks = dao.findAllTasksByTrainerId(42);
 		Long sizeExpected = (long) tasks.size();
@@ -70,7 +70,7 @@ public class TaskCompletionDAOTest extends CaliberTest{
 	
 	@Test
 	public void testSaveTaskCompletion() {
-		log.info("CREATE TASK COMPLETION");
+		log.debug("CREATE TASK COMPLETION");
 		Trainer trainer = new Trainer("Donald Duck", "Trainer in Training","mightyduck@gmail.com", TrainerRole.ROLE_TRAINER);
 		Trainer checker = new Trainer("Mickey Mouse", "Vice President","mickey@gmail.com", TrainerRole.ROLE_VP);
 		Date now = Date.from(Instant.now());
@@ -82,7 +82,7 @@ public class TaskCompletionDAOTest extends CaliberTest{
 		TrainerTaskCompletion tc = new TrainerTaskCompletion(trainer, checker, now, task);
 		dao.saveTaskCompletion(tc);
 		Integer after = jdbcTemplate.queryForObject(TASK_COMPLETION_COUNT, Integer.class);
-		log.info("after = "+ after);
+		log.debug("after = "+ after);
 		assertEquals(++before, after);
 	}
 */

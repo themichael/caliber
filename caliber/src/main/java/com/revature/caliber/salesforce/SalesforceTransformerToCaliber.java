@@ -3,7 +3,6 @@ package com.revature.caliber.salesforce;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.SkillType;
 import com.revature.caliber.beans.Trainee;
@@ -97,6 +96,15 @@ public class SalesforceTransformerToCaliber {
 	}
 
 	private SkillType transformSkillTypeHelper(String skillType) {
+		if(skillType.contains("Java")) {
+			return SkillType.J2EE;
+		}
+		if(skillType.contains(".NET")) {
+			return SkillType.NET;
+		}
+		if(skillType.contains("JTA")) {
+			return SkillType.JTA;
+		}
 		switch (skillType) {
 		case "Full Stack Java/JEE":
 			return SkillType.J2EE;

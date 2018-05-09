@@ -121,7 +121,7 @@ public class ReportingServiceTest extends CaliberTest {
 	 **/
 	@Test
 	public void utilAvgSkillsTest() {
-		log.info("TEST UTILITY AVERAGE SKILL");
+		log.debug("TEST UTILITY AVERAGE SKILL");
 		String catOne = "CatOne";
 		String catTwo = "CatTwo";
 		Assessment assessment1 = new Assessment("title", new Batch(), 200, null, 5, new Category(catOne, true));
@@ -162,7 +162,7 @@ public class ReportingServiceTest extends CaliberTest {
 	 * */
 	@Test
 	public void utilReplaceCategoryWithSkillNameTest() {
-		log.info("TEST UTILITY REPLACE CATEGORY WITH SKILL NAME");
+		log.debug("TEST UTILITY REPLACE CATEGORY WITH SKILL NAME");
 		Map<Category, Double[]> skills = new HashMap<>();
 		Double[] values = { (double) 20, (double) 10 };
 		skills.put(new Category("Name One", true), values);
@@ -186,7 +186,7 @@ public class ReportingServiceTest extends CaliberTest {
 	 * */
 	@Test
 	public void utilAvgBatchWeekValueTest() {
-		log.info("TEST UTILITY AVERAGE BATCH WEEK VALUE");
+		log.debug("TEST UTILITY AVERAGE BATCH WEEK VALUE");
 		Double actualWeekOne = reportingService.utilAvgBatchWeekValue(trainees, 1);
 		Double actualWeekTwo = reportingService.utilAvgBatchWeekValue(trainees, 2);
 		Double expectedWeekOne = 35.0;
@@ -206,12 +206,12 @@ public class ReportingServiceTest extends CaliberTest {
 	 */
 	@Test
 	public void utilAvgBatchOverallWithThreeParamsTest() {
-		log.info("Calculate Average Batch Grade with UtilAvgBatchOverallWithThreeParams()");
+		log.debug("Calculate Average Batch Grade with UtilAvgBatchOverallWithThreeParams()");
 		AssessmentType assessmentType = AssessmentType.Exam;
 		Map<Integer, Double[]> results = reportingService.utilAvgBatchOverall(trainees, assessmentType, 3);
 		double[] possAvg = { 35.0, 40.0, 45.0 };
 		for (int i = 1; i < 4; i++) {
-			log.info(results.get(i));
+			log.debug(results.get(i));
 			assertEquals(new Double(possAvg[i - 1]), results.get(i)[0]);
 		}
 	}
@@ -223,7 +223,7 @@ public class ReportingServiceTest extends CaliberTest {
 	 */
 	@Test
 	public void utilAvgTraineeWeekWithTwoParamsTest() {
-		log.info("Calculate One Trainee's Average for all Exams in a Given Week");
+		log.debug("Calculate One Trainee's Average for all Exams in a Given Week");
 		Double expectedAverage = 30.0;
 		int selectedTrainee = 0; // Selects first trainee in dummy batch
 		Set<Grade> grades = trainees.get(selectedTrainee).getGrades();
@@ -239,7 +239,7 @@ public class ReportingServiceTest extends CaliberTest {
 	 */
 	@Test
 	public void utilAvgBatchWeekWithTwoParamsTest() {
-		log.info("Calculate Each Trainee's Average for a Given Week");
+		log.debug("Calculate Each Trainee's Average for a Given Week");
 		double[] averages = { 30.0, 35.0, 40.0 }; // Week 1 averages for all 3 trainees
 		for (int i = 0; i < 3; i++) {
 			Set<Grade> grades = trainees.get(i).getGrades();
@@ -256,7 +256,7 @@ public class ReportingServiceTest extends CaliberTest {
 	 */
 	@Test
 	public void utilAvgBatchTest() {
-		log.info("Calculate Average Batch Grade with UtilAvgBatch()");
+		log.debug("Calculate Average Batch Grade with UtilAvgBatch()");
 		// Calculated by hand with dummy data above
 		double[] posAvg = { 0.0, 35, 37.5, 40, 42.5, 45 };
 		for (int i = 0; i < 6; i++) {
@@ -266,7 +266,7 @@ public class ReportingServiceTest extends CaliberTest {
 
 	@Test
 	public void utilAvgTraineeOverallWithTwoParamsTest() {
-		log.info("Calculate Average grade per week for a trainee");
+		log.debug("Calculate Average grade per week for a trainee");
 		// Calculated by hand with dummy data above
 		double[] weekAvgs = { 30, 35, 40, 45, 50 };
 		for (int i = 0; i < 5; i++) {
@@ -278,7 +278,7 @@ public class ReportingServiceTest extends CaliberTest {
 	@Test
 	// Need a specific batch to get trainees
 	public void utilAvgBatchOverallWithTwoParamsTest() {
-		log.info("Calculating batch averages per week");
+		log.debug("Calculating batch averages per week");
 		double[] overallAvg = { 35, 40, 45, 50, 55 };
 		for (int i = 0; i < 5; i++) {
 			assertEquals(new Double(overallAvg[i]), reportingService.utilAvgBatchOverall(trainees, i + 1).get(i + 1));
@@ -292,7 +292,7 @@ public class ReportingServiceTest extends CaliberTest {
 	  */
 	@Test
 	public void utilAvgTraineeWeekWithThreeParamTest() {
-		log.info("UtilAvgTraineeWeekWithThreeParam Test");
+		log.debug("UtilAvgTraineeWeekWithThreeParam Test");
 		double[] possAvg = { 30.0, 100.0, 2.0 };
 		Double[] actual = reportingService.utilAvgTraineeWeek(1, AssessmentType.Exam, trainees.get(0).getGrades());
 		for (int i = 0; i < 3; i++) {
@@ -307,7 +307,7 @@ public class ReportingServiceTest extends CaliberTest {
 	  */
 	@Test
 	public void utilAvgBatchWeekWithThreeParamTeat() {
-		log.info("UtilAvgBatchWeekWithThreeParam Test");
+		log.debug("UtilAvgBatchWeekWithThreeParam Test");
 		double[] possAvg = { 30.0, 35.0, 40.0 };
 		int pos = 0;
 		Map<Trainee, Double[]> actual = reportingService.utilAvgBatchWeek(trainees, 1, AssessmentType.Exam);
@@ -324,7 +324,7 @@ public class ReportingServiceTest extends CaliberTest {
 	  */
 	@Test
 	public void utilAvgTraineeOverallWithThreeParamTest() {
-		log.info("UtilAvgTraineeOverallWithThreeParam Test");
+		log.debug("UtilAvgTraineeOverallWithThreeParam Test");
 		int weeks = 5;
 		double[] possAvg = { 30.0, 35.0, 40.0, 45.0, 50.0 };
 		Map<Integer, Double[]> actual = reportingService.utilAvgTraineeOverall(
@@ -342,7 +342,7 @@ public class ReportingServiceTest extends CaliberTest {
 	 */
 	@Test
 	public void getBatchComparisonAvgTest(){
-		log.info("Testing the ReportingService.getBatchCommparisonAvg(List<Batch> batches)");
+		log.debug("Testing the ReportingService.getBatchCommparisonAvg(List<Batch> batches)");
 
 		List<Batch> batches = batchComparisonInit();
 		
@@ -354,7 +354,7 @@ public class ReportingServiceTest extends CaliberTest {
 		
 		double avg = reportingService.getBatchComparisonAvg(singleBatch1); 
 		double expected = 80;
-		log.info(avg);
+		log.debug(avg);
 		assertTrue(Math.abs(avg-expected)<.0001);
 		
 		avg = reportingService.getBatchComparisonAvg(singleBatch2);
@@ -373,12 +373,12 @@ public class ReportingServiceTest extends CaliberTest {
 	@Test
 	public void getBatchOverallBarChartTest() {
 		String traineeName = "Chen, Andrew";
-		log.info("Testing getBatchOverallBarChart(int batchId)");
+		log.debug("Testing getBatchOverallBarChart(int batchId)");
 		// Positive Testing
 		Map<String, Double> results = reportingService.getBatchOverallBarChart(2200);
 		assertTrue("Test size of result set", results.size() == 15);
 		assertTrue("Contains expected trainee", results.containsKey(traineeName));
-		log.info("andrew's average: " + Math.abs(results.get(traineeName).doubleValue()));
+		log.debug("andrew's average: " + Math.abs(results.get(traineeName).doubleValue()));
 		assertTrue("Test accurate average calculation", Math.abs(results.get(traineeName).doubleValue()-84.354) < .001);
 
 		// Negative Testing
@@ -397,7 +397,7 @@ public class ReportingServiceTest extends CaliberTest {
 	 */
 	@Test
 	public void getBatchWeekTraineeBarChartTest() {
-		log.info("Testing getBatchWeekTraineeBarChart(int batchId, int TraineeId, int week)");
+		log.debug("Testing getBatchWeekTraineeBarChart(int batchId, int TraineeId, int week)");
 		// Positive testing
 		Map<String, Double[]> results = reportingService.getBatchWeekTraineeBarChart(2100, 5455, 1);
 		assertNotNull("Results exist", results);
@@ -412,7 +412,7 @@ public class ReportingServiceTest extends CaliberTest {
 			reportingService.getBatchWeekTraineeBarChart(2100, -123421, 1);
 			fail();
 		} catch (NoSuchElementException e) {
-			log.info(e);
+			log.debug(e);
 		}
 		//Test non-existent week.
 		results = reportingService.getBatchWeekTraineeBarChart(2100, 5455, -1000);
@@ -425,7 +425,7 @@ public class ReportingServiceTest extends CaliberTest {
 	 */
 	@Test
 	public void getBatchOverallTraineeBarChartTest() {
-		log.info("Testing getBatchOverallTraineeBarChart(int batchId, int TraineeId)");
+		log.debug("Testing getBatchOverallTraineeBarChart(int batchId, int TraineeId)");
 		// Training
 		Map<String, Double[]> results = reportingService.getBatchOverallTraineeBarChart(2201, 5531);
 		assertNotNull("Results exist", results);
@@ -440,7 +440,7 @@ public class ReportingServiceTest extends CaliberTest {
 			reportingService.getBatchOverallTraineeBarChart(2100, -123421);
 			fail();
 		} catch (NoSuchElementException e) {
-			log.info(e);
+			log.debug(e);
 		}
 	}
 	
@@ -451,7 +451,7 @@ public class ReportingServiceTest extends CaliberTest {
 	 */
 	@Test
 	public void getBatchWeekQcOverallBarChartTest(){
-		log.info("Testing method: getBatchWeekQcOverallBarChart(Integer batchId, Integer week)");
+		log.debug("Testing method: getBatchWeekQcOverallBarChart(Integer batchId, Integer week)");
 		Note testNote = reportingService.getBatchWeekQcOverallBarChart(2201, 7);
 		//Note: I was pulling the getContent from testNote, and it would return a different string sometimes.
 		assertEquals(testNote.getWeek(),(short)7);
@@ -473,7 +473,7 @@ public class ReportingServiceTest extends CaliberTest {
 	@Test
 	public void utilSeparateQCTraineeNotesByWeekTest() {
 
-		log.info("Testing the ReportingService.utilSeperateQCTraineeNotesByWeek");
+		log.debug("Testing the ReportingService.utilSeperateQCTraineeNotesByWeek");
 
 		//These numbers come from createTestBatchWithQCNotes
 		int[] statusPoorCountPerWeek = { 0, 0, 0, 3, 0, 0, 0 };
@@ -525,7 +525,7 @@ public class ReportingServiceTest extends CaliberTest {
 	 */
 	@Test
 	public void getBatchWeekAvgBarChartTest() {
-		log.info("Testing getBatchWeekAvgBarChartTest");
+		log.debug("Testing getBatchWeekAvgBarChartTest");
 		Map <String, Double[]> weekAvgBarChart = reportingService.getBatchWeekAvgBarChart(2201, 5);
 
 		assertTrue( (Double) Math.abs(weekAvgBarChart.get("Project")[0]- 88.75) < 0.001);
@@ -540,7 +540,7 @@ public class ReportingServiceTest extends CaliberTest {
 	@Test
 	public void getBatchWeekSortedBarChartTest(){
 		
-		log.info("getBatchWeekSortedBarChartTest");
+		log.debug("getBatchWeekSortedBarChartTest");
 		Map<String, Double> test =reportingService.getBatchWeekSortedBarChart(2050, 2);
 		assertTrue( (Double) Math.abs(test.get("Fouche, Issac")- 96.29) < 0.001);
 		assertTrue( (Double) Math.abs(test.get("Castillo, Erika")- 89.63) < 0.001);
@@ -567,12 +567,12 @@ public class ReportingServiceTest extends CaliberTest {
 	 */
 	@Test
 	public void getBatchWeekPieChartTest() {
-		log.info("Testing ReportingService.getBatchWeekPieChart");
+		log.debug("Testing ReportingService.getBatchWeekPieChart");
 		Map<QCStatus, Integer> pieChart = reportingService.getBatchWeekPieChart(2201, 7);
 		
 		for (QCStatus key : pieChart.keySet()) {
 			
-			log.info("key: "+ key+ " " + pieChart.get(key));
+			log.debug("key: "+ key+ " " + pieChart.get(key));
 			
 		}
 		
@@ -584,10 +584,10 @@ public class ReportingServiceTest extends CaliberTest {
 		assertEquals( (Integer) 7, (Integer) pieChart.get(QCStatus.Poor));
 		
 		//These log lines, in the console, should display the same values that are being retrieved from the database, mainly for verification.
-		log.info("Number of individuals ranked 'superstar' in batch " + 2201 + " for week  " + 7 + ": " + (Integer) pieChart.get(QCStatus.Superstar));
-		log.info("Number of individuals ranked 'good' in batch " + 2201 + " week:  " + 7 + ": " + (Integer) pieChart.get(QCStatus.Good));
-		log.info("Number of individuals ranked 'average' in batch: " + 2201 + " week:  " + 7 + ": " + (Integer) pieChart.get(QCStatus.Superstar));
-		log.info("Number of individuals ranked 'poor' in batch " + 2201 + " for week:  " + 7 + ": " + (Integer) pieChart.get(QCStatus.Poor));
+		log.debug("Number of individuals ranked 'superstar' in batch " + 2201 + " for week  " + 7 + ": " + (Integer) pieChart.get(QCStatus.Superstar));
+		log.debug("Number of individuals ranked 'good' in batch " + 2201 + " week:  " + 7 + ": " + (Integer) pieChart.get(QCStatus.Good));
+		log.debug("Number of individuals ranked 'average' in batch: " + 2201 + " week:  " + 7 + ": " + (Integer) pieChart.get(QCStatus.Superstar));
+		log.debug("Number of individuals ranked 'poor' in batch " + 2201 + " for week:  " + 7 + ": " + (Integer) pieChart.get(QCStatus.Poor));
 		
 	}
 	
@@ -608,7 +608,7 @@ public class ReportingServiceTest extends CaliberTest {
 	 */
 	@Test
 	public void pieChartCurrentWeekQCStatusTest() {
-		log.info("Testing ReportingService.pieChartCurrentWeekQCStatus()");
+		log.debug("Testing ReportingService.pieChartCurrentWeekQCStatus()");
 		
 		//This could be any batch id found in the database but, for testing purposes, 2201 was used.
 		Integer batchId = 2201;
@@ -618,7 +618,7 @@ public class ReportingServiceTest extends CaliberTest {
 		
 		//displays the data that is retrieved based on request from method call
 		for (QCStatus key : pieChart.keySet()) {
-			log.info("key: "+ key+ " " + pieChart.get(key));	
+			log.debug("key: "+ key+ " " + pieChart.get(key));	
 		}
 		
 		//assertions to indicate that the values are what we expect them to be, based on their values in the database
@@ -629,10 +629,10 @@ public class ReportingServiceTest extends CaliberTest {
 		assertEquals( (Integer) 7, (Integer) pieChart.get(QCStatus.Poor));
 		
 		//These log lines, in the console, should display the same values that are being retrieved from the database, mainly for verification.
-		log.info("Number of individuals ranked 'superstar' in batch " + 2201 + " for the current week: " + (Integer) pieChart.get(QCStatus.Superstar));
-		log.info("Number of individuals ranked 'good' in batch " + 2201 + " for the current week:" + 7 + ": " + (Integer) pieChart.get(QCStatus.Good));
-		log.info("Number of individuals ranked 'average' in batch " + 2201 + " for the current week:" + 7 + ": " + (Integer) pieChart.get(QCStatus.Superstar));
-		log.info("Number of individuals ranked 'poor' in batch " + 2201 + " for the current week: " + (Integer) pieChart.get(QCStatus.Poor));
+		log.debug("Number of individuals ranked 'superstar' in batch " + 2201 + " for the current week: " + (Integer) pieChart.get(QCStatus.Superstar));
+		log.debug("Number of individuals ranked 'good' in batch " + 2201 + " for the current week:" + 7 + ": " + (Integer) pieChart.get(QCStatus.Good));
+		log.debug("Number of individuals ranked 'average' in batch " + 2201 + " for the current week:" + 7 + ": " + (Integer) pieChart.get(QCStatus.Superstar));
+		log.debug("Number of individuals ranked 'poor' in batch " + 2201 + " for the current week: " + (Integer) pieChart.get(QCStatus.Poor));
 		
 		
 	}
@@ -662,14 +662,14 @@ public class ReportingServiceTest extends CaliberTest {
 	@Test
 	public void getAllBatchesCurrentWeekQCStackedBarChartTest() {
 		try {
-			log.info("Testing ReportingService.getAllBatchesCurrentWeekQCStackedBarChar()");
+			log.debug("Testing ReportingService.getAllBatchesCurrentWeekQCStackedBarChar()");
 			List<Object> object = reportingService.getAllBatchesCurrentWeekQCStackedBarChart();
 			
 			@SuppressWarnings("unchecked")
 			Map<String, Object> test = (Map<String, Object>) object.get(0);
 			
 			for (int i = 0; i < object.size(); i++) {
-				log.info("Batch number " + i + ": " + object.get(i));	
+				log.debug("Batch number " + i + ": " + object.get(i));	
 			}
 			// find a way to acquire the map separately, then iterate through its keys
 			@SuppressWarnings("unchecked")

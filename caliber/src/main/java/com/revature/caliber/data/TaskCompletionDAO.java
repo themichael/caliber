@@ -35,7 +35,7 @@ public class TaskCompletionDAO {
     @SuppressWarnings("unchecked")
     @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
     public List<TrainerTaskCompletion> findAllCompletedTasks() {
-    	log.info("Finding all completed tasks");
+    	log.debug("Finding all completed tasks");
         return sessionFactory.getCurrentSession()
         		.createCriteria(TrainerTaskCompletion.class)
         		.createAlias("trainer", "t", JoinType.LEFT_OUTER_JOIN)
@@ -49,7 +49,7 @@ public class TaskCompletionDAO {
     @SuppressWarnings("unchecked")
     @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
     public List<TrainerTaskCompletion> findAllTasksByTrainerId(int id) {
-    	log.info("Finding all completed tasks by trainer with id " + id);
+    	log.debug("Finding all completed tasks by trainer with id " + id);
         return sessionFactory.getCurrentSession()
         		.createCriteria(TrainerTaskCompletion.class)
         		.createAlias("trainer", "t", JoinType.LEFT_OUTER_JOIN)

@@ -45,7 +45,7 @@ public class AssessmentAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void testFind404() {
-		log.info("Finding two batches that don't exist");
+		log.debug("Finding two batches that don't exist");
 		given().spec(requestSpec).header(AUTH, accessToken).when().get(baseUrl + findAssessment, 1, 1).then()
 				.assertThat().statusCode(404);
 		given().spec(requestSpec).header(AUTH, accessToken).when().get(baseUrl + findAssessment, 2200, 10).then()
@@ -58,7 +58,7 @@ public class AssessmentAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void testFind200() {
-		log.info("Finding two batches that does exist");
+		log.debug("Finding two batches that does exist");
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).when()
 				.get(baseUrl + findAssessment, 2200, 1).then().assertThat().statusCode(200).and().body("size()", is(3));
 	}
@@ -68,7 +68,7 @@ public class AssessmentAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void testCreate201() {
-		log.info("Creating a new Assessment type");
+		log.debug("Creating a new Assessment type");
 		Assessment assessment = new Assessment("This title doesn't matter", batchDAO.findOne(2200), 100,
 				AssessmentType.Verbal, 100, catDAO.findOne(1));
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).body(assessment).when()
@@ -83,7 +83,7 @@ public class AssessmentAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void testUpdate() throws Exception {
-		log.info("Updating an assessment");
+		log.debug("Updating an assessment");
 		Batch batch = batchDAO.findOne(2200);
 		Category category = catDAO.findOne(1);
 		Assessment expected = new Assessment(null, batch, 100, AssessmentType.Exam, 1, category);
@@ -103,7 +103,7 @@ public class AssessmentAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void testDelete() {
-		log.info("Deleting an assessment");
+		log.debug("Deleting an assessment");
 		given().spec(requestSpec).header(AUTH, accessToken).when().delete(baseUrl + deleteAssessment, 2050).then()
 				.assertThat().statusCode(204);
 	}

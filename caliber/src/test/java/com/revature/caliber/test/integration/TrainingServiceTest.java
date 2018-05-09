@@ -39,7 +39,7 @@ public class TrainingServiceTest extends CaliberTest {
 	}
 	@Test
 	public void addWeek(){
-		log.info("Testing TrainingService addWeek function");
+		log.debug("Testing TrainingService addWeek function");
 		int beforeNum = jdbcTemplate.queryForObject(INACTIVE, Integer.class);
 		service.addWeek(2100);
 		int afterNum = jdbcTemplate.queryForObject(INACTIVE, Integer.class);

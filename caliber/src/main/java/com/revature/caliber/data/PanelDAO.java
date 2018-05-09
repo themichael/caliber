@@ -48,7 +48,7 @@ public class PanelDAO {
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Panel> findAll() {
-		log.info("Finding all panels");
+		log.debug("Finding all panels");
 		return sessionFactory.getCurrentSession().createCriteria(Panel.class)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
@@ -62,7 +62,7 @@ public class PanelDAO {
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Panel> findAllByTrainee(Integer traineeId) {
-		log.info("Fetching all panels for trainee: " + traineeId);
+		log.debug("Fetching all panels for trainee: " + traineeId);
 		List<Panel> panels = sessionFactory.getCurrentSession().createCriteria(Panel.class)
 				.add(Restrictions.eq("trainee.traineeId", traineeId))
 				.addOrder(Order.desc(INTERVIEW_DATE)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
@@ -79,7 +79,7 @@ public class PanelDAO {
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Panel> findAllRepanel() {
-		log.info("Fetching all panels with the status Repanel");
+		log.debug("Fetching all panels with the status Repanel");
 		return sessionFactory.getCurrentSession().createCriteria(Panel.class)
 				.add(Restrictions.eq("status", PanelStatus.Repanel))
 				.addOrder(Order.desc(INTERVIEW_DATE)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
@@ -93,7 +93,7 @@ public class PanelDAO {
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Panel> findBiWeeklyPanels() {
-		log.info("Fetching all panels within last 14 days");
+		log.debug("Fetching all panels within last 14 days");
 		Query query = sessionFactory.getCurrentSession().createQuery(
 				"FROM Panel p WHERE p.interviewDate >= TRUNC(SYSDATE) - 13");
 		return query.list();
@@ -108,7 +108,7 @@ public class PanelDAO {
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void save(Panel panel) {
-		log.info("Save panel " + panel);
+		log.debug("Save panel " + panel);
 		sessionFactory.getCurrentSession().save(panel);
 	}
 
@@ -120,7 +120,7 @@ public class PanelDAO {
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public Panel findOne(Integer panelId) {
-		log.info("Find panel by id: " + panelId);
+		log.debug("Find panel by id: " + panelId);
 		return (Panel) sessionFactory.getCurrentSession().get(Panel.class, panelId);
 	}
 
@@ -131,7 +131,7 @@ public class PanelDAO {
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void update(Panel panel) {
-		log.info("Update panel " + panel);
+		log.debug("Update panel " + panel);
 		sessionFactory.getCurrentSession().saveOrUpdate(panel);
 	}
 
@@ -143,7 +143,7 @@ public class PanelDAO {
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void delete(int panelId) {
-		log.info("Delete panel " + panelId);
+		log.debug("Delete panel " + panelId);
 		Panel panel = findOne(panelId);
 		if (panel != null) {
 			sessionFactory.getCurrentSession().delete(panel);
@@ -153,7 +153,7 @@ public class PanelDAO {
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Trainee> findAllTraineesAndPanels(Integer batchId) {
-		log.info("get trainees and their panelInterviews from " + batchId);
+		log.debug("get trainees and their panelInterviews from " + batchId);
 		return (List<Trainee>)sessionFactory.getCurrentSession()
 				.createCriteria(Trainee.class)
 				.add(Restrictions.eq("batch.batchId", batchId))

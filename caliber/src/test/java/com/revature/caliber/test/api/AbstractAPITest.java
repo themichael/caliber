@@ -92,13 +92,13 @@ public abstract class AbstractAPITest extends CaliberTest implements Initializin
 				populateDatabase(); // Add the default trainer to the database
 									// in order to login
 				login();
-				log.info("Logging into Caliber for API testing at: " + baseUrl + "authenticated_token");
+				log.debug("Logging into Caliber for API testing at: " + baseUrl + "authenticated_token");
 				Response response = given().param("salestoken", accessTokenJson).redirects().allowCircular(true)
 						.get(baseUrl + "authenticated_token");
-				log.info("Token: " + accessToken);
+				log.debug("Token: " + accessToken);
 				String sessionCookie = response.getSessionId();
 				String roleCookie = response.getCookie("role");
-				log.info("JSESSIONID: " + sessionCookie + "\nRole: " + roleCookie + "\nStatus: "
+				log.debug("JSESSIONID: " + sessionCookie + "\nRole: " + roleCookie + "\nStatus: "
 						+ response.getStatusCode());
 				requestSpec = new RequestSpecBuilder().addCookie("JSESSIONID", sessionCookie)
 						.addCookie("role", roleCookie).build();
@@ -118,7 +118,7 @@ public abstract class AbstractAPITest extends CaliberTest implements Initializin
 	 */
 	private static void login() throws JsonMappingException, IOException {
 		HttpClient httpClient = HttpClientBuilder.create().build();
-		log.info("logging into URL   " + accessTokenUrl);
+		log.debug("logging into URL   " + accessTokenUrl);
 		HttpPost post = new HttpPost(accessTokenUrl);
 		List<NameValuePair> parameters = new ArrayList<>();
 		parameters.add(new BasicNameValuePair("grant_type", PASS));
@@ -134,11 +134,11 @@ public abstract class AbstractAPITest extends CaliberTest implements Initializin
 			accessTokenJson = mapper.readValue(response.getEntity().getContent(),
 					SalesforceToken.class); // actual
 			accessToken += accessTokenJson.getAccessToken();
-			log.info("Accessing Salesforce API using token:  " + accessToken);
+			log.debug("Accessing Salesforce API using token:  " + accessToken);
 		}catch(Exception e){
 			log.error(e);
 			httpClient = HttpClientBuilder.create().build();
-			log.info("logging into URL   " + accessTokenUrl);
+			log.debug("logging into URL   " + accessTokenUrl);
 			post = new HttpPost(accessTokenUrl);
 			parameters = new ArrayList<>();
 			parameters.add(new BasicNameValuePair("grant_type", PASS));
@@ -161,13 +161,13 @@ public abstract class AbstractAPITest extends CaliberTest implements Initializin
 	 * @throws SQLException
 	 */
 	private void populateDatabase() throws SQLException {
-		log.info("Populating database with setup.sql");
+		log.debug("Populating database with setup.sql");
 		Connection con = jdbcTemplate.getDataSource().getConnection();
 		EncodedResource resource = new EncodedResource(
 				new FileSystemResource(new File("src/test/resources/setup.sql")));
 
 		ScriptUtils.executeSqlScript(con, resource);
-		log.info("Sql script executed");
+		log.debug("Sql script executed");
 		con.close();
 	}
 
@@ -177,13 +177,13 @@ public abstract class AbstractAPITest extends CaliberTest implements Initializin
 	 * @throws SQLException
 	 */
 	private void tearDownDatabase() throws SQLException {
-		log.info("Tearingdown database with teardown.sql");
+		log.debug("Tearingdown database with teardown.sql");
 		Connection con = jdbcTemplate.getDataSource().getConnection();
 		EncodedResource resource = new EncodedResource(
 				new FileSystemResource(new File("src/test/resources/teardown.sql")));
 
 		ScriptUtils.executeSqlScript(con, resource);
-		log.info("Sql script executed");
+		log.debug("Sql script executed");
 		con.close();
 	}
 }

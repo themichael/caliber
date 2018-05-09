@@ -49,7 +49,7 @@ public class TraineeDAOTest extends CaliberTest {
 	 * */
 	@Test
 	public void testSave() {
-		log.info("CREATE TRAINEE");
+		log.debug("CREATE TRAINEE");
 		Batch batch = new Batch();
 		batch.setBatchId(2200);
 		String name = "Danny McQuack";
@@ -91,7 +91,7 @@ public class TraineeDAOTest extends CaliberTest {
 	 * */
 	@Test
 	public void testFindAll() {
-		log.info("FIND ALL TRAINEES");
+		log.debug("FIND ALL TRAINEES");
 		Long sizeActual = jdbcTemplate.queryForObject(TRAINEE_COUNT, Long.class);
 		List<Trainee> trainees = traineeDAO.findAll();
 		Long sizeExpected = (long) trainees.size();
@@ -108,7 +108,7 @@ public class TraineeDAOTest extends CaliberTest {
 	 * */
 	@Test
 	public void testFindAllNotDropped() {
-		log.info("FIND ALL TRAINEES NOT DROPPED");
+		log.debug("FIND ALL TRAINEES NOT DROPPED");
 		Long sizeActual = jdbcTemplate.queryForObject(TRAINEE_COUNT + " WHERE training_status != 'Dropped'", Long.class);
 		List<Trainee> trainees = traineeDAO.findAllNotDropped();
 		Long sizeExpected = (long) trainees.size();
@@ -130,7 +130,7 @@ public class TraineeDAOTest extends CaliberTest {
 	 * */
 	@Test
 	public void testFindAllByBatch() {
-		log.info("FIND ALL TRAINEES BY BATCH");
+		log.debug("FIND ALL TRAINEES BY BATCH");
 		Batch batch = new Batch();
 		batch.setBatchId(2200);
 		String traineeCountByBatch = TRAINEE_COUNT + " where batch_id = " + batch.getBatchId()
@@ -160,7 +160,7 @@ public class TraineeDAOTest extends CaliberTest {
 	 * */
 	@Test
 	public void testFindAllDroppedByBatch() {
-		log.info("FIND ALL TRAINEES DROPPED BY BATCH");
+		log.debug("FIND ALL TRAINEES DROPPED BY BATCH");
 
 		Batch batch = new Batch();
 		batch.setBatchId(2200);
@@ -192,7 +192,7 @@ public class TraineeDAOTest extends CaliberTest {
 	 * */
 	@Test
 	public void testFindAllByTrainer() {
-		log.info("FIND ALL TRAINEES BY TRAINER");
+		log.debug("FIND ALL TRAINEES BY TRAINER");
 		Trainer trainer = new Trainer();
 			trainer.setTrainerId(1);
 		String traineeCountByTrainer = TRAINEE_COUNT + " WHERE BATCH_ID IN "
@@ -215,7 +215,7 @@ public class TraineeDAOTest extends CaliberTest {
 	 */
 	@Test
 	public void testFindOne() {
-		log.info("Find trainee by Id Test");
+		log.debug("Find trainee by Id Test");
 		String actual = "osher.y.cohen@gmail.com";
 		assertEquals(actual, traineeDAO.findOne(5503).getEmail());
 	}
@@ -226,21 +226,21 @@ public class TraineeDAOTest extends CaliberTest {
 	 */
 	@Test
 	public void testFindByEmail() {
-		log.info("Find trainee by email Test");
+		log.debug("Find trainee by email Test");
 		Integer id = 5503;
 		assertEquals((int) id, (int) traineeDAO.findByEmail("osher").get(0).getTraineeId());
 	}
 	
 	@Test
 	public void testFindByName() {
-		log.info("Find trainee by name Test");
+		log.debug("Find trainee by name Test");
 		Integer id = 5511;
 		assertEquals((int) id, (int) traineeDAO.findByName("Lau").get(0).getTraineeId());
 	}
 	
 	@Test
 	public void testFindBySkypeId() {
-		log.info("Find trainee by SkypeId Test");
+		log.debug("Find trainee by SkypeId Test");
 		Integer id = 5504;
 		assertEquals((int) id, (int) traineeDAO.findBySkypeId("kyle.chang").get(0).getTraineeId());
 	}
@@ -251,7 +251,7 @@ public class TraineeDAOTest extends CaliberTest {
 	 */
 	@Test
 	public void testUpdate() {
-		log.info("Update trainee");
+		log.debug("Update trainee");
 		String updatedName = "Up, Dated";
 		Trainee trainee = traineeDAO.findOne(5503);
 		trainee.setName(updatedName);
@@ -266,7 +266,7 @@ public class TraineeDAOTest extends CaliberTest {
 	 */
 	@Test
 	public void testDelete() {
-		log.info("Delete trainee");
+		log.debug("Delete trainee");
 		int initialSize = traineeDAO.findAll().size();
 		Trainee toDelete = traineeDAO.findOne(5503);
 		traineeDAO.delete(toDelete);

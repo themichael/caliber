@@ -37,7 +37,7 @@ public class CategoryAPITest extends AbstractAPITest {
 	//Takes the first category and checks to make sure it is Java, and that it is active.
 	@Test
 	public void findCategoryByIdTest() throws JsonProcessingException{
-		log.info("Testing findCategoryById function from CategoryController");
+		log.debug("Testing findCategoryById function from CategoryController");
 		given().spec(requestSpec).header(AUTHORIZATION, accessToken).contentType(ContentType.JSON).when()
 		.get(baseUrl + "category/1").then().assertThat()
 		.statusCode(200).body(SKILL, equalTo("Java"),ACTIVE, equalTo(true));
@@ -45,7 +45,7 @@ public class CategoryAPITest extends AbstractAPITest {
 	// Returns a JSON object which will only contain Categories that are active. Also checks to make sure there are no inactive categories(false) in the JSON.
 	@Test
 	public void findAllActiveTest(){
-		log.info("Testing findAllCategories function from CategoryController");
+		log.debug("Testing findAllCategories function from CategoryController");
 		int size = dao.findAllActive().size();
 		given().spec(requestSpec).header(AUTHORIZATION, accessToken).contentType(ContentType.JSON).when()
 		.get(baseUrl + "category/all").then().assertThat()
@@ -55,7 +55,7 @@ public class CategoryAPITest extends AbstractAPITest {
 	//Returns a JSON object which will return all Categories even if they are inactive. 
 	@Test
 	public void findAllTest(){
-		log.info("Testing findAll function from CategoryController");
+		log.debug("Testing findAll function from CategoryController");
 		Category category2 = new Category(LINUX_CATEGORY,false);
 		given().spec(requestSpec).header(AUTHORIZATION, accessToken).contentType(ContentType.JSON).body(category2).when()
 		.post(baseUrl + VP_CATEGORY).then().assertThat()
@@ -67,7 +67,7 @@ public class CategoryAPITest extends AbstractAPITest {
 	// Takes a random String and replaces the Category name from skill number 45.
 	@Test
 	public void updateCategoryTest() throws Exception{
-		log.info("Testing updateCategory function from CategoryController");
+		log.debug("Testing updateCategory function from CategoryController");
 		String[] theList = new String[]{"The Room","Trolls2","Grabage pail kids","Little panda fighter"};
 		int randomtheList = ThreadLocalRandom.current().nextInt(0, 3);
 		Category category = dao.findOne(45);
@@ -80,7 +80,7 @@ public class CategoryAPITest extends AbstractAPITest {
 	//Makes a new category and adds it to the category list.
 	@Test
 	public void saveCategoryTest() throws JsonProcessingException{
-		log.info("Testing saveCategory function from CategoryController");
+		log.debug("Testing saveCategory function from CategoryController");
 		Category category2 = new Category(LINUX_CATEGORY,false);
 		given().spec(requestSpec).header(AUTHORIZATION, accessToken).contentType(ContentType.JSON).body(category2).when()
 		.post(baseUrl + VP_CATEGORY).peek().then().assertThat()

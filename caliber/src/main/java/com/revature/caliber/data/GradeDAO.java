@@ -43,7 +43,7 @@ public class GradeDAO {
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void save(Grade grade) {
-		log.info("Saving grade " + grade);
+		log.debug("Saving grade " + grade);
 		sessionFactory.getCurrentSession().saveOrUpdate(grade);
 	}
 
@@ -54,7 +54,7 @@ public class GradeDAO {
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void update(Grade grade) {
-		log.info("Updating grade " + grade);
+		log.debug("Updating grade " + grade);
 		sessionFactory.getCurrentSession().saveOrUpdate(grade);
 	}
 
@@ -70,7 +70,7 @@ public class GradeDAO {
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Grade> findAll() {
-		log.info("Finding all grades");
+		log.debug("Finding all grades");
 		return sessionFactory.getCurrentSession().createCriteria(Grade.class)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
@@ -85,7 +85,7 @@ public class GradeDAO {
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Grade> findByAssessment(Long assessmentId) {
-		log.info("Finding grades for assessment: " + assessmentId);
+		log.debug("Finding grades for assessment: " + assessmentId);
 		return sessionFactory.getCurrentSession().createCriteria(Grade.class).createAlias(TRAINEE, TRAINEE)
 				.add(Restrictions.eq("assessment.assessmentId", assessmentId))
 				.add(Restrictions.ne(TRAINEE_TRAINING_STATUS, TrainingStatus.Dropped))
@@ -102,14 +102,14 @@ public class GradeDAO {
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Grade> findByTrainee(Integer traineeId) {
-		log.info("Finding all grades for trainee: " + traineeId);
+		log.debug("Finding all grades for trainee: " + traineeId);
 		List <Grade> grades = sessionFactory.getCurrentSession().createCriteria(Grade.class)
 				.createAlias(TRAINEE, TRAINEE)
 				.add(Restrictions.gt("score", 0.0))
 				.add(Restrictions.eq("trainee.traineeId", traineeId))
 				.add(Restrictions.ne(TRAINEE_TRAINING_STATUS, TrainingStatus.Dropped))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-		log.info(grades);
+		log.debug(grades);
 		return grades;
 	}
 
@@ -123,7 +123,7 @@ public class GradeDAO {
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Grade> findByBatch(Integer batchId) {
-		log.info("Finding all grades for batch: " + batchId);
+		log.debug("Finding all grades for batch: " + batchId);
 		return sessionFactory.getCurrentSession().createCriteria(Grade.class)
 				.createAlias(TRAINEE, TRAINEE)
 				.createAlias(TRAINEE_BATCH, "b")
@@ -145,7 +145,7 @@ public class GradeDAO {
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Grade> findByCategory(Integer categoryId) {
-		log.info("Finding all grades for category: " + categoryId);
+		log.debug("Finding all grades for category: " + categoryId);
 		return sessionFactory.getCurrentSession().createCriteria(Grade.class).createAlias("assessment", "a")
 				.createAlias("a.category", "c").add(Restrictions.eq("c.categoryId", categoryId))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
@@ -163,7 +163,7 @@ public class GradeDAO {
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Grade> findByWeek(Integer batchId, Integer week) {
-		log.info("Finding week " + week + " grades for batch: " + batchId);
+		log.debug("Finding week " + week + " grades for batch: " + batchId);
 		return sessionFactory.getCurrentSession().createCriteria(Grade.class).createAlias(TRAINEE, TRAINEE).createAlias(TRAINEE_BATCH, "b")
 				.add(Restrictions.eq("b.batchId", batchId)).createAlias("assessment", "a")
 				.add(Restrictions.eq("a.week", week.shortValue()))
@@ -184,7 +184,7 @@ public class GradeDAO {
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Grade> findByTrainer(Integer trainerId) {
-		log.info("Finding all grades for trainer: " + trainerId);
+		log.debug("Finding all grades for trainer: " + trainerId);
 		List<Grade> astrainer = sessionFactory.getCurrentSession().createCriteria(Grade.class).createAlias(TRAINEE, TRAINEE)
 				.createAlias(TRAINEE_BATCH, "b").createAlias("b.trainer", "t")
 				.add(Restrictions.eq("t.trainerId", trainerId)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)

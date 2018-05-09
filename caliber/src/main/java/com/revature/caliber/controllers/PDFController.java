@@ -45,7 +45,7 @@ public class PDFController {
 			headers.add("Pragma", "no-cache");
 			headers.add("Expires", "0");
 
-			log.info("PDF Generated");
+			log.debug("PDF Generated");
 			return new HttpEntity<>(pdf, headers);
 		} catch (Exception e) {
 			log.error("Error creating PDF file: " + e + " " + e.getClass() + " " + e.getMessage());

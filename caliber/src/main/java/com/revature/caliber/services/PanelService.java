@@ -60,9 +60,9 @@ public class PanelService {
 
 	public void createPanel(Panel panel) throws MalformedRequestException {
 		log.debug("Creating Panel " + panel);
-		log.info("Panel for Trainee: " +panel.getTrainee());
+		log.debug("Panel for Trainee: " +panel.getTrainee());
 		List<Panel> previousPanels = findByTraineeId(panel.getTrainee().getTraineeId());
-		log.info("Trainee's Previous Panels: " + previousPanels);
+		log.debug("Trainee's Previous Panels: " + previousPanels);
 		//verifying server side that the panel round field has not been tampered with
 		if(previousPanels.size()+1 != panel.getPanelRound()) {
 			log.warn("Failed to create panel. Panel round calculation incorrect.");
@@ -89,14 +89,14 @@ public class PanelService {
 	}
 
 	public Panel findById(int panelId) {
-		log.info("Getting Panel with ID " + panelId);
+		log.debug("Getting Panel with ID " + panelId);
 		Panel panel = panelDAO.findOne(panelId);
-		log.info("Got " + panel);
+		log.debug("Got " + panel);
 		return panel;
 	}
 
 	public List<Panel> findByTraineeId(int traineeId) {
-		log.info("Getting Panels with trainee ID " + traineeId);
+		log.debug("Getting Panels with trainee ID " + traineeId);
 		return panelDAO.findAllByTrainee(traineeId);
 	}
 

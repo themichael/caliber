@@ -72,7 +72,7 @@ public class PanelAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void testCreate201() {
-		log.info("Creating a new Panel type");
+		log.debug("Creating a new Panel type");
 		Panel panel = new Panel();
 		panel.setFormat(InterviewFormat.Phone);
 		panel.setPanelRound(1);
@@ -99,7 +99,7 @@ public class PanelAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void testUpdate() throws Exception {
-		log.info("Updating an panel");
+		log.debug("Updating an panel");
 		Panel expected = panelDAO.findOne(40);
 		expected.setDuration("100 hours");
 		
@@ -119,7 +119,7 @@ public class PanelAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void testDelete() {
-		log.info("Deleting an panel");
+		log.debug("Deleting an panel");
 		int panelId = panelDAO.findAll().get(0).getId();
 		given().
 			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
@@ -135,7 +135,7 @@ public class PanelAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void testDeletePanel404() {
-		log.info("Deleting an panel that doesn't exist");
+		log.debug("Deleting an panel that doesn't exist");
 		given().
 			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
 		when().
@@ -150,7 +150,7 @@ public class PanelAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void testGetAllPanels204() {
-		log.info("Get all panels, no content...");
+		log.debug("Get all panels, no content...");
 		List<Panel> allPanels = panelDAO.findAll();
 		for (Panel p : allPanels) {
 			panelDAO.delete(p.getId());
@@ -161,7 +161,7 @@ public class PanelAPITest extends AbstractAPITest {
 			get(GET_ALL_PANELS_URL).
 		then().assertThat().
 			statusCode(HttpStatus.NO_CONTENT_204);
-		log.info("testGetAllPanels204 succeeded!!!");
+		log.debug("testGetAllPanels204 succeeded!!!");
 	}
 	
 	/**
@@ -171,7 +171,7 @@ public class PanelAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void testGetAllPanels200() {
-		log.info("Get all panels, OK...");
+		log.debug("Get all panels, OK...");
 		
 		int expected = panelDAO.findAll().size();
 		
@@ -182,7 +182,7 @@ public class PanelAPITest extends AbstractAPITest {
 		then().assertThat().
 			statusCode(HttpStatus.OK_200).
 			body(SIZE, is(expected));
-		log.info("testGetAllPanels200 succeeded!!!");
+		log.debug("testGetAllPanels200 succeeded!!!");
 	}
 	
 	/**
@@ -191,14 +191,14 @@ public class PanelAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void testGetPanelById404() {
-		log.info("Get panel by id, resource not found...");
+		log.debug("Get panel by id, resource not found...");
 		given().
 			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
 		when().
 			get(GET_PANEL_BY_ID_URL, -1).
 		then().assertThat().
 			statusCode(HttpStatus.NOT_FOUND_404);
-		log.info("testGetPanelById404 succeeded!!!");
+		log.debug("testGetPanelById404 succeeded!!!");
 	}
 	
 	/**
@@ -207,9 +207,9 @@ public class PanelAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void testPanelById200() {
-		log.info("Get panel by id, OK...");
+		log.debug("Get panel by id, OK...");
 		Panel p = panelDAO.findAll().get(0);
-		log.info("panel= " + p);
+		log.debug("panel= " + p);
 		given().
 			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
 		when().
@@ -217,7 +217,7 @@ public class PanelAPITest extends AbstractAPITest {
 		then().assertThat().
 			statusCode(HttpStatus.OK_200).
 			body("id", is(p.getId()));
-		log.info("testPanelById200 succeeded!!!");
+		log.debug("testPanelById200 succeeded!!!");
 	}
 	
 	/**
@@ -226,14 +226,14 @@ public class PanelAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void testGetPanelsByTrainee404() {
-		log.info("Get all trainee panels, no content...");
+		log.debug("Get all trainee panels, no content...");
 		given().
 			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
 		when().
 			get(GET_TRAINEE_PANELS_URL, -1).
 		then().assertThat().
 			statusCode(HttpStatus.NOT_FOUND_404);
-		log.info("testGetPanelsByTrainee404 succeeded!!!");
+		log.debug("testGetPanelsByTrainee404 succeeded!!!");
 	}
 	
 	/**
@@ -242,18 +242,18 @@ public class PanelAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void testGetPanelsByTrainee204() {
-		log.info("Get all trainee panels, no content...");
+		log.debug("Get all trainee panels, no content...");
 		Trainee t = new Trainee("Test", null, "test@test.com", batchDAO.findAll().get(0));
 		traineeDAO.save(t);
 		int expected = panelDAO.findAllByTrainee(t.getTraineeId()).size();
-		log.info(EXPECTED + expected);
+		log.debug(EXPECTED + expected);
 		given().
 			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
 		when().
 			get(GET_TRAINEE_PANELS_URL, t.getTraineeId()).
 		then().assertThat().
 			statusCode(HttpStatus.NO_CONTENT_204);
-		log.info("testGetPanelsByTrainee204 succeeded!!!");
+		log.debug("testGetPanelsByTrainee204 succeeded!!!");
 	}
 	
 	/**
@@ -264,14 +264,14 @@ public class PanelAPITest extends AbstractAPITest {
 	@Test
 	@Ignore // doesn't work PJW
 	public void testGetPanelsByTrainee200() {
-		log.info("Get all trainee panels, OK...");
+		log.debug("Get all trainee panels, OK...");
 		List<Panel> panels = panelDAO.findAll();
 		int traineeId = -1;
 		if (!panels.isEmpty()) {
 			traineeId = panels.get(0).getTrainee().getTraineeId();
 		}
 		int expected = panelDAO.findAllByTrainee(traineeId).size();
-		log.info(EXPECTED + expected + ", for trainee id " + traineeId);
+		log.debug(EXPECTED + expected + ", for trainee id " + traineeId);
 		given().
 			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
 		when().
@@ -279,7 +279,7 @@ public class PanelAPITest extends AbstractAPITest {
 		then().assertThat().
 			body(SIZE, is(expected)).
 			statusCode(HttpStatus.OK_200);
-		log.info("testGetPanelsByTrainee200 succeeded!!!");
+		log.debug("testGetPanelsByTrainee200 succeeded!!!");
 	}
 
 	/**
@@ -288,19 +288,19 @@ public class PanelAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void testGetAllRepanels204() {
-		log.info("Get all repanels, no content...");
+		log.debug("Get all repanels, no content...");
 		for (Panel p : panelDAO.findAllRepanel()) {
 			panelDAO.delete(p.getId());
 		}
 		int expected = panelDAO.findAllRepanel().size();
-		log.info(EXPECTED + expected);
+		log.debug(EXPECTED + expected);
 		given().
 			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
 		when().
 			get(GET_ALL_REPANELS_URL).
 		then().assertThat().
 			statusCode(HttpStatus.NO_CONTENT_204);
-		log.info("testGetAllRepanels204 succeeded!!!");
+		log.debug("testGetAllRepanels204 succeeded!!!");
 	}
 
 	/**
@@ -310,9 +310,9 @@ public class PanelAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void testGetAllRepanels200() {
-		log.info("Get all repanels, OK...");
+		log.debug("Get all repanels, OK...");
 		int expected = panelDAO.findAllRepanel().size();
-		log.info(EXPECTED + expected);
+		log.debug(EXPECTED + expected);
 		given().
 			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
 		when().
@@ -320,22 +320,22 @@ public class PanelAPITest extends AbstractAPITest {
 		then().assertThat().
 			statusCode(HttpStatus.OK_200).
 			body(SIZE, is(expected));
-		log.info("testGetAllRepanels200 succeeded!!!");
+		log.debug("testGetAllRepanels200 succeeded!!!");
 	}
 	
 	@Test
 	@Ignore // doesn't work PJW
 	public void testGetPanelByBatch204() {
-		log.info("Get all trainee panels by batch, OK...");
+		log.debug("Get all trainee panels by batch, OK...");
 		int expected = panelService.getBatchPanels(2050).size();
-		log.info("expected= " + expected);
+		log.debug("expected= " + expected);
 		given().
 			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
 		when().
 			get(GET_ALL_RECENT_REPANLS_URL).
 		then().assertThat().
 			statusCode(HttpStatus.NO_CONTENT_204);
-		log.info("testGetAllRepanels204 succeeded!!!");
+		log.debug("testGetAllRepanels204 succeeded!!!");
 	}
 
 	/**
@@ -346,9 +346,9 @@ public class PanelAPITest extends AbstractAPITest {
 	@Test
 	@Ignore // doesn't work PJW
 	public void testGetAllRecentRepanels200() {
-		log.info("Get all recent repanels, OK...");
+		log.debug("Get all recent repanels, OK...");
 		int expected = 21;
-		log.info(EXPECTED + expected);
+		log.debug(EXPECTED + expected);
 		given().
 			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
 		when().
@@ -356,19 +356,19 @@ public class PanelAPITest extends AbstractAPITest {
 		then().assertThat().
 			statusCode(HttpStatus.OK_200).
 			body(SIZE, is(expected));
-		log.info("testGetAllRepanels200 succeeded!!!");
+		log.debug("testGetAllRepanels200 succeeded!!!");
 	}
 
 	@Test
 	@Ignore // doesn't work PJW
 	public void testGetPanelByBatch200() {
-		log.info("Get all trainee panels by batch, OK...");
+		log.debug("Get all trainee panels by batch, OK...");
 		given().
 			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
 		when().
 			get(GET_PANEL_BY_BATCH_URL, 1000).
 		then().assertThat().
 			statusCode(HttpStatus.OK_200);
-		log.info("testGetPanelByBatch200 succeeded!!!");
+		log.debug("testGetPanelByBatch200 succeeded!!!");
 	}
 }

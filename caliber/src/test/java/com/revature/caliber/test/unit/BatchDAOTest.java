@@ -40,7 +40,7 @@ public class BatchDAOTest extends CaliberTest {
 	 */
 	@Test
 	public void findAllCurrentIntTest() {
-		log.info("Testing the BatchDAO.findAllCurrent(trainerId)");
+		log.debug("Testing the BatchDAO.findAllCurrent(trainerId)");
 		List<Batch> batches = batchDAO.findAllCurrent(1);
 		int expected = 3; //only 3 current batches with trainerId: 1
 		int actual = batches.size();
@@ -53,7 +53,7 @@ public class BatchDAOTest extends CaliberTest {
 	 */
 	@Test
 	public void findAllCurrentWithNotesTest() {
-		log.info("Testing the BatchDAO.findAllCurrentWithNotesTest()");
+		log.debug("Testing the BatchDAO.findAllCurrentWithNotesTest()");
 		List<Batch> batches = batchDAO.findAllCurrentWithNotes();
 		int expected = 1; // only one current batch has notes
 		int actual = batches.size();
@@ -66,7 +66,7 @@ public class BatchDAOTest extends CaliberTest {
 	 */
 	@Test
 	public void findAllCurrentWithNotesAndTraineesTest() {
-		log.info("Testing the BatchDAO.findAllCurrentWithNotesAndTrainees()");
+		log.debug("Testing the BatchDAO.findAllCurrentWithNotesAndTrainees()");
 		List<Batch> batches = batchDAO.findAllCurrentWithNotesAndTrainees();
 		int expected = 1; // Only one current batch has notes and trainees
 		int actual = batches.size();
@@ -79,7 +79,7 @@ public class BatchDAOTest extends CaliberTest {
 	 */
 	@Test
 	public void findAllCurrentWithTraineesTest() {
-		log.info("Testing the BatchDAO.findAllCurrentWithTrainees()");
+		log.debug("Testing the BatchDAO.findAllCurrentWithTrainees()");
 		List<Batch> batches = batchDAO.findAllCurrentWithTrainees();
 		int expected = 7; // All current batches have trainees
 		int actual = batches.size();
@@ -92,7 +92,7 @@ public class BatchDAOTest extends CaliberTest {
 	 */
 	@Test
 	public void findAllTest() {
-		log.info("Testing the BatchDAO.findAll()");
+		log.debug("Testing the BatchDAO.findAll()");
 		String sql = "SELECT * FROM CALIBER_BATCH";
 		int expect = jdbcTemplate.queryForList(sql).size();
 		int actual = batchDAO.findAll().size();
@@ -105,12 +105,12 @@ public class BatchDAOTest extends CaliberTest {
 	 */
 	@Test
 	public void findAllAfterDateTest() {
-		log.info("Testing the BatchDAO.findAllAfterDateTest()");
+		log.debug("Testing the BatchDAO.findAllAfterDateTest()");
 		// positive test
 		// find how many after a specific date
 		int expect = 9;
 		int actual = batchDAO.findAllAfterDate(1, 1, 2017).size();
-		log.info(batchDAO.findAllAfterDate(1, 1, 2017));
+		log.debug(batchDAO.findAllAfterDate(1, 1, 2017));
 		assertEquals(expect, actual);
 
 		// negative test
@@ -134,7 +134,7 @@ public class BatchDAOTest extends CaliberTest {
 	 */
 	@Test
 	public void findAllByTrainerTest() {
-		log.info("Testing the BatchDAO.findAllByTrainerTest()");
+		log.debug("Testing the BatchDAO.findAllByTrainerTest()");
 		// positive testing
 		String sql = "SELECT TRAINER_ID FROM CALIBER_TRAINER WHERE ROWNUM = 1";
 		Integer trainerId = jdbcTemplate.queryForObject(sql, Integer.class);
@@ -170,7 +170,7 @@ public class BatchDAOTest extends CaliberTest {
 	 */
 	@Test
 	public void findAllCurrentTest() {
-		log.info("Testing the BatchDAO.findAllCurrentTest()");
+		log.debug("Testing the BatchDAO.findAllCurrentTest()");
 		// This allows for 1 month flexibility. This was needed because in
 		// BatchDao, the query takes into account 1 month ago as 'current'
 		int endDateLimit = 30;
@@ -201,7 +201,7 @@ public class BatchDAOTest extends CaliberTest {
 	 */
 	@Test
 	public void findOneTest() {
-		log.info("Testing method BatchDAO.findOne(Integer batchId)");
+		log.debug("Testing method BatchDAO.findOne(Integer batchId)");
 		int expected = 2050;
 		int actual = batchDAO.findOne(expected).getBatchId();
 		assertEquals(expected, actual);
@@ -216,7 +216,7 @@ public class BatchDAOTest extends CaliberTest {
 	 */
 	@Test
 	public void findOneWithDroppedTraineesTest() {
-		log.info("Testing method BatchDAO.findOneWithDroppedTrainees(Integer batchId)");
+		log.debug("Testing method BatchDAO.findOneWithDroppedTrainees(Integer batchId)");
 		boolean success = false;
 		Set<Trainee> resultSet = batchDAO.findOneWithDroppedTrainees(2150).getTrainees();
 		for (Trainee resultSetTrainee : resultSet) {
@@ -231,7 +231,7 @@ public class BatchDAOTest extends CaliberTest {
 			fail();
 		}
 		catch(Exception e){
-			log.info(e);
+			log.debug(e);
 		}
 	}
 
@@ -243,7 +243,7 @@ public class BatchDAOTest extends CaliberTest {
 	 */
 	@Test
 	public void findOneWithTraineesAndGradesTest() {
-		log.info("Testing method BatchDAO.findOneWithTraineesAndGrades(Integer batchId)");
+		log.debug("Testing method BatchDAO.findOneWithTraineesAndGrades(Integer batchId)");
 		String expected = "1602 Feb08 Java";
 		String actual = batchDAO.findOneWithTraineesAndGrades(2050).getTrainingName();
 		assertEquals(expected, actual);
@@ -261,7 +261,7 @@ public class BatchDAOTest extends CaliberTest {
 			fail();
 		}
 		catch(Exception e){
-			log.info(e);
+			log.debug(e);
 		}
 	}
 
@@ -275,7 +275,7 @@ public class BatchDAOTest extends CaliberTest {
 	 */
 	@Test
 	public void updateTest() {
-		log.info("Testing method BatchDAO.update(Batch batch)");
+		log.debug("Testing method BatchDAO.update(Batch batch)");
 		Batch testBatch = batchDAO.findOne(2050);
 		testBatch.setLocation("The basement");
 		batchDAO.update(testBatch);
@@ -287,7 +287,7 @@ public class BatchDAOTest extends CaliberTest {
 			fail();
 		}
 		catch(Exception e){
-			log.info(e);
+			log.debug(e);
 		}
 	}
 
@@ -298,7 +298,7 @@ public class BatchDAOTest extends CaliberTest {
 	 */
 	@Test
 	public void saveTest() {
-		log.info("Testing method BatchDAO.save(Batch batch)");
+		log.debug("Testing method BatchDAO.save(Batch batch)");
 		Trainer testTrainer = new Trainer("Sir. Test", "Tester", "test@test.test", TrainerRole.ROLE_TRAINER);
 		testTrainer.setTrainerId(2);
 		Batch testBatch = new Batch("Test Name", testTrainer, Date.from(Instant.now()),

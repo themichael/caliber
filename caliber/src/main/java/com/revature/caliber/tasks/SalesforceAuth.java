@@ -55,15 +55,15 @@ public class SalesforceAuth {
 		boolean userSet = false;
 		
 		try {
-			log.info("Logging into Salesforce "+salesforceId+" "+salesforceSecret);
-			log.info("User: "+username+" Pass: "+password);
+			log.debug("Logging into Salesforce "+salesforceId+" "+salesforceSecret);
+			log.debug("User: "+username+" Pass: "+password);
 			login();
 			SalesforceUser salesforceUser = new SalesforceUser();
 			salesforceUser.setUserId(username);
 			Trainer trainer = trainerDao.findByEmail("patrick.walsh@revature.com");
 			salesforceUser.setCaliberUser(trainer);
 			salesforceUser.setRole(trainer.getTier().name());
-			log.info("SalesforceUser role: "+salesforceUser.getRole());
+			log.debug("SalesforceUser role: "+salesforceUser.getRole());
 			salesforceUser.setSalesforceToken(accessTokenJson);
 			Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUserId(),
 	                salesforceUser.getAuthorities());
@@ -94,7 +94,7 @@ public class SalesforceAuth {
 	 */
 	private static void login() throws JsonMappingException, IOException {
 		HttpClient httpClient = HttpClientBuilder.create().build();
-		log.info("logging into URL   " + salesforceUrl + accessTokenUri);
+		log.debug("logging into URL   " + salesforceUrl + accessTokenUri);
 		HttpPost post = new HttpPost(salesforceUrl + accessTokenUri);
 		List<NameValuePair> parameters = new ArrayList<>();
 		parameters.add(new BasicNameValuePair("grant_type", PASS));
@@ -109,7 +109,7 @@ public class SalesforceAuth {
 			mapper.configure(Feature.ALLOW_NUMERIC_LEADING_ZEROS, true);
 			accessTokenJson = mapper.readValue(response.getEntity().getContent(),
 					SalesforceToken.class); // actual
-			log.info("Accessing Salesforce API using token:  " + accessTokenJson.getAccessToken());
+			log.debug("Accessing Salesforce API using token:  " + accessTokenJson.getAccessToken());
 		}catch(Exception e){
 			log.error(e);
 			httpClient = HttpClientBuilder.create().build();

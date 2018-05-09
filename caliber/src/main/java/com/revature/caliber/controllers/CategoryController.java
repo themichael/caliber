@@ -60,7 +60,7 @@ public class CategoryController {
 	public ResponseEntity<Category> findCategoryById(@PathVariable int id) {
 		log.debug("Getting category: " + id);
 		Category category = categoryService.findCategory(id);
-		log.info(category.toString());
+		log.debug(category.toString());
 		return new ResponseEntity<>(category, HttpStatus.OK);
 	}
 	//Calls a method that will update a categories name or activity

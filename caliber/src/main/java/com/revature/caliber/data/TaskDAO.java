@@ -31,7 +31,7 @@ public class TaskDAO {
     @SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
     public List<TrainerTask> findAllActiveTasks() {
-    	log.info("Finding all active tasks");
+    	log.debug("Finding all active tasks");
     	return sessionFactory.getCurrentSession().createCriteria(TrainerTask.class)
                 .add(Restrictions.eq("active", 1)).addOrder(Order.asc("priority")).list();
     }

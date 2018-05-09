@@ -172,7 +172,7 @@ public class ReportingService {
 				}
 			}
 		});
-		log.info(results);
+		log.debug(results);
 		return results;
 	}
 
@@ -200,7 +200,7 @@ public class ReportingService {
 				}
 			}
 		}
-		log.info(results);
+		log.debug(results);
 		return results;
 	}
 
@@ -219,8 +219,8 @@ public class ReportingService {
 	 * @return
 	 */
 	public Note getBatchWeekQcOverallBarChart(Integer batchId, Integer week) {
-		log.info("FINDING_WEEK: " + week + " QC batch notes for batch: " + batchId);
-		log.info(noteDAO.findQCBatchNotes(batchId, week));
+		log.debug("FINDING_WEEK: " + week + " QC batch notes for batch: " + batchId);
+		log.debug(noteDAO.findQCBatchNotes(batchId, week));
 		return noteDAO.findQCBatchNotes(batchId, week);
 	}
 
@@ -555,7 +555,7 @@ public class ReportingService {
 	public Map<String, Double> getBatchOverallRadarChart(Integer batchId) {
 		List<Grade> grades = gradeDAO.findByBatch(batchId);
 		Map<Category, Double[]> skills = utilAvgSkills(grades);
-		log.info("getBatchOverallRadarChart : " + utilReplaceCategoryWithSkillName(skills));
+		log.debug("getBatchOverallRadarChart : " + utilReplaceCategoryWithSkillName(skills));
 		return utilReplaceCategoryWithSkillName(skills);
 	}
 

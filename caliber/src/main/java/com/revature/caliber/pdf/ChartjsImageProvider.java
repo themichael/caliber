@@ -31,7 +31,7 @@ public class ChartjsImageProvider extends AbstractImageProvider {
 				return Image.getInstance(src);
 			}
 		} catch (BadElementException | IOException e) {
-			log.info("Error creating PDF file: " + e);
+			log.debug("Error creating PDF file: " + e);
 			throw new PDFGenerationException();
 		}
 	}

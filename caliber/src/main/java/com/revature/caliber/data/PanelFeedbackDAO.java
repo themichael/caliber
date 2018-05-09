@@ -40,7 +40,7 @@ public class PanelFeedbackDAO {
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<PanelFeedback> findAll() {
-		log.info("Finding all panel feedback");
+		log.debug("Finding all panel feedback");
 		return sessionFactory.getCurrentSession().createCriteria(PanelFeedback.class)
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
@@ -53,7 +53,7 @@ public class PanelFeedbackDAO {
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<PanelFeedback> findAllForPanel(int panelId) {
-		log.info("Finding all panel feedback for panel: " + panelId);
+		log.debug("Finding all panel feedback for panel: " + panelId);
 		return sessionFactory.getCurrentSession().createCriteria(PanelFeedback.class)
 				.add(Restrictions.eq("panel.id", panelId))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
@@ -67,7 +67,7 @@ public class PanelFeedbackDAO {
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<PanelFeedback> findFailedFeedbackByPanel(Panel panel) {
-		log.info("Finding failed panel feedback for panel "+ panel);
+		log.debug("Finding failed panel feedback for panel "+ panel);
 		int panelId = (panel==null)? -1 : panel.getId();
 		return sessionFactory.getCurrentSession().createCriteria(PanelFeedback.class)
 				.add(Restrictions.eq("panel.id", panelId))
@@ -83,9 +83,9 @@ public class PanelFeedbackDAO {
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void save(PanelFeedback panelFeedback) {
-		log.info("Save panel feedback " + panelFeedback);
+		log.debug("Save panel feedback " + panelFeedback);
 		long id = (long) sessionFactory.getCurrentSession().save(panelFeedback);
-		log.info("New Feedback ID: " +id);
+		log.debug("New Feedback ID: " +id);
 	}
 
 	/**
@@ -96,7 +96,7 @@ public class PanelFeedbackDAO {
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public PanelFeedback findOne(long panelFeedbackId) {
-		log.info("Find panel feedback by id: " + panelFeedbackId);
+		log.debug("Find panel feedback by id: " + panelFeedbackId);
 		return (PanelFeedback) sessionFactory.getCurrentSession().createCriteria(PanelFeedback.class)
 				.add(Restrictions.eq("id", panelFeedbackId)).uniqueResult();
 	}
@@ -108,13 +108,13 @@ public class PanelFeedbackDAO {
 	 */
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void update(PanelFeedback panelFeedback) {
-		log.info("Update panel " + panelFeedback);
+		log.debug("Update panel " + panelFeedback);
 		sessionFactory.getCurrentSession().saveOrUpdate(panelFeedback);
 	}
 	
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void deleteById(long panelId) {
-		log.info("Delete panel feedback " + panelId);
+		log.debug("Delete panel feedback " + panelId);
 		PanelFeedback panelFeedback = findOne(panelId);
 		if (panelFeedback != null) {
 			sessionFactory.getCurrentSession().delete(panelFeedback);

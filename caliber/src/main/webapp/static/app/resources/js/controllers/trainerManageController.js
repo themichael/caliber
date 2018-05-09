@@ -223,19 +223,19 @@ angular
 						$scope.startDate.model = new Date($scope.startDate.model);
 						$scope.endDate.model = new Date($scope.endDate.model);
 
-						$log.info($scope.startDate);
+						$log.debug($scope.startDate);
 
 						if ($scope.endDate.model > $scope.startDate.model
 								&& $scope.trainer.model !== $scope.coTrainer.model) {
 							$log.debug("True");
 							$scope.addNewBatch();
 						} else {
-							$log.info("False");
+							$log.debug("False");
 							angular.element("#checkBatchModal").modal("show");
 							return false;
 						}
 
-						$log.info($scope.validDate);
+						$log.debug($scope.validDate);
 
 					}
 

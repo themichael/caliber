@@ -24,7 +24,7 @@ public class PanelServiceTest extends CaliberTest {
 	
 	@Test
 	public void findRepanl() {
-		log.info("Testing finding trainees who need repanel");
+		log.debug("Testing finding trainees who need repanel");
 		List<Panel> panelList = panelService.findAllRecentRepanel();
 		for (Panel p : panelList)
 			if (p.getStatus() != PanelStatus.Repanel)

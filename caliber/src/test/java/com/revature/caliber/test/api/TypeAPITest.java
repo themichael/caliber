@@ -42,7 +42,7 @@ public class TypeAPITest extends AbstractAPITest {
 	@Test
 	public void allSkillTypes() throws Exception {
 
-		log.info("API Testing allSkillTypes at baseUrl  " + baseUrl);
+		log.debug("API Testing allSkillTypes at baseUrl  " + baseUrl);
 
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 		//get request for all skills
@@ -62,7 +62,7 @@ public class TypeAPITest extends AbstractAPITest {
 	@Test
 	public void allTrainingTypes(){
 		
-		log.info("API Testing allTrainingTypes at baseUrl  " + baseUrl);
+		log.debug("API Testing allTrainingTypes at baseUrl  " + baseUrl);
 
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 		//get request for all training types
@@ -83,7 +83,7 @@ public class TypeAPITest extends AbstractAPITest {
 	@Test
 	public void allTrainingStatusTypes(){
 		
-		log.info("API Testing allTrainingStatusTypes at baseUrl  " + baseUrl);
+		log.debug("API Testing allTrainingStatusTypes at baseUrl  " + baseUrl);
 
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 		//get request for all training status
@@ -105,7 +105,7 @@ public class TypeAPITest extends AbstractAPITest {
 	@Test
 	public void allNoteTypes(){
 		
-		log.info("API Testing allNoteTypes at baseUrl  " + baseUrl);
+		log.debug("API Testing allNoteTypes at baseUrl  " + baseUrl);
 
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 		//get request for all note types
@@ -125,7 +125,7 @@ public class TypeAPITest extends AbstractAPITest {
 	@Test
 	public void allQCStatusTypes(){
 		
-		log.info("API Testing allQCStatusTypes at baseUrl  " + baseUrl);
+		log.debug("API Testing allQCStatusTypes at baseUrl  " + baseUrl);
 
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 		//get request for all QCStatusTypes
@@ -146,7 +146,7 @@ public class TypeAPITest extends AbstractAPITest {
 	@Test
 	public void allAssessmentTypes(){
 		
-		log.info("API Testing allAssessmentTypes at baseUrl  " + baseUrl);
+		log.debug("API Testing allAssessmentTypes at baseUrl  " + baseUrl);
 
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 		//get request for all assessment types
@@ -168,7 +168,7 @@ public class TypeAPITest extends AbstractAPITest {
 	public void allTrainerRoles(){
 		
 		
-		log.info("API Testing allTrainingRoles at baseUrl  " + baseUrl);
+		log.debug("API Testing allTrainingRoles at baseUrl  " + baseUrl);
 
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 		//get request for all trainer roles
@@ -188,7 +188,7 @@ public class TypeAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void allPanelStatus() {		
-		log.info("API Testing allPanelStatus at baseUrl  " + baseUrl);
+		log.debug("API Testing allPanelStatus at baseUrl  " + baseUrl);
 
 		given().
 			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
@@ -208,7 +208,7 @@ public class TypeAPITest extends AbstractAPITest {
 	 */
 	@Test
 	public void allInterviewFormat() {		
-		log.info("API Testing allInterviewFormat at baseUrl  " + baseUrl);
+		log.debug("API Testing allInterviewFormat at baseUrl  " + baseUrl);
 
 		given().
 			spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON).
