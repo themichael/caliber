@@ -34,8 +34,8 @@ public class BatchUpdate {
 	/**
 	 * Used cron to perform midnight execution To update batches
 	 */
-	@Scheduled(cron = "0 0/15 * * * ?") // Every 15 minutes
-	// @Scheduled(cron = "0 0 0 * * *") // Midnight
+	//@Scheduled(cron = "0 0/15 * * * ?") // Every 15 minutes
+	@Scheduled(cron = "0 0 0 * * *") // Midnight
 	public void updateBatchTask() {
 		try {
 			log.debug("Update Batch Task");
