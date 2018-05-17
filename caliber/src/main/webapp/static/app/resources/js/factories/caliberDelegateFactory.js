@@ -182,6 +182,10 @@ angular.module("delegate")
 			delegate.trainer.updateGrade = function(gradeObj) {
 				return trainerFactory.updateGrade(gradeObj);
 			};
+			
+			delegate.trainer.importGrade = function(gradeJson, week, batchId) {
+				return trainerFactory.importGrade(gradeJson, week, batchId);
+			};
 
 			delegate.trainer.createAssessment = function(assessmentObj) {
 				return trainerFactory.createAssessment(assessmentObj);

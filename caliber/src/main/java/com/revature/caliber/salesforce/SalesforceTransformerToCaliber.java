@@ -96,6 +96,7 @@ public class SalesforceTransformerToCaliber {
 	}
 
 	private SkillType transformSkillTypeHelper(String skillType) {
+		logger.info("Converting skill type as " + skillType);
 		if(skillType.contains("Java")) {
 			return SkillType.J2EE;
 		}

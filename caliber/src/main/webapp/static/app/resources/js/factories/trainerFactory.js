@@ -84,6 +84,15 @@ angular.module("api").factory("trainerFactory", function($log, $http) {
 		});
 	};
 
+	// import grades using JSON
+	trainer.importGrade = function(gradeJson, week, batchId) {
+		return $http({
+			url : "/trainer/grade/import?week=" + week + "&batchId=" + batchId,
+			method : "POST",
+			data : gradeJson
+		});
+	};
+
 	/** *********************** Assessment ********************** */
 	// create assessment
 	trainer.createAssessment = function(assessmentObj) {

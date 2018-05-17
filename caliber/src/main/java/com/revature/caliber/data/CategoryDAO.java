@@ -25,7 +25,9 @@ public class CategoryDAO {
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-	//Is intended to be used to find all ACTIVE categories. Does NOT show categories that are inactive.
+
+	// Is intended to be used to find all ACTIVE categories. Does NOT show
+	// categories that are inactive.
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Category> findAllActive() {
@@ -34,14 +36,14 @@ public class CategoryDAO {
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).add(Restrictions.eq("active", true))
 				.addOrder(Order.asc("categoryId")).list();
 	}
-	//Is intended to be only used by VP to see both ACTIVE and INACTIVE categories
+
+	// Is intended to be only used by VP to see both ACTIVE and INACTIVE categories
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Category> findAll() {
 		log.debug("Fetching categories");
 		return sessionFactory.getCurrentSession().createCriteria(Category.class)
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY)
-				.addOrder(Order.asc("skillCategory")).list();
+				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).addOrder(Order.asc("skillCategory")).list();
 	}
 
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
@@ -58,6 +60,12 @@ public class CategoryDAO {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public void save(Category category) {
 		sessionFactory.getCurrentSession().save(category);
+	}
+
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public Category findBySkillCategory(String skillCategory) {
+		return (Category) sessionFactory.getCurrentSession().createCriteria(Category.class)
+				.add(Restrictions.eq("skillCategory", skillCategory)).uniqueResult();
 	}
 
 }
