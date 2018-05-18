@@ -2,7 +2,7 @@ angular
 .module("trainer")
 .controller(
 		"trainerAssessController",
-		function($rootScope, $timeout,$log, $scope, $state, chartsDelegate, caliberDelegate,
+		function($rootScope, $timeout,$log, $window, $scope, $state, chartsDelegate, caliberDelegate,
 				allBatches) {
 			// Week object
 			function Week(weekNumb, assessments) {
@@ -701,9 +701,10 @@ angular
 				$scope.showFloppy = true;
 
 				/**
-				 * doBurrito is called when the Save button is clicked
-				 * The button does nothing but tricks the user into
-				 * invoking the ng-blur on the field they are focused.
+				 * doBurrito is called when the Save button is clicked The
+				 * button does nothing but tricks the user into invoking the
+				 * ng-blur on the field they are focused.
+				 * 
 				 * @author Jack Duong
 				 * @author Patrick Walsh (approver)
 				 */
@@ -1008,4 +1009,18 @@ angular
 				$scope.hideNotes = function(index){
 					document.getElementsByClassName("notes")[index].setAttribute("style", "display: none");
 	 			}
+				
+				$scope.quiz = {
+						data: null
+				}
+				$scope.importGrade = function() {
+					caliberDelegate.trainer.importGrade($scope.quiz.data, $scope.currentWeek, $scope.currentBatch.batchId)
+					.then(function(response) {
+						getAllAssessmentsForWeek($scope.currentBatch.batchId, $scope.currentWeek);
+					}, function(response) {
+						$scope.importGradeError = response.data.message;
+						angular.element("#importGradeErrorModal").modal("show");
+					});
+					$('.modal').modal('hide');
+				}
 		});

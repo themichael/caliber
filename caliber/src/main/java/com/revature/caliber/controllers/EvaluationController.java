@@ -1,8 +1,10 @@
 package com.revature.caliber.controllers;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
@@ -12,16 +14,20 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Note;
 import com.revature.caliber.beans.NoteType;
+import com.revature.caliber.exceptions.RevProIntegrationException;
 import com.revature.caliber.services.EvaluationService;
+import com.revature.caliber.services.RevProQuizIntegrationService;
 
 /**
  * Used to add grades for assessments and input notes
@@ -35,13 +41,13 @@ import com.revature.caliber.services.EvaluationService;
 public class EvaluationController {
 
 	private static final Logger log = Logger.getLogger(EvaluationController.class);
-	private EvaluationService evaluationService;
-	private static final String FINDING_WEEK = "Finding week ";
-
+	
 	@Autowired
-	public void setEvaluationService(EvaluationService evaluationService) {
-		this.evaluationService = evaluationService;
-	}
+	private EvaluationService evaluationService;
+	@Autowired	
+	private RevProQuizIntegrationService revProQuizIntegrationService;
+	
+	private static final String FINDING_WEEK = "Finding week ";
 
 	/*
 	 *******************************************************
@@ -78,6 +84,34 @@ public class EvaluationController {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
+	/**
+	 * Import Grades from JSON
+	 *
+	 * @param grade
+	 * @return
+	 * @throws IOException 
+	 */
+	@RequestMapping(value = "/trainer/grade/import", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER')")
+	public ResponseEntity<Void> importGrade(@Valid @RequestBody String json, @RequestParam int week, @RequestParam int batchId) {
+		log.debug("Importing grade from json " + json);
+		revProQuizIntegrationService.importGrades(json, week, batchId);
+		return new ResponseEntity<>(HttpStatus.CREATED);
+	}
+	
+	/**
+	 * Returns an error message if the RevPro JSON is invalid in some way.
+	 * 
+	 * @param e
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 */
+	@ExceptionHandler(RevProIntegrationException.class)
+	public String handleCommunicationException(RevProIntegrationException e, HttpServletResponse response) throws IOException{
+	    response.setStatus(400);
+	    return "{ \"message\" : \"" + e.getMessage() + "\" }";    
+	}
 
 	/**
 	 * Returns grades for all trainees in the batch on a given week. Used to load

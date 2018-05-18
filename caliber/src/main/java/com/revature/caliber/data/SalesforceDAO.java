@@ -20,6 +20,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
+import com.revature.caliber.beans.TrainingStatus;
 import com.revature.caliber.exceptions.ServiceNotAvailableException;
 import com.revature.caliber.salesforce.SalesforceTransformerToCaliber;
 import com.revature.caliber.security.models.SalesforceUser;
@@ -157,9 +158,12 @@ public class SalesforceDAO {
 					.readValue(getFromSalesforce(query).getEntity().getContent(), SalesforceTraineeResponse.class);
 			log.debug(response);
 			for (SalesforceTrainee trainee : response.getRecords()) {
-				trainees.add(transformer.transformTrainee(trainee));
+				// only add trainees that have actually started training
+				Trainee thisGuy = transformer.transformTrainee(trainee);
+				if(!thisGuy.getTrainingStatus().equals(TrainingStatus.Dropped)) {
+					trainees.add(thisGuy);
+				}
 			}
-
 		} catch (IOException e) {
 			log.error("Cannot get batch details from Salesforce: cause " + e);
 			// log the Salesforce error JSON

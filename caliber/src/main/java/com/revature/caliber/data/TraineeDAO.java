@@ -163,6 +163,13 @@ public class TraineeDAO {
 				.add(Restrictions.ne(TRAINING_STATUS, TrainingStatus.Dropped)).list();
 	}
 
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public Trainee findByResourceId(String resourceId) {
+		log.debug(FETCH_TRAINEE + resourceId);
+		return (Trainee) sessionFactory.getCurrentSession().createCriteria(Trainee.class)
+				.add(Restrictions.like("resourceId", "%" + resourceId + "%")).uniqueResult();
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Trainee> findBySkypeId(String skypeId) {
