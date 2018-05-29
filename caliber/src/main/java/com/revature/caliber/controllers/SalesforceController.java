@@ -36,7 +36,7 @@ public class SalesforceController {
    
 	 * @return
 	 */
-	@RequestMapping(value="/salesforce/token", method=RequestMethod.GET)
+	//@RequestMapping(value="/salesforce/token", method=RequestMethod.GET)
 	public String getSalesforceToken() {
 		log.debug("Getting access_token for testing purposes only!");
 		return ((SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
@@ -49,7 +49,7 @@ public class SalesforceController {
 	 * @return Batches in JSON
 	 */
 	@RequestMapping(value = "/all/batch/import", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING', 'PANEL')")
+	@PreAuthorize("hasAnyRole('VP')")
 	public Iterable<Batch> getAllReleventBatches() {
 		return salesforceService.getAllRelevantBatches();
 	}
@@ -60,7 +60,7 @@ public class SalesforceController {
 	 * @return Batches in JSON
 	 */
 	@RequestMapping(value = "/all/trainee/import", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING', 'PANEL')")
+	@PreAuthorize("hasAnyRole('VP')")
 	public Iterable<Trainee> getAllTraineesFromBatch(@RequestParam String resourceId) {
 		return salesforceService.getAllTraineesFromBatch(resourceId);
 	}
