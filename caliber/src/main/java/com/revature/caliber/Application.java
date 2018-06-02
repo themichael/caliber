@@ -1,4 +1,4 @@
-package com.revature;
+package com.revature.caliber;
 
 import javax.persistence.EntityManagerFactory;
 
