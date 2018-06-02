@@ -1,5 +1,5 @@
 server:
-  port: 8082
+  port: 8088
 
 spring:
   h2:
@@ -17,6 +17,7 @@ spring:
     database-platform: org.hibernate.dialect.Oracle10gDialect
     properties:
       hibernate:
+        current_session_context_class: org.springframework.orm.hibernate4.SpringSessionContext
         show-sql: false
         format-sql: false
         cache:
