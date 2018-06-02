@@ -22,6 +22,7 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
@@ -110,6 +111,9 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 		} catch (AuthenticationCredentialsNotFoundException e) {
 			log.error("error thrown:", e);
 			return new ModelAndView("redirect:/");
+		} catch (JSONException e) {
+			log.error("error thrown:", e);
+			return new ModelAndView("redirect:/");
 		}
 
 		log.debug("Forwarding to : " + redirectUrl);
@@ -125,6 +129,8 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 		try {
 			tryAuthorize(servletRequest, servletResponse, salesTokenString);
 		} catch (AuthenticationCredentialsNotFoundException e) {
+			log.error("error thrown:", e);
+		} catch (JSONException e) {
 			log.error("error thrown:", e);
 		}
 	}
@@ -221,7 +227,7 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 		return jsonString;
 	}
 	
-	private void tryAuthorize(HttpServletRequest servletRequest, HttpServletResponse servletResponse, String salesTokenString) throws URISyntaxException, IOException {
+	private void tryAuthorize(HttpServletRequest servletRequest, HttpServletResponse servletResponse, String salesTokenString) throws URISyntaxException, IOException, JSONException {
 		SalesforceUser salesforceUser;
 		
 		if (debug) {
@@ -252,9 +258,10 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 	 * @param salesforceUser
 	 * @param servletResponse
 	 * @throws IOException
+	 * @throws JSONException 
 	 */
 	private void authorize(String jsonString, SalesforceUser salesforceUser, HttpServletResponse servletResponse)
-			throws IOException {
+			throws IOException, JSONException {
 		JSONObject jsonObject = new JSONObject(jsonString);
 		if (jsonObject.getString("email").equals(salesforceUser.getEmail())) {
 			log.debug("Logged in user " + jsonObject.getString("email") + " now hasRole: "
