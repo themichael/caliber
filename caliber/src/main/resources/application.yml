@@ -1,0 +1,27 @@
+spring:
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  application:
+    name: caliber
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: ${CALIBER_DB_URL}
+    username: ${CALIBER_DB_USER}
+    password: ${CALIBER_DB_PASS}
+  jpa:
+    database-platform: org.hibernate.dialect.Oracle10gDialect
+    properties:
+      hibernate:
+        show-sql: false
+        format-sql: false
+        cache:
+          use-query-cache: true
+          use-second-level-cache: true
+          region:
+            factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
+          ehcache:
+            configurationResourceName: /ehcache.xml
+          
+  
