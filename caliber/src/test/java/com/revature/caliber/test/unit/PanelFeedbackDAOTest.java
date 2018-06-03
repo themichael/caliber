@@ -18,7 +18,7 @@ import com.revature.caliber.data.CategoryDAO;
 import com.revature.caliber.data.PanelDAO;
 import com.revature.caliber.data.PanelFeedbackDAO;
 import com.revature.caliber.data.TraineeDAO;
-import com.revature.caliber.data.TrainerDAO;
+import com.revature.caliber.data.TrainerRepository;
 
 /**
  * @author Connor Monson
@@ -36,7 +36,9 @@ public class PanelFeedbackDAOTest extends CaliberTest {
 	private CategoryDAO categoryDAO;
 	private PanelDAO panelDAO;
 	private TraineeDAO traineeDAO;
-	private TrainerDAO trainerDAO;
+	
+	@Autowired
+	private TrainerRepository trainerRepository;
 
 	@Autowired
 	public void setDao(PanelFeedbackDAO dao) {
@@ -58,11 +60,6 @@ public class PanelFeedbackDAOTest extends CaliberTest {
 		this.traineeDAO = dao;
 	}
 
-	@Autowired
-	public void setTrainerDao(TrainerDAO dao) {
-		this.trainerDAO = dao;
-	}
-
 	/**
 	 * Tests the save method in AddressDAO. Creates a new address and checks if
 	 * the address appears, and then checks to make sure the size has increased.
@@ -77,7 +74,7 @@ public class PanelFeedbackDAOTest extends CaliberTest {
 		panel.setPanelRound(1);
 		panel.setStatus(PanelStatus.Pass);
 		panel.setTrainee(traineeDAO.findOne(1));
-		panel.setPanelist(trainerDAO.findOne(1));
+		panel.setPanelist(trainerRepository.findOne(1));
 		Category category = categoryDAO.findOne(2);
 
 		panelFeedback.setComment("test");

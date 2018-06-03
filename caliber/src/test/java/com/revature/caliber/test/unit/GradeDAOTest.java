@@ -28,7 +28,7 @@ import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.CategoryDAO;
 import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.TraineeDAO;
-import com.revature.caliber.data.TrainerDAO;
+import com.revature.caliber.data.TrainerRepository;
 
 @Transactional
 public class GradeDAOTest extends CaliberTest {
@@ -55,7 +55,7 @@ public class GradeDAOTest extends CaliberTest {
 	@Autowired
 	private AssessmentDAO assessmentDAO;
 	@Autowired
-	private TrainerDAO trainerDAO;
+	private TrainerRepository trainerRepository;
 	
 	/**
 	 * Test methods:
@@ -263,7 +263,7 @@ public class GradeDAOTest extends CaliberTest {
 		log.trace("GETTING GRADES FOR TRAINER");
 		
 		//get trainer
-		Trainer trainer = trainerDAO.findOne(TEST_TRAINER_ID);
+		Trainer trainer = trainerRepository.findOne(TEST_TRAINER_ID);
 		//get grades for trainer
 		List<Grade> grades = gradeDAO.findByTrainer(trainer.getTrainerId());
 		

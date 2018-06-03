@@ -31,7 +31,7 @@ import com.revature.caliber.data.CategoryDAO;
 import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.NoteDAO;
 import com.revature.caliber.data.TraineeDAO;
-import com.revature.caliber.data.TrainerDAO;
+import com.revature.caliber.data.TrainerRepository;
 
 import io.restassured.http.ContentType;
 
@@ -44,7 +44,7 @@ public class EvaluationAPITest extends AbstractAPITest {
 	@Autowired
 	BatchDAO batchDAO;
 	@Autowired
-	TrainerDAO trainerDAO;
+	TrainerRepository trainerRepository;
 	@Autowired
 	CategoryDAO categoryDAO;
 	@Autowired

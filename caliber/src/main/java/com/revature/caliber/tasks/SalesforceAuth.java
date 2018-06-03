@@ -23,7 +23,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Trainer;
-import com.revature.caliber.data.TrainerDAO;
+import com.revature.caliber.data.TrainerRepository;
 import com.revature.caliber.security.models.SalesforceToken;
 import com.revature.caliber.security.models.SalesforceUser;
 
@@ -31,7 +31,7 @@ import com.revature.caliber.security.models.SalesforceUser;
 public class SalesforceAuth {
 	
 	@Autowired
-	TrainerDAO trainerDao;
+	TrainerRepository trainerRepository;
 	
 	protected static SalesforceToken accessTokenJson = new SalesforceToken();
 	protected static final String AUTH = "Authorization";
@@ -60,7 +60,7 @@ public class SalesforceAuth {
 			login();
 			SalesforceUser salesforceUser = new SalesforceUser();
 			salesforceUser.setUserId(username);
-			Trainer trainer = trainerDao.findByEmail("patrick.walsh@revature.com");
+			Trainer trainer = trainerRepository.findByEmail("patrick.walsh@revature.com");
 			salesforceUser.setCaliberUser(trainer);
 			salesforceUser.setRole(trainer.getTier().name());
 			log.debug("SalesforceUser role: "+salesforceUser.getRole());

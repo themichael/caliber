@@ -12,7 +12,7 @@ import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.SalesforceDAO;
 import com.revature.caliber.data.TraineeDAO;
-import com.revature.caliber.data.TrainerDAO;
+import com.revature.caliber.data.TrainerRepository;
 import com.revature.caliber.services.SalesforceService;
 
 @Component
@@ -29,7 +29,7 @@ public class BatchUpdate {
 	@Autowired
 	private TraineeDAO traineeDao;
 	@Autowired
-	private TrainerDAO trainerDao;
+	private TrainerRepository trainerRepository;
 
 	/**
 	 * Used cron to perform midnight execution To update batches
@@ -125,15 +125,15 @@ public class BatchUpdate {
 	private void updateBatch(Batch caliberBatch, Batch salesforceBatch) {
 		try {
 			if (salesforceBatch.getTrainer() != null) {
-				caliberBatch.setTrainer(trainerDao.findByEmail(salesforceBatch.getTrainer().getEmail()));
+				caliberBatch.setTrainer(trainerRepository.findByEmail(salesforceBatch.getTrainer().getEmail()));
 			} else {
 				log.info("Trainer is null for " + salesforceBatch.getTrainingName());
-				caliberBatch.setTrainer(trainerDao.findByEmail(SalesforceService.DEFAULT_TRAINER));
+				caliberBatch.setTrainer(trainerRepository.findByEmail(SalesforceService.DEFAULT_TRAINER));
 				log.info("Trainer is now " + SalesforceService.DEFAULT_TRAINER + " for "
 						+ caliberBatch.getTrainingName());
 			}
 			if (salesforceBatch.getCoTrainer() != null) {
-				caliberBatch.setCoTrainer(trainerDao.findByEmail(salesforceBatch.getCoTrainer().getEmail()));
+				caliberBatch.setCoTrainer(trainerRepository.findByEmail(salesforceBatch.getCoTrainer().getEmail()));
 				log.info("Cotrainer for " + salesforceBatch.getTrainingName() + " is: " + caliberBatch.getCoTrainer());
 			}
 			caliberBatch.setEndDate(salesforceBatch.getEndDate());

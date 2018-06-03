@@ -23,7 +23,7 @@ import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.TaskCompletionDAO;
 import com.revature.caliber.data.TaskDAO;
 import com.revature.caliber.data.TraineeDAO;
-import com.revature.caliber.data.TrainerDAO;
+import com.revature.caliber.data.TrainerRepository;
 
 /**
  * Provides logic concerning trainer and trainee data. Application logic has no
@@ -37,17 +37,15 @@ import com.revature.caliber.data.TrainerDAO;
 public class TrainingService {
 
 	private static final Logger log = Logger.getLogger(TrainingService.class);
-	private TrainerDAO trainerDAO;
+	
+	@Autowired
+	private TrainerRepository trainerRepository;
+	
 	private TraineeDAO traineeDAO;
 	private BatchDAO batchDAO;
 	private AddressDAO addressDAO;
 	private TaskDAO taskDAO;
 	private TaskCompletionDAO taskCompletionDAO;
-
-	@Autowired
-	public void setTrainerDAO(TrainerDAO trainerDAO) {
-		this.trainerDAO = trainerDAO;
-	}
 
 	@Autowired
 	public void setTraineeDAO(TraineeDAO traineeDAO) {
@@ -121,10 +119,9 @@ public class TrainingService {
 	 *
 	 * @param trainer
 	 */
-	public void createTrainer(Trainer trainer) {
+	public Trainer createTrainer(Trainer trainer) {
 		log.debug("Creating Trainer " + trainer);
-		trainerDAO.save(trainer);
-		;
+		return trainerRepository.save(trainer);
 	}
 
 	/**
@@ -135,19 +132,19 @@ public class TrainingService {
 	 */
 	public Trainer findTrainer(String email) {
 		log.debug("Find trainer by email " + email);
-		return trainerDAO.findByEmail(email);
+		return trainerRepository.findByEmail(email);
 	}
 	
 	
 
 	/**
-	 * FIND ALL TRAINERS
+	 * FIND ALL TRAINERS (not inactive trainers)
 	 *
 	 * @return
 	 */
 	public List<Trainer> findAllTrainers() {
 		log.debug("Finding all trainers");
-		return trainerDAO.findAll();
+		return trainerRepository.findAllByTierNot(TrainerRole.ROLE_INACTIVE);
 	}
 
 	/**
@@ -155,9 +152,9 @@ public class TrainingService {
 	 *
 	 * @param trainer
 	 */
-	public void update(Trainer trainer) {
+	public Trainer update(Trainer trainer) {
 		log.debug("Update trainer: " + trainer);
-		trainerDAO.update(trainer);
+		return trainerRepository.save(trainer);
 	}
 
 	/**
@@ -168,7 +165,7 @@ public class TrainingService {
 	 */
 	public Trainer findTrainer(Integer trainerId) {
 		log.debug("Find trainer by id: " + trainerId);
-		return trainerDAO.findOne(trainerId);
+		return trainerRepository.findOne(trainerId);
 	}
 
 	/**
@@ -180,7 +177,7 @@ public class TrainingService {
 	public void makeInactive(Trainer trainer) {
 		log.debug(trainer + " is now inactive");
 		trainer.setTier(TrainerRole.ROLE_INACTIVE);
-		trainerDAO.update(trainer);
+		trainerRepository.save(trainer);
 	}
 
 	/**
@@ -188,7 +185,7 @@ public class TrainingService {
 	 **/
 	public List<String> findAllTrainerTitles() {
 		log.debug("Found all trainer titles");
-		return trainerDAO.findAllTrainerTitles();
+		return trainerRepository.findAllTrainerTitles();
 	}
 
 	/*

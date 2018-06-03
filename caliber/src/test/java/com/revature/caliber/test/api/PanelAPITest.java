@@ -11,7 +11,6 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
 
 import com.revature.caliber.beans.InterviewFormat;
 import com.revature.caliber.beans.Panel;
@@ -20,9 +19,8 @@ import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.PanelDAO;
 import com.revature.caliber.data.TraineeDAO;
-import com.revature.caliber.data.TrainerDAO;
+import com.revature.caliber.data.TrainerRepository;
 import com.revature.caliber.services.PanelService;
-import com.revature.caliber.validator.ValidPanel;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -57,7 +55,7 @@ public class PanelAPITest extends AbstractAPITest {
 	@Autowired
 	private TraineeDAO traineeDAO;
 	@Autowired
-	private TrainerDAO trainerDAO;
+	private TrainerRepository trainerRepository;
 	@Autowired
 	private PanelService panelService;
 	
@@ -78,7 +76,7 @@ public class PanelAPITest extends AbstractAPITest {
 		panel.setPanelRound(1);
 		panel.setStatus(PanelStatus.Pass);
 		panel.setTrainee(traineeDAO.findOne(1));
-		panel.setPanelist(trainerDAO.findOne(1));
+		panel.setPanelist(trainerRepository.findOne(1));
 	
 		
 		given().

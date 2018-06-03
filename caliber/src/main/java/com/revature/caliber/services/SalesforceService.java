@@ -13,7 +13,7 @@ import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.SalesforceDAO;
-import com.revature.caliber.data.TrainerDAO;
+import com.revature.caliber.data.TrainerRepository;
 
 @Service
 public class SalesforceService {
@@ -26,14 +26,10 @@ public class SalesforceService {
 	@Autowired
 	private BatchDAO batchDAO;
 	@Autowired
-	private TrainerDAO trainerDAO;
+	private TrainerRepository trainerRepository;
 
 	public void setBatchDAO(BatchDAO batchDAO) {
 		this.batchDAO = batchDAO;
-	}
-
-	public void setTrainerDAO(TrainerDAO trainerDAO) {
-		this.trainerDAO = trainerDAO;
 	}
 
 	public void setSalesforceDAO(SalesforceDAO salesforceDAO) {
@@ -55,7 +51,7 @@ public class SalesforceService {
 		for (Batch batch : allSalesForceBatches) {
 			// null Salesforce trainer problem..
 			if (batch.getTrainer() == null) {
-				batch.setTrainer(trainerDAO.findOne(trainerMap.get(DEFAULT_TRAINER).getTrainerId()));
+				batch.setTrainer(trainerRepository.findOne(trainerMap.get(DEFAULT_TRAINER).getTrainerId()));
 			} else {
 				batch.setTrainer(trainerMap.get(batch.getTrainer().getEmail()));
 			}
@@ -87,7 +83,7 @@ public class SalesforceService {
 	}
 
 	private Map<String, Trainer> loadTrainers() {
-		List<Trainer> trainers = trainerDAO.findAll();
+		List<Trainer> trainers = trainerRepository.findAll();
 		Map<String, Trainer> trainerMap = new HashMap<>();
 		for (Trainer t : trainers) {
 			trainerMap.putIfAbsent(t.getEmail(), t);
