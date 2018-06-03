@@ -8,20 +8,22 @@ import static org.junit.Assert.assertNull;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
+import com.revature.caliber.Application;
 import com.revature.caliber.CaliberTest;
 import com.revature.caliber.beans.Address;
-import com.revature.caliber.data.AddressDAO;
+import com.revature.caliber.data.AddressRepository;
 
-
+@SpringBootTest(classes= Application.class)
 public class AddressDAOTest extends CaliberTest{
 
 	private static final Logger log = Logger.getLogger(AddressDAOTest.class);
 	private static final String ADDRESS_COUNT = "select count(address_id) from caliber_address";
 
-	private AddressDAO dao;
+	private AddressRepository dao;
 	@Autowired
-	public void setDao(AddressDAO dao) {
+	public void setDao(AddressRepository dao) {
 		this.dao = dao;
 	}
 
@@ -34,7 +36,7 @@ public class AddressDAOTest extends CaliberTest{
 		dao.save(address);
 		int after = jdbcTemplate.queryForObject(ADDRESS_COUNT, Integer.class);
 		int addressId = address.getAddressId();
-		assertEquals(address, dao.getAddressById(addressId));
+		assertEquals(address, dao.findOne(addressId));
 		assertEquals(++before, after);
 	}
 	//Tests the gettAll method in AddressDAO and returns a String version of it. Asserts that is is not empty, the size is correct, and the findAll string version is equal to getAll.
@@ -42,9 +44,8 @@ public class AddressDAOTest extends CaliberTest{
 	public void getAllAddressDAO(){
 		log.debug("Getting all addresses using AddressDAO getAll function");
 		int num = jdbcTemplate.queryForObject(ADDRESS_COUNT, Integer.class);
-		assertNotNull(dao.getAll());
-		assertEquals(dao.getAll().size(), num);
-		assertEquals(dao.getAll().toString(), dao.findAll().toString());
+		assertNotNull(dao.findAll());
+		assertEquals(dao.findAll().size(), num);
 	}
 
 	//Tests the findAll method in AddressDAO and returns a list. Asserts the findAll is not empty and that it is the correct size.
@@ -56,20 +57,11 @@ public class AddressDAOTest extends CaliberTest{
 		assertEquals(dao.findAll().size(),size);
 	}
 
-	//Takes the getAddressById and finds the address from the database. Asserts the address obtained equals the address.
-	@Test
-	public void getAddressByIdDAO(){
-		log.debug("Finding Location by address");
-		int search = 1;
-		Address address = dao.getAddressById(search);
-		assertEquals(dao.getAddressById(1).toString(),address.toString());
-	}
-
 	//Tests to make sure an address not in the database returns null. 
 	@Test
 	public void nullGetAddressByInt(){
 		log.debug("About to fail gettingAddressByInt");
-		Address address = dao.getAddressById(9999999);
+		Address address = dao.findOne(9999999);
 		assertNull(address);
 	}
 
@@ -78,9 +70,9 @@ public class AddressDAOTest extends CaliberTest{
 	public void updateAddressDAO(){
 		log.debug("UpdateAddessDAO Test");
 		String zipcode = "11111";
-		Address address = dao.getAddressById(2);
+		Address address = dao.findOne(2);
 		address.setZipcode(zipcode);
-		dao.update(address);
-		assertEquals(zipcode, dao.getAddressById(2).getZipcode());
+		dao.save(address);
+		assertEquals(zipcode, dao.findOne(2).getZipcode());
 	}
 }

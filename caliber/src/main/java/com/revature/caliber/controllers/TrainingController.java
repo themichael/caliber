@@ -36,6 +36,7 @@ import com.revature.caliber.services.TrainingService;
  * Services requests for Trainer, Trainee, and Batch information
  *
  * @author Patrick Walsh
+ * @author Emily Higgins
  *
  */
 @RestController
@@ -353,7 +354,7 @@ public class TrainingController {
 	@PreAuthorize("hasAnyRole('VP', 'STAGING', 'QC', 'TRAINER', 'PANEL')")
 	public ResponseEntity<List<Address>> findCommonLocations() {
 		log.debug("Fetching common training locations");
-		return new ResponseEntity<>(trainingService.findCommonLocations(), HttpStatus.OK);
+		return new ResponseEntity<>(trainingService.findAllLocations(), HttpStatus.OK);
 	}
 
 	/*get
