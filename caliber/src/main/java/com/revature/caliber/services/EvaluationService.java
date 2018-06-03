@@ -19,11 +19,11 @@ import com.revature.caliber.beans.Note;
 import com.revature.caliber.beans.NoteType;
 import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.beans.Trainee;
-import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.beans.TraineeFlag;
+import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.NoteDAO;
-import com.revature.caliber.data.TraineeDAO;
+import com.revature.caliber.data.TraineeRepository;
 
 /**
  * Used to add grades for assessments and input notes Application logic has no
@@ -39,7 +39,10 @@ public class EvaluationService {
 	private static final Logger log = Logger.getLogger(EvaluationService.class);
 	private GradeDAO gradeDAO;
 	private NoteDAO noteDAO;
-	private TraineeDAO traineeDAO;
+	
+	@Autowired
+	private TraineeRepository traineeRepository;
+	
 	private static final String FINDING_WEEK = "Finding week ";
 	private static final String WEEK_STATIC_FACTOR = "0";
 
@@ -51,11 +54,6 @@ public class EvaluationService {
 	@Autowired
 	public void setNoteDAO(NoteDAO noteDAO) {
 		this.noteDAO = noteDAO;
-	}
-
-	@Autowired
-	public void setTraineeDAO(TraineeDAO traineeDAO) {
-		this.traineeDAO = traineeDAO;
 	}
 
 	/*
@@ -172,7 +170,7 @@ public class EvaluationService {
 								|| notes.get(note.getWeek() - 2).getQcStatus().equals(QCStatus.Average)) ? true : false;
 				if (flagged) {
 					// save the flag status in database
-					Trainee trainee = traineeDAO.findOne(note.getTrainee().getTraineeId());
+					Trainee trainee = traineeRepository.findOne(note.getTrainee().getTraineeId());
 					trainee.setFlagStatus(TraineeFlag.RED);
 					// concat a generated flag message at the end of the current trainee notes
 					if (trainee.getFlagNotes() != null
@@ -181,12 +179,12 @@ public class EvaluationService {
 					else
 						trainee.setFlagNotes("Trainee was automatically flagged by Caliber. ");
 
-					traineeDAO.update(trainee);
+					traineeRepository.save(trainee);
 				} else {
 					// remove the flag status in database
-					Trainee trainee = traineeDAO.findOne(note.getTrainee().getTraineeId());
+					Trainee trainee = traineeRepository.findOne(note.getTrainee().getTraineeId());
 					trainee.setFlagStatus(TraineeFlag.NONE);
-					traineeDAO.update(trainee);
+					traineeRepository.save(trainee);
 				}
 			} catch (Exception e) {
 				log.debug("Failed to autoflag associate with note: " + note);

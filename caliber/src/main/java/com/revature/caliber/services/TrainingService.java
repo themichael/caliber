@@ -18,11 +18,12 @@ import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.beans.TrainerTask;
 import com.revature.caliber.beans.TrainerTaskCompletion;
+import com.revature.caliber.beans.TrainingStatus;
 import com.revature.caliber.data.AddressDAO;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.TaskCompletionDAO;
 import com.revature.caliber.data.TaskDAO;
-import com.revature.caliber.data.TraineeDAO;
+import com.revature.caliber.data.TraineeRepository;
 import com.revature.caliber.data.TrainerRepository;
 
 /**
@@ -41,16 +42,13 @@ public class TrainingService {
 	@Autowired
 	private TrainerRepository trainerRepository;
 	
-	private TraineeDAO traineeDAO;
+	@Autowired
+	private TraineeRepository traineeRepository;
+	
 	private BatchDAO batchDAO;
 	private AddressDAO addressDAO;
 	private TaskDAO taskDAO;
 	private TaskCompletionDAO taskCompletionDAO;
-
-	@Autowired
-	public void setTraineeDAO(TraineeDAO traineeDAO) {
-		this.traineeDAO = traineeDAO;
-	}
 
 	@Autowired
 	public void setBatchDAO(BatchDAO batchDAO) {
@@ -318,7 +316,7 @@ public class TrainingService {
 	 */
 	public void save(Trainee trainee) {
 		log.debug("Save trainee: " + trainee);
-		traineeDAO.save(trainee);
+		traineeRepository.save(trainee);
 	}
 
 	/**
@@ -328,7 +326,7 @@ public class TrainingService {
 	 */
 	public List<Trainee> findAllTrainees() {
 		log.debug("Find all trainees");
-		return traineeDAO.findAll();
+		return traineeRepository.findAll();
 	}
 
 	/**
@@ -339,7 +337,7 @@ public class TrainingService {
 	 */
 	public List<Trainee> findAllTraineesByBatch(Integer batchId) {
 		log.debug("Find trainees by batch");
-		return traineeDAO.findAllByBatch(batchId);
+		return traineeRepository.findByBatchBatchIdAndTrainingStatusNot(batchId, TrainingStatus.Dropped);
 	}
 
 	/**
@@ -350,18 +348,7 @@ public class TrainingService {
 	 */
 	public List<Trainee> findAllDroppedTraineesByBatch(Integer batchId) {
 		log.debug("Find dropped trainees by batch");
-		return traineeDAO.findAllDroppedByBatch(batchId);
-	}
-
-	/**
-	 * FIND ALL TRAINEES BY TRAINER ID
-	 *
-	 * @param trainerId
-	 * @return
-	 */
-	public List<Trainee> findAllTraineesByTrainer(int trainerId) {
-		log.debug("Find trainees by trainer id: " + trainerId);
-		return traineeDAO.findAllByTrainer(trainerId);
+		return traineeRepository.findByBatchBatchIdAndTrainingStatus(batchId, TrainingStatus.Dropped);
 	}
 
 	/**
@@ -372,7 +359,7 @@ public class TrainingService {
 	 */
 	public Trainee findTrainee(Integer traineeId) {
 		log.debug("Find trainee by id: " + traineeId);
-		return traineeDAO.findOne(traineeId);
+		return traineeRepository.findOneByTraineeIdAndTrainingStatusNot(traineeId, TrainingStatus.Dropped);
 	}
 
 	/**
@@ -384,11 +371,11 @@ public class TrainingService {
 	public Set<Trainee> search(String searchTerm) {
 		log.debug("Find trainee : " + searchTerm);
 		Set<Trainee> result = new HashSet<>();
-		List<Trainee> traineeByEmail = traineeDAO.findByEmail(searchTerm);
+		List<Trainee> traineeByEmail = traineeRepository.findByEmailContaining(searchTerm);
 		result.addAll(traineeByEmail);
-		List<Trainee> traineeByName = traineeDAO.findByName(searchTerm);
+		List<Trainee> traineeByName = traineeRepository.findByNameContaining(searchTerm);
 		result.addAll(traineeByName);
-		List<Trainee> traineeBySkypeId = traineeDAO.findBySkypeId(searchTerm);
+		List<Trainee> traineeBySkypeId = traineeRepository.findBySkypeIdContaining(searchTerm);
 		result.addAll(traineeBySkypeId);
 		return result;
 	}
@@ -399,9 +386,9 @@ public class TrainingService {
 	 *
 	 * @param trainee
 	 */
-	public void delete(Trainee trainee) {
-		log.debug("Delete trainee " + trainee);
-		traineeDAO.delete(trainee);
+	public void delete(Integer traineeId) {
+		log.debug("Delete trainee " + traineeId);
+		traineeRepository.delete(traineeId);
 	}
 
 	/**
@@ -409,9 +396,9 @@ public class TrainingService {
 	 *
 	 * @param trainee
 	 */
-	public void update(Trainee trainee) {
+	public Trainee update(Trainee trainee) {
 		log.debug("Update trainee " + trainee);
-		traineeDAO.update(trainee);
+		return traineeRepository.save(trainee);
 	}
 	
 	/*

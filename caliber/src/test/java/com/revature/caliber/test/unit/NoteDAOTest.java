@@ -1,6 +1,5 @@
 package com.revature.caliber.test.unit;
 
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
@@ -23,7 +22,7 @@ import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.NoteDAO;
-import com.revature.caliber.data.TraineeDAO;
+import com.revature.caliber.data.TraineeRepository;
 
 public class NoteDAOTest extends CaliberTest {
 
@@ -39,7 +38,7 @@ public class NoteDAOTest extends CaliberTest {
 	@Autowired
 	private BatchDAO batchDao;
 	@Autowired
-	private TraineeDAO traineeDao;
+	private TraineeRepository traineeRepository;
 	
 	/**
 	 * Test methods:
@@ -50,7 +49,7 @@ public class NoteDAOTest extends CaliberTest {
 	public void findQCIndividualNote(){
 		log.trace("GETTING individual notes by Trainee");
 		//get trainee comparison
-		Trainee trainee = traineeDao.findOne(TEST_TRAINEE_ID);
+		Trainee trainee = traineeRepository.findOne(TEST_TRAINEE_ID);
 		
 		// get notes
 		List<Note> notes = noteDao.findQCIndividualNotes(trainee.getTraineeId(), 2);
@@ -70,7 +69,7 @@ public class NoteDAOTest extends CaliberTest {
 	public void findAllQCIndividualNotes(){
 		log.trace("GETTING individual notes by Trainee");
 		//get trainee comparison
-		Trainee trainee = traineeDao.findOne(TEST_TRAINEE_ID);
+		Trainee trainee = traineeRepository.findOne(TEST_TRAINEE_ID);
 		
 		// get notes
 		List<Note> notes = noteDao.findQCIndividualNotes(trainee.getTraineeId());
@@ -109,7 +108,7 @@ public class NoteDAOTest extends CaliberTest {
 	public void findAllIndividualNotes(){
 		log.trace("GETTING individual notes by Batch");
 		//get batch 
-		Trainee trainee = traineeDao.findOne(TEST_TRAINEE_ID);
+		Trainee trainee = traineeRepository.findOne(TEST_TRAINEE_ID);
 		
 		// get individual notes
 		List<Note> notes = noteDao.findAllIndividualNotes(trainee.getTraineeId(), 2);
@@ -130,7 +129,7 @@ public class NoteDAOTest extends CaliberTest {
 	public void findAllPublicIndividualNotes(){
 		log.trace("GETTING all public individual notes by Trainee ID");
 		//get batch 
-		Trainee trainee = traineeDao.findOne(TEST_TRAINEE_ID);
+		Trainee trainee = traineeRepository.findOne(TEST_TRAINEE_ID);
 		
 		// get public individual notes
 		List<Note> notes = noteDao.findAllPublicIndividualNotes(trainee.getTraineeId());
@@ -287,7 +286,7 @@ public class NoteDAOTest extends CaliberTest {
 
 		// find batch and trainee to associate with note
 		final Batch batch = batchDao.findOne(TEST_QCBATCH_ID);
-		final Trainee trainee = traineeDao.findAll().get(0);
+		final Trainee trainee = traineeRepository.findAll().get(0);
 
 		// create a new note
 		Note note = new Note();

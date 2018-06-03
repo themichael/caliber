@@ -16,7 +16,7 @@ import com.revature.caliber.beans.InterviewFormat;
 import com.revature.caliber.beans.Panel;
 import com.revature.caliber.beans.PanelStatus;
 import com.revature.caliber.data.PanelDAO;
-import com.revature.caliber.data.TraineeDAO;
+import com.revature.caliber.data.TraineeRepository;
 import com.revature.caliber.data.TrainerRepository;
 
 /**
@@ -33,17 +33,13 @@ public class PanelDAOTest extends CaliberTest {
 	private PanelDAO panelDAO;
 
 	@Autowired
-	private TraineeDAO traineeDao;
+	private TraineeRepository traineeRepository;
 
 	@Autowired
 	private TrainerRepository trainerRepository;
 
 	public void setPanelDAO(PanelDAO panelDAO) {
 		this.panelDAO = panelDAO;
-	}
-
-	public void setTraineeDao(TraineeDAO dao) {
-		this.traineeDao = dao;
 	}
 
 	/**
@@ -252,7 +248,7 @@ public class PanelDAOTest extends CaliberTest {
 		p.setFormat(InterviewFormat.Phone);
 		p.setPanelRound(1);
 		p.setStatus(PanelStatus.Pass);
-		p.setTrainee(traineeDao.findOne(1));
+		p.setTrainee(traineeRepository.findOne(1));
 		p.setPanelist(trainerRepository.findOne(3));
 		p.setInterviewDate(new Date());
 		return p;

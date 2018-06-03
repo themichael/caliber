@@ -17,7 +17,7 @@ import com.revature.caliber.beans.PanelStatus;
 import com.revature.caliber.data.CategoryDAO;
 import com.revature.caliber.data.PanelDAO;
 import com.revature.caliber.data.PanelFeedbackDAO;
-import com.revature.caliber.data.TraineeDAO;
+import com.revature.caliber.data.TraineeRepository;
 import com.revature.caliber.data.TrainerRepository;
 
 /**
@@ -32,33 +32,17 @@ public class PanelFeedbackDAOTest extends CaliberTest {
 	private static final String PANEL_FEEDBACK_COUNT = "SELECT count(panel_feedback_id) FROM caliber_panel_feedback";
 	private static final String PANEL_FEEDBACK_COUNT_ID = PANEL_FEEDBACK_COUNT + " WHERE panel_id = ";
 
+	@Autowired
 	private PanelFeedbackDAO dao;
+	@Autowired
 	private CategoryDAO categoryDAO;
+	@Autowired
 	private PanelDAO panelDAO;
-	private TraineeDAO traineeDAO;
+	@Autowired
+	private TraineeRepository traineeRepository;
 	
 	@Autowired
 	private TrainerRepository trainerRepository;
-
-	@Autowired
-	public void setDao(PanelFeedbackDAO dao) {
-		this.dao = dao;
-	}
-
-	@Autowired
-	public void setCategoryDao(CategoryDAO dao) {
-		this.categoryDAO = dao;
-	}
-
-	@Autowired
-	public void setPanelDao(PanelDAO dao) {
-		this.panelDAO = dao;
-	}
-
-	@Autowired
-	public void setTraineeDao(TraineeDAO dao) {
-		this.traineeDAO = dao;
-	}
 
 	/**
 	 * Tests the save method in AddressDAO. Creates a new address and checks if
@@ -73,7 +57,7 @@ public class PanelFeedbackDAOTest extends CaliberTest {
 		panel.setFormat(InterviewFormat.Phone);
 		panel.setPanelRound(1);
 		panel.setStatus(PanelStatus.Pass);
-		panel.setTrainee(traineeDAO.findOne(1));
+		panel.setTrainee(traineeRepository.findOne(1));
 		panel.setPanelist(trainerRepository.findOne(1));
 		Category category = categoryDAO.findOne(2);
 

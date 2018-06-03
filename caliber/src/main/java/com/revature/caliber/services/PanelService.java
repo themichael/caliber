@@ -16,8 +16,9 @@ import com.revature.caliber.beans.Panel;
 import com.revature.caliber.beans.PanelFeedback;
 import com.revature.caliber.beans.PanelStatus;
 import com.revature.caliber.beans.Trainee;
+import com.revature.caliber.beans.TrainingStatus;
 import com.revature.caliber.data.PanelDAO;
-import com.revature.caliber.data.TraineeDAO;
+import com.revature.caliber.data.TraineeRepository;
 import com.revature.caliber.exceptions.MalformedRequestException;
 
 /**
@@ -35,16 +36,13 @@ public class PanelService {
 	private static final Logger log = Logger.getLogger(PanelService.class);
 
 	private PanelDAO panelDAO;
-	private TraineeDAO traineeDAO;
+
+	@Autowired
+	private TraineeRepository traineeRepository;
 
 	@Autowired
 	public void setPanelDAO(PanelDAO panelDAO) {
 		this.panelDAO = panelDAO;
-	}
-
-	@Autowired
-	public void setTraineeDAO(TraineeDAO traineeDAO) {
-		this.traineeDAO = traineeDAO;
 	}
 
 	/*
@@ -177,7 +175,7 @@ public class PanelService {
 	 */
 	public List<Panel> findAllRecentRepanel() {
 		log.debug("Find all trainees whose last panel had status Repanel");
-		List<Trainee> trainees = traineeDAO.findAllNotDropped();
+		List<Trainee> trainees = traineeRepository.findByTrainingStatusNot(TrainingStatus.Dropped);
 		List<Panel> result = new ArrayList<>();
 		for (Trainee t : trainees) {
 			List<Panel> panels = panelDAO.findAllByTrainee(t.getTraineeId());

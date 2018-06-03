@@ -19,7 +19,7 @@ import com.revature.caliber.data.AssessmentDAO;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.CategoryDAO;
 import com.revature.caliber.data.GradeDAO;
-import com.revature.caliber.data.TraineeDAO;
+import com.revature.caliber.data.TraineeRepository;
 import com.revature.caliber.exceptions.RevProIntegrationException;
 import com.revature.caliber.revpro.models.Quiz;
 import com.revature.caliber.revpro.models.QuizResult;
@@ -37,7 +37,7 @@ public class RevProQuizIntegrationService {
 	@Autowired
 	private BatchDAO batchDAO;
 	@Autowired
-	private TraineeDAO traineeDAO;
+	private TraineeRepository traineeRepository;
 	@Autowired
 	private CategoryDAO categoryDAO;
 
@@ -76,7 +76,7 @@ public class RevProQuizIntegrationService {
 				
 				// save each grade for the assessment
 				for(QuizResult quizResult : quiz.getGrades()) {
-					Trainee trainee = traineeDAO.findByResourceId(quizResult.getTrainee());
+					Trainee trainee = traineeRepository.findByResourceId(quizResult.getTrainee());
 					if(trainee == null) {
 						throw new RevProIntegrationException("Trainee with resourceId " + quizResult.getTrainee() + " does not exist!");
 					}

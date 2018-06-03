@@ -11,7 +11,7 @@ import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.SalesforceDAO;
-import com.revature.caliber.data.TraineeDAO;
+import com.revature.caliber.data.TraineeRepository;
 import com.revature.caliber.data.TrainerRepository;
 import com.revature.caliber.services.SalesforceService;
 
@@ -27,7 +27,7 @@ public class BatchUpdate {
 	@Autowired
 	private BatchDAO batchDao;
 	@Autowired
-	private TraineeDAO traineeDao;
+	private TraineeRepository traineeRepository;
 	@Autowired
 	private TrainerRepository trainerRepository;
 
@@ -116,7 +116,7 @@ public class BatchUpdate {
 			caliberTrainee.setProjectCompletion(salesforceTrainee.getProjectCompletion());
 			caliberTrainee.setRecruiterName(salesforceTrainee.getRecruiterName());
 			caliberTrainee.setTechScreenerName(salesforceTrainee.getTechScreenerName());
-			traineeDao.update(caliberTrainee);
+			traineeRepository.save(caliberTrainee);
 		} catch (Exception e) {
 			log.fatal(e);
 		}

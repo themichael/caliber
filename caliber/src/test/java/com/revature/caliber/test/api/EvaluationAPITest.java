@@ -30,7 +30,7 @@ import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.CategoryDAO;
 import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.NoteDAO;
-import com.revature.caliber.data.TraineeDAO;
+import com.revature.caliber.data.TraineeRepository;
 import com.revature.caliber.data.TrainerRepository;
 
 import io.restassured.http.ContentType;
@@ -40,7 +40,7 @@ public class EvaluationAPITest extends AbstractAPITest {
 	@Autowired
 	GradeDAO gradeDAO;
 	@Autowired
-	TraineeDAO traineeDAO;
+	TraineeRepository traineeRepository;
 	@Autowired
 	BatchDAO batchDAO;
 	@Autowired
@@ -79,7 +79,7 @@ public class EvaluationAPITest extends AbstractAPITest {
 
 		// make an assessment to store the grade in
 		Category category = categoryDAO.findAllActive().get(0);
-		Trainee trainee = traineeDAO.findOne(TEST_TRAINEE_ID);
+		Trainee trainee = traineeRepository.findOne(TEST_TRAINEE_ID);
 		Assessment assessment = new Assessment("Testing Test", trainee.getBatch(), 200, AssessmentType.Exam, TEST_WEEK,
 				category);
 		assessmentDAO.save(assessment);

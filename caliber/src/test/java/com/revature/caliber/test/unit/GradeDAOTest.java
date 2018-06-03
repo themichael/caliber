@@ -27,7 +27,7 @@ import com.revature.caliber.data.AssessmentDAO;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.CategoryDAO;
 import com.revature.caliber.data.GradeDAO;
-import com.revature.caliber.data.TraineeDAO;
+import com.revature.caliber.data.TraineeRepository;
 import com.revature.caliber.data.TrainerRepository;
 
 @Transactional
@@ -47,7 +47,7 @@ public class GradeDAOTest extends CaliberTest {
 	@Autowired
 	private GradeDAO gradeDAO;
 	@Autowired
-	private TraineeDAO traineeDAO;
+	private TraineeRepository traineeRepository;
 	@Autowired
 	private BatchDAO batchDAO;
 	@Autowired
@@ -68,7 +68,7 @@ public class GradeDAOTest extends CaliberTest {
 		
 		//dependencies
 		Assessment assessment = assessmentDAO.findOne(TEST_ASSESSMENT_ID);
-		Trainee trainee = traineeDAO.findOne(TEST_TRAINEE_ID);
+		Trainee trainee = traineeRepository.findOne(TEST_TRAINEE_ID);
 		
 		
 		/*
@@ -98,7 +98,7 @@ public class GradeDAOTest extends CaliberTest {
 		log.trace("CREATING INVALID GRADES");
 		
 		//dependencies
-		Trainee trainee = traineeDAO.findOne(TEST_TRAINEE_ID);
+		Trainee trainee = traineeRepository.findOne(TEST_TRAINEE_ID);
 		
 		/*
 		 * Negative tests. Test anything that isn't allowed by business rules
@@ -182,7 +182,7 @@ public class GradeDAOTest extends CaliberTest {
 		log.trace("GETTING GRADES FOR TRAINEE");
 		
 		//get trainee 
-		Trainee trainee = traineeDAO.findOne(TEST_TRAINEE_ID);
+		Trainee trainee = traineeRepository.findOne(TEST_TRAINEE_ID);
 		
 		//find all grades for that trainee
 		List<Grade> grades = gradeDAO.findByTrainee(trainee.getTraineeId());

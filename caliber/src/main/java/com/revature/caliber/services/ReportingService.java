@@ -30,12 +30,13 @@ import com.revature.caliber.beans.Panel;
 import com.revature.caliber.beans.PanelStatus;
 import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.beans.Trainee;
+import com.revature.caliber.beans.TrainingStatus;
 import com.revature.caliber.data.AssessmentDAO;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.NoteDAO;
 import com.revature.caliber.data.PanelDAO;
-import com.revature.caliber.data.TraineeDAO;
+import com.revature.caliber.data.TraineeRepository;
 
 /**
  * Exclusively used to generate data for charts
@@ -59,9 +60,11 @@ public class ReportingService {
 	private static final Logger log = Logger.getLogger(ReportingService.class);
 	private static final String ALL = "(All)";
 
+	private TraineeRepository traineeRepository;
+	
 	private GradeDAO gradeDAO;
 	private BatchDAO batchDAO;
-	private TraineeDAO traineeDAO;
+	
 	private NoteDAO noteDAO;
 	private AssessmentDAO assessmentDAO;
 	private PanelDAO panelDAO;
@@ -74,11 +77,6 @@ public class ReportingService {
 	@Autowired
 	public void setBatchDAO(BatchDAO batchDAO) {
 		this.batchDAO = batchDAO;
-	}
-
-	@Autowired
-	public void setTraineeDAO(TraineeDAO traineeDAO) {
-		this.traineeDAO = traineeDAO;
 	}
 
 	@Autowired
@@ -232,7 +230,7 @@ public class ReportingService {
 	 * @return
 	 */
 	public Map<String, Double[]> getBatchWeekAvgBarChart(int batchId, int week) {
-		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
+		List<Trainee> trainees = traineeRepository.findByBatchBatchIdAndTrainingStatusNot(batchId, TrainingStatus.Dropped);
 		Map<String, Double[]> results = new ConcurrentHashMap<>();
 		Arrays.stream(AssessmentType.values()).parallel().forEach(a -> {
 			Map<Trainee, Double[]> temp = utilAvgBatchWeek(trainees, week, a);
@@ -259,7 +257,7 @@ public class ReportingService {
 	 * @return Map<Trainee's name, Double Average Score>
 	 */
 	public Map<String, Double> getBatchWeekSortedBarChart(int batchId, int week) {
-		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
+		List<Trainee> trainees = traineeRepository.findByBatchBatchIdAndTrainingStatusNot(batchId, TrainingStatus.Dropped);
 		Map<Trainee, Double> avgBatchWeek = utilAvgBatchWeek(trainees, week);
 		Map<String, Double> result = new HashMap<>();
 		for (Entry<Trainee, Double> t : avgBatchWeek.entrySet()) {
@@ -581,7 +579,7 @@ public class ReportingService {
 	 */
 
 	public Double getAvgBatchWeekValue(Integer batchId, Integer week) {
-		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
+		List<Trainee> trainees = traineeRepository.findByBatchBatchIdAndTrainingStatusNot(batchId, TrainingStatus.Dropped);
 		return utilAvgBatchWeekValue(trainees, week);
 	}
 

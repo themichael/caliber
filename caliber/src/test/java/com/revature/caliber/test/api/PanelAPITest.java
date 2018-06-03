@@ -18,7 +18,7 @@ import com.revature.caliber.beans.PanelStatus;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.PanelDAO;
-import com.revature.caliber.data.TraineeDAO;
+import com.revature.caliber.data.TraineeRepository;
 import com.revature.caliber.data.TrainerRepository;
 import com.revature.caliber.services.PanelService;
 
@@ -53,7 +53,7 @@ public class PanelAPITest extends AbstractAPITest {
 	@Autowired
 	private BatchDAO batchDAO;
 	@Autowired
-	private TraineeDAO traineeDAO;
+	private TraineeRepository traineeRepository;
 	@Autowired
 	private TrainerRepository trainerRepository;
 	@Autowired
@@ -75,7 +75,7 @@ public class PanelAPITest extends AbstractAPITest {
 		panel.setFormat(InterviewFormat.Phone);
 		panel.setPanelRound(1);
 		panel.setStatus(PanelStatus.Pass);
-		panel.setTrainee(traineeDAO.findOne(1));
+		panel.setTrainee(traineeRepository.findOne(1));
 		panel.setPanelist(trainerRepository.findOne(1));
 	
 		
@@ -242,7 +242,7 @@ public class PanelAPITest extends AbstractAPITest {
 	public void testGetPanelsByTrainee204() {
 		log.debug("Get all trainee panels, no content...");
 		Trainee t = new Trainee("Test", null, "test@test.com", batchDAO.findAll().get(0));
-		traineeDAO.save(t);
+		traineeRepository.save(t);
 		int expected = panelDAO.findAllByTrainee(t.getTraineeId()).size();
 		log.debug(EXPECTED + expected);
 		given().
