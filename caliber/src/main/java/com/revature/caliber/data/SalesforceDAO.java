@@ -33,8 +33,6 @@ import com.revature.salesforce.beans.SalesforceTraineeResponse;
  * Interacts with Salesforce REST API and transforms data into Caliber beans
  * 
  * @author Patrick Walsh
- * @author
- * @author
  *
  */
 @Repository

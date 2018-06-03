@@ -12,6 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -268,6 +271,23 @@ public class ReportingController {
 			@PathVariable Integer batchId) {
 		log.debug("getBatchOverallRadarChart   ===>   /all/reports/batch/{batchId}/overall/radar-batch-overall");
 		return new ResponseEntity<>(reportingService.getBatchAllTraineesOverallRadarChart(batchId), HttpStatus.OK);
+	}
+	
+	/*
+	 *******************************************************
+	 * Tables
+	 *******************************************************
+	 */
+	@RequestMapping(value = "/all/reports/batch/{batchId}/panel-batch-all-trainees", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING', 'PANEL')")
+	public ResponseEntity<List<Map<String, String>>> getBatchAllTraineesPanelTable(
+			@PathVariable Integer batchId) {
+		log.debug("getBatchOverallPanelTable   ===>   /all/reports/batch/{batchId}/overall/panel-batch-overall");
+		if (reportingService.getBatchPanels(batchId).isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>(reportingService.getBatchPanels(batchId), HttpStatus.OK);
 	}
 
 	/*

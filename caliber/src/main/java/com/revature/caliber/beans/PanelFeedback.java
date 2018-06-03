@@ -1,7 +1,6 @@
 package com.revature.caliber.beans;
 
 import javax.persistence.Cacheable;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -43,7 +42,7 @@ public class PanelFeedback {
 	private long id;
 	
 	@NotNull
-	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.PERSIST)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="CATEGORY_ID", nullable=false)
 	private Category technology;
 	
@@ -61,7 +60,7 @@ public class PanelFeedback {
 	@Column(name = "PANELIST_COMMENTS")
 	private String comment;
 	
-	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="PANEL_ID", nullable=false)
 	@JsonBackReference(value = "feedback")
 	private Panel panel;

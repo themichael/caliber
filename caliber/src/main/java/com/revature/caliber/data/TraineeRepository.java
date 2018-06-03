@@ -8,6 +8,12 @@ import org.springframework.stereotype.Repository;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.TrainingStatus;
 
+/**
+ * Spring Data operations for the type {@link Trainee}
+ * 
+ * @author Patrick Walsh
+ *
+ */
 @Repository
 public interface TraineeRepository extends JpaRepository<Trainee, Integer>{
 

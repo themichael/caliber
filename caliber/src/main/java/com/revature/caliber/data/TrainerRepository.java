@@ -9,6 +9,12 @@ import org.springframework.stereotype.Repository;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
 
+/**
+ * Spring Data operations for the type {@link Trainer}
+ * 
+ * @author Patrick Walsh
+ *
+ */
 @Repository
 public interface TrainerRepository extends JpaRepository<Trainer, Integer> {
 

@@ -1,12 +1,7 @@
 package com.revature.caliber.services;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +12,8 @@ import com.revature.caliber.beans.PanelFeedback;
 import com.revature.caliber.beans.PanelStatus;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.TrainingStatus;
-import com.revature.caliber.data.PanelDAO;
+import com.revature.caliber.data.PanelFeedbackRepository;
+import com.revature.caliber.data.PanelRepository;
 import com.revature.caliber.data.TraineeRepository;
 import com.revature.caliber.exceptions.MalformedRequestException;
 
@@ -28,6 +24,7 @@ import com.revature.caliber.exceptions.MalformedRequestException;
  *
  * @author Connor Monson
  * @author Matt 'Spring Data' Prass
+ * @author Patrick Walsh
  *
  */
 @Service
@@ -35,15 +32,14 @@ public class PanelService {
 
 	private static final Logger log = Logger.getLogger(PanelService.class);
 
-	private PanelDAO panelDAO;
+	@Autowired
+	private PanelRepository panelRepository;
+	
+	@Autowired
+	private PanelFeedbackRepository panelFeedbackRepository;
 
 	@Autowired
 	private TraineeRepository traineeRepository;
-
-	@Autowired
-	public void setPanelDAO(PanelDAO panelDAO) {
-		this.panelDAO = panelDAO;
-	}
 
 	/*
 	 *******************************************************
@@ -53,7 +49,7 @@ public class PanelService {
 	 */
 	public void update(Panel panel) {
 		log.debug("Update panel: " + panel);
-		panelDAO.update(panel);
+		panelRepository.save(panel);
 	}
 
 	public void createPanel(Panel panel) throws MalformedRequestException {
@@ -67,107 +63,38 @@ public class PanelService {
 			throw new MalformedRequestException();
 		}
 		else {
-			panelDAO.save(panel);
+			panelRepository.save(panel);
+			for(PanelFeedback feedback : panel.getFeedback()) {
+				panelFeedbackRepository.save(feedback);
+			}
 		}
 	}
 
 	public void deletePanel(int panelId) {
 		log.debug("Deleting Panel " + panelId);
-		panelDAO.delete(panelId);
+		panelRepository.delete(panelId);
 	}
 
 	public List<Panel> findAllPanels() {
 		log.debug("Finding all panels");
-		return panelDAO.findAll();
+		return panelRepository.findAll();
 	}
 
 	public List<Panel> findAllRepanel() {
 		log.debug("Finding all panels");
-		return panelDAO.findAllRepanel();
+		return panelRepository.findAllByStatusOrderByInterviewDateDesc(PanelStatus.Repanel);
 	}
 
 	public Panel findById(int panelId) {
 		log.debug("Getting Panel with ID " + panelId);
-		Panel panel = panelDAO.findOne(panelId);
-		log.debug("Got " + panel);
-		return panel;
+		return panelRepository.findOne(panelId);
 	}
 
 	public List<Panel> findByTraineeId(int traineeId) {
 		log.debug("Getting Panels with trainee ID " + traineeId);
-		return panelDAO.findAllByTrainee(traineeId);
-	}
-
-	/**
-	 * Finds all (undropped) trainees for a batch with their panels and returns
-	 * a convenient List of Maps of Strings to use as a dto
-	 * 
-	 * @author emmabownes
-	 * @param batchId
-	 * @return list of Maps of strings to serve as a paneldto for batch overall
-	 */
-	public List<Map<String, String>> getBatchPanels(Integer batchId) {
-		List<Trainee> trainees = panelDAO.findAllTraineesAndPanels(batchId);
-		return utilAllTraineePanels(trainees);
-	}
-
-	// Utility methods
-	/**
-	 * Takes a List of panels for a batch and returns a Map of labels with
-	 * information needed for batch overall panel table (Trainee Name, Panel
-	 * Status, Repanel Topics)
-	 * 
-	 * @author emmabownes
-	 * @param trainees
-	 * @return
-	 */
-	private List<Map<String, String>> utilAllTraineePanels(List<Trainee> trainees) {
-		Map<String, String> panelInfo;
-		List<Map<String, String>> batchPanels = new ArrayList<>();
-		for (Trainee t : trainees) {
-			panelInfo = new HashMap<>();
-			panelInfo.put("trainee", t.getName());
-			List<Panel> panels = new ArrayList<>(t.getPanelInterviews());
-			Panel panel;
-			String status;
-			if (!panels.isEmpty()) {
-				panel = panels.get(0);
-				status = panel.getStatus().toString();
-				panelInfo.put("status", status);
-				DateFormat df = new SimpleDateFormat("MM/dd/yyyy 'at' h:mm a");
-				String[] dateTime = df.format(panel.getInterviewDate()).split("at");
-				panelInfo.put("date", dateTime[0]);
-				panelInfo.put("time", dateTime[1]);
-				if(status.equalsIgnoreCase("Repanel")) {
-					String topics = utilGetRepanelTopics(panel.getFeedback());
-					panelInfo.put("topics", topics);
-				}
-			}
-			batchPanels.add(panelInfo);
-		}
-		return batchPanels;
-	}
-
-	/**
-	 * Takes a Set of panel feedbacks and returns a string which is a list of
-	 * all categories which must be repaneled
-	 * 
-	 * @author emmabownes
-	 * @author Daniel Fairbanks
-	 * @param feedback
-	 * @return topics
-	 */
-	private String utilGetRepanelTopics(Set<PanelFeedback> feedback) {
-		String topics = "";
-		for(PanelFeedback pf: feedback) {
-			if(pf.getStatus().toString().equalsIgnoreCase("Repanel")) {
-				if (topics.equals(""))
-					topics += pf.getTechnology().getSkillCategory();
-				else
-					topics += ", " + pf.getTechnology().getSkillCategory();
-			}
-		}
-		return topics;
+		List<Panel> panels = panelRepository.findAllByTraineeTraineeId(traineeId);
+		panels.parallelStream();
+		return panels;
 	}
 
 	/**
@@ -178,7 +105,7 @@ public class PanelService {
 		List<Trainee> trainees = traineeRepository.findByTrainingStatusNot(TrainingStatus.Dropped);
 		List<Panel> result = new ArrayList<>();
 		for (Trainee t : trainees) {
-			List<Panel> panels = panelDAO.findAllByTrainee(t.getTraineeId());
+			List<Panel> panels = this.findByTraineeId(t.getTraineeId());
 			if (panels != null && !panels.isEmpty()) {
 				Panel p = mostRecentPanel(panels);
 				if (p.getStatus() == PanelStatus.Repanel) {

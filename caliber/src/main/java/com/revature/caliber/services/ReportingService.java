@@ -1,5 +1,7 @@
 package com.revature.caliber.services;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -27,6 +29,7 @@ import com.revature.caliber.beans.Category;
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Note;
 import com.revature.caliber.beans.Panel;
+import com.revature.caliber.beans.PanelFeedback;
 import com.revature.caliber.beans.PanelStatus;
 import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.beans.Trainee;
@@ -35,7 +38,7 @@ import com.revature.caliber.data.AssessmentDAO;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.NoteDAO;
-import com.revature.caliber.data.PanelDAO;
+import com.revature.caliber.data.PanelRepository;
 import com.revature.caliber.data.TraineeRepository;
 
 /**
@@ -60,15 +63,17 @@ public class ReportingService {
 	private static final Logger log = Logger.getLogger(ReportingService.class);
 	private static final String ALL = "(All)";
 
+	@Autowired // TODO convert to RestTemplate calls in microservices
 	private TraineeRepository traineeRepository;
+	@Autowired
+	private PanelRepository panelRepository;
 	
 	private GradeDAO gradeDAO;
 	private BatchDAO batchDAO;
-	
+
 	private NoteDAO noteDAO;
 	private AssessmentDAO assessmentDAO;
-	private PanelDAO panelDAO;
-
+	
 	@Autowired
 	public void setGradeDAO(GradeDAO gradeDAO) {
 		this.gradeDAO = gradeDAO;
@@ -89,9 +94,83 @@ public class ReportingService {
 		this.assessmentDAO = assessmentDAO;
 	}
 
-	@Autowired
-	public void setPanelDAO(PanelDAO panelDAO) {
-		this.panelDAO = panelDAO;
+	/*
+	 *******************************************************
+	 * Tables
+	 *******************************************************
+	 */
+
+	/**
+	 * Finds all trainees for a batch with their panels and returns a convenient
+	 * List of Maps of Strings to use as a dto
+	 * 
+	 * @author emmabownes
+	 * @param batchId
+	 * @return list of Maps of strings to serve as a paneldto for batch overall
+	 */
+	public List<Map<String, String>> getBatchPanels(Integer batchId) {
+		List<Panel> panels = panelRepository.findAllByTraineeBatchBatchIdOrderByInterviewDateDesc(batchId);
+		return utilAllTraineePanels(panels);
+	}
+
+	/**
+	 * Takes a List of panels for a batch and returns a Map of labels with
+	 * information needed for batch overall panel table (Trainee Name, Panel Status,
+	 * Repanel Topics)
+	 * 
+	 * DTO: { "trainee" "status" "date" "time" "topics" (only in repanel) }
+	 * 
+	 * @author emmabownes
+	 * @author Patrick Walsh
+	 * @param trainees
+	 * @return
+	 */
+	private List<Map<String, String>> utilAllTraineePanels(List<Panel> panels) {
+		List<Trainee> tally = new ArrayList<>();
+		Map<String, String> panelInfo;
+		List<Map<String, String>> batchPanels = new ArrayList<>();
+		for (Panel panel : panels) {
+			if (tally.contains(panel.getTrainee())) {
+				continue;
+			}
+			tally.add(panel.getTrainee());
+			panelInfo = new HashMap<>();
+			panelInfo.put("trainee", panel.getTrainee().getName());
+			String status = panel.getStatus().toString();
+			panelInfo.put("status", status);
+			DateFormat df = new SimpleDateFormat("MM/dd/yyyy 'at' h:mm a");
+			String[] dateTime = df.format(panel.getInterviewDate()).split("at");
+			panelInfo.put("date", dateTime[0]);
+			panelInfo.put("time", dateTime[1]);
+			if (status.equalsIgnoreCase("Repanel")) {
+				String topics = utilGetRepanelTopics(panel.getFeedback());
+				panelInfo.put("topics", topics);
+			}
+			batchPanels.add(panelInfo);
+		}
+		return batchPanels;
+	}
+
+	/**
+	 * Takes a Set of panel feedbacks and returns a string which is a list of all
+	 * categories which must be repaneled
+	 * 
+	 * @author emmabownes
+	 * @author Daniel Fairbanks
+	 * @param feedback
+	 * @return topics
+	 */
+	private String utilGetRepanelTopics(Set<PanelFeedback> feedback) {
+		String topics = "";
+		for (PanelFeedback pf : feedback) {
+			if (pf.getStatus().toString().equalsIgnoreCase("Repanel")) {
+				if (topics.equals(""))
+					topics += pf.getTechnology().getSkillCategory();
+				else
+					topics += ", " + pf.getTechnology().getSkillCategory();
+			}
+		}
+		return topics;
 	}
 
 	/*
@@ -230,7 +309,8 @@ public class ReportingService {
 	 * @return
 	 */
 	public Map<String, Double[]> getBatchWeekAvgBarChart(int batchId, int week) {
-		List<Trainee> trainees = traineeRepository.findByBatchBatchIdAndTrainingStatusNot(batchId, TrainingStatus.Dropped);
+		List<Trainee> trainees = traineeRepository.findByBatchBatchIdAndTrainingStatusNot(batchId,
+				TrainingStatus.Dropped);
 		Map<String, Double[]> results = new ConcurrentHashMap<>();
 		Arrays.stream(AssessmentType.values()).parallel().forEach(a -> {
 			Map<Trainee, Double[]> temp = utilAvgBatchWeek(trainees, week, a);
@@ -257,7 +337,8 @@ public class ReportingService {
 	 * @return Map<Trainee's name, Double Average Score>
 	 */
 	public Map<String, Double> getBatchWeekSortedBarChart(int batchId, int week) {
-		List<Trainee> trainees = traineeRepository.findByBatchBatchIdAndTrainingStatusNot(batchId, TrainingStatus.Dropped);
+		List<Trainee> trainees = traineeRepository.findByBatchBatchIdAndTrainingStatusNot(batchId,
+				TrainingStatus.Dropped);
 		Map<Trainee, Double> avgBatchWeek = utilAvgBatchWeek(trainees, week);
 		Map<String, Double> result = new HashMap<>();
 		for (Entry<Trainee, Double> t : avgBatchWeek.entrySet()) {
@@ -482,7 +563,7 @@ public class ReportingService {
 		}
 
 		// get all panels
-		List<Panel> panels = panelDAO.findBiWeeklyPanels();
+		List<Panel> panels = panelRepository.findBiWeeklyPanels();
 
 		// for each panel
 		panels.parallelStream().forEach(panel -> {
@@ -579,7 +660,8 @@ public class ReportingService {
 	 */
 
 	public Double getAvgBatchWeekValue(Integer batchId, Integer week) {
-		List<Trainee> trainees = traineeRepository.findByBatchBatchIdAndTrainingStatusNot(batchId, TrainingStatus.Dropped);
+		List<Trainee> trainees = traineeRepository.findByBatchBatchIdAndTrainingStatusNot(batchId,
+				TrainingStatus.Dropped);
 		return utilAvgBatchWeekValue(trainees, week);
 	}
 
