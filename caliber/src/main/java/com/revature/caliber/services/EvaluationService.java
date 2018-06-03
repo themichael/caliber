@@ -21,8 +21,9 @@ import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.TraineeFlag;
 import com.revature.caliber.beans.TrainerRole;
+import com.revature.caliber.beans.TrainingStatus;
 import com.revature.caliber.data.GradeDAO;
-import com.revature.caliber.data.NoteDAO;
+import com.revature.caliber.data.NoteRepository;
 import com.revature.caliber.data.TraineeRepository;
 
 /**
@@ -38,22 +39,19 @@ public class EvaluationService {
 
 	private static final Logger log = Logger.getLogger(EvaluationService.class);
 	private GradeDAO gradeDAO;
-	private NoteDAO noteDAO;
-	
+
+	@Autowired
+	private NoteRepository noteRepository;
+
 	@Autowired
 	private TraineeRepository traineeRepository;
-	
+
 	private static final String FINDING_WEEK = "Finding week ";
 	private static final String WEEK_STATIC_FACTOR = "0";
 
 	@Autowired
 	public void setGradeDAO(GradeDAO gradeDAO) {
 		this.gradeDAO = gradeDAO;
-	}
-
-	@Autowired
-	public void setNoteDAO(NoteDAO noteDAO) {
-		this.noteDAO = noteDAO;
 	}
 
 	/*
@@ -121,25 +119,25 @@ public class EvaluationService {
 	 */
 
 	/**
-	 * SAVE NOTE
+	 * Save a new note
 	 * 
 	 * @param note
 	 */
-	public int save(Note note) {
+	public Note save(Note note) {
 		log.debug("Saving note: " + note);
-		int key = noteDAO.save(note);
+		note = noteRepository.save(note);
 		checkIfTraineeShouldBeFlagged(note);
-		return key;
+		return note;
 	}
 
 	/**
-	 * UPDATE NOTE
+	 * Update an existing note
 	 * 
 	 * @param note
 	 */
 	public void update(Note note) {
 		log.debug("Updating note: " + note);
-		noteDAO.update(note);
+		noteRepository.save(note);
 		checkIfTraineeShouldBeFlagged(note);
 	}
 
@@ -156,7 +154,10 @@ public class EvaluationService {
 				return;
 
 			// get a list of all notes in week ASC order
-			List<Note> notes = noteDAO.findQCIndividualNotes(note.getTrainee().getTraineeId());
+			List<Note> notes = noteRepository
+					.findByTraineeTraineeIdAndTypeOrderByWeekAsc(note.getTrainee().getTraineeId(), NoteType.QC_TRAINEE)
+					.stream().filter(temp -> !temp.getTrainee().getTrainingStatus().equals(TrainingStatus.Dropped))
+					.collect(Collectors.toList());
 
 			// loop over the notes to find if they have 2 or more consecutive yellow or red
 			// QCs
@@ -194,100 +195,122 @@ public class EvaluationService {
 	}
 
 	/**
-	 * FIND WEEKLY BATCH NOTES (TRAINER/PUBLIC)
+	 * Returns all batch-level notes for a given week. Only notes written by
+	 * trainers are returned.
 	 * 
 	 * @param batch
 	 * @param week
-	 * @return
+	 * @return notes
 	 */
 	public List<Note> findBatchNotes(Integer batchId, Integer week) {
 		log.debug(FINDING_WEEK + week + " batch notes for batch: " + batchId);
-		return noteDAO.findBatchNotes(batchId, week);
+		return noteRepository.findByBatchBatchIdAndWeekAndType(batchId, week.shortValue(), NoteType.BATCH).stream()
+				.filter(notes -> !notes.getTrainee().getTrainingStatus().equals(TrainingStatus.Dropped))
+				.collect(Collectors.toList());
 	}
 
 	/**
-	 * FIND WEEKLY INDIVIDUAL NOTES (TRAINER/PUBLIC)
+	 * Returns all individual notes for a given week. Only notes written by trainers
+	 * are returned.
 	 * 
-	 * @param trainee
+	 * @param batch
 	 * @param week
-	 * @return
+	 * @return notes
 	 */
 	public List<Note> findIndividualNotes(Integer batchId, Integer week) {
 		log.debug(FINDING_WEEK + week + " individual notes for batch: " + batchId);
-		return noteDAO.findIndividualNotes(batchId, week);
+		return noteRepository.findByBatchBatchIdAndWeekAndType(batchId, week.shortValue(), NoteType.TRAINEE).stream()
+				.filter(notes -> !notes.getTrainee().getTrainingStatus().equals(TrainingStatus.Dropped))
+				.collect(Collectors.toList());
 	}
 
 	/**
-	 * FIND TRAINEE NOTE FOR THE WEEK
+	 * Returns Trainee note for the week
 	 * 
 	 * @param trainee
 	 * @param week
-	 * @return
+	 * @return note
 	 */
 	public Note findTraineeNote(Integer traineeId, Integer week) {
-		return noteDAO.findTraineeNote(traineeId, week);
+		return noteRepository.findByTraineeTraineeIdAndWeekAndType(traineeId, week.shortValue(), NoteType.TRAINEE);
 	}
 
 	/**
-	 * FIND QCTRAINEE NOTE FOR THE WEEK(Michael)
+	 * Returns QC Trainee note for the week
 	 * 
 	 * @param trainee
 	 * @param week
-	 * @return
+	 * @return note
 	 */
 	public Note findQCTraineeNote(Integer traineeId, Integer week) {
-		return noteDAO.findQCTraineeNote(traineeId, week);
+		return noteRepository.findByTraineeTraineeIdAndWeekAndType(traineeId, week.shortValue(), NoteType.QC_TRAINEE);
 	}
 
 	/**
-	 * FIND WEEKLY QC BATCH NOTES (NOT FOR TRAINERS)
+	 * Returns QC batch note for the batch for the week
 	 * 
-	 * @param batch
+	 * @param batchId
 	 * @param week
-	 * @return
+	 * @return note
 	 */
 	public Note findQCBatchNotes(Integer batchId, Integer week) {
 		log.debug(FINDING_WEEK + week + " QC batch notes for batch: " + batchId);
-		return noteDAO.findQCBatchNotes(batchId, week);
+		List<Note> notes = noteRepository.findByBatchBatchIdAndWeekAndType(batchId, week.shortValue(),
+				NoteType.QC_BATCH);
+		return notes != null ? notes.get(0) : new Note();
 	}
 
 	/**
-	 * FIND WEEKLY QC INDIVIDUAL NOTES (NOT FOR TRAINERS)
+	 * Returns all individual notes written by QC for a given week.
 	 * 
-	 * @param trainee
+	 * @param traineeId
 	 * @param week
-	 * @return
+	 * @return notes
 	 */
 	public List<Note> findQCIndividualNotes(Integer traineeId, Integer week) {
 		log.debug(FINDING_WEEK + week + " QC individual notes for trainee: " + traineeId);
-		return noteDAO.findQCIndividualNotes(traineeId, week);
+		return noteRepository.findByTraineeTraineeIdAndWeekAndTypeOrderByWeekAsc(traineeId, week.shortValue(),
+				NoteType.QC_TRAINEE);
 	}
 
 	/**
-	 * FIND ALL WEEKLY BATCH NOTES (VP ONLY)
+	 * Returns all batch-level notes for a given week written by the trainer.
 	 * 
-	 * @param batch
+	 * @param batchId
 	 * @param week
-	 * @return
+	 * @return notes
 	 */
 	public List<Note> findAllBatchNotes(Integer batchId, Integer week) {
 		log.debug(FINDING_WEEK + week + " batch notes for batch: " + batchId);
-		return noteDAO.findAllBatchNotes(batchId, week);
+		return noteRepository.findByBatchBatchIdAndWeekAndTypeOrderByWeekAsc(batchId, week.shortValue(), NoteType.BATCH)
+				.stream().filter(note -> !note.getTrainee().getTrainingStatus().equals(TrainingStatus.Dropped))
+				.collect(Collectors.toList());
 	}
 
 	/**
-	 * Find all qc trainee notes
+	 * Find all QC trainee notes for a given batch and specific week.
 	 * 
-	 * @return
+	 * @param batchId
+	 * @param week
+	 * @return notes
 	 */
 	public List<Note> findAllQCTraineeNotes(Integer batchId, Integer week) {
 		log.debug("Find All QC Trainee Notes");
-		return noteDAO.findAllQCTraineeNotes(batchId, week);
+		return noteRepository
+				.findByBatchBatchIdAndWeekAndTypeOrderByWeekAsc(batchId, week.shortValue(), NoteType.QC_TRAINEE)
+				.stream().filter(note -> !note.getTrainee().getTrainingStatus().equals(TrainingStatus.Dropped))
+				.collect(Collectors.toList());
 	}
 
+	/**
+	 * Find all trainee notes for a given trainee.
+	 * 
+	 * @param traineeId
+	 * @return
+	 */
 	public List<Note> findAllIndividualNotesOverall(Integer traineeId) {
 		log.debug("Find Overall notes for trainee " + traineeId);
-		return noteDAO.findAllPublicIndividualNotes(traineeId);
+		return noteRepository.findByTraineeTraineeIdAndTypeOrderByWeekAsc(traineeId, NoteType.TRAINEE);
 	}
 
 	/**
@@ -297,26 +320,44 @@ public class EvaluationService {
 	 */
 	public List<Note> findAllQCTraineeOverallNotes(Integer traineeId) {
 		log.debug("Find All QC Trainee Notes for that trainee");
-		return noteDAO.findAllQCTraineeOverallNotes(traineeId);
+		return noteRepository.findByTraineeTraineeIdAndTypeOrderByWeekAsc(traineeId, NoteType.QC_TRAINEE).stream()
+				.filter(note -> !note.getTrainee().getTrainingStatus().equals(TrainingStatus.Dropped))
+				.collect(Collectors.toList());
 	}
 
-	public void calculateAverage(Integer weekId, Batch batch) {
+	/**
+	 * Calculates the suggested batch overall QC note based on the average of all
+	 * the individual trainees.
+	 * 
+	 * @param week
+	 * @param batch
+	 */
+	public void calculateAverage(Integer week, Batch batch) {
 		if (batch != null) {
-			Note overallNote = noteDAO.findQCBatchNotes(batch.getBatchId(), weekId);
+			List<Note> notes = noteRepository.findByBatchBatchIdAndWeekAndType(batch.getBatchId(), week.shortValue(),
+					NoteType.QC_BATCH);
+			Note overallNote = null;
+			if (notes != null) {
+				overallNote = notes.get(0);
+			}
 			if (overallNote == null) {
-				log.debug("Creating a new overall Note for week " + weekId);
+				log.debug("Creating a new overall Note for week " + week);
 				overallNote = new Note();
 				overallNote.setBatch(batch);
-				overallNote.setWeek(weekId.shortValue());
+				overallNote.setWeek(week.shortValue());
 				overallNote.setQcStatus(QCStatus.Undefined);
 				overallNote.setType(NoteType.QC_BATCH);
 				overallNote.setMaxVisibility(TrainerRole.ROLE_PANEL);
 				overallNote.setQcFeedback(true);
-				noteDAO.save(overallNote);
+				noteRepository.save(overallNote);
 			}
 			log.debug("Calculating Average of note of week");
 			double average = 0.0f;
-			List<Note> traineeNoteList = noteDAO.findAllQCTraineeNotes(batch.getBatchId(), weekId);
+			List<Note> traineeNoteList = noteRepository
+					.findByBatchBatchIdAndWeekAndTypeOrderByWeekAsc(batch.getBatchId(), week.shortValue(),
+							NoteType.QC_TRAINEE)
+					.stream().filter(note -> !note.getTrainee().getTrainingStatus().equals(TrainingStatus.Dropped))
+					.collect(Collectors.toList());
 			int denominator = traineeNoteList.size();
 			for (Note note : traineeNoteList) {
 				switch (note.getQcStatus()) {
@@ -351,20 +392,22 @@ public class EvaluationService {
 				overallNote.setQcStatus(QCStatus.Undefined);
 			}
 			log.debug("The calculated average is: " + overallNote.getQcStatus());
-			noteDAO.update(overallNote);
+			noteRepository.save(overallNote);
 		} else {
 			log.warn("The ASSIGN_NOTE_BATCH_ID Stored Procedure hasn't been ran yet to update Note's batch id.");
 		}
 	}
 
 	/**
-	 * Find all qc trainee notes for all weeks
+	 * Find all QC trainee notes for all weeks
 	 * 
 	 * @return
 	 */
 	public List<List<Note>> findAllQCTraineeNotesForAllWeeks(Integer batchId) {
 		log.debug("Find All QC Trainee Notes");
-		List<Note> notes = noteDAO.findAllQCTraineeNotesForAllWeeks(batchId);
+		List<Note> notes = noteRepository.findByBatchBatchIdAndTypeOrderByWeekAsc(batchId, NoteType.QC_TRAINEE).stream()
+				.filter(note -> !note.getTrainee().getTrainingStatus().equals(TrainingStatus.Dropped))
+				.collect(Collectors.toList());
 		ArrayList<List<Note>> noteFormatted2d = new ArrayList<>();
 		notes = notes.stream().collect(
 				Collectors.collectingAndThen(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(note -> {
@@ -433,15 +476,14 @@ public class EvaluationService {
 	}
 
 	/**
-	 * noteDAO.findAllQCBatchNotes
+	 * Returns all QC notes for trainee in the batch for all weeks
 	 * 
-	 * @param Integer
-	 *            batchId: the id of the batch
-	 * @return A list of QC batch notes, in ascending order by week
+	 * @param batchId
+	 * @return notes
 	 */
 	public List<Note> findAllQCBatchNotes(Integer batchId) {
 		log.debug("Find All QC Batch Notes in ascending order by week");
-		return noteDAO.findAllQCBatchNotes(batchId);
+		return noteRepository.findByBatchBatchIdAndTypeOrderByWeekAsc(batchId, NoteType.QC_BATCH);
 	}
 
 }

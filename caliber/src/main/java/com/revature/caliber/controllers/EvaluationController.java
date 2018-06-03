@@ -149,7 +149,8 @@ public class EvaluationController {
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER')")
 	public ResponseEntity<Integer> createNote(@Valid @RequestBody Note note) {
 		log.debug("Creating note: " + note);
-		Integer id = evaluationService.save(note);
+		Note saved = evaluationService.save(note);
+		Integer id = saved.getNoteId();
 		calculateAverage(note);
 		return new ResponseEntity<>(id, HttpStatus.CREATED);
 	}

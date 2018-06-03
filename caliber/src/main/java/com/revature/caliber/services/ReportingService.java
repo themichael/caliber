@@ -37,7 +37,6 @@ import com.revature.caliber.beans.TrainingStatus;
 import com.revature.caliber.data.AssessmentDAO;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.GradeDAO;
-import com.revature.caliber.data.NoteDAO;
 import com.revature.caliber.data.PanelRepository;
 import com.revature.caliber.data.TraineeRepository;
 
@@ -67,11 +66,11 @@ public class ReportingService {
 	private TraineeRepository traineeRepository;
 	@Autowired
 	private PanelRepository panelRepository;
+	@Autowired
+	private EvaluationService evaluationService;
 	
 	private GradeDAO gradeDAO;
 	private BatchDAO batchDAO;
-
-	private NoteDAO noteDAO;
 	private AssessmentDAO assessmentDAO;
 	
 	@Autowired
@@ -82,11 +81,6 @@ public class ReportingService {
 	@Autowired
 	public void setBatchDAO(BatchDAO batchDAO) {
 		this.batchDAO = batchDAO;
-	}
-
-	@Autowired
-	public void setNoteDAO(NoteDAO noteDAO) {
-		this.noteDAO = noteDAO;
 	}
 
 	@Autowired
@@ -193,7 +187,7 @@ public class ReportingService {
 			if (!s.equals(QCStatus.Undefined))
 				results.put(s, 0);
 		}
-		List<Note> notes = noteDAO.findAllQCTraineeNotes(batchId, weekNumber);
+		List<Note> notes = evaluationService.findAllQCTraineeNotes(batchId, weekNumber);
 		for (Note n : notes) {
 			if (n != null && results.get(n.getQcStatus()) != null)
 				results.put(n.getQcStatus(), results.get(n.getQcStatus()) + 1);
@@ -236,7 +230,7 @@ public class ReportingService {
 				if (qcStatusMapping.values().stream().mapToInt(Number::intValue).sum() != 0) {
 					// due to Hibernate issues, overallBatchStatus in the "batch" object is with the
 					// database: here, it is retrieved manually
-					Note overallBatchNote = noteDAO.findQCBatchNotes(batch.getBatchId(), weekNum);
+					Note overallBatchNote = evaluationService.findQCBatchNotes(batch.getBatchId(), weekNum);
 					batchData.put("label", batch.getTrainer().getName() + " " + batch.getStartDate());
 					batchData.put("address", batch.getAddress());
 					batchData.put("qcStatus", qcStatusMapping); // Batch ID
@@ -297,8 +291,7 @@ public class ReportingService {
 	 */
 	public Note getBatchWeekQcOverallBarChart(Integer batchId, Integer week) {
 		log.debug("FINDING_WEEK: " + week + " QC batch notes for batch: " + batchId);
-		log.debug(noteDAO.findQCBatchNotes(batchId, week));
-		return noteDAO.findQCBatchNotes(batchId, week);
+		return evaluationService.findQCBatchNotes(batchId, week);
 	}
 
 	/**

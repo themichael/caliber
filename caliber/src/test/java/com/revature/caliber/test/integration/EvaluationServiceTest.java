@@ -16,7 +16,6 @@ import com.revature.caliber.beans.Note;
 import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.beans.TraineeFlag;
 import com.revature.caliber.data.BatchDAO;
-import com.revature.caliber.data.NoteDAO;
 import com.revature.caliber.data.TraineeRepository;
 import com.revature.caliber.services.EvaluationService;
 
@@ -32,8 +31,6 @@ public class EvaluationServiceTest extends CaliberTest {
 	@Autowired
 	BatchDAO batchDAO;
 	@Autowired
-	NoteDAO noteDAO;
-	@Autowired
 	TraineeRepository traineeRepository;
 
 	/**
@@ -42,9 +39,9 @@ public class EvaluationServiceTest extends CaliberTest {
 	 */
 	@Test
 	public void checkIfTraineeShouldBeFlagged() {
-		Note note = noteDAO.findQCTraineeNote(5530, 5);
+		Note note = evaluationService.findQCTraineeNote(5530, 5);
 		note.setQcStatus(QCStatus.Average);
-		noteDAO.update(note);
+		evaluationService.update(note);
 		evaluationService.checkIfTraineeShouldBeFlagged(note); // should be flagged
 		log.debug("Trainee flag after check: " + traineeRepository.findOne(5530).getFlagStatus());
 		assertEquals(TraineeFlag.RED, traineeRepository.findOne(5530).getFlagStatus());
@@ -113,7 +110,7 @@ public class EvaluationServiceTest extends CaliberTest {
 		int week = 2;
 
 		evaluationService.calculateAverage(week, batch);
-		Note note = noteDAO.findQCBatchNotes(batch.getBatchId(), week);
+		Note note = evaluationService.findQCBatchNotes(batch.getBatchId(), week);
 
 		assertEquals(QCStatus.Average, note.getQcStatus());
 

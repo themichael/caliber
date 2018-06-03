@@ -29,7 +29,6 @@ import com.revature.caliber.data.AssessmentDAO;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.CategoryDAO;
 import com.revature.caliber.data.GradeDAO;
-import com.revature.caliber.data.NoteDAO;
 import com.revature.caliber.data.TraineeRepository;
 import com.revature.caliber.data.TrainerRepository;
 
@@ -49,8 +48,7 @@ public class EvaluationAPITest extends AbstractAPITest {
 	CategoryDAO categoryDAO;
 	@Autowired
 	AssessmentDAO assessmentDAO;
-	@Autowired
-	NoteDAO noteDAO;
+	
 	private static final Logger log = Logger.getLogger(EvaluationAPITest.class);
 
 	private static final int TEST_TRAINEE_ID = 5537;
@@ -144,34 +142,6 @@ public class EvaluationAPITest extends AbstractAPITest {
 		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
 				.body(new ObjectMapper().writeValueAsString(expected)).when().post(baseUrl + createNote).then()
 				.assertThat().statusCode(201);
-
-		// check that new note is in database
-		assertTrue(noteDAO.findAllQCTraineeNotes(null, 2).contains(expected));
-	}
-
-	/**
-	 * Test by finding note, setting note content, and then posting new note
-	 * 
-	 * @see com.revature.caliber.controllers.EvaluationController#updateNote(@Valid @RequestBody
-	 *      Note note)
-	 * 
-	 */
-	@Test
-	@Ignore
-	public void updateNote() throws Exception {
-		log.trace("API test updateNote");
-
-		// find and change value of note to update
-		String updateNote = "note/update";
-		Note expected = noteDAO.findQCIndividualNotes(5529, 2).get(0);
-		expected.setContent("This is a test notes");
-
-		given().spec(requestSpec).header(AUTH, accessToken).contentType(ContentType.JSON)
-				.body(new ObjectMapper().writeValueAsString(expected)).when().post(baseUrl + updateNote).then()
-				.assertThat().statusCode(201);
-
-		// check that note was updated in database
-		assertTrue(noteDAO.findQCIndividualNotes(5529, 2).contains(expected));
 	}
 
 	/**
