@@ -41,6 +41,9 @@ public interface NoteRepository extends JpaRepository<Note, Integer> {
 	 * @return notes
 	 */
 	public List<Note> findByBatchBatchIdAndWeekAndType(Integer batchId, Short week, NoteType type);
+	
+	// TODO fix me
+	public Note findByBatchBatchIdAndWeekAndTypeOrderByWeekDesc(Integer batchId, Short week, NoteType type);
 
 	/**
 	 * Returns all individual notes for a given week.

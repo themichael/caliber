@@ -21,7 +21,6 @@ import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.TraineeFlag;
 import com.revature.caliber.beans.TrainerRole;
-import com.revature.caliber.beans.TrainingStatus;
 import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.NoteRepository;
 import com.revature.caliber.data.TraineeRepository;
@@ -155,9 +154,7 @@ public class EvaluationService {
 
 			// get a list of all notes in week ASC order
 			List<Note> notes = noteRepository
-					.findByTraineeTraineeIdAndTypeOrderByWeekAsc(note.getTrainee().getTraineeId(), NoteType.QC_TRAINEE)
-					.stream().filter(temp -> !temp.getTrainee().getTrainingStatus().equals(TrainingStatus.Dropped))
-					.collect(Collectors.toList());
+					.findByTraineeTraineeIdAndTypeOrderByWeekAsc(note.getTrainee().getTraineeId(), NoteType.QC_TRAINEE);
 
 			// loop over the notes to find if they have 2 or more consecutive yellow or red
 			// QCs
@@ -204,9 +201,7 @@ public class EvaluationService {
 	 */
 	public List<Note> findBatchNotes(Integer batchId, Integer week) {
 		log.debug(FINDING_WEEK + week + " batch notes for batch: " + batchId);
-		return noteRepository.findByBatchBatchIdAndWeekAndType(batchId, week.shortValue(), NoteType.BATCH).stream()
-				.filter(notes -> !notes.getTrainee().getTrainingStatus().equals(TrainingStatus.Dropped))
-				.collect(Collectors.toList());
+		return noteRepository.findByBatchBatchIdAndWeekAndType(batchId, week.shortValue(), NoteType.BATCH);
 	}
 
 	/**
@@ -219,9 +214,7 @@ public class EvaluationService {
 	 */
 	public List<Note> findIndividualNotes(Integer batchId, Integer week) {
 		log.debug(FINDING_WEEK + week + " individual notes for batch: " + batchId);
-		return noteRepository.findByBatchBatchIdAndWeekAndType(batchId, week.shortValue(), NoteType.TRAINEE).stream()
-				.filter(notes -> !notes.getTrainee().getTrainingStatus().equals(TrainingStatus.Dropped))
-				.collect(Collectors.toList());
+		return noteRepository.findByBatchBatchIdAndWeekAndType(batchId, week.shortValue(), NoteType.TRAINEE);
 	}
 
 	/**
@@ -257,7 +250,11 @@ public class EvaluationService {
 		log.debug(FINDING_WEEK + week + " QC batch notes for batch: " + batchId);
 		List<Note> notes = noteRepository.findByBatchBatchIdAndWeekAndType(batchId, week.shortValue(),
 				NoteType.QC_BATCH);
-		return notes != null ? notes.get(0) : new Note();
+		if (notes != null && !notes.isEmpty()) {
+			return notes.get(0);
+		}else {
+			return new Note();
+		}
 	}
 
 	/**
@@ -282,9 +279,7 @@ public class EvaluationService {
 	 */
 	public List<Note> findAllBatchNotes(Integer batchId, Integer week) {
 		log.debug(FINDING_WEEK + week + " batch notes for batch: " + batchId);
-		return noteRepository.findByBatchBatchIdAndWeekAndTypeOrderByWeekAsc(batchId, week.shortValue(), NoteType.BATCH)
-				.stream().filter(note -> !note.getTrainee().getTrainingStatus().equals(TrainingStatus.Dropped))
-				.collect(Collectors.toList());
+		return noteRepository.findByBatchBatchIdAndWeekAndTypeOrderByWeekAsc(batchId, week.shortValue(), NoteType.BATCH);
 	}
 
 	/**
@@ -297,9 +292,7 @@ public class EvaluationService {
 	public List<Note> findAllQCTraineeNotes(Integer batchId, Integer week) {
 		log.debug("Find All QC Trainee Notes");
 		return noteRepository
-				.findByBatchBatchIdAndWeekAndTypeOrderByWeekAsc(batchId, week.shortValue(), NoteType.QC_TRAINEE)
-				.stream().filter(note -> !note.getTrainee().getTrainingStatus().equals(TrainingStatus.Dropped))
-				.collect(Collectors.toList());
+				.findByBatchBatchIdAndWeekAndTypeOrderByWeekAsc(batchId, week.shortValue(), NoteType.QC_TRAINEE);
 	}
 
 	/**
@@ -320,9 +313,7 @@ public class EvaluationService {
 	 */
 	public List<Note> findAllQCTraineeOverallNotes(Integer traineeId) {
 		log.debug("Find All QC Trainee Notes for that trainee");
-		return noteRepository.findByTraineeTraineeIdAndTypeOrderByWeekAsc(traineeId, NoteType.QC_TRAINEE).stream()
-				.filter(note -> !note.getTrainee().getTrainingStatus().equals(TrainingStatus.Dropped))
-				.collect(Collectors.toList());
+		return noteRepository.findByTraineeTraineeIdAndTypeOrderByWeekAsc(traineeId, NoteType.QC_TRAINEE);
 	}
 
 	/**
@@ -334,11 +325,11 @@ public class EvaluationService {
 	 */
 	public void calculateAverage(Integer week, Batch batch) {
 		if (batch != null) {
-			List<Note> notes = noteRepository.findByBatchBatchIdAndWeekAndType(batch.getBatchId(), week.shortValue(),
+			Note notes = noteRepository.findByBatchBatchIdAndWeekAndTypeOrderByWeekDesc(batch.getBatchId(), week.shortValue(),
 					NoteType.QC_BATCH);
 			Note overallNote = null;
 			if (notes != null) {
-				overallNote = notes.get(0);
+				overallNote = notes;//.get(0);
 			}
 			if (overallNote == null) {
 				log.debug("Creating a new overall Note for week " + week);
@@ -355,9 +346,7 @@ public class EvaluationService {
 			double average = 0.0f;
 			List<Note> traineeNoteList = noteRepository
 					.findByBatchBatchIdAndWeekAndTypeOrderByWeekAsc(batch.getBatchId(), week.shortValue(),
-							NoteType.QC_TRAINEE)
-					.stream().filter(note -> !note.getTrainee().getTrainingStatus().equals(TrainingStatus.Dropped))
-					.collect(Collectors.toList());
+							NoteType.QC_TRAINEE);
 			int denominator = traineeNoteList.size();
 			for (Note note : traineeNoteList) {
 				switch (note.getQcStatus()) {
@@ -405,9 +394,7 @@ public class EvaluationService {
 	 */
 	public List<List<Note>> findAllQCTraineeNotesForAllWeeks(Integer batchId) {
 		log.debug("Find All QC Trainee Notes");
-		List<Note> notes = noteRepository.findByBatchBatchIdAndTypeOrderByWeekAsc(batchId, NoteType.QC_TRAINEE).stream()
-				.filter(note -> !note.getTrainee().getTrainingStatus().equals(TrainingStatus.Dropped))
-				.collect(Collectors.toList());
+		List<Note> notes = noteRepository.findByBatchBatchIdAndTypeOrderByWeekAsc(batchId, NoteType.QC_TRAINEE);
 		ArrayList<List<Note>> noteFormatted2d = new ArrayList<>();
 		notes = notes.stream().collect(
 				Collectors.collectingAndThen(Collectors.toCollection(() -> new TreeSet<>(Comparator.comparing(note -> {

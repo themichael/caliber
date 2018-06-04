@@ -109,12 +109,12 @@ public class Trainee implements Serializable {
 	private String flagNotes;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "trainee", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "trainee")
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Grade> grades;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "trainee", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "trainee")
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Note> notes;
 

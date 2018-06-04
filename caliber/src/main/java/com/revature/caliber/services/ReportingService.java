@@ -33,12 +33,10 @@ import com.revature.caliber.beans.PanelFeedback;
 import com.revature.caliber.beans.PanelStatus;
 import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.beans.Trainee;
-import com.revature.caliber.beans.TrainingStatus;
 import com.revature.caliber.data.AssessmentDAO;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.PanelRepository;
-import com.revature.caliber.data.TraineeRepository;
 
 /**
  * Exclusively used to generate data for charts
@@ -63,7 +61,7 @@ public class ReportingService {
 	private static final String ALL = "(All)";
 
 	@Autowired // TODO convert to RestTemplate calls in microservices
-	private TraineeRepository traineeRepository;
+	private TrainingService trainingService;
 	@Autowired
 	private PanelRepository panelRepository;
 	@Autowired
@@ -302,8 +300,11 @@ public class ReportingService {
 	 * @return
 	 */
 	public Map<String, Double[]> getBatchWeekAvgBarChart(int batchId, int week) {
-		List<Trainee> trainees = traineeRepository.findByBatchBatchIdAndTrainingStatusNot(batchId,
-				TrainingStatus.Dropped);
+		List<Trainee> trainees = trainingService.findAllTraineesByBatch(batchId);
+
+		// TODO find another way to do this? (microservices)
+		initializeGradesForBatchForWeek(batchId, week, trainees);
+		
 		Map<String, Double[]> results = new ConcurrentHashMap<>();
 		Arrays.stream(AssessmentType.values()).parallel().forEach(a -> {
 			Map<Trainee, Double[]> temp = utilAvgBatchWeek(trainees, week, a);
@@ -330,8 +331,9 @@ public class ReportingService {
 	 * @return Map<Trainee's name, Double Average Score>
 	 */
 	public Map<String, Double> getBatchWeekSortedBarChart(int batchId, int week) {
-		List<Trainee> trainees = traineeRepository.findByBatchBatchIdAndTrainingStatusNot(batchId,
-				TrainingStatus.Dropped);
+		List<Trainee> trainees = trainingService.findAllTraineesByBatch(batchId);
+		// TODO find another way
+		initializeGradesForBatchForWeek(batchId, week, trainees);
 		Map<Trainee, Double> avgBatchWeek = utilAvgBatchWeek(trainees, week);
 		Map<String, Double> result = new HashMap<>();
 		for (Entry<Trainee, Double> t : avgBatchWeek.entrySet()) {
@@ -653,8 +655,9 @@ public class ReportingService {
 	 */
 
 	public Double getAvgBatchWeekValue(Integer batchId, Integer week) {
-		List<Trainee> trainees = traineeRepository.findByBatchBatchIdAndTrainingStatusNot(batchId,
-				TrainingStatus.Dropped);
+		List<Trainee> trainees = trainingService.findAllTraineesByBatch(batchId);
+		// TODO find another way?
+		initializeGradesForBatchForWeek(batchId, week, trainees);
 		return utilAvgBatchWeekValue(trainees, week);
 	}
 
@@ -1012,6 +1015,16 @@ public class ReportingService {
 		// weeklyBatchAverage
 		return traineeAverageGrades.entrySet().stream().mapToDouble(e -> e.getValue()).sum()
 				/ traineeAverageGrades.size();
+	}
+	
+	private List<Trainee> initializeGradesForBatchForWeek(Integer batchId, Integer week, List<Trainee> trainees) {
+		// TODO find another way to do this? (microservices)
+		Map<Integer, List<Grade>> gradesForWeek = evaluationService.findGradesByWeek(batchId, week);
+		for(Trainee trainee : trainees) {
+			trainee.setGrades(new HashSet<>(gradesForWeek.get(trainee.getTraineeId())));
+		}
+		// yeah, microservices 
+		return trainees;
 	}
 
 }
