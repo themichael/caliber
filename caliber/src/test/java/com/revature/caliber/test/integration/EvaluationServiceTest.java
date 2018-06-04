@@ -23,7 +23,7 @@ import com.revature.caliber.services.EvaluationService;
 public class EvaluationServiceTest extends CaliberTest{
 
 	private static final int TEST_BATCH_ID = 2150;
-	private static final int TEST_ASSESSMENT_WEEK = 7;
+	private static final short TEST_ASSESSMENT_WEEK = 7;
 
 	private static final Logger log = Logger.getLogger(EvaluationServiceTest.class);
 	

@@ -25,7 +25,7 @@ import com.revature.caliber.beans.NoteType;
 import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.TrainerRole;
-import com.revature.caliber.data.AssessmentDAO;
+import com.revature.caliber.data.AssessmentRepository;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.CategoryDAO;
 import com.revature.caliber.data.GradeDAO;
@@ -48,7 +48,7 @@ public class EvaluationAPITest extends AbstractAPITest {
 	@Autowired
 	CategoryDAO categoryDAO;
 	@Autowired
-	AssessmentDAO assessmentDAO;
+	AssessmentRepository assessmentRepository;
 	@Autowired
 	NoteDAO noteDAO;
 	private static final Logger log = Logger.getLogger(EvaluationAPITest.class);
@@ -82,7 +82,7 @@ public class EvaluationAPITest extends AbstractAPITest {
 		Trainee trainee = traineeDAO.findOne(TEST_TRAINEE_ID);
 		Assessment assessment = new Assessment("Testing Test", trainee.getBatch(), 200, AssessmentType.Exam, TEST_WEEK,
 				category);
-		assessmentDAO.save(assessment);
+		assessmentRepository.save(assessment);
 
 		// setting the expected value as a grade
 		Grade expected = new Grade(assessment, trainee, new Date(), 99.99);

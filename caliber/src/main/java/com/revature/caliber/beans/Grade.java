@@ -29,7 +29,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Cacheable
 @Cache(usage=CacheConcurrencyStrategy.READ_WRITE)
 public class Grade implements Serializable {
-
+	
 	private static final long serialVersionUID = -2031135710502844800L;
 
 	@Id

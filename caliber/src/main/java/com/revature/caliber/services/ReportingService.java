@@ -30,7 +30,7 @@ import com.revature.caliber.beans.Panel;
 import com.revature.caliber.beans.PanelStatus;
 import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.beans.Trainee;
-import com.revature.caliber.data.AssessmentDAO;
+import com.revature.caliber.data.AssessmentRepository;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.NoteDAO;
@@ -63,7 +63,7 @@ public class ReportingService {
 	private BatchDAO batchDAO;
 	private TraineeDAO traineeDAO;
 	private NoteDAO noteDAO;
-	private AssessmentDAO assessmentDAO;
+	private AssessmentRepository assessmentRepository;
 	private PanelDAO panelDAO;
 
 	@Autowired
@@ -87,8 +87,8 @@ public class ReportingService {
 	}
 
 	@Autowired
-	public void setAssessmentDAO(AssessmentDAO assessmentDAO) {
-		this.assessmentDAO = assessmentDAO;
+	public void setAssessmentRepository(AssessmentRepository assessmentRepository) {
+		this.assessmentRepository = assessmentRepository;
 	}
 
 	@Autowired
@@ -258,9 +258,9 @@ public class ReportingService {
 	 * @param week
 	 * @return Map<Trainee's name, Double Average Score>
 	 */
-	public Map<String, Double> getBatchWeekSortedBarChart(int batchId, int week) {
+	public Map<String, Double> getBatchWeekSortedBarChart(Integer batchId, int week) {
 		List<Trainee> trainees = traineeDAO.findAllByBatch(batchId);
-		Map<Trainee, Double> avgBatchWeek = utilAvgBatchWeek(trainees, week);
+		Map<Trainee, Double> avgBatchWeek = utilAvgBatchWeek(trainees, (short) week);
 		Map<String, Double> result = new HashMap<>();
 		for (Entry<Trainee, Double> t : avgBatchWeek.entrySet()) {
 			result.put(t.getKey().getName(), t.getValue());
@@ -375,7 +375,7 @@ public class ReportingService {
 	 * @return Map<'week', 'avgScore'>
 	 */
 
-	public Map<Integer, Double[]> getTraineeUpToWeekLineChart(int batchId, int week, int traineeId) {
+	public Map<Integer, Double[]> getTraineeUpToWeekLineChart(Integer batchId, Integer week, Integer traineeId) {
 		Map<Integer, Double[]> results = new HashMap<>();
 		Batch batch = batchDAO.findOneWithTraineesAndGrades(batchId);
 		List<Trainee> trainees = new ArrayList<>(batch.getTrainees());
@@ -442,7 +442,7 @@ public class ReportingService {
 			Map<String, Object> batchObject = new HashMap<>();
 			List<Trainee> trainees = new ArrayList<>(batch.getTrainees());
 			batchObject.put("label", batch.getTrainer().getName() + " " + batch.getStartDate());
-			batchObject.put("grades", utilAvgBatchOverall(trainees, batch.getWeeks()));
+			batchObject.put("grades", utilAvgBatchOverall(trainees, (short) batch.getWeeks()));
 			batchObject.put("address", batch.getAddress());
 			results.add(batchObject);
 		});
@@ -585,8 +585,8 @@ public class ReportingService {
 		return utilAvgBatchWeekValue(trainees, week);
 	}
 
-	public Set<String> getTechnologiesForTheWeek(Integer batchId, Integer week) {
-		List<Assessment> assessments = assessmentDAO.findByWeek(batchId, week);
+	public Set<String> getTechnologiesForTheWeek(Integer batchId, int week) {
+		List<Assessment> assessments = assessmentRepository.findByBatchIdAndWeek(batchId, (short) week);
 		Set<String> results = new TreeSet<>();
 		assessments.forEach(a -> results.add(a.getCategory().getSkillCategory()));
 		return results;
@@ -835,7 +835,7 @@ public class ReportingService {
 	 * @param week
 	 * @return Map<Trainee in Batch, Average Total Assessment Score>
 	 */
-	public Map<Trainee, Double> utilAvgBatchWeek(List<Trainee> trainees, Integer week) {
+	public Map<Trainee, Double> utilAvgBatchWeek(List<Trainee> trainees, int week) {
 		Map<Trainee, Double> results = new HashMap<>();
 		for (Trainee trainee : trainees) {
 			Set<Grade> grades = new HashSet<>(trainee.getGrades());
@@ -870,9 +870,9 @@ public class ReportingService {
 	 * @return Map<Week Number, Double Average Score for All Assessments For the
 	 *         Week>
 	 */
-	public Map<Integer, Double> utilAvgBatchOverall(List<Trainee> trainees, Integer weeks) {
+	public Map<Integer, Double> utilAvgBatchOverall(List<Trainee> trainees, int week) {
 		Map<Integer, Double> results = new HashMap<>();
-		for (Integer i = 1; i <= weeks; i++) {
+		for (int i = 1; i <= week; i++) {
 			Map<Trainee, Double> temp = utilAvgBatchWeek(trainees, i);
 			Double avg = 0d;
 			for (Map.Entry<Trainee, Double> t : temp.entrySet()) {
@@ -936,7 +936,6 @@ public class ReportingService {
 	 */
 	public Double utilAvgBatchWeekValue(List<Trainee> trainees, Integer week) {
 		Map<Trainee, Double> traineeAverageGrades = utilAvgBatchWeek(trainees, week);
-		// weeklyBatchAverage
 		return traineeAverageGrades.entrySet().stream().mapToDouble(e -> e.getValue()).sum()
 				/ traineeAverageGrades.size();
 	}
