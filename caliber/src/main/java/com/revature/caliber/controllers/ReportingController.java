@@ -41,12 +41,9 @@ import com.revature.caliber.services.ReportingService;
 public class ReportingController {
 
 	private static final Logger log = Logger.getLogger(ReportingController.class);
-	private ReportingService reportingService;
-
+	
 	@Autowired
-	public void setReportingService(ReportingService reportingService) {
-		this.reportingService = reportingService;
-	}
+	private ReportingService reportingService;
 
 	/**************************************************************************
 	 * Batch Average Comparison

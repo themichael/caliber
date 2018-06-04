@@ -31,7 +31,7 @@ public class RevProQuizIntegrationService {
 	private static final Logger log = Logger.getLogger(RevProQuizIntegrationService.class);
 
 	@Autowired
-	private AssessmentRepository assessmentRepository;
+	private AssessmentService assessmentService;
 	@Autowired
 	private GradeDAO gradeDAO;
 	@Autowired
@@ -72,7 +72,7 @@ public class RevProQuizIntegrationService {
 				
 				// save a new Assessment in the database of type 'Exam'
 				Assessment assessment = new Assessment(quiz.getTitle(), batch, 100, AssessmentType.Exam, week, category);
-				assessmentRepository.save(assessment);
+				assessmentService.save(assessment);
 				
 				// save each grade for the assessment
 				for(QuizResult quizResult : quiz.getGrades()) {

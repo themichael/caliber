@@ -41,6 +41,7 @@ public class TrainingService {
 	private TrainerDAO trainerDAO;
 	private TraineeDAO traineeDAO;
 	private BatchDAO batchDAO;
+	@Autowired
 	private AddressRepository addressRepository;
 	private TaskDAO taskDAO;
 	private TaskCompletionDAO taskCompletionDAO;
@@ -58,11 +59,6 @@ public class TrainingService {
 	@Autowired
 	public void setBatchDAO(BatchDAO batchDAO) {
 		this.batchDAO = batchDAO;
-	}
-
-	@Autowired
-	public void setAddressRepository(AddressRepository addressRepository) {
-		this.addressRepository = addressRepository;
 	}
 	
 	@Autowired

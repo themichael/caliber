@@ -22,12 +22,9 @@ import com.revature.caliber.data.AssessmentRepository;
 public class AssessmentService {
 
 	private static final Logger log = Logger.getLogger(AssessmentService.class);
-	private AssessmentRepository assessmentRepository;
-
+	
 	@Autowired
-	public void setAssessmentRepository(AssessmentRepository assessmentRepository) {
-		this.assessmentRepository = assessmentRepository;
-	}
+	private AssessmentRepository assessmentRepository;
 
 	/*
 	 *******************************************************

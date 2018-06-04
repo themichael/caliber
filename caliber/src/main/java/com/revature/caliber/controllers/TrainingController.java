@@ -45,12 +45,9 @@ import com.revature.caliber.services.TrainingService;
 public class TrainingController {
 
 	private static final Logger log = Logger.getLogger(TrainingController.class);
-	private TrainingService trainingService;
-
+	
 	@Autowired
-	public void setTrainingService(TrainingService trainingService) {
-		this.trainingService = trainingService;
-	}
+	private TrainingService trainingService;
 
 	/*
 	 *******************************************************

@@ -35,12 +35,9 @@ import com.revature.caliber.services.AssessmentService;
 public class AssessmentController {
 
 	private static final Logger log = Logger.getLogger(AssessmentController.class);
-	private AssessmentService assessmentService;
-
+	
 	@Autowired
-	public void setAssessmentService(AssessmentService assessmentService) {
-		this.assessmentService = assessmentService;
-	}
+	private AssessmentService assessmentService;
 
 	/*
 	 *******************************************************
