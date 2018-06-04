@@ -63,7 +63,10 @@ public class ReportingService {
 	private BatchDAO batchDAO;
 	private TraineeDAO traineeDAO;
 	private NoteDAO noteDAO;
-	private AssessmentRepository assessmentRepository;
+	
+	@Autowired
+	private AssessmentService assessmentService;
+	
 	private PanelDAO panelDAO;
 
 	@Autowired
@@ -84,11 +87,6 @@ public class ReportingService {
 	@Autowired
 	public void setNoteDAO(NoteDAO noteDAO) {
 		this.noteDAO = noteDAO;
-	}
-
-	@Autowired
-	public void setAssessmentRepository(AssessmentRepository assessmentRepository) {
-		this.assessmentRepository = assessmentRepository;
 	}
 
 	@Autowired
@@ -586,7 +584,7 @@ public class ReportingService {
 	}
 
 	public Set<String> getTechnologiesForTheWeek(Integer batchId, int week) {
-		List<Assessment> assessments = assessmentRepository.findByBatchIdAndWeek(batchId, (short) week);
+		List<Assessment> assessments = assessmentService.findAssessmentByWeek(batchId, (short) week);
 		Set<String> results = new TreeSet<>();
 		assessments.forEach(a -> results.add(a.getCategory().getSkillCategory()));
 		return results;
