@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 @SpringBootApplication
 public class Application {
@@ -15,16 +16,9 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 	}
 	
-	/*@Bean
-	public HibernateJpaSessionFactoryBean sessionFactory(EntityManagerFactory emf) {
-	    HibernateJpaSessionFactoryBean factory = new HibernateJpaSessionFactoryBean();
-	    factory.setEntityManagerFactory(emf);
-	    return factory;
-	}*/
-	
 	@Bean
 	 public SessionFactory sessionFactory(@Qualifier("entityManagerFactory") EntityManagerFactory emf) {
 	     return emf.unwrap(SessionFactory.class);
 	 }
-
+	
 }
