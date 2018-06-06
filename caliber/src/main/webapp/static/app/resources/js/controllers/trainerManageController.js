@@ -700,11 +700,11 @@ angular
 						trainee.projectCompletion = $scope.traineeForm.projectCompletion;
 
 						$log.debug(trainee);
-						/*
-						 * trainee.batch = { batchId :
-						 * $scope.currentBatch.batchId };
-						 */
-						trainee.batch = $scope.currentBatch;
+
+						trainee.batch = {
+							batchId : $scope.currentBatch.batchId
+						};
+
 					}
 
 					/** Save New Trainee Input * */

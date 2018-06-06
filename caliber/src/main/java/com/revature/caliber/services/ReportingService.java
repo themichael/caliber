@@ -35,7 +35,6 @@ import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.data.AssessmentDAO;
 import com.revature.caliber.data.BatchDAO;
-import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.PanelRepository;
 
 /**
@@ -67,15 +66,9 @@ public class ReportingService {
 	@Autowired
 	private EvaluationService evaluationService;
 	
-	private GradeDAO gradeDAO;
 	private BatchDAO batchDAO;
 	private AssessmentDAO assessmentDAO;
 	
-	@Autowired
-	public void setGradeDAO(GradeDAO gradeDAO) {
-		this.gradeDAO = gradeDAO;
-	}
-
 	@Autowired
 	public void setBatchDAO(BatchDAO batchDAO) {
 		this.batchDAO = batchDAO;
@@ -601,7 +594,7 @@ public class ReportingService {
 	 * @return
 	 */
 	public Map<String, Double> getTraineeUpToWeekRadarChart(Integer traineeId, Integer week) {
-		List<Grade> grades = gradeDAO.findByTrainee(traineeId);
+		List<Grade> grades = evaluationService.findByTrainee(traineeId);
 		List<Grade> weekgrades = grades.stream().filter(g -> g.getAssessment().getWeek() <= week)
 				.collect(Collectors.toList());
 		Map<Category, Double[]> skills = utilAvgSkills(weekgrades);
@@ -615,7 +608,7 @@ public class ReportingService {
 	 * @return
 	 */
 	public Map<String, Double> getTraineeOverallRadarChart(Integer traineeId) {
-		List<Grade> grades = gradeDAO.findByTrainee(traineeId);
+		List<Grade> grades = evaluationService.findByTrainee(traineeId);
 		Map<Category, Double[]> skills = utilAvgSkills(grades);
 		return utilReplaceCategoryWithSkillName(skills);
 	}
@@ -627,7 +620,7 @@ public class ReportingService {
 	 * @return
 	 */
 	public Map<String, Double> getBatchOverallRadarChart(Integer batchId) {
-		List<Grade> grades = gradeDAO.findByBatch(batchId);
+		List<Grade> grades = evaluationService.findByBatch(batchId);
 		Map<Category, Double[]> skills = utilAvgSkills(grades);
 		log.debug("getBatchOverallRadarChart : " + utilReplaceCategoryWithSkillName(skills));
 		return utilReplaceCategoryWithSkillName(skills);
@@ -1021,7 +1014,9 @@ public class ReportingService {
 		// TODO find another way to do this? (microservices)
 		Map<Integer, List<Grade>> gradesForWeek = evaluationService.findGradesByWeek(batchId, week);
 		for(Trainee trainee : trainees) {
-			trainee.setGrades(new HashSet<>(gradesForWeek.get(trainee.getTraineeId())));
+			if (gradesForWeek.get(trainee.getTraineeId()) != null) {
+				trainee.setGrades(new HashSet<Grade>(gradesForWeek.get(trainee.getTraineeId())));
+			}
 		}
 		// yeah, microservices 
 		return trainees;

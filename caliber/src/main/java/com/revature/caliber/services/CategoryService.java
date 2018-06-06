@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.beans.Category;
 import com.revature.caliber.data.CategoryDAO;
+import com.revature.caliber.data.CategoryRepository;
 
 /**
  * Provides logic concerning categories data. Application logic has no business
@@ -23,12 +24,9 @@ import com.revature.caliber.data.CategoryDAO;
 public class CategoryService {
 
 	private static final Logger log = Logger.getLogger(CategoryService.class);
-	private CategoryDAO categoryDAO;
-
+	
 	@Autowired
-	public void setCategoryDAO(CategoryDAO categoryDAO) {
-		this.categoryDAO = categoryDAO;
-	}
+	private CategoryRepository categoryRepository;
 
 	/**
 	 * FIND ALL CATEGORIES
@@ -38,7 +36,7 @@ public class CategoryService {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Category> findAllActive() {
 		log.debug("Requesting categories");
-		return categoryDAO.findAllActive();
+		return categoryRepository.findAllActive();
 	}
 
 	/**
@@ -48,7 +46,7 @@ public class CategoryService {
 	 */
 	public List<Category> findAll() {
 		log.debug("Requesting categories");
-		return categoryDAO.findAll();
+		return categoryRepository.findAll();
 	}
 
 	/**
@@ -60,7 +58,7 @@ public class CategoryService {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public Category findCategory(int categoryId) {
 		log.debug("Find category: " + categoryId);
-		return categoryDAO.findOne(categoryId);
+		return categoryRepository.findOne(categoryId);
 	}
 
 	/**
@@ -71,13 +69,13 @@ public class CategoryService {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public void updateCategory(Category category) {
 		log.debug("Update category: " + category);
-		categoryDAO.update(category);
+		categoryRepository.update(category);
 	}
 
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public void saveCategory(Category category) {
 		log.debug("Save category: " + category);
-		categoryDAO.save(category);
+		categoryRepository.save(category);
 	}
 
 }

@@ -18,7 +18,7 @@ import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.data.AssessmentDAO;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.CategoryDAO;
-import com.revature.caliber.data.GradeDAO;
+import com.revature.caliber.data.GradeRepository;
 import com.revature.caliber.data.TraineeRepository;
 import com.revature.caliber.exceptions.RevProIntegrationException;
 import com.revature.caliber.revpro.models.Quiz;
@@ -33,7 +33,7 @@ public class RevProQuizIntegrationService {
 	@Autowired
 	private AssessmentDAO assessmentDAO;
 	@Autowired
-	private GradeDAO gradeDAO;
+	private GradeRepository gradeRepository;
 	@Autowired
 	private BatchDAO batchDAO;
 	@Autowired
@@ -82,7 +82,7 @@ public class RevProQuizIntegrationService {
 					}
 					log.debug("Found trainee: " + trainee);
 					Grade grade = new Grade(assessment, trainee, new Date(), quizResult.getGrade());
-					gradeDAO.save(grade);
+					gradeRepository.save(grade);
 				}
 			}
 		} catch (IOException e) {

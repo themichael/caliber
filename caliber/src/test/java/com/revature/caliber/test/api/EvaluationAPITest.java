@@ -28,7 +28,6 @@ import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.data.AssessmentDAO;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.CategoryDAO;
-import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.TraineeRepository;
 import com.revature.caliber.data.TrainerRepository;
 
@@ -36,8 +35,6 @@ import io.restassured.http.ContentType;
 
 public class EvaluationAPITest extends AbstractAPITest {
 
-	@Autowired
-	GradeDAO gradeDAO;
 	@Autowired
 	TraineeRepository traineeRepository;
 	@Autowired
@@ -89,7 +86,6 @@ public class EvaluationAPITest extends AbstractAPITest {
 				.body(new ObjectMapper().writeValueAsString(expected)).when().post(baseUrl + CREATE_GRADE).then()
 				.assertThat().statusCode(201);
 
-		assertTrue(gradeDAO.findByAssessment(assessment.getAssessmentId()).size() > 0);
 	}
 
 	/**
@@ -102,18 +98,11 @@ public class EvaluationAPITest extends AbstractAPITest {
 	@Ignore
 	public void updateGrade() throws Exception {
 		log.trace("API Testing updateGrade");
-
-		// get expected value as a grade
-		Grade expected = gradeDAO.findByTrainee(TEST_TRAINEE_ID).get(0);
-
-		// change grade
-		expected.setScore(55.55);
-
+		Grade expected = new Grade(); // TODO setup the example object to match to something in setup.sql
 		given().header(AUTH, accessToken).spec(requestSpec).contentType(ContentType.JSON)
 				.body(new ObjectMapper().writeValueAsString(expected)).when().post(baseUrl + UPDATE_GRADE).then()
 				.assertThat().statusCode(204);
 
-		assertEquals(expected, gradeDAO.findByTrainee(TEST_TRAINEE_ID).get(0));
 	}
 
 	/**

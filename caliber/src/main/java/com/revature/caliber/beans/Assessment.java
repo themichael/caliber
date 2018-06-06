@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Cacheable;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -54,7 +53,7 @@ public class Assessment implements Serializable {
 	 * Batch ID reference
 	 */
 	@NotNull
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "BATCH_ID", nullable = false)
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Batch batch;
@@ -80,12 +79,12 @@ public class Assessment implements Serializable {
 	private short week;
 
 	@NotNull
-	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ASSESSMENT_CATEGORY", nullable = false)
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Category category;
 
-	@OneToMany(mappedBy = "assessment", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "assessment")
 	@JsonIgnore
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Grade> grades = new HashSet<>();

@@ -21,7 +21,7 @@ import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.TraineeFlag;
 import com.revature.caliber.beans.TrainerRole;
-import com.revature.caliber.data.GradeDAO;
+import com.revature.caliber.data.GradeRepository;
 import com.revature.caliber.data.NoteRepository;
 import com.revature.caliber.data.TraineeRepository;
 
@@ -37,7 +37,9 @@ import com.revature.caliber.data.TraineeRepository;
 public class EvaluationService {
 
 	private static final Logger log = Logger.getLogger(EvaluationService.class);
-	private GradeDAO gradeDAO;
+	
+	@Autowired
+	private GradeRepository gradeRepository;
 
 	@Autowired
 	private NoteRepository noteRepository;
@@ -47,12 +49,12 @@ public class EvaluationService {
 
 	private static final String FINDING_WEEK = "Finding week ";
 	private static final String WEEK_STATIC_FACTOR = "0";
-
-	@Autowired
-	public void setGradeDAO(GradeDAO gradeDAO) {
-		this.gradeDAO = gradeDAO;
-	}
-
+	
+	/**
+	 * All grades queried should be greater than 0. 
+	 */
+	private static final double ZERO = 0.0;
+	
 	/*
 	 *******************************************************
 	 * GRADING SERVICES
@@ -67,7 +69,7 @@ public class EvaluationService {
 	 */
 	public void save(Grade grade) {
 		log.debug("Saving grade: " + grade);
-		gradeDAO.save(grade);
+		gradeRepository.save(grade);
 	}
 
 	/**
@@ -77,7 +79,7 @@ public class EvaluationService {
 	 */
 	public void update(Grade grade) {
 		log.debug("Updating grade: " + grade);
-		gradeDAO.update(grade);
+		gradeRepository.save(grade);
 	}
 
 	/**
@@ -89,7 +91,7 @@ public class EvaluationService {
 	 */
 	public Map<Integer, List<Grade>> findGradesByWeek(Integer batchId, Integer week) {
 		log.debug(FINDING_WEEK + week + " grades for batch: " + batchId);
-		List<Grade> grades = gradeDAO.findByWeek(batchId, week);
+		List<Grade> grades = gradeRepository.findByTraineeBatchBatchIdAndAssessmentWeekAndScoreGreaterThan(batchId, week.shortValue(), ZERO);
 		Map<Integer, List<Grade>> table = new HashMap<>();
 		for (Grade grade : grades) {
 			Integer key = grade.getTrainee().getTraineeId();
@@ -108,6 +110,25 @@ public class EvaluationService {
 			}
 		}
 		return table;
+	}
+	
+	/**
+	 * Find all grades for a given batch
+	 * 
+	 * @param batchId
+	 * @return grades
+	 */
+	public List<Grade> findByBatch(int batchId) {
+		return gradeRepository.findByTraineeBatchBatchIdAndScoreGreaterThan(batchId, ZERO); 
+	}
+	
+	/**
+	 * Find all grades for a particular trainee
+	 * @param traineeId
+	 * @return grades
+	 */
+	public List<Grade> findByTrainee(Integer traineeId) {
+		return gradeRepository.findByTraineeTraineeIdAndScoreGreaterThan(traineeId, ZERO);
 	}
 
 	/*
