@@ -19,7 +19,7 @@ import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.beans.TrainerTask;
 import com.revature.caliber.beans.TrainerTaskCompletion;
 import com.revature.caliber.beans.TrainingStatus;
-import com.revature.caliber.data.AddressDAO;
+import com.revature.caliber.data.AddressRepository;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.TaskCompletionDAO;
 import com.revature.caliber.data.TaskDAO;
@@ -32,6 +32,7 @@ import com.revature.caliber.data.TrainerRepository;
  * calculations
  *
  * @author Patrick Walsh
+ * @author Emily Higgins
  *
  */
 @Service
@@ -46,18 +47,14 @@ public class TrainingService {
 	private TraineeRepository traineeRepository;
 	
 	private BatchDAO batchDAO;
-	private AddressDAO addressDAO;
+	@Autowired
+	private AddressRepository addressRepository;
 	private TaskDAO taskDAO;
 	private TaskCompletionDAO taskCompletionDAO;
 
 	@Autowired
 	public void setBatchDAO(BatchDAO batchDAO) {
 		this.batchDAO = batchDAO;
-	}
-
-	@Autowired
-	public void setAddressDAO(AddressDAO addressDAO) {
-		this.addressDAO = addressDAO;
 	}
 	
 	@Autowired
@@ -78,29 +75,40 @@ public class TrainingService {
 	 */
 
 	/**
-	 * Add New Address
-	 *
+	 * Add new Address
 	 * @param location
 	 */
 	public void createLocation(Address location) {
 		log.debug("Creating Location " + location);
-		addressDAO.save(location);
-		;
+		addressRepository.save(location);
 	}
 
+	/**
+	 * Update existing Address
+	 * @param location
+	 */
 	public void update(Address location) {
 		log.debug("Update location: " + location);
-		addressDAO.update(location);
+		addressRepository.save(location);
 	}
 
+	/**
+	 * retrieve all locations
+	 * @return all Addresses in the database
+	 */
 	public List<Address> findAllLocations() {
 		log.debug("Finding all locations");
-		return addressDAO.findAll();
+		return addressRepository.findAll();
 	}
 	
+	/**
+	 * Find Address with provided id
+	 * @param id
+	 * @return address
+	 */
 	public Address findById(int id) {
 		log.debug("Getting Address with ID " + id);
-		Address address = addressDAO.getAddressById(id);
+		Address address = addressRepository.findOne(id);
 		log.debug("Got " + address);
 		return address;
 	}
@@ -192,17 +200,6 @@ public class TrainingService {
 	 *
 	 *******************************************************
 	 */
-
-	/**
-	 * Returns a list of commonly used locations. Allows user to select from
-	 * locations, but also add new locations manually. Suggested UI component is the
-	 * HTML5 <datalist>
-	 *
-	 * @return
-	 */
-	public List<Address> findCommonLocations() {
-		return addressDAO.findAll();
-	}
 
 	/**
 	 * ADD ANOTHER WEEK TO BATCH

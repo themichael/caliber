@@ -25,7 +25,7 @@ import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainingStatus;
-import com.revature.caliber.data.AssessmentDAO;
+import com.revature.caliber.data.AssessmentRepository;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.services.EvaluationService;
 
@@ -42,7 +42,7 @@ public class Mailer implements Runnable {
 	private static final Logger logger = Logger.getLogger(Mailer.class);
 
 	@Autowired
-	private AssessmentDAO assessmentDAO;
+	private AssessmentRepository assessmentRepository;
 
 	@Autowired
 	private BatchDAO batchDAO;
@@ -199,7 +199,7 @@ public class Mailer implements Runnable {
 	}
 	
 	private List<Assessment> getAssessments(int batchID) {
-		return this.assessmentDAO.findByBatchId(batchID);
+		return this.assessmentRepository.findByBatchBatchId(batchID);
 	}
 	
 	private int getActualNumberOfGrades(List<Assessment> expectedAssessments, int batchId){

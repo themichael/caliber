@@ -15,7 +15,7 @@ import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Category;
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Trainee;
-import com.revature.caliber.data.AssessmentDAO;
+import com.revature.caliber.data.AssessmentRepository;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.CategoryDAO;
 import com.revature.caliber.data.GradeRepository;
@@ -31,7 +31,7 @@ public class RevProQuizIntegrationService {
 	private static final Logger log = Logger.getLogger(RevProQuizIntegrationService.class);
 
 	@Autowired
-	private AssessmentDAO assessmentDAO;
+	private AssessmentService assessmentService;
 	@Autowired
 	private GradeRepository gradeRepository;
 	@Autowired
@@ -72,7 +72,7 @@ public class RevProQuizIntegrationService {
 				
 				// save a new Assessment in the database of type 'Exam'
 				Assessment assessment = new Assessment(quiz.getTitle(), batch, 100, AssessmentType.Exam, week, category);
-				assessmentDAO.save(assessment);
+				assessmentService.save(assessment);
 				
 				// save each grade for the assessment
 				for(QuizResult quizResult : quiz.getGrades()) {

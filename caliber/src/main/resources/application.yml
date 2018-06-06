@@ -22,14 +22,18 @@ spring:
     properties:
       hibernate:
         current_session_context_class: org.springframework.orm.hibernate4.SpringSessionContext
-        show-sql: false
-        format-sql: false
+        show-sql: true
+        format-sql: true
         cache:
           use-query-cache: true
           use-second-level-cache: true
           region:
-            factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
+            factory_class: org.hibernate.cache.ehcache.EhCacheRegionFactory
           ehcache:
             configurationResourceName: /ehcache.xml
+      javax:
+        persistence:
+          sharedCache:
+            mode: ENABLE_SELECTIVE
           
   

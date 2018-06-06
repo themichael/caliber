@@ -33,7 +33,6 @@ import com.revature.caliber.beans.PanelFeedback;
 import com.revature.caliber.beans.PanelStatus;
 import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.beans.Trainee;
-import com.revature.caliber.data.AssessmentDAO;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.PanelRepository;
 
@@ -67,16 +66,13 @@ public class ReportingService {
 	private EvaluationService evaluationService;
 	
 	private BatchDAO batchDAO;
-	private AssessmentDAO assessmentDAO;
-	
+
+	@Autowired
+	private AssessmentService assessmentService;
+
 	@Autowired
 	public void setBatchDAO(BatchDAO batchDAO) {
 		this.batchDAO = batchDAO;
-	}
-
-	@Autowired
-	public void setAssessmentDAO(AssessmentDAO assessmentDAO) {
-		this.assessmentDAO = assessmentDAO;
 	}
 
 	/*
@@ -442,7 +438,7 @@ public class ReportingService {
 	 * @return Map<'week', 'avgScore'>
 	 */
 
-	public Map<Integer, Double[]> getTraineeUpToWeekLineChart(int batchId, int week, int traineeId) {
+	public Map<Integer, Double[]> getTraineeUpToWeekLineChart(Integer batchId, Integer week, Integer traineeId) {
 		Map<Integer, Double[]> results = new HashMap<>();
 		Batch batch = batchDAO.findOneWithTraineesAndGrades(batchId);
 		List<Trainee> trainees = new ArrayList<>(batch.getTrainees());
@@ -509,7 +505,7 @@ public class ReportingService {
 			Map<String, Object> batchObject = new HashMap<>();
 			List<Trainee> trainees = new ArrayList<>(batch.getTrainees());
 			batchObject.put("label", batch.getTrainer().getName() + " " + batch.getStartDate());
-			batchObject.put("grades", utilAvgBatchOverall(trainees, batch.getWeeks()));
+			batchObject.put("grades", utilAvgBatchOverall(trainees, (short) batch.getWeeks()));
 			batchObject.put("address", batch.getAddress());
 			results.add(batchObject);
 		});
@@ -654,8 +650,8 @@ public class ReportingService {
 		return utilAvgBatchWeekValue(trainees, week);
 	}
 
-	public Set<String> getTechnologiesForTheWeek(Integer batchId, Integer week) {
-		List<Assessment> assessments = assessmentDAO.findByWeek(batchId, week);
+	public Set<String> getTechnologiesForTheWeek(Integer batchId, int week) {
+		List<Assessment> assessments = assessmentService.findAssessmentByWeek(batchId, (short) week);
 		Set<String> results = new TreeSet<>();
 		assessments.forEach(a -> results.add(a.getCategory().getSkillCategory()));
 		return results;
@@ -904,7 +900,7 @@ public class ReportingService {
 	 * @param week
 	 * @return Map<Trainee in Batch, Average Total Assessment Score>
 	 */
-	public Map<Trainee, Double> utilAvgBatchWeek(List<Trainee> trainees, Integer week) {
+	public Map<Trainee, Double> utilAvgBatchWeek(List<Trainee> trainees, int week) {
 		Map<Trainee, Double> results = new HashMap<>();
 		for (Trainee trainee : trainees) {
 			Set<Grade> grades = new HashSet<>(trainee.getGrades());
@@ -939,9 +935,9 @@ public class ReportingService {
 	 * @return Map<Week Number, Double Average Score for All Assessments For the
 	 *         Week>
 	 */
-	public Map<Integer, Double> utilAvgBatchOverall(List<Trainee> trainees, Integer weeks) {
+	public Map<Integer, Double> utilAvgBatchOverall(List<Trainee> trainees, int week) {
 		Map<Integer, Double> results = new HashMap<>();
-		for (Integer i = 1; i <= weeks; i++) {
+		for (int i = 1; i <= week; i++) {
 			Map<Trainee, Double> temp = utilAvgBatchWeek(trainees, i);
 			Double avg = 0d;
 			for (Map.Entry<Trainee, Double> t : temp.entrySet()) {
@@ -1005,7 +1001,6 @@ public class ReportingService {
 	 */
 	public Double utilAvgBatchWeekValue(List<Trainee> trainees, Integer week) {
 		Map<Trainee, Double> traineeAverageGrades = utilAvgBatchWeek(trainees, week);
-		// weeklyBatchAverage
 		return traineeAverageGrades.entrySet().stream().mapToDouble(e -> e.getValue()).sum()
 				/ traineeAverageGrades.size();
 	}

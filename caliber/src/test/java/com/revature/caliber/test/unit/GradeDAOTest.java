@@ -22,7 +22,7 @@ import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Category;
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Trainee;
-import com.revature.caliber.data.AssessmentDAO;
+import com.revature.caliber.data.AssessmentRepository;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.CategoryDAO;
 import com.revature.caliber.data.GradeRepository;
@@ -41,7 +41,7 @@ public class GradeDAOTest extends CaliberTest {
 	private static final int TEST_BATCH_ID = 2150;
 	private static final int TEST_CATEGORY_ID = 12;
 	private static final int TEST_TRAINER_ID = 1;
-	private static final int TEST_ASSESSMENT_WEEK = 7;
+	private static final short TEST_ASSESSMENT_WEEK = 7;
 
 	@Autowired
 	private GradeRepository gradeRepository;
@@ -52,7 +52,7 @@ public class GradeDAOTest extends CaliberTest {
 	@Autowired
 	private CategoryDAO categoryDAO;
 	@Autowired
-	private AssessmentDAO assessmentDAO;
+	private AssessmentRepository assessmentRepository;
 	@Autowired
 	private TrainerRepository trainerRepository;
 	
@@ -65,10 +65,8 @@ public class GradeDAOTest extends CaliberTest {
 	public void saveValidGrade(){
 		log.trace("CREATING VALID GRADES");
 		
-		//dependencies
-		Assessment assessment = assessmentDAO.findOne(TEST_ASSESSMENT_ID);
+		Assessment assessment = assessmentRepository.findOne(TEST_ASSESSMENT_ID);
 		Trainee trainee = traineeRepository.findOne(TEST_TRAINEE_ID);
-		
 		
 		/*
 		 * Positive tests. Change according to change in business rules
@@ -151,25 +149,6 @@ public class GradeDAOTest extends CaliberTest {
 		log.trace("GETTING ALL GRADES");
 		List<Grade> grades = gradeRepository.findAll();
 		assertTrue(!grades.isEmpty());
-	}
-	
-	/**
-	 * Test methods:
-	 * @see com.revature.caliber.data.GradeDAO#findByAssessment(Long)
-	 */
-	@Test
-	public void findByAssessment(){
-		log.trace("GETTING GRADES FOR ASSESSMENT");
-		
-		//get assessment
-		Assessment assessment = assessmentDAO.findOne(TEST_ASSESSMENT_ID);
-		//find all grades for assessment
-		List<Grade> grades = gradeRepository.findByAssessmentAssessmentIdAndScoreGreaterThan(assessment.getAssessmentId(), 0.0);
-		
-		//assert each grade is of assesssment
-		for(Grade grade: grades){
-			assertEquals(assessment, grade.getAssessment());
-		}
 	}
 	
 	/**

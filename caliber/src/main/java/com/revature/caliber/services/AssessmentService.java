@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.revature.caliber.beans.Assessment;
-import com.revature.caliber.data.AssessmentDAO;
+import com.revature.caliber.data.AssessmentRepository;
 
 /**
  * Used for assessment CRUD operations. Includes both Trainer and QC
@@ -15,18 +15,16 @@ import com.revature.caliber.data.AssessmentDAO;
  * Controller. This is the ideal place for calculations
  * 
  * @author Patrick Walsh
+ * @author Emily Higgins
  *
  */
 @Service
 public class AssessmentService {
 
 	private static final Logger log = Logger.getLogger(AssessmentService.class);
-	private AssessmentDAO assessmentDAO;
-
+	
 	@Autowired
-	public void setAssessmentDAO(AssessmentDAO assessmentDAO) {
-		this.assessmentDAO = assessmentDAO;
-	}
+	private AssessmentRepository assessmentRepository;
 
 	/*
 	 *******************************************************
@@ -41,7 +39,7 @@ public class AssessmentService {
 	 */
 	public void save(Assessment assessment) {
 		log.debug("Saving assessment " + assessment);
-		assessmentDAO.save(assessment);
+		assessmentRepository.save(assessment);
 	}
 
 	/**
@@ -49,9 +47,9 @@ public class AssessmentService {
 	 * @param assessmentId
 	 * @return
 	 */
-	public Assessment findAssessment(long assessmentId) {
+	public Assessment findAssessment(int assessmentId) {
 		log.debug("Finding one assessment " + assessmentId);
-		return assessmentDAO.findOne(assessmentId);
+		return assessmentRepository.findOne(assessmentId);
 	}
 
 	/**
@@ -60,38 +58,38 @@ public class AssessmentService {
 	 */
 	public List<Assessment> findAllAssessments() {
 		log.debug("Find all assessments");
-		return assessmentDAO.findAll();
+		return assessmentRepository.findAll();
 	}
 
 	/**
-	 * FIND ASSESSMENT BY WEEK
-	 * @param batch
+	 * FIND ASSESSMENT BY BATCH AND WEEK
+	 * @param batchId
 	 * @param week
-	 * @return
+	 * @return all assessments for the specified batch and week
 	 */
 	public List<Assessment> findAssessmentByWeek(Integer batchId, Integer week) {
 		log.debug("Find assessment by week number " + week + " for batch " + batchId + " ");
-		return assessmentDAO.findByWeek(batchId, week);
+		return assessmentRepository.findByBatchIdAndWeek(batchId, week.shortValue());
 	}
 	
 	/**
 	 * FIND ASSESSMENT BY BATCHID
-	 * @param 
-	 * @return
+	 * @param batchId
+	 * @return all assessments for the specified batch
 	 */
 	public List<Assessment> findAssessmentByBatchId(Integer batchId) {
 		log.debug("Find assessment by batchId " + batchId + " ");
-		return assessmentDAO.findByBatchId(batchId);
+		return assessmentRepository.findByBatchBatchId(batchId);
 	}
 
 	/**
 	 * UPDATE ASSESSMENT
 	 * @param assessment
+	 * @return updated assessment
 	 */
 	public Assessment update(Assessment assessment) {
 		log.debug("Updating assessment " + assessment);
-		
-		assessmentDAO.update(assessment);
+		assessmentRepository.save(assessment);
 		return assessment;
 	}
 
@@ -101,9 +99,7 @@ public class AssessmentService {
 	 */
 	public void delete(Assessment assessment) {
 		log.debug("Deleting assessment " + assessment);
-		//load assessment into persistent state
-		Assessment record = assessmentDAO.findOne(assessment.getAssessmentId());
-		assessmentDAO.delete(record);
+		assessmentRepository.delete(assessment);
 	}
 
 }
