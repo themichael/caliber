@@ -124,7 +124,7 @@ public class EvaluationController {
 	@RequestMapping(value = "/all/grades/batch/{batchId}/week/{week}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING','PANEL')")
 	public ResponseEntity<Map<Integer, List<Grade>>> findByWeek(@PathVariable Integer batchId,
-			@PathVariable Short week) {
+			@PathVariable Integer week) {
 		log.debug(FINDING_WEEK + week + " grades for batch: " + batchId);
 		Map<Integer, List<Grade>> table = evaluationService.findGradesByWeek(batchId, week);
 		return new ResponseEntity<>(table, HttpStatus.OK);

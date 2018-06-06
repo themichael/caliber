@@ -33,8 +33,6 @@ import com.revature.caliber.beans.PanelFeedback;
 import com.revature.caliber.beans.PanelStatus;
 import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.beans.Trainee;
-import com.revature.caliber.data.BatchDAO;
-import com.revature.caliber.data.PanelRepository;
 
 /**
  * Exclusively used to generate data for charts
@@ -61,19 +59,12 @@ public class ReportingService {
 	@Autowired // TODO convert to RestTemplate calls in microservices
 	private TrainingService trainingService;
 	@Autowired
-	private PanelRepository panelRepository;
+	private PanelService panelService;
 	@Autowired
 	private EvaluationService evaluationService;
-	
-	private BatchDAO batchDAO;
 
 	@Autowired
 	private AssessmentService assessmentService;
-
-	@Autowired
-	public void setBatchDAO(BatchDAO batchDAO) {
-		this.batchDAO = batchDAO;
-	}
 
 	/*
 	 *******************************************************
@@ -90,7 +81,7 @@ public class ReportingService {
 	 * @return list of Maps of strings to serve as a paneldto for batch overall
 	 */
 	public List<Map<String, String>> getBatchPanels(Integer batchId) {
-		List<Panel> panels = panelRepository.findAllByTraineeBatchBatchIdOrderByInterviewDateDesc(batchId);
+		List<Panel> panels = panelService.findAllByBatchId(batchId);
 		return utilAllTraineePanels(panels);
 	}
 
@@ -183,7 +174,7 @@ public class ReportingService {
 	}
 
 	public Map<QCStatus, Integer> pieChartCurrentWeekQCStatus(Integer batchId) {
-		List<Batch> batch = batchDAO.findAllCurrentWithNotesAndTrainees();
+		List<Batch> batch = this.findAllCurrentWithNotesAndTrainees();
 		try {
 			Batch currentOne = batch.stream().filter(e -> e.getBatchId() == batchId).findFirst().get();
 			Map<Integer, Map<QCStatus, Integer>> batchWeekQCStats = utilSeparateQCTraineeNotesByWeek(currentOne);
@@ -208,7 +199,7 @@ public class ReportingService {
 	 */
 	public List<Object> getAllBatchesCurrentWeekQCStackedBarChart() { // changed to List<Object>
 		List<Object> results = new ArrayList<>();
-		List<Batch> currentBatches = batchDAO.findAllCurrentWithNotes(); // changed to Notes
+		List<Batch> currentBatches = this.findAllCurrentWithNotes(); // changed to Notes
 		currentBatches.parallelStream().forEach(batch -> {
 			Map<String, Object> batchData = new HashMap<>();
 			Map<Integer, Map<QCStatus, Integer>> batchWeekQCStats = utilSeparateQCTraineeNotesByWeek(batch);
@@ -340,7 +331,7 @@ public class ReportingService {
 	 *         Overall Average, 2: Score Weight]>
 	 */
 	public Map<String, Double[]> getBatchOverallTraineeBarChart(Integer batchId, Integer traineeId) {
-		Batch batch = batchDAO.findOneWithTraineesAndGrades(batchId);
+		Batch batch = this.findOneWithTraineesAndGrades(batchId);
 		List<Trainee> trainees = new ArrayList<>(batch.getTrainees());
 		Set<Grade> grades = trainees.stream().filter(e -> e.getTraineeId() == traineeId).findFirst().get().getGrades();
 		Map<String, Double[]> results = new ConcurrentHashMap<>();
@@ -374,7 +365,7 @@ public class ReportingService {
 	 * @return
 	 */
 	public Map<String, Double> getBatchOverallBarChart(Integer batchId) {
-		Batch batch = batchDAO.findOneWithTraineesAndGrades(batchId);
+		Batch batch = this.findOneWithTraineesAndGrades(batchId);
 		Map<String, Double> results = new ConcurrentHashMap<>();
 		int weeks = batch.getWeeks();
 		List<Trainee> trainees = new ArrayList<>(batch.getTrainees());
@@ -405,7 +396,7 @@ public class ReportingService {
 	 */
 	public Map<String, Double[]> getBatchWeekTraineeBarChart(Integer batchId, Integer traineeId, Integer week) {
 		Map<String, Double[]> results = new ConcurrentHashMap<>();
-		Batch batch = batchDAO.findOneWithTraineesAndGrades(batchId);
+		Batch batch = this.findOneWithTraineesAndGrades(batchId);
 		List<Trainee> trainees = new ArrayList<>(batch.getTrainees());
 		Set<Grade> grades = trainees.stream().filter(e -> e.getTraineeId() == traineeId).findFirst().get().getGrades();
 		Arrays.stream(AssessmentType.values()).parallel().forEach(a -> {
@@ -440,7 +431,7 @@ public class ReportingService {
 
 	public Map<Integer, Double[]> getTraineeUpToWeekLineChart(Integer batchId, Integer week, Integer traineeId) {
 		Map<Integer, Double[]> results = new HashMap<>();
-		Batch batch = batchDAO.findOneWithTraineesAndGrades(batchId);
+		Batch batch = this.findOneWithTraineesAndGrades(batchId);
 		List<Trainee> trainees = new ArrayList<>(batch.getTrainees());
 		Set<Grade> grades = trainees.stream().filter(e -> e.getTraineeId() == traineeId).findFirst().get().getGrades();
 		for (int w = 1; w <= week; w++) {
@@ -462,7 +453,7 @@ public class ReportingService {
 	 * 
 	 */
 	public Map<Integer, Double[]> getTraineeOverallLineChart(Integer batchId, Integer traineeId) {
-		Batch batch = batchDAO.findOneWithTraineesAndGrades(batchId);
+		Batch batch = this.findOneWithTraineesAndGrades(batchId);
 		List<Trainee> trainees = new ArrayList<>(batch.getTrainees());
 		Set<Grade> grades = trainees.stream().filter(e -> e.getTraineeId() == traineeId).findFirst().get().getGrades();
 		Map<Integer, Double> traineeAvgOverall = utilAvgTraineeOverall(grades, batch.getWeeks());
@@ -487,7 +478,7 @@ public class ReportingService {
 	 * @return Map<Week #, Double Average Score>
 	 */
 	public Map<Integer, Double> getBatchOverallLineChart(int batchId) {
-		Batch batch = batchDAO.findOneWithTraineesAndGrades(batchId);
+		Batch batch = this.findOneWithTraineesAndGrades(batchId);
 		List<Trainee> trainees = new ArrayList<>(batch.getTrainees());
 		return utilAvgBatchOverall(trainees, batch.getWeeks());
 	}
@@ -500,7 +491,7 @@ public class ReportingService {
 	 */
 	public List<Object> getAllCurrentBatchesLineChart() {
 		List<Object> results = new ArrayList<>();
-		List<Batch> batches = batchDAO.findAllCurrentWithTrainees(); // changed to Trainees
+		List<Batch> batches = trainingService.findAllCurrentWithTrainees(); // changed to Trainees
 		batches.parallelStream().forEach(batch -> {
 			Map<String, Object> batchObject = new HashMap<>();
 			List<Trainee> trainees = new ArrayList<>(batch.getTrainees());
@@ -514,7 +505,7 @@ public class ReportingService {
 
 	public Map<String, Map<Integer, Double>> getAllCurrentBatchesLineChartConcurrent() {
 		Map<String, Map<Integer, Double>> results = new ConcurrentHashMap<>();
-		List<Batch> batches = batchDAO.findAllCurrentWithNotesAndTrainees();
+		List<Batch> batches = this.findAllCurrentWithNotesAndTrainees();
 		batches.parallelStream().forEach(b -> {
 			List<Trainee> trainees = new ArrayList<>(b.getTrainees());
 			results.put(b.getTrainingName(), utilAvgBatchOverall(trainees, b.getWeeks()));
@@ -547,7 +538,7 @@ public class ReportingService {
 		}
 
 		// get all panels
-		List<Panel> panels = panelRepository.findBiWeeklyPanels();
+		List<Panel> panels = panelService.findBiWeeklyPanels();
 
 		// for each panel
 		panels.parallelStream().forEach(panel -> {
@@ -630,7 +621,7 @@ public class ReportingService {
 	 */
 	public Map<String, Map<String, Double>> getBatchAllTraineesOverallRadarChart(Integer batchId) {
 		Map<String, Map<String, Double>> results = new ConcurrentHashMap<>();
-		Batch batch = batchDAO.findOneWithTraineesAndGrades(batchId);
+		Batch batch = this.findOneWithTraineesAndGrades(batchId);
 		batch.getTrainees().parallelStream().forEach(t -> {
 			Map<Category, Double[]> skills = utilAvgSkills(new ArrayList<>(t.getGrades()));
 			results.put(t.getName(), utilReplaceCategoryWithSkillName(skills));
@@ -650,8 +641,8 @@ public class ReportingService {
 		return utilAvgBatchWeekValue(trainees, week);
 	}
 
-	public Set<String> getTechnologiesForTheWeek(Integer batchId, int week) {
-		List<Assessment> assessments = assessmentService.findAssessmentByWeek(batchId, (short) week);
+	public Set<String> getTechnologiesForTheWeek(Integer batchId, Integer week) {
+		List<Assessment> assessments = assessmentService.findAssessmentByWeek(batchId, week);
 		Set<String> results = new TreeSet<>();
 		assessments.forEach(a -> results.add(a.getCategory().getSkillCategory()));
 		return results;
@@ -679,8 +670,7 @@ public class ReportingService {
 	public Double getBatchComparisonAvg(String skill, String training, Date startDate) {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(startDate);
-		List<Batch> allBatches = batchDAO.findAllAfterDate(cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH),
-				cal.get(Calendar.YEAR));
+		List<Batch> allBatches = trainingService.findAllAfterDate(cal);
 		List<Batch> filteredBatch = batchComparisonFilter(allBatches, skill, training);
 		return getBatchComparisonAvg(filteredBatch);
 	}
@@ -1005,6 +995,14 @@ public class ReportingService {
 				/ traineeAverageGrades.size();
 	}
 	
+	/**
+	 * Initializes grades for a week given a batchId and trainees
+	 * 
+	 * @param batchId
+	 * @param week
+	 * @param trainees
+	 * @return
+	 */
 	private List<Trainee> initializeGradesForBatchForWeek(Integer batchId, Integer week, List<Trainee> trainees) {
 		// TODO find another way to do this? (microservices)
 		Map<Integer, List<Grade>> gradesForWeek = evaluationService.findGradesByWeek(batchId, week);
@@ -1015,6 +1013,37 @@ public class ReportingService {
 		}
 		// yeah, microservices 
 		return trainees;
+	}
+	
+	/**
+	 * TODO Makes the service calls to find the current batches and joins the notes and trainees.
+	 * 
+	 * @return batches
+	 */
+	private List<Batch> findAllCurrentWithNotesAndTrainees() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	/**
+	 * TODO Makes the service calls to find the current batches and joins the notes.
+	 * 
+	 * @return batches
+	 */
+	private List<Batch> findAllCurrentWithNotes() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	/**
+	 * Find one with trainees and grades initialized. 
+	 * 
+	 * @param batchId
+	 * @return
+	 */
+	private Batch findOneWithTraineesAndGrades(Integer batchId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

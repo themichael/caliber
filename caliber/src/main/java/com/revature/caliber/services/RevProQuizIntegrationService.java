@@ -15,11 +15,6 @@ import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Category;
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Trainee;
-import com.revature.caliber.data.AssessmentRepository;
-import com.revature.caliber.data.BatchDAO;
-import com.revature.caliber.data.CategoryDAO;
-import com.revature.caliber.data.GradeRepository;
-import com.revature.caliber.data.TraineeRepository;
 import com.revature.caliber.exceptions.RevProIntegrationException;
 import com.revature.caliber.revpro.models.Quiz;
 import com.revature.caliber.revpro.models.QuizResult;
@@ -33,13 +28,11 @@ public class RevProQuizIntegrationService {
 	@Autowired
 	private AssessmentService assessmentService;
 	@Autowired
-	private GradeRepository gradeRepository;
+	private EvaluationService evaluationService;
 	@Autowired
-	private BatchDAO batchDAO;
+	private TrainingService trainingService;
 	@Autowired
-	private TraineeRepository traineeRepository;
-	@Autowired
-	private CategoryDAO categoryDAO;
+	private CategoryService categoryService;
 
 	/**
 	 * Parse the JSON data and create a new assessment for each RevaturePro quiz. 
@@ -59,12 +52,12 @@ public class RevProQuizIntegrationService {
 			for(Quiz quiz : quizzes.getQuizzes()) {
 				// load Caliber-data on batch and category
 				log.debug(quiz);
-				Category category = categoryDAO.findBySkillCategory(quiz.getCategory());
+				Category category = categoryService.findBySkillCategory(quiz.getCategory());
 				if(category == null) {
 					throw new RevProIntegrationException(quiz.getCategory() + " is not a valid skill category in Caliber. Please create this category before trying again.");
 				}
 				log.debug("Found category: " + category);
-				Batch batch = batchDAO.findOne(batchId);
+				Batch batch = trainingService.findBatch(batchId);
 				if(batch == null) {
 					throw new RevProIntegrationException("Batch number " + batchId + " does not exist!");
 				}
@@ -76,13 +69,13 @@ public class RevProQuizIntegrationService {
 				
 				// save each grade for the assessment
 				for(QuizResult quizResult : quiz.getGrades()) {
-					Trainee trainee = traineeRepository.findByResourceId(quizResult.getTrainee());
+					Trainee trainee = trainingService.findTraineeByResourceId(quizResult.getTrainee());
 					if(trainee == null) {
 						throw new RevProIntegrationException("Trainee with resourceId " + quizResult.getTrainee() + " does not exist!");
 					}
 					log.debug("Found trainee: " + trainee);
 					Grade grade = new Grade(assessment, trainee, new Date(), quizResult.getGrade());
-					gradeRepository.save(grade);
+					evaluationService.save(grade);
 				}
 			}
 		} catch (IOException e) {

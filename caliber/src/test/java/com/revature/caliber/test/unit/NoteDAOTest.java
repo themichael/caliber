@@ -13,7 +13,6 @@ import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Note;
 import com.revature.caliber.beans.NoteType;
 import com.revature.caliber.beans.Trainee;
-import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.NoteRepository;
 import com.revature.caliber.data.TraineeRepository;
 
@@ -28,8 +27,6 @@ public class NoteDAOTest extends CaliberTest {
 
 	@Autowired
 	private NoteRepository noteRepository;
-	@Autowired
-	private BatchDAO batchDao;
 	@Autowired
 	private TraineeRepository traineeRepository;
 

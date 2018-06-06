@@ -11,9 +11,7 @@ import org.springframework.stereotype.Service;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
-import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.SalesforceDAO;
-import com.revature.caliber.data.TrainerRepository;
 
 @Service
 public class SalesforceService {
@@ -24,17 +22,7 @@ public class SalesforceService {
 	@Autowired
 	private SalesforceDAO salesforceDAO;
 	@Autowired
-	private BatchDAO batchDAO;
-	@Autowired
-	private TrainerRepository trainerRepository;
-
-	public void setBatchDAO(BatchDAO batchDAO) {
-		this.batchDAO = batchDAO;
-	}
-
-	public void setSalesforceDAO(SalesforceDAO salesforceDAO) {
-		this.salesforceDAO = salesforceDAO;
-	}
+	private TrainingService trainingService;
 
 	/**
 	 * FIND ALL CURRENT SALESFORCE BATCHES
@@ -44,14 +32,14 @@ public class SalesforceService {
 	public List<Batch> getAllRelevantBatches() {
 		log.debug("Find all current batches by year");
 		List<Batch> allSalesForceBatches = salesforceDAO.getAllRelevantBatches();
-		List<Batch> allCaliberBatches = batchDAO.findAll();
+		List<Batch> allCaliberBatches = trainingService.findAllBatches();
 
 		// load trainer and co-trainer from Caliber DB
 		Map<String, Trainer> trainerMap = loadTrainers();
 		for (Batch batch : allSalesForceBatches) {
 			// null Salesforce trainer problem..
 			if (batch.getTrainer() == null) {
-				batch.setTrainer(trainerRepository.findOne(trainerMap.get(DEFAULT_TRAINER).getTrainerId()));
+				batch.setTrainer(trainingService.findTrainer(trainerMap.get(DEFAULT_TRAINER).getTrainerId()));
 			} else {
 				batch.setTrainer(trainerMap.get(batch.getTrainer().getEmail()));
 			}
@@ -83,7 +71,7 @@ public class SalesforceService {
 	}
 
 	private Map<String, Trainer> loadTrainers() {
-		List<Trainer> trainers = trainerRepository.findAll();
+		List<Trainer> trainers = trainingService.findAllTrainers();
 		Map<String, Trainer> trainerMap = new HashMap<>();
 		for (Trainer t : trainers) {
 			trainerMap.putIfAbsent(t.getEmail(), t);

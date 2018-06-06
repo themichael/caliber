@@ -1,6 +1,7 @@
 package com.revature.caliber.beans;
 
 import java.io.Serializable;
+import java.util.Comparator;
 import java.util.Set;
 
 import javax.persistence.Cacheable;
@@ -164,6 +165,15 @@ public class Category implements Serializable {
 	@Override
 	public String toString() {
 		return skillCategory;
+	}
+	
+	public static class SkillCategoryAscendingComparator implements Comparator<Category> {
+
+		@Override
+		public int compare(Category here, Category there) {
+			return here.getSkillCategory().compareTo(there.getSkillCategory());
+		}
+		
 	}
 
 }

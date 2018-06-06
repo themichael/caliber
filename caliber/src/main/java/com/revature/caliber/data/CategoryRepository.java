@@ -29,7 +29,7 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
 	 * 
 	 * @return categories
 	 */
-	public List<Category> findAllOrderBySkillCategoryAsc();
+	public List<Category> findAll();
 	
 	/**
 	 * Find a category by the given identifier

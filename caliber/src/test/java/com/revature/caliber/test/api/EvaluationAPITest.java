@@ -26,8 +26,7 @@ import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.data.AssessmentRepository;
-import com.revature.caliber.data.BatchDAO;
-import com.revature.caliber.data.CategoryDAO;
+import com.revature.caliber.data.CategoryRepository;
 import com.revature.caliber.data.TraineeRepository;
 import com.revature.caliber.data.TrainerRepository;
 
@@ -37,12 +36,12 @@ public class EvaluationAPITest extends AbstractAPITest {
 
 	@Autowired
 	TraineeRepository traineeRepository;
-	@Autowired
-	BatchDAO batchDAO;
+	/*@Autowired
+	BatchDAO batchDAO;*/
 	@Autowired
 	TrainerRepository trainerRepository;
 	@Autowired
-	CategoryDAO categoryDAO;
+	CategoryRepository categoryRepository;
 	@Autowired
 	AssessmentRepository assessmentRepository;
 
@@ -73,7 +72,7 @@ public class EvaluationAPITest extends AbstractAPITest {
 		log.trace("API Testing createGrade");
 
 		// make an assessment to store the grade in
-		Category category = categoryDAO.findAllActive().get(0);
+		Category category = categoryRepository.findByActiveOrderByCategoryIdAsc(true).get(0);
 		Trainee trainee = traineeRepository.findOne(TEST_TRAINEE_ID);
 		Assessment assessment = new Assessment("Testing Test", trainee.getBatch(), 200, AssessmentType.Exam, TEST_WEEK,
 				category);

@@ -1,9 +1,10 @@
-package com.revature.caliber.data;
+/*package com.revature.caliber.data;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
@@ -20,16 +21,15 @@ import org.springframework.transaction.annotation.Transactional;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.TrainingStatus;
 
-/**
+*//**
  * @author Patrick Walsh
  * @author Ateeb Khawaja
  *
- */
+ *//*
 @Repository
 public class BatchDAO {
 
 	private static final Logger log = Logger.getLogger(BatchDAO.class);
-	private SessionFactory sessionFactory;
 	private static final int MONTHS_BACK = -1;
 	private static final String TRAINEES = "trainees";
 	private static final String T_TRAINING_STATUS = "t.trainingStatus";
@@ -40,68 +40,56 @@ public class BatchDAO {
 	private static final String BATCH_ID = "batchId";
 
 	@Autowired
+	private BatchRepository batchRepository;
+
+	private SessionFactory sessionFactory;
+
+	@Autowired
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
 
-	/**
+	*//**
 	 * Save a batch to the database.
 	 * 
 	 * @param batch
-	 */
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+	 *//*
 	public void save(Batch batch) {
 		log.debug("Saving Batch " + batch);
-		sessionFactory.getCurrentSession().save(batch);
+		batchRepository.save(batch);
 	}
 
-	/**
-	 * Looks for all batches without any restriction. Likely to only be useful for
-	 * calculating reports.
+	*//**
+	 * Looks for all batches without any restriction.
 	 * 
 	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	 *//*
 	public List<Batch> findAll() {
 		log.debug("Fetching all batches");
-		return sessionFactory.getCurrentSession().createCriteria(Batch.class)
-				.createAlias(TRAINEES, "t", JoinType.LEFT_OUTER_JOIN)
-				.add(Restrictions.or(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped),
-						Restrictions.isNull(T_TRAINING_STATUS)))
-				.addOrder(Order.desc(START_DATE))
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+		List<Batch> batches = batchRepository.findAllDistinct();
+		filterDroppedTrainees(batches);
+		return batches;
 	}
 
-	/**
+	*//**
 	 * Looks for all batches where the user was the trainer or co-trainer.
 	 * 
 	 * @param auth
 	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	 *//*
 	public List<Batch> findAllByTrainer(Integer trainerId) {
-		log.debug("Fetching all batches for trainer: " + trainerId);
-		List<Batch> batches = sessionFactory.getCurrentSession().createCriteria(Batch.class)
-				.createAlias(TRAINEES, "t", JoinType.LEFT_OUTER_JOIN)
-				.add(Restrictions.or(Restrictions.eq("trainer.trainerId", trainerId),
-						Restrictions.eq("coTrainer.trainerId", trainerId)))
-				.addOrder(Order.desc(START_DATE)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
-		batches.parallelStream()
-				.forEach(b -> b.getTrainees().removeIf(t -> t.getTrainingStatus().equals(TrainingStatus.Dropped)));
+		List<Batch> batches = batchRepository.findAllByTrainer(trainerId);
+		filterDroppedTrainees(batches);
 		return batches;
 	}
 
-	/**
+	*//**
 	 * Looks for all batches where the user was the trainer or co-trainer. Batches
-	 * returned are currently actively in training.
+	 * returned are currently actively in training or completed within last month.
 	 * 
-	 * @param auth
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	 * @param trainerId
+	 * @return batches
+	 *//*
 	public List<Batch> findAllCurrent(Integer trainerId) {
 		log.debug("Fetching all current batches for trainer: " + trainerId);
 		Calendar endDateLimit = Calendar.getInstance();
@@ -118,13 +106,13 @@ public class BatchDAO {
 		return batches;
 	}
 
-	/**
+	*//**
 	 * Looks for all batches that are currently actively in training including
 	 * trainees, notes and grades
 	 * 
 	 * @param auth
 	 * @return
-	 */
+	 *//*
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Batch> findAllCurrentWithNotesAndTrainees() {
@@ -171,13 +159,13 @@ public class BatchDAO {
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 
-	/**
+	*//**
 	 * Looks for all batches that are currently actively in training. Useful for VP
 	 * and QC to get snapshots of currently operating batches.
 	 * 
 	 * @param auth
 	 * @returnF
-	 */
+	 *//*
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Batch> findAllCurrent() {
@@ -194,12 +182,12 @@ public class BatchDAO {
 		return batches;
 	}
 
-	/**
+	*//**
 	 * Find a batch by its given identifier
 	 * 
 	 * @param id
 	 * @return
-	 */
+	 *//*
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public Batch findOne(Integer batchId) {
 		log.debug("Fetching batch: " + batchId);
@@ -208,12 +196,12 @@ public class BatchDAO {
 				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped)).uniqueResult();
 	}
 
-	/**
+	*//**
 	 * Find a batch by its given identifier
 	 * 
 	 * @param id
 	 * @return
-	 */
+	 *//*
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public Batch findOneWithDroppedTrainees(Integer batchId) {
 		log.debug("Fetching batch: " + batchId);
@@ -222,12 +210,12 @@ public class BatchDAO {
 				.uniqueResult();
 	}
 
-	/**
+	*//**
 	 * Find a batch by its given identifier, all trainees, and all their grades
 	 * 
 	 * @param id
 	 * @return
-	 */
+	 *//*
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public Batch findOneWithTraineesAndGrades(Integer batchId) {
 		log.debug("Fetching batch with trainees: " + batchId);
@@ -238,38 +226,39 @@ public class BatchDAO {
 				.uniqueResult();
 	}
 
-	/**
+	*//**
 	 * Update details for a batch
 	 * 
 	 * @param batch
-	 */
+	 *//*
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void update(Batch batch) {
-		log.info("Updating batch: " + batch + " Trainer: " + batch.getTrainer() + " Cotrainer: " + batch.getCoTrainer());
+		log.info(
+				"Updating batch: " + batch + " Trainer: " + batch.getTrainer() + " Cotrainer: " + batch.getCoTrainer());
 		batch.setStartDate(new Date(batch.getStartDate().getTime() + TimeUnit.DAYS.toMillis(1)));
 		batch.setEndDate(new Date(batch.getEndDate().getTime() + TimeUnit.DAYS.toMillis(1)));
 		sessionFactory.getCurrentSession().saveOrUpdate(batch);
 	}
 
-	/**
+	*//**
 	 * Delete a batch from the database
 	 * 
 	 * @param batch
-	 */
+	 *//*
 	@Transactional(isolation = Isolation.SERIALIZABLE, propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void delete(Batch batch) {
 		log.debug("Deleting batch: " + batch);
 		sessionFactory.getCurrentSession().delete(batch);
 	}
 
-	/**
+	*//**
 	 * Looks for all batches that whose starting date is after the given year,
 	 * month, and day. Month is 0-indexed Return all batches, trainees for that
 	 * batch, and the grades for each trainee
 	 * 
 	 * @param auth
 	 * @return
-	 */
+	 *//*
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Batch> findAllAfterDate(Integer month, Integer day, Integer year) {
@@ -283,4 +272,27 @@ public class BatchDAO {
 				.add(Restrictions.ge(START_DATE, startDate.getTime())).addOrder(Order.desc(START_DATE))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
+	
+	*//**
+	 * Helper method to filter all Dropped trainees from a batch.
+	 * 
+	 * @param batch
+	 *//*
+	private void filterDroppedTrainees(Batch batch) {
+		batch.setTrainees(batch.getTrainees().stream().filter(t -> !t.getTrainingStatus().equals(TrainingStatus.Dropped))
+				.collect(Collectors.toSet()));
+	}
+	
+	*//**
+	 * Helper method to filter all Dropped trainees from a list of batch.
+	 * 
+	 * @param batches
+	 *//*
+	private void filterDroppedTrainees(List<Batch> batches) {
+		for (Batch b : batches) {
+			filterDroppedTrainees(b);
+		}
+	}
+	
 }
+*/

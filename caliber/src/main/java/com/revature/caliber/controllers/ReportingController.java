@@ -300,7 +300,7 @@ public class ReportingController {
 	@RequestMapping(value = "/all/assessments/categories/batch/{batchId}/week/{week}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING', 'PANEL')")
 	public ResponseEntity<Set<String>> getTechnologiesForTheWeek(@PathVariable Integer batchId,
-			@PathVariable Short week) {
+			@PathVariable Integer week) {
 		log.debug("getBatchWeekAverageValue   ===>   /all/reports/batch/{batchId}/overall/line-batch-overall");
 		return new ResponseEntity<>(reportingService.getTechnologiesForTheWeek(batchId, week), HttpStatus.OK);
 	}

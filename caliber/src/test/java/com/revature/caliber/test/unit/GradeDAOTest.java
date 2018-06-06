@@ -18,13 +18,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.CaliberTest;
 import com.revature.caliber.beans.Assessment;
-import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Category;
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.data.AssessmentRepository;
-import com.revature.caliber.data.BatchDAO;
-import com.revature.caliber.data.CategoryDAO;
+import com.revature.caliber.data.CategoryRepository;
 import com.revature.caliber.data.GradeRepository;
 import com.revature.caliber.data.TraineeRepository;
 import com.revature.caliber.data.TrainerRepository;
@@ -48,9 +46,7 @@ public class GradeDAOTest extends CaliberTest {
 	@Autowired
 	private TraineeRepository traineeRepository;
 	@Autowired
-	private BatchDAO batchDAO;
-	@Autowired
-	private CategoryDAO categoryDAO;
+	private CategoryRepository categoryRepository;
 	@Autowired
 	private AssessmentRepository assessmentRepository;
 	@Autowired
@@ -173,28 +169,6 @@ public class GradeDAOTest extends CaliberTest {
 	
 	/**
 	 * Test methods:
-	 * @see com.revature.caliber.data.GradeDAO#findByBatch(Integer)
-	 */
-	@Test
-	public void findByBatch(){
-		log.trace("GETTING GRADES FOR BATCH");
-		
-		//get batch
-		Batch batch = batchDAO.findOne(TEST_BATCH_ID);
-		
-		//find all grades for batch
-		List<Grade> grades = gradeRepository.findByTraineeBatchBatchIdAndScoreGreaterThan(batch.getBatchId(), 0.0);
-		
-		//assert that each grade belongs to batch
-
-		for(Grade grade : grades){
-			assertEquals(batch, grade.getTrainee().getBatch());
-		}
-	
-	}
-	
-	/**
-	 * Test methods:
 	 * @see com.revature.caliber.data.GradeDAO#findByCategory(Integer)
 	 */
 	@Test
@@ -202,7 +176,7 @@ public class GradeDAOTest extends CaliberTest {
 		log.trace("GETTING GRADES FOR CATEGORY");
 		
 		//get category
-		Category category = categoryDAO.findOne(TEST_CATEGORY_ID);
+		Category category = categoryRepository.findOne(TEST_CATEGORY_ID);
 		
 		//get all grades of category
 		List<Grade> grades = gradeRepository.findByAssessmentCategoryCategoryIdAndScoreGreaterThan(category.getCategoryId(), 0.0);

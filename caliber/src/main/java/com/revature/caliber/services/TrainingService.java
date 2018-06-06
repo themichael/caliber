@@ -1,8 +1,12 @@
 package com.revature.caliber.services;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +24,7 @@ import com.revature.caliber.beans.TrainerTask;
 import com.revature.caliber.beans.TrainerTaskCompletion;
 import com.revature.caliber.beans.TrainingStatus;
 import com.revature.caliber.data.AddressRepository;
-import com.revature.caliber.data.BatchDAO;
+import com.revature.caliber.data.BatchRepository;
 import com.revature.caliber.data.TaskCompletionDAO;
 import com.revature.caliber.data.TaskDAO;
 import com.revature.caliber.data.TraineeRepository;
@@ -39,29 +43,26 @@ import com.revature.caliber.data.TrainerRepository;
 public class TrainingService {
 
 	private static final Logger log = Logger.getLogger(TrainingService.class);
-	
+
 	@Autowired
 	private TrainerRepository trainerRepository;
-	
+
 	@Autowired
 	private TraineeRepository traineeRepository;
-	
-	private BatchDAO batchDAO;
+
+	@Autowired
+	private BatchRepository batchRepository;
+
 	@Autowired
 	private AddressRepository addressRepository;
 	private TaskDAO taskDAO;
 	private TaskCompletionDAO taskCompletionDAO;
 
 	@Autowired
-	public void setBatchDAO(BatchDAO batchDAO) {
-		this.batchDAO = batchDAO;
-	}
-	
-	@Autowired
 	public void setTaskDAO(TaskDAO taskDAO) {
 		this.taskDAO = taskDAO;
 	}
-	
+
 	@Autowired
 	public void setTaskCompletionDao(TaskCompletionDAO taskCompletionDAO) {
 		this.taskCompletionDAO = taskCompletionDAO;
@@ -76,6 +77,7 @@ public class TrainingService {
 
 	/**
 	 * Add new Address
+	 * 
 	 * @param location
 	 */
 	public void createLocation(Address location) {
@@ -85,6 +87,7 @@ public class TrainingService {
 
 	/**
 	 * Update existing Address
+	 * 
 	 * @param location
 	 */
 	public void update(Address location) {
@@ -94,15 +97,17 @@ public class TrainingService {
 
 	/**
 	 * retrieve all locations
+	 * 
 	 * @return all Addresses in the database
 	 */
 	public List<Address> findAllLocations() {
 		log.debug("Finding all locations");
 		return addressRepository.findAll();
 	}
-	
+
 	/**
 	 * Find Address with provided id
+	 * 
 	 * @param id
 	 * @return address
 	 */
@@ -131,7 +136,7 @@ public class TrainingService {
 	}
 
 	/**
-	 * FIND TRAINER BY EMAIL
+	 * Find trainer by email
 	 *
 	 * @param email
 	 * @return
@@ -140,11 +145,9 @@ public class TrainingService {
 		log.debug("Find trainer by email " + email);
 		return trainerRepository.findByEmail(email);
 	}
-	
-	
 
 	/**
-	 * FIND ALL TRAINERS (not inactive trainers)
+	 * Find all trainers (not inactive trainers)
 	 *
 	 * @return
 	 */
@@ -154,7 +157,7 @@ public class TrainingService {
 	}
 
 	/**
-	 * UPDATE TRAINER
+	 * Update trainer
 	 *
 	 * @param trainer
 	 */
@@ -164,7 +167,7 @@ public class TrainingService {
 	}
 
 	/**
-	 * FIND TRAINER BY ID
+	 * Find trainer by id
 	 *
 	 * @param trainerId
 	 * @return
@@ -176,7 +179,7 @@ public class TrainingService {
 
 	/**
 	 *
-	 * MAKE TRAINER INACTIVE
+	 * Change a trainer's status to Inactive
 	 *
 	 * @param trainer
 	 **/
@@ -187,7 +190,9 @@ public class TrainingService {
 	}
 
 	/**
-	 * Find all distinct titles that have been given to trainers
+	 * Find all distinct titles that have been given to trainers. Useful for
+	 * populating suggested titles on the UI.
+	 * 
 	 **/
 	public List<String> findAllTrainerTitles() {
 		log.debug("Found all trainer titles");
@@ -202,102 +207,133 @@ public class TrainingService {
 	 */
 
 	/**
-	 * ADD ANOTHER WEEK TO BATCH
+	 * Add another week to a batch
 	 *
 	 * @param batchId
 	 */
 	public void addWeek(Integer batchId) {
 		log.debug("Adding week to batch: " + batchId);
-		Batch batch = batchDAO.findOne(batchId);
+		Batch batch = batchRepository.findOne(batchId);
 		if (batch == null)
 			throw new IllegalArgumentException("Invalid batch");
 		int weeks = batch.getWeeks();
 		batch.setWeeks(++weeks);
-		batchDAO.update(batch);
+		batchRepository.save(batch);
 	}
 
 	/**
-	 * SAVE BATCH
+	 * Save batch
 	 *
 	 * @param batch
 	 */
-	public void save(Batch batch) {
+	public Batch save(Batch batch) {
 		log.debug("Saving batch: " + batch);
-		batchDAO.save(batch);
+		return batchRepository.save(batch);
 	}
 
 	/**
-	 * FIND ALL BATCHES
+	 * Looks for all batches without any restriction.
 	 *
 	 * @return
 	 */
 	public List<Batch> findAllBatches() {
 		log.debug("Find all batches");
-		return batchDAO.findAll();
+		return batchRepository.findAllDistinct();
 	}
 
 	/**
-	 * FIND ALL CURRENT BATCHES
+	 * Looks for all batches within the last 2 months
 	 *
 	 * @return
 	 */
 	public List<Batch> findAllCurrentBatches() {
 		log.debug("Find all current batches");
-		return batchDAO.findAllCurrent();
+		return filterToCurrentBatches(batchRepository.findAllDistinct());
 	}
 
 	/**
-	 * FIND ALL BATCHES BY TRAINER
+	 * Looks for all batches where the user was the trainer or co-trainer.
 	 *
 	 * @param trainerId
 	 * @return
 	 */
 	public List<Batch> findAllBatches(int trainerId) {
 		log.debug("Find all batches for trainer: " + trainerId);
-		return batchDAO.findAllByTrainer(trainerId);
+		return batchRepository.findAllByTrainer(trainerId);
 	}
 
 	/**
-	 * FIND ALL CURRENT BATCHES BY TRAINER
+	 * Looks for all batches where the user was the trainer or co-trainer. Batches
+	 * returned are currently actively in training.
 	 *
 	 * @param trainerId
 	 * @return
 	 */
 	public List<Batch> findAllCurrentBatches(int trainerId) {
 		log.debug("Find all current batches for trainer: " + trainerId);
-		return batchDAO.findAllCurrent(trainerId);
+		return filterToCurrentBatches(batchRepository.findAllByTrainer(trainerId));
 	}
 
 	/**
-	 * FIND BATCH BY ID
+	 * Find a batch by its given identifier
 	 *
 	 * @param batchId
 	 * @return
 	 */
 	public Batch findBatch(Integer batchId) {
 		log.debug("Finding batch with id: " + batchId);
-		return batchDAO.findOne(batchId);
+		return batchRepository.findOne(batchId);
 	}
 
 	/**
-	 * UPDATE BATCH
+	 * Update batch
 	 *
 	 * @param batch
 	 */
 	public void update(Batch batch) {
 		log.debug("Update batch " + batch);
-		batchDAO.update(batch);
+		batchRepository.save(batch);
 	}
 
 	/**
-	 * DELETE BATCH
+	 * Delete batch
 	 *
 	 * @param batch
 	 */
 	public void delete(Batch batch) {
-		Batch fullBatch = batchDAO.findOneWithDroppedTrainees(batch.getBatchId());
-		log.debug("Delete batch " + fullBatch);
-		batchDAO.delete(fullBatch);
+		log.debug("Delete batch " + batch);
+		batchRepository.delete(batch);
+	}
+	
+	/**
+	 * Find all batches after a given date.
+	 * 
+	 * @param date
+	 * @return batches
+	 */
+	public List<Batch> findAllAfterDate(Calendar date) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	/**
+	 * Find all current batches with trainees initialized.
+	 * 
+	 * @return
+	 */
+	public List<Batch> findAllCurrentWithTrainees() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/**
+	 * Helper method to filter all Dropped trainees from a batch.
+	 * 
+	 * @param b
+	 */
+	private void filterDroppedTrainees(Batch b) {
+		b.setTrainees(b.getTrainees().stream().filter(t -> !t.getTrainingStatus().equals(TrainingStatus.Dropped))
+				.collect(Collectors.toSet()));
 	}
 
 	/*
@@ -376,7 +412,6 @@ public class TrainingService {
 		result.addAll(traineeBySkypeId);
 		return result;
 	}
-	
 
 	/**
 	 * DELETE TRAINEE
@@ -398,6 +433,16 @@ public class TrainingService {
 		return traineeRepository.save(trainee);
 	}
 	
+	/**
+	 * Find a trainee by their Salesforce resourceId
+	 * 
+	 * @param resourceId
+	 * @return
+	 */
+	public Trainee findTraineeByResourceId(String resourceId) {
+		return traineeRepository.findByResourceId(resourceId);
+	}
+
 	/*
 	 *******************************************************
 	 * TASK SERVICES
@@ -412,7 +457,7 @@ public class TrainingService {
 		log.debug("Find all active tasks");
 		return taskDAO.findAllActiveTasks();
 	}
-	
+
 	/**
 	 * FIND ALL COMPLETED TASKS
 	 */
@@ -420,12 +465,12 @@ public class TrainingService {
 		log.debug("Find all completed tasks");
 		return taskCompletionDAO.findAllCompletedTasks();
 	}
-	
+
 	/**
 	 * FIND ALL COMPLETED TASKS BY TRAINER ID
 	 */
 	public List<TrainerTaskCompletion> findAllTasksByTrainerId(int id) {
-		log.debug("Find all completed tasks for trainer with id " +  id);
+		log.debug("Find all completed tasks for trainer with id " + id);
 		return taskCompletionDAO.findAllTasksByTrainerId(id);
 	}
 
@@ -437,7 +482,7 @@ public class TrainingService {
 		log.debug("Save task: " + task);
 		taskDAO.saveOrUpdateTask(task);
 	}
-	
+
 	/**
 	 * SAVE A NEW TASK COMPLETION
 	 */
@@ -446,4 +491,18 @@ public class TrainingService {
 		log.debug("Save task completed: " + taskCompletion);
 		taskCompletionDAO.saveTaskCompletion(taskCompletion);
 	}
+
+	/**
+	 * Filter the given batches to only have batches currently in training or ended
+	 * within the last month
+	 * 
+	 * @param batches
+	 * @return current batches
+	 */
+	private List<Batch> filterToCurrentBatches(List<Batch> batches) {
+		LocalDate oneMonthAgo = LocalDate.now().minus(Period.ofMonths(1));
+		return batches.stream().filter(batch -> batch.getEndDate().after(java.sql.Date.valueOf(oneMonthAgo)))
+				.collect(Collectors.toList());
+	}
+
 }

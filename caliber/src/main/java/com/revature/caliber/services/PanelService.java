@@ -89,6 +89,25 @@ public class PanelService {
 		log.debug("Getting Panel with ID " + panelId);
 		return panelRepository.findOne(panelId);
 	}
+	
+	/**
+	 * Find all the panel interviews within the last 2 weeks
+	 * 
+	 * @return panels
+	 */
+	public List<Panel> findBiWeeklyPanels() {
+		return panelRepository.findBiWeeklyPanels();
+	}
+	
+	/**
+	 * Find all by batchId. Orders by Interview Date descending
+	 * 
+	 * @param batchId
+	 * @return
+	 */
+	public List<Panel> findAllByBatchId(Integer batchId) {
+		return panelRepository.findAllByTraineeBatchBatchIdOrderByInterviewDateDesc(batchId);
+	}
 
 	public List<Panel> findByTraineeId(int traineeId) {
 		log.debug("Getting Panels with trainee ID " + traineeId);
@@ -127,4 +146,5 @@ public class PanelService {
 			}
 		return result;
 	}
+
 }
