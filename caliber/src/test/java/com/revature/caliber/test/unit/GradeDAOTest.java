@@ -23,7 +23,7 @@ import com.revature.caliber.beans.Category;
 import com.revature.caliber.beans.Grade;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
-import com.revature.caliber.data.AssessmentDAO;
+import com.revature.caliber.data.AssessmentRepository;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.CategoryDAO;
 import com.revature.caliber.data.GradeDAO;
@@ -42,7 +42,7 @@ public class GradeDAOTest extends CaliberTest {
 	private static final int TEST_BATCH_ID = 2150;
 	private static final int TEST_CATEGORY_ID = 12;
 	private static final int TEST_TRAINER_ID = 1;
-	private static final int TEST_ASSESSMENT_WEEK = 7;
+	private static final short TEST_ASSESSMENT_WEEK = 7;
 
 	@Autowired
 	private GradeDAO gradeDAO;
@@ -53,7 +53,7 @@ public class GradeDAOTest extends CaliberTest {
 	@Autowired
 	private CategoryDAO categoryDAO;
 	@Autowired
-	private AssessmentDAO assessmentDAO;
+	private AssessmentRepository assessmentRepository;
 	@Autowired
 	private TrainerDAO trainerDAO;
 	
@@ -66,8 +66,7 @@ public class GradeDAOTest extends CaliberTest {
 	public void saveValidGrade(){
 		log.trace("CREATING VALID GRADES");
 		
-		//dependencies
-		Assessment assessment = assessmentDAO.findOne(TEST_ASSESSMENT_ID);
+		Assessment assessment = assessmentRepository.findOne(TEST_ASSESSMENT_ID);
 		Trainee trainee = traineeDAO.findOne(TEST_TRAINEE_ID);
 		
 		
@@ -162,12 +161,8 @@ public class GradeDAOTest extends CaliberTest {
 	public void findByAssessment(){
 		log.trace("GETTING GRADES FOR ASSESSMENT");
 		
-		//get assessment
-		Assessment assessment = assessmentDAO.findOne(TEST_ASSESSMENT_ID);
-		//find all grades for assessment
+		Assessment assessment = assessmentRepository.findOne(TEST_ASSESSMENT_ID);
 		List<Grade> grades = gradeDAO.findByAssessment(assessment.getAssessmentId());
-		
-		//assert each grade is of assesssment
 		for(Grade grade: grades){
 			assertEquals(assessment, grade.getAssessment());
 		}

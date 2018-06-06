@@ -41,12 +41,9 @@ import com.revature.caliber.services.ReportingService;
 public class ReportingController {
 
 	private static final Logger log = Logger.getLogger(ReportingController.class);
-	private ReportingService reportingService;
-
+	
 	@Autowired
-	public void setReportingService(ReportingService reportingService) {
-		this.reportingService = reportingService;
-	}
+	private ReportingService reportingService;
 
 	/**************************************************************************
 	 * Batch Average Comparison
@@ -57,14 +54,14 @@ public class ReportingController {
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING','PANEL')")
 	public ResponseEntity<Double> getBatchComparisonAvg(@PathVariable String skill, @PathVariable String training,
 			@PathVariable Date startDate) {
-		log.debug("http://localhost:8080/all/reports/compare/skill/"+skill+"/training/"+training+"/date/"+startDate);
+		log.debug("http://localhost:8080/all/reports/compare/skill/" + skill + "/training/" + training + "/date/"
+				+ startDate);
 		log.debug("YAYAYAYAYAYAYYAYAYAYAYAYAYAYAYAYATEZXRDCYTFUVGBJHLNKJSFSD " + startDate + skill + training);
 		log.debug(" getBatchComparisonAvg ===> " + reportingService.getBatchComparisonAvg(skill, training, startDate));
 		Double result = reportingService.getBatchComparisonAvg(skill, training, startDate);
-		if(!result.isNaN()){
+		if (!result.isNaN()) {
 			return new ResponseEntity<>(result, HttpStatus.OK);
-		}
-		else{
+		} else {
 			return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
 		}
 	}
@@ -79,7 +76,7 @@ public class ReportingController {
 	public ResponseEntity<Map<QCStatus, Integer>> getBatchWeekPieChart(@PathVariable Integer batchId,
 			@PathVariable Integer weekId) {
 		log.debug("getBatchWeekPieChart   ===>   /all/reports/batch/{batchId}/week/{weekId}/pie");
-		
+
 		return new ResponseEntity<>(reportingService.getBatchWeekPieChart(batchId, weekId), HttpStatus.OK);
 	}
 
@@ -88,11 +85,10 @@ public class ReportingController {
 	public ResponseEntity<Map<QCStatus, Integer>> getPieChartCurrentWeekQCStatus(@PathVariable Integer batchId) {
 		log.debug("getPieChartCurrentWeekQCStatus ===> /all/reports/batch/{batchId}/pie");
 		Map<QCStatus, Integer> results = reportingService.pieChartCurrentWeekQCStatus(batchId);
-		if(results.size() > 0) {
+		if (results.size() > 0) {
 			log.debug(results);
 			return new ResponseEntity<>(results, HttpStatus.OK);
-		}
-		else {
+		} else {
 			return new ResponseEntity<>(new HashMap<>(), HttpStatus.NOT_FOUND);
 		}
 	}
@@ -137,7 +133,7 @@ public class ReportingController {
 		log.debug(
 				"getBatchOverallTraineeBarChart   ===>   /all/reports/batch/{batchId}/overall/trainee/{traineeId}/bar-batch-overall-trainee");
 		Map<String, Double[]> result = reportingService.getBatchOverallTraineeBarChart(batchId, traineeId);
-		if(result.isEmpty()){
+		if (result.isEmpty()) {
 			return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
 		} else {
 			return new ResponseEntity<>(result, HttpStatus.OK);
@@ -148,8 +144,8 @@ public class ReportingController {
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING', 'PANEL')")
 	public ResponseEntity<Map<String, Double>> getBatchOverallBarChart(@PathVariable Integer batchId) {
 		log.debug("getBatchOverallBarChart   ===>   /all/reports/batch/{batchId}/overall/bar-batch-overall");
-			Map<String, Double> result = reportingService.getBatchOverallBarChart(batchId);
-		if(result.isEmpty()) {
+		Map<String, Double> result = reportingService.getBatchOverallBarChart(batchId);
+		if (result.isEmpty()) {
 			return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
 		} else {
 			return new ResponseEntity<>(result, HttpStatus.OK);
@@ -163,7 +159,7 @@ public class ReportingController {
 		log.debug(
 				"getBatchWeekTraineeBarChart   ===>   /all/reports/batch/{batchId}/week/{weekId}/trainee/{traineeId}/bar-batch-week-trainee");
 		Map<String, Double[]> result = reportingService.getBatchWeekTraineeBarChart(batchId, traineeId, weekId);
-		if(result.isEmpty()){
+		if (result.isEmpty()) {
 			return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
 		} else {
 			return new ResponseEntity<>(result, HttpStatus.OK);
@@ -182,7 +178,7 @@ public class ReportingController {
 		log.debug(
 				"getTraineeUpToWeekLineChart   ===>   /all/reports/week/{week}/trainee/{traineeId}/line-trainee-up-to-week");
 		Map<Integer, Double[]> result = reportingService.getTraineeUpToWeekLineChart(batchId, week, traineeId);
-		if(result.isEmpty()){
+		if (result.isEmpty()) {
 			return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
 		} else {
 			return new ResponseEntity<>(result, HttpStatus.OK);
@@ -196,13 +192,12 @@ public class ReportingController {
 		log.debug(
 				"getTraineeOverallLineChart   ===>   /all/reports/batch/{batchId}/overall/trainee/{traineeId}/line-trainee-overall");
 		Map<Integer, Double[]> results = reportingService.getTraineeOverallLineChart(batchId, traineeId);
-		if(results.size() > 0) {
+		if (results.size() > 0) {
 			return new ResponseEntity<>(results, HttpStatus.OK);
-		}
-		else {
+		} else {
 			return new ResponseEntity<>(new HashMap<>(), HttpStatus.NOT_FOUND);
 		}
-		}
+	}
 
 	@RequestMapping(value = "/all/reports/batch/{batchId}/overall/line-batch-overall", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING', 'PANEL')")
@@ -216,18 +211,18 @@ public class ReportingController {
 	public ResponseEntity<List<Object>> getCurrentBatchesLineChart() {
 		log.debug("getCurrentBatchesLineChart   ===>  /all/reports/dashboard");
 		List<Object> resp = reportingService.getAllCurrentBatchesLineChart();
-		if(resp.isEmpty()){
+		if (resp.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>(resp, HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/all/reports/biweeklyPanelResults", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'STAGING', 'PANEL')")
 	public ResponseEntity<List<Object>> getCurrentPanelsLineChart() {
 		log.debug("getCurrentPanelsLineChart   ===>  /all/reports/biweeklyPanelResults");
 		List<Object> resp = reportingService.getAllCurrentPanelsLineChart();
-		if(resp.isEmpty()){
+		if (resp.isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<>(resp, HttpStatus.OK);
@@ -285,9 +280,9 @@ public class ReportingController {
 	@RequestMapping(value = "/all/assessments/categories/batch/{batchId}/week/{week}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING', 'PANEL')")
 	public ResponseEntity<Set<String>> getTechnologiesForTheWeek(@PathVariable Integer batchId,
-			@PathVariable Integer week) {
+			@PathVariable Short week) {
 		log.debug("getBatchWeekAverageValue   ===>   /all/reports/batch/{batchId}/overall/line-batch-overall");
 		return new ResponseEntity<>(reportingService.getTechnologiesForTheWeek(batchId, week), HttpStatus.OK);
 	}
-	
+
 }

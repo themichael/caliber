@@ -92,7 +92,7 @@ public class EvaluationService {
 	 * @param week
 	 * @return
 	 */
-	public Map<Integer, List<Grade>> findGradesByWeek(Integer batchId, Integer week) {
+	public Map<Integer, List<Grade>> findGradesByWeek(Integer batchId, Short week) {
 		log.debug(FINDING_WEEK + week + " grades for batch: " + batchId);
 		List<Grade> grades = gradeDAO.findByWeek(batchId, week);
 		Map<Integer, List<Grade>> table = new HashMap<>();

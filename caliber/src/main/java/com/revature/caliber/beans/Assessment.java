@@ -85,11 +85,6 @@ public class Assessment implements Serializable {
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Category category;
 
-	@OneToMany(mappedBy = "assessment", cascade = CascadeType.ALL)
-	@JsonIgnore
-	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-	private Set<Grade> grades = new HashSet<>();
-
 	public Assessment() {
 		super();
 	}
@@ -159,14 +154,6 @@ public class Assessment implements Serializable {
 
 	public void setCategory(Category category) {
 		this.category = category;
-	}
-
-	public Set<Grade> getGrades() {
-		return grades;
-	}
-
-	public void setGrades(Set<Grade> grades) {
-		this.grades = grades;
 	}
 
 	@Override

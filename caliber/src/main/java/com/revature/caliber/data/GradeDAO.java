@@ -162,7 +162,7 @@ public class GradeDAO {
 	 */
 	@SuppressWarnings("unchecked")
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	public List<Grade> findByWeek(Integer batchId, Integer week) {
+	public List<Grade> findByWeek(Integer batchId, Short week) {
 		log.debug("Finding week " + week + " grades for batch: " + batchId);
 		return sessionFactory.getCurrentSession().createCriteria(Grade.class).createAlias(TRAINEE, TRAINEE).createAlias(TRAINEE_BATCH, "b")
 				.add(Restrictions.eq("b.batchId", batchId)).createAlias("assessment", "a")
