@@ -199,8 +199,8 @@ public class ReportingService {
 	 */
 	public List<Object> getAllBatchesCurrentWeekQCStackedBarChart() { // changed to List<Object>
 		List<Object> results = new ArrayList<>();
-		List<Batch> currentBatches = this.findAllCurrentWithNotes(); // changed to Notes
-		currentBatches.parallelStream().forEach(batch -> {
+		List<Batch> currentBatches = this.findAllCurrentWithNotesAndTrainees(); // changed to Notes
+		currentBatches.stream().forEach(batch -> {
 			Map<String, Object> batchData = new HashMap<>();
 			Map<Integer, Map<QCStatus, Integer>> batchWeekQCStats = utilSeparateQCTraineeNotesByWeek(batch);
 			for (Integer weekNum = batchWeekQCStats.size(); weekNum > 0; weekNum--) {
@@ -284,9 +284,9 @@ public class ReportingService {
 
 		// TODO find another way to do this? (microservices)
 		initializeGradesForBatchForWeek(batchId, week, trainees);
-		
+
 		Map<String, Double[]> results = new ConcurrentHashMap<>();
-		Arrays.stream(AssessmentType.values()).parallel().forEach(a -> {
+		Arrays.stream(AssessmentType.values()).forEach(a -> {
 			Map<Trainee, Double[]> temp = utilAvgBatchWeek(trainees, week, a);
 			if (temp.size() > 0) {
 				Double batchAvg = 0d;
@@ -335,7 +335,7 @@ public class ReportingService {
 		List<Trainee> trainees = new ArrayList<>(batch.getTrainees());
 		Set<Grade> grades = trainees.stream().filter(e -> e.getTraineeId() == traineeId).findFirst().get().getGrades();
 		Map<String, Double[]> results = new ConcurrentHashMap<>();
-		Arrays.stream(AssessmentType.values()).parallel().forEach(a -> {
+		Arrays.stream(AssessmentType.values()).forEach(a -> {
 			int[] counts = { 0, 0 };
 			Map<Integer, Double[]> avgTraineeWeek = utilAvgTraineeOverall(grades, a, batch.getWeeks());
 			Map<Integer, Double[]> avgBatchWeek = utilAvgBatchOverall(trainees, a, batch.getWeeks());
@@ -369,7 +369,7 @@ public class ReportingService {
 		Map<String, Double> results = new ConcurrentHashMap<>();
 		int weeks = batch.getWeeks();
 		List<Trainee> trainees = new ArrayList<>(batch.getTrainees());
-		trainees.parallelStream().forEach(trainee -> {
+		trainees.stream().forEach(trainee -> {
 			Double avg = 0.d;
 			int weeksWithGrades = 0;
 			for (Integer i = 0; i <= weeks; i++) {
@@ -399,7 +399,7 @@ public class ReportingService {
 		Batch batch = this.findOneWithTraineesAndGrades(batchId);
 		List<Trainee> trainees = new ArrayList<>(batch.getTrainees());
 		Set<Grade> grades = trainees.stream().filter(e -> e.getTraineeId() == traineeId).findFirst().get().getGrades();
-		Arrays.stream(AssessmentType.values()).parallel().forEach(a -> {
+		Arrays.stream(AssessmentType.values()).forEach(a -> {
 			Double[] avgTraineeWeek = utilAvgTraineeWeek(week, a, grades);
 			if (avgTraineeWeek[0] > 0.0) {
 				Map<Trainee, Double[]> avgBatchWeek = utilAvgBatchWeek(trainees, week, a);
@@ -491,8 +491,8 @@ public class ReportingService {
 	 */
 	public List<Object> getAllCurrentBatchesLineChart() {
 		List<Object> results = new ArrayList<>();
-		List<Batch> batches = trainingService.findAllCurrentWithTrainees(); // changed to Trainees
-		batches.parallelStream().forEach(batch -> {
+		List<Batch> batches = trainingService.findAllCurrentBatches();
+		batches.stream().forEach(batch -> {
 			Map<String, Object> batchObject = new HashMap<>();
 			List<Trainee> trainees = new ArrayList<>(batch.getTrainees());
 			batchObject.put("label", batch.getTrainer().getName() + " " + batch.getStartDate());
@@ -506,7 +506,7 @@ public class ReportingService {
 	public Map<String, Map<Integer, Double>> getAllCurrentBatchesLineChartConcurrent() {
 		Map<String, Map<Integer, Double>> results = new ConcurrentHashMap<>();
 		List<Batch> batches = this.findAllCurrentWithNotesAndTrainees();
-		batches.parallelStream().forEach(b -> {
+		batches.stream().forEach(b -> {
 			List<Trainee> trainees = new ArrayList<>(b.getTrainees());
 			results.put(b.getTrainingName(), utilAvgBatchOverall(trainees, b.getWeeks()));
 		});
@@ -541,7 +541,7 @@ public class ReportingService {
 		List<Panel> panels = panelService.findBiWeeklyPanels();
 
 		// for each panel
-		panels.parallelStream().forEach(panel -> {
+		panels.stream().forEach(panel -> {
 
 			// set calendar time to interview date
 			cal.setTime(panel.getInterviewDate());
@@ -622,7 +622,7 @@ public class ReportingService {
 	public Map<String, Map<String, Double>> getBatchAllTraineesOverallRadarChart(Integer batchId) {
 		Map<String, Map<String, Double>> results = new ConcurrentHashMap<>();
 		Batch batch = this.findOneWithTraineesAndGrades(batchId);
-		batch.getTrainees().parallelStream().forEach(t -> {
+		batch.getTrainees().stream().forEach(t -> {
 			Map<Category, Double[]> skills = utilAvgSkills(new ArrayList<>(t.getGrades()));
 			results.put(t.getName(), utilReplaceCategoryWithSkillName(skills));
 		});
@@ -670,9 +670,18 @@ public class ReportingService {
 	public Double getBatchComparisonAvg(String skill, String training, Date startDate) {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(startDate);
+		log.info(cal.getTime());
 		List<Batch> allBatches = trainingService.findAllAfterDate(cal);
-		List<Batch> filteredBatch = batchComparisonFilter(allBatches, skill, training);
-		return getBatchComparisonAvg(filteredBatch);
+		log.info(allBatches.size());
+		List<Batch> filteredBatches = batchComparisonFilter(allBatches, skill, training);
+		log.info(filteredBatches.size());
+		log.warn("About to filter in stream");
+		filteredBatches.stream().forEach(batch -> {
+			for(int week=1; week<=batch.getWeeks(); week++) {
+				initializeGradesForBatchForWeek(batch.getBatchId(), week, new ArrayList<Trainee>(batch.getTrainees()));
+			}
+		});
+		return getBatchComparisonAvg(filteredBatches);
 	}
 
 	/**
@@ -690,16 +699,16 @@ public class ReportingService {
 			if (training.equalsIgnoreCase(ALL)) {
 				filteredBatches = batches;
 			} else {
-				filteredBatches = batches.parallelStream().filter(b -> b.getTrainingType().name().equals(training))
+				filteredBatches = batches.stream().filter(b -> b.getTrainingType().name().equals(training))
 						.collect(Collectors.toList());
 			}
 
 		} else {
 			if (training.equalsIgnoreCase(ALL)) {
-				filteredBatches = batches.parallelStream().filter(b -> b.getSkillType().name().equals(skill))
+				filteredBatches = batches.stream().filter(b -> b.getSkillType().name().equals(skill))
 						.collect(Collectors.toList());
 			} else {
-				filteredBatches = batches.parallelStream().filter(b -> b.getSkillType().name().equals(skill))
+				filteredBatches = batches.stream().filter(b -> b.getSkillType().name().equals(skill))
 						.filter(b -> b.getTrainingType().name().equals(training)).collect(Collectors.toList());
 			}
 		}
@@ -719,13 +728,13 @@ public class ReportingService {
 	public Double getBatchComparisonAvg(List<Batch> batches) {
 		Object lock = new Object();
 		List<Double> results = new ArrayList<>();
-		batches.parallelStream().forEach(batch -> {
+		batches.stream().forEach(batch -> {
 			Double temp = utilAvgBatch(new ArrayList<Trainee>(batch.getTrainees()), batch.getWeeks());
 			synchronized (lock) {
 				results.add(temp);
 			}
 		});
-		Double result = results.parallelStream().mapToDouble(Double::doubleValue).sum();
+		Double result = results.stream().mapToDouble(Double::doubleValue).sum();
 		result = result / batches.size();
 
 		return result;
@@ -994,7 +1003,7 @@ public class ReportingService {
 		return traineeAverageGrades.entrySet().stream().mapToDouble(e -> e.getValue()).sum()
 				/ traineeAverageGrades.size();
 	}
-	
+
 	/**
 	 * Initializes grades for a week given a batchId and trainees
 	 * 
@@ -1006,44 +1015,67 @@ public class ReportingService {
 	private List<Trainee> initializeGradesForBatchForWeek(Integer batchId, Integer week, List<Trainee> trainees) {
 		// TODO find another way to do this? (microservices)
 		Map<Integer, List<Grade>> gradesForWeek = evaluationService.findGradesByWeek(batchId, week);
-		for(Trainee trainee : trainees) {
+		log.info(gradesForWeek);
+		if (gradesForWeek == null)
+			return new ArrayList<Trainee>();
+		for (Trainee trainee : trainees) {
 			if (gradesForWeek.get(trainee.getTraineeId()) != null) {
-				trainee.setGrades(new HashSet<Grade>(gradesForWeek.get(trainee.getTraineeId())));
+				HashSet<Grade> grades = new HashSet<>(gradesForWeek.get(trainee.getTraineeId()));
+				grades.stream().forEach(grade -> {
+					// TODO refactor this to do this in one HTTP call
+					grade.getAssessment().setBatch(trainingService.findBatch(batchId));
+					log.info("setting batch for grade :" + grade + " batch: " + batchId);
+				});
+				trainee.setGrades(grades);
 			}
 		}
-		// yeah, microservices 
+		// yeah, microservices
 		return trainees;
 	}
-	
+
 	/**
-	 * TODO Makes the service calls to find the current batches and joins the notes and trainees.
+	 * TODO Makes the service calls to find the current batches and joins the notes
+	 * and trainees.
+	 * 
+	 * Find all current batches with trainees and QC notes initialized.
 	 * 
 	 * @return batches
 	 */
 	private List<Batch> findAllCurrentWithNotesAndTrainees() {
-		// TODO Auto-generated method stub
-		return null;
+		// get all batches with trainees initialized
+		List<Batch> batches = trainingService.findAllCurrentBatches();
+
+		/*
+		 * TODO to do this next piece in one HTTP call, please refactor
+		 * evaluation-service to have an API method # Map<Integer, Map<Integer, List<Note>>>
+		 * findNotesForBatches(Integer[] batchIds) where Map is <BatchId, <TraineeId, QC Notes>>
+		 */
+
+		// get all the notes to store in the objects
+		for(Batch batch : batches) {
+			for(Trainee trainee : batch.getTrainees()) {
+				List<Note> qcNotes = evaluationService.findAllQCTraineeOverallNotes(trainee.getTraineeId());
+				trainee.setNotes(new HashSet<Note>(qcNotes));
+			}
+		}
+		return batches;
 	}
-	
+
 	/**
-	 * TODO Makes the service calls to find the current batches and joins the notes.
-	 * 
-	 * @return batches
-	 */
-	private List<Batch> findAllCurrentWithNotes() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	/**
-	 * Find one with trainees and grades initialized. 
+	 * Find one with trainees and grades initialized.
 	 * 
 	 * @param batchId
 	 * @return
 	 */
 	private Batch findOneWithTraineesAndGrades(Integer batchId) {
-		// TODO Auto-generated method stub
-		return null;
+		Batch batch = trainingService.findBatch(batchId);
+		/*
+		 * TODO to do this next piece in one HTTP call, please refactor evaluation-service to have an API method # Map<Integer, List<Grade>> findAllForBatch(Integer batchId) where Map is <TraineeId, List<Grade>>
+		 */
+		for(Trainee trainee : batch.getTrainees()) {
+			trainee.setGrades(new HashSet<Grade>(evaluationService.findByTrainee(trainee.getTraineeId())));
+		}
+		return batch;
 	}
 
 }

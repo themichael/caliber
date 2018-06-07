@@ -16,7 +16,7 @@ import com.revature.caliber.beans.Batch;
  */
 @Repository
 public interface BatchRepository extends JpaRepository<Batch, Integer> {
-	
+
 	public static final int MONTHS_BACK = -1;
 	public static final String TRAINEES = "trainees";
 	public static final String T_TRAINING_STATUS = "t.trainingStatus";
@@ -48,7 +48,7 @@ public interface BatchRepository extends JpaRepository<Batch, Integer> {
 	 */
 	@Query("select distinct b from Batch b inner join b.trainees t order by b.startDate desc")
 	public List<Batch> findAllDistinct();
-	
+
 	/**
 	 * Looks for all batches where the user was the trainer or co-trainer.
 	 * 
@@ -57,5 +57,20 @@ public interface BatchRepository extends JpaRepository<Batch, Integer> {
 	 */
 	@Query("select distinct b from Batch b inner join b.trainer t inner join b.coTrainer c where t.trainerId = :trainerId or c.trainerId = :trainerId")
 	public List<Batch> findAllByTrainer(@Param("trainerId") Integer trainerId);
+
+	/**
+	 * Looks for all batches, excluding dropped trainees, and orders by descending
+	 * start date.
+	 * 
+	 * Behavior is the same as {@link #findAllDistinct()} because the standard
+	 * Spring Data method {@link #findAll()} will return many duplicate and unwanted
+	 * batches.
+	 * 
+	 * @return list of batches
+	 */
+	@Override
+	default List<Batch> findAll() {
+		return findAllDistinct();
+	}
 
 }

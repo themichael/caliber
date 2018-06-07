@@ -101,8 +101,9 @@ public class EvaluationService {
 				// get the trainee's assessments and add the new assessment
 				table.get(key).add(grade);
 			} else {
-				// eliminate nested records first
-				grade.getAssessment().setBatch(null);
+				/*	TODO determine if this is needed for microservices
+				 * // eliminate nested records first
+				grade.getAssessment().setBatch(null);*/
 				// add the first assessment
 				List<Grade> assessments = new ArrayList<>();
 				assessments.add(grade);

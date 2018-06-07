@@ -41,10 +41,11 @@ import com.revature.caliber.services.ReportingService;
 @RestController
 @PreAuthorize("isAuthenticated()")
 @CrossOrigin(origins = "http://ec2-54-163-132-124.compute-1.amazonaws.com")
+@Transactional
 public class ReportingController {
 
 	private static final Logger log = Logger.getLogger(ReportingController.class);
-	
+
 	@Autowired
 	private ReportingService reportingService;
 
@@ -57,10 +58,7 @@ public class ReportingController {
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING','PANEL')")
 	public ResponseEntity<Double> getBatchComparisonAvg(@PathVariable String skill, @PathVariable String training,
 			@PathVariable Date startDate) {
-		log.debug("http://localhost:8080/all/reports/compare/skill/" + skill + "/training/" + training + "/date/"
-				+ startDate);
-		log.debug("YAYAYAYAYAYAYYAYAYAYAYAYAYAYAYAYATEZXRDCYTFUVGBJHLNKJSFSD " + startDate + skill + training);
-		log.debug(" getBatchComparisonAvg ===> " + reportingService.getBatchComparisonAvg(skill, training, startDate));
+		log.info("/all/reports/compare/skill/" + skill + "/training/" + training + "/date/" + startDate);
 		Double result = reportingService.getBatchComparisonAvg(skill, training, startDate);
 		if (!result.isNaN()) {
 			return new ResponseEntity<>(result, HttpStatus.OK);
@@ -267,7 +265,7 @@ public class ReportingController {
 		log.debug("getBatchOverallRadarChart   ===>   /all/reports/batch/{batchId}/overall/radar-batch-overall");
 		return new ResponseEntity<>(reportingService.getBatchAllTraineesOverallRadarChart(batchId), HttpStatus.OK);
 	}
-	
+
 	/*
 	 *******************************************************
 	 * Tables
@@ -276,8 +274,7 @@ public class ReportingController {
 	@RequestMapping(value = "/all/reports/batch/{batchId}/panel-batch-all-trainees", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING', 'PANEL')")
-	public ResponseEntity<List<Map<String, String>>> getBatchAllTraineesPanelTable(
-			@PathVariable Integer batchId) {
+	public ResponseEntity<List<Map<String, String>>> getBatchAllTraineesPanelTable(@PathVariable Integer batchId) {
 		log.debug("getBatchOverallPanelTable   ===>   /all/reports/batch/{batchId}/overall/panel-batch-overall");
 		if (reportingService.getBatchPanels(batchId).isEmpty()) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

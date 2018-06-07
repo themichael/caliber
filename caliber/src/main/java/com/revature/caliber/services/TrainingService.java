@@ -232,57 +232,59 @@ public class TrainingService {
 	}
 
 	/**
-	 * Looks for all batches without any restriction.
+	 * Looks for all batches without any restriction. Dropped trainees are excluded.
 	 *
 	 * @return
 	 */
 	public List<Batch> findAllBatches() {
 		log.debug("Find all batches");
-		return batchRepository.findAllDistinct();
+		return filterOutDroppedTrainees(batchRepository.findAll());
 	}
 
 	/**
-	 * Looks for all batches within the last 2 months
+	 * Looks for all batches within the last 2 months. Dropped trainees are
+	 * excluded.
 	 *
 	 * @return
 	 */
 	public List<Batch> findAllCurrentBatches() {
 		log.debug("Find all current batches");
-		return filterToCurrentBatches(batchRepository.findAllDistinct());
+		return filterToCurrentBatches(batchRepository.findAll());
 	}
 
 	/**
-	 * Looks for all batches where the user was the trainer or co-trainer.
+	 * Looks for all batches where the user was the trainer or co-trainer. Dropped
+	 * trainees are excluded.
 	 *
 	 * @param trainerId
 	 * @return
 	 */
 	public List<Batch> findAllBatches(int trainerId) {
 		log.debug("Find all batches for trainer: " + trainerId);
-		return batchRepository.findAllByTrainer(trainerId);
+		return filterOutDroppedTrainees(batchRepository.findAllByTrainer(trainerId));
 	}
 
 	/**
 	 * Looks for all batches where the user was the trainer or co-trainer. Batches
-	 * returned are currently actively in training.
+	 * returned are currently actively in training. Dropped trainees are excluded.
 	 *
 	 * @param trainerId
 	 * @return
 	 */
 	public List<Batch> findAllCurrentBatches(int trainerId) {
 		log.debug("Find all current batches for trainer: " + trainerId);
-		return filterToCurrentBatches(batchRepository.findAllByTrainer(trainerId));
+		return filterOutDroppedTrainees(filterToCurrentBatches(batchRepository.findAllByTrainer(trainerId)));
 	}
 
 	/**
-	 * Find a batch by its given identifier
+	 * Find a batch by its given identifier. Dropped trainees are excluded.
 	 *
 	 * @param batchId
 	 * @return
 	 */
 	public Batch findBatch(Integer batchId) {
 		log.debug("Finding batch with id: " + batchId);
-		return batchRepository.findOne(batchId);
+		return filterOutDroppedTrainees(batchRepository.findOne(batchId));
 	}
 
 	/**
@@ -304,36 +306,54 @@ public class TrainingService {
 		log.debug("Delete batch " + batch);
 		batchRepository.delete(batch);
 	}
-	
+
 	/**
-	 * Find all batches after a given date.
+	 * Find all batches after a given date. Dropped trainees are excluded.
 	 * 
 	 * @param date
 	 * @return batches
 	 */
-	public List<Batch> findAllAfterDate(Calendar date) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	/**
-	 * Find all current batches with trainees initialized.
-	 * 
-	 * @return
-	 */
-	public List<Batch> findAllCurrentWithTrainees() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Batch> findAllAfterDate(Calendar startDate) {
+		return filterOutDroppedTrainees(batchRepository.findAll().stream()
+				.filter(batch -> batch.getStartDate().after(startDate.getTime())).collect(Collectors.toList()));
 	}
 
 	/**
 	 * Helper method to filter all Dropped trainees from a batch.
 	 * 
-	 * @param b
+	 * @param batch
+	 * @return filtered batch
 	 */
-	private void filterDroppedTrainees(Batch b) {
-		b.setTrainees(b.getTrainees().stream().filter(t -> !t.getTrainingStatus().equals(TrainingStatus.Dropped))
-				.collect(Collectors.toSet()));
+	private static Batch filterOutDroppedTrainees(Batch batch) {
+		batch.setTrainees(batch.getTrainees().stream()
+				.filter(t -> !t.getTrainingStatus().equals(TrainingStatus.Dropped)).collect(Collectors.toSet()));
+		return batch;
+	}
+
+	/**
+	 * Helper method to filter all Dropped trainees from a list of batches.
+	 * 
+	 * @param batches
+	 * @return filtered batches
+	 */
+	private static List<Batch> filterOutDroppedTrainees(List<Batch> batches) {
+		for (Batch batch : batches) {
+			filterOutDroppedTrainees(batch);
+		}
+		return batches;
+	}
+
+	/**
+	 * Filter the given batches to only have batches currently in training or ended
+	 * within the last month
+	 * 
+	 * @param batches
+	 * @return current batches
+	 */
+	private static List<Batch> filterToCurrentBatches(List<Batch> batches) {
+		LocalDate oneMonthAgo = LocalDate.now().minus(Period.ofMonths(1));
+		return batches.stream().filter(batch -> batch.getEndDate().after(java.sql.Date.valueOf(oneMonthAgo)))
+				.collect(Collectors.toList());
 	}
 
 	/*
@@ -432,7 +452,7 @@ public class TrainingService {
 		log.debug("Update trainee " + trainee);
 		return traineeRepository.save(trainee);
 	}
-	
+
 	/**
 	 * Find a trainee by their Salesforce resourceId
 	 * 
@@ -490,19 +510,6 @@ public class TrainingService {
 	public void saveTaskCompletion(TrainerTaskCompletion taskCompletion) {
 		log.debug("Save task completed: " + taskCompletion);
 		taskCompletionDAO.saveTaskCompletion(taskCompletion);
-	}
-
-	/**
-	 * Filter the given batches to only have batches currently in training or ended
-	 * within the last month
-	 * 
-	 * @param batches
-	 * @return current batches
-	 */
-	private List<Batch> filterToCurrentBatches(List<Batch> batches) {
-		LocalDate oneMonthAgo = LocalDate.now().minus(Period.ofMonths(1));
-		return batches.stream().filter(batch -> batch.getEndDate().after(java.sql.Date.valueOf(oneMonthAgo)))
-				.collect(Collectors.toList());
 	}
 
 }
