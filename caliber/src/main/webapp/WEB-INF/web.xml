@@ -15,7 +15,6 @@
         <param-value>
             /WEB-INF/beans.xml
             /WEB-INF/spring-task.xml     
-            /WEB-INF/integration-test.xml  
         </param-value>
     </context-param>
     <filter>

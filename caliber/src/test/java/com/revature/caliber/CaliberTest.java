@@ -29,7 +29,7 @@ import com.revature.caliber.security.models.SalesforceUser;
  * @author Emily Higgins
  *
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+//@RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes= {Application.class, TestConfig.class})
 //@ContextConfiguration(locations = { "classpath:integration-test.xml" })
 @Sql(scripts = "/setup.sql", config = @SqlConfig(transactionMode = TransactionMode.ISOLATED), executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
