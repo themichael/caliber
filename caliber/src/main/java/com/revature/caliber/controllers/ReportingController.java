@@ -15,7 +15,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,7 +39,6 @@ import com.revature.caliber.services.ReportingService;
  */
 @RestController
 @PreAuthorize("isAuthenticated()")
-@CrossOrigin(origins = "http://ec2-54-163-132-124.compute-1.amazonaws.com")
 @Transactional
 public class ReportingController {
 
@@ -58,7 +56,7 @@ public class ReportingController {
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING','PANEL')")
 	public ResponseEntity<Double> getBatchComparisonAvg(@PathVariable String skill, @PathVariable String training,
 			@PathVariable Date startDate) {
-		log.info("/all/reports/compare/skill/" + skill + "/training/" + training + "/date/" + startDate);
+		log.debug("/all/reports/compare/skill/" + skill + "/training/" + training + "/date/" + startDate);
 		Double result = reportingService.getBatchComparisonAvg(skill, training, startDate);
 		if (!result.isNaN()) {
 			return new ResponseEntity<>(result, HttpStatus.OK);

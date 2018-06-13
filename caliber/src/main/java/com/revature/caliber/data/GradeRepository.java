@@ -3,6 +3,7 @@ package com.revature.caliber.data;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import com.revature.caliber.beans.Grade;
 
@@ -30,6 +31,7 @@ public interface GradeRepository extends JpaRepository<Grade, Long> {
 	 * @param traineeId
 	 * @return grades
 	 */
+	@Query("select g from Grade g inner join g.assessment")
 	public List<Grade> findAll();
 
 	/**

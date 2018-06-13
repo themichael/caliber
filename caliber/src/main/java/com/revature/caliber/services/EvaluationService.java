@@ -61,6 +61,14 @@ public class EvaluationService {
 	 *
 	 *******************************************************
 	 */
+	
+	/**
+	 * Get all the grades.. ever
+	 * @return
+	 */
+	public List<Grade> findAllGrades() {
+		return gradeRepository.findAll();
+	}
 
 	/**
 	 * SAVE GRADE
@@ -101,9 +109,8 @@ public class EvaluationService {
 				// get the trainee's assessments and add the new assessment
 				table.get(key).add(grade);
 			} else {
-				/*	TODO determine if this is needed for microservices
-				 * // eliminate nested records first
-				grade.getAssessment().setBatch(null);*/
+				// eliminate nested records first
+				grade.getAssessment().setBatch(null);
 				// add the first assessment
 				List<Grade> assessments = new ArrayList<>();
 				assessments.add(grade);
