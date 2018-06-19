@@ -26,8 +26,8 @@ import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainingStatus;
 import com.revature.caliber.data.AssessmentRepository;
-import com.revature.caliber.data.BatchDAO;
-import com.revature.caliber.data.GradeDAO;
+import com.revature.caliber.services.EvaluationService;
+import com.revature.caliber.services.TrainingService;
 
 /**
  * This class sends reminder emails to trainers who have not submitted all grades for their batch.
@@ -45,10 +45,10 @@ public class Mailer implements Runnable {
 	private AssessmentRepository assessmentRepository;
 
 	@Autowired
-	private BatchDAO batchDAO;
+	private TrainingService trainingService;
 	
 	@Autowired
-	private GradeDAO gradeDAO;
+	private EvaluationService evaluationService;
 
 	@Autowired
 	private EmailAuthenticator authenticator;
@@ -195,15 +195,15 @@ public class Mailer implements Runnable {
 	}
 	
 	private List<Batch> getBatches(){
-		return this.batchDAO.findAll();
+		return this.trainingService.findAllBatches();
 	}
 	
 	private List<Assessment> getAssessments(int batchID) {
 		return this.assessmentRepository.findByBatchBatchId(batchID);
 	}
 	
-	private int getActualNumberOfGrades(List<Assessment> expectedAssessments, int batchID){
-		List<Grade> allGrades = gradeDAO.findByBatch(batchID);
+	private int getActualNumberOfGrades(List<Assessment> expectedAssessments, int batchId){
+		List<Grade> allGrades = evaluationService.findByBatch(batchId);
 		int gradeCounter = 0;
 		for(Grade grade: allGrades) {
 			for(Assessment assessment: expectedAssessments) {

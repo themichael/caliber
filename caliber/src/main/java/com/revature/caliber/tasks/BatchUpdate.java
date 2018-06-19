@@ -9,11 +9,9 @@ import org.springframework.stereotype.Component;
 
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
-import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.SalesforceDAO;
-import com.revature.caliber.data.TraineeDAO;
-import com.revature.caliber.data.TrainerDAO;
 import com.revature.caliber.services.SalesforceService;
+import com.revature.caliber.services.TrainingService;
 
 @Component
 public class BatchUpdate {
@@ -25,11 +23,7 @@ public class BatchUpdate {
 	@Autowired
 	private SalesforceDAO salesforceDao;
 	@Autowired
-	private BatchDAO batchDao;
-	@Autowired
-	private TraineeDAO traineeDao;
-	@Autowired
-	private TrainerDAO trainerDao;
+	private TrainingService trainingService;
 
 	/**
 	 * Used cron to perform midnight execution To update batches
@@ -41,7 +35,7 @@ public class BatchUpdate {
 			log.debug("Update Batch Task");
 			boolean userSet = salesforceAuth.setUser();
 			if (userSet) {
-				List<Batch> caliberBatches = batchDao.findAll();
+				List<Batch> caliberBatches = trainingService.findAllBatches();
 				log.debug("Caliber Batch list size: " + caliberBatches.size());
 				List<Batch> salesforceBatches = salesforceDao.getAllRelevantBatches();
 
@@ -116,7 +110,7 @@ public class BatchUpdate {
 			caliberTrainee.setProjectCompletion(salesforceTrainee.getProjectCompletion());
 			caliberTrainee.setRecruiterName(salesforceTrainee.getRecruiterName());
 			caliberTrainee.setTechScreenerName(salesforceTrainee.getTechScreenerName());
-			traineeDao.update(caliberTrainee);
+			trainingService.save(caliberTrainee);
 		} catch (Exception e) {
 			log.fatal(e);
 		}
@@ -125,15 +119,15 @@ public class BatchUpdate {
 	private void updateBatch(Batch caliberBatch, Batch salesforceBatch) {
 		try {
 			if (salesforceBatch.getTrainer() != null) {
-				caliberBatch.setTrainer(trainerDao.findByEmail(salesforceBatch.getTrainer().getEmail()));
+				caliberBatch.setTrainer(trainingService.findTrainer(salesforceBatch.getTrainer().getEmail()));
 			} else {
 				log.info("Trainer is null for " + salesforceBatch.getTrainingName());
-				caliberBatch.setTrainer(trainerDao.findByEmail(SalesforceService.DEFAULT_TRAINER));
+				caliberBatch.setTrainer(trainingService.findTrainer(SalesforceService.DEFAULT_TRAINER));
 				log.info("Trainer is now " + SalesforceService.DEFAULT_TRAINER + " for "
 						+ caliberBatch.getTrainingName());
 			}
 			if (salesforceBatch.getCoTrainer() != null) {
-				caliberBatch.setCoTrainer(trainerDao.findByEmail(salesforceBatch.getCoTrainer().getEmail()));
+				caliberBatch.setCoTrainer(trainingService.findTrainer(salesforceBatch.getCoTrainer().getEmail()));
 				log.info("Cotrainer for " + salesforceBatch.getTrainingName() + " is: " + caliberBatch.getCoTrainer());
 			}
 			caliberBatch.setEndDate(salesforceBatch.getEndDate());
@@ -141,7 +135,7 @@ public class BatchUpdate {
 			caliberBatch.setStartDate(salesforceBatch.getStartDate());
 			caliberBatch.setTrainingName(salesforceBatch.getTrainingName());
 			caliberBatch.setTrainingType(salesforceBatch.getTrainingType());
-			batchDao.update(caliberBatch);
+			trainingService.update(caliberBatch);
 		} catch (Exception e) {
 			log.fatal(e);
 		}

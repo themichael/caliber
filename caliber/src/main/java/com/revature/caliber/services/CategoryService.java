@@ -1,5 +1,6 @@
 package com.revature.caliber.services;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -10,7 +11,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.revature.caliber.beans.Category;
-import com.revature.caliber.data.CategoryDAO;
+import com.revature.caliber.data.CategoryRepository;
 
 /**
  * Provides logic concerning categories data. Application logic has no business
@@ -23,12 +24,9 @@ import com.revature.caliber.data.CategoryDAO;
 public class CategoryService {
 
 	private static final Logger log = Logger.getLogger(CategoryService.class);
-	private CategoryDAO categoryDAO;
 
 	@Autowired
-	public void setCategoryDAO(CategoryDAO categoryDAO) {
-		this.categoryDAO = categoryDAO;
-	}
+	private CategoryRepository categoryRepository;
 
 	/**
 	 * FIND ALL CATEGORIES
@@ -38,7 +36,7 @@ public class CategoryService {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public List<Category> findAllActive() {
 		log.debug("Requesting categories");
-		return categoryDAO.findAllActive();
+		return categoryRepository.findByActiveOrderByCategoryIdAsc(true);
 	}
 
 	/**
@@ -48,7 +46,9 @@ public class CategoryService {
 	 */
 	public List<Category> findAll() {
 		log.debug("Requesting categories");
-		return categoryDAO.findAll();
+		List<Category> categories = categoryRepository.findAll();
+		Collections.sort(categories, new Category.SkillCategoryAscendingComparator());
+		return categories;
 	}
 
 	/**
@@ -57,10 +57,9 @@ public class CategoryService {
 	 * @param id
 	 * @return
 	 */
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	public Category findCategory(int categoryId) {
 		log.debug("Find category: " + categoryId);
-		return categoryDAO.findOne(categoryId);
+		return categoryRepository.findOne(categoryId);
 	}
 
 	/**
@@ -68,16 +67,29 @@ public class CategoryService {
 	 * 
 	 * @param category
 	 */
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	public void updateCategory(Category category) {
+	public Category updateCategory(Category category) {
 		log.debug("Update category: " + category);
-		categoryDAO.update(category);
+		return categoryRepository.save(category);
 	}
 
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	public void saveCategory(Category category) {
+	/**
+	 * Save a category to the database
+	 * 
+	 * @param category
+	 */
+	public Category saveCategory(Category category) {
 		log.debug("Save category: " + category);
-		categoryDAO.save(category);
+		return categoryRepository.save(category);
+	}
+
+	/**
+	 * Find by skill category string
+	 * 
+	 * @param category
+	 * @return
+	 */
+	public Category findBySkillCategory(String category) {
+		return categoryRepository.findBySkillCategory(category);
 	}
 
 }
