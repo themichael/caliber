@@ -354,7 +354,7 @@ public class TrainingController {
 		return new ResponseEntity<>(trainingService.findAllLocations(), HttpStatus.OK);
 	}
 
-	/*get
+	/**
 	 *******************************************************
 	 * TRAINEE SERVICES
 	 *
@@ -421,10 +421,8 @@ public class TrainingController {
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 	@PreAuthorize("hasAnyRole('VP')")
 	public ResponseEntity<Void> deleteTrainee(@PathVariable int id) {
-		Trainee trainee = new Trainee();
-		trainee.setTraineeId(id);
 		log.debug("Deleting trainee: " + id);
-		trainingService.delete(trainee);
+		trainingService.delete(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 

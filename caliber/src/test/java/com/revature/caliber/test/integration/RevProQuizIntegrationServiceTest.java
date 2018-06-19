@@ -60,7 +60,7 @@ public class RevProQuizIntegrationServiceTest extends CaliberTest {
     
 	@Test
 	public void testIntegration() {
-		short week = 11;
+		int week = 11;
 		int batchId = 2200;
 		revProQuizIntegrationService.importGrades(json, week, batchId);
 		assertNotNull(assessmentService.findAssessmentByWeek(batchId, week));

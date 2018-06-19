@@ -12,7 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -37,11 +39,11 @@ import com.revature.caliber.services.ReportingService;
  */
 @RestController
 @PreAuthorize("isAuthenticated()")
-@CrossOrigin(origins = "http://ec2-54-163-132-124.compute-1.amazonaws.com")
+@Transactional
 public class ReportingController {
 
 	private static final Logger log = Logger.getLogger(ReportingController.class);
-	
+
 	@Autowired
 	private ReportingService reportingService;
 
@@ -54,10 +56,7 @@ public class ReportingController {
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING','PANEL')")
 	public ResponseEntity<Double> getBatchComparisonAvg(@PathVariable String skill, @PathVariable String training,
 			@PathVariable Date startDate) {
-		log.debug("http://localhost:8080/all/reports/compare/skill/" + skill + "/training/" + training + "/date/"
-				+ startDate);
-		log.debug("YAYAYAYAYAYAYYAYAYAYAYAYAYAYAYAYATEZXRDCYTFUVGBJHLNKJSFSD " + startDate + skill + training);
-		log.debug(" getBatchComparisonAvg ===> " + reportingService.getBatchComparisonAvg(skill, training, startDate));
+		log.debug("/all/reports/compare/skill/" + skill + "/training/" + training + "/date/" + startDate);
 		Double result = reportingService.getBatchComparisonAvg(skill, training, startDate);
 		if (!result.isNaN()) {
 			return new ResponseEntity<>(result, HttpStatus.OK);
@@ -267,6 +266,22 @@ public class ReportingController {
 
 	/*
 	 *******************************************************
+	 * Tables
+	 *******************************************************
+	 */
+	@RequestMapping(value = "/all/reports/batch/{batchId}/panel-batch-all-trainees", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING', 'PANEL')")
+	public ResponseEntity<List<Map<String, String>>> getBatchAllTraineesPanelTable(@PathVariable Integer batchId) {
+		log.debug("getBatchOverallPanelTable   ===>   /all/reports/batch/{batchId}/overall/panel-batch-overall");
+		if (reportingService.getBatchPanels(batchId).isEmpty()) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>(reportingService.getBatchPanels(batchId), HttpStatus.OK);
+	}
+
+	/*
+	 *******************************************************
 	 * Misc.
 	 *******************************************************
 	 */
@@ -280,7 +295,7 @@ public class ReportingController {
 	@RequestMapping(value = "/all/assessments/categories/batch/{batchId}/week/{week}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasAnyRole('VP', 'QC', 'TRAINER', 'STAGING', 'PANEL')")
 	public ResponseEntity<Set<String>> getTechnologiesForTheWeek(@PathVariable Integer batchId,
-			@PathVariable Short week) {
+			@PathVariable Integer week) {
 		log.debug("getBatchWeekAverageValue   ===>   /all/reports/batch/{batchId}/overall/line-batch-overall");
 		return new ResponseEntity<>(reportingService.getTechnologiesForTheWeek(batchId, week), HttpStatus.OK);
 	}

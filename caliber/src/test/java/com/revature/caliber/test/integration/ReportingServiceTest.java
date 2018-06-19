@@ -38,7 +38,6 @@ import com.revature.caliber.beans.Note;
 import com.revature.caliber.beans.QCStatus;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
-import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.services.ReportingService;
 
 public class ReportingServiceTest extends CaliberTest {
@@ -59,9 +58,6 @@ public class ReportingServiceTest extends CaliberTest {
 	private static final int TEST_ASSESSMENT_WEEK = 6;
 	private static final int TEST_TRAINEE_ID = 5460;
 	private static final double FLOATING_NUMBER_VARIANCE = .01;
-
-	@Autowired
-	public BatchDAO batchDAO;
 
 	public static List<Trainee> getTrainees() {
 		return trainees;

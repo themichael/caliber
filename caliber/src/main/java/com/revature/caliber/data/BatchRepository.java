@@ -3,6 +3,8 @@ package com.revature.caliber.data;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.revature.caliber.beans.Assessment;
@@ -10,8 +12,8 @@ import com.revature.caliber.beans.Batch;
 
 /**
  * Spring Data operations for the type {@link Batch}
+ * 
  * @author Emily Higgins
- *
  */
 @Repository
 public interface BatchRepository extends JpaRepository<Batch, Integer>{
@@ -26,46 +28,37 @@ public interface BatchRepository extends JpaRepository<Batch, Integer>{
 	public Batch save(Batch batch);
 
 	/**
-	 * Find batch with the specified id, including trainees who have been dropped
+
+	 * Looks for all batches, excluding dropped trainees, and orders by descending
+	 * start date.
 	 * 
-	 * @param id
-	 * @return batch
-	 */
-	public Batch findOne(int id);
-	
-	/**
-	 * Find batch with the specified id, NOT including trainees who have been dropped
-	 * TODO
-	 * @param id
-	 * @return batch
-	 */
-	
-	/**
-	 * Find all current batches, NOT including trainees who have been dropped
-	 * TODO
-	 * @return batch
-	 */
-	
-	/**
-	 * Find all current batches for the specified trainer or co-trainer, 
-	 * NOT including trainees who have been dropped
-	 * TODO
-	 * @param trainerId
 	 * @return list of batches
 	 */
-	
-	
-	
+	@Query("select distinct b from Batch b inner join b.trainees t order by b.startDate desc")
+	public List<Batch> findAllDistinct();
+
 	/**
-	 * Remove the specified batch from the database
+	 * Looks for all batches where the user was the trainer or co-trainer.
 	 * 
-	 * @param batch
+	 * @param auth
+	 * @return
 	 */
-	public void delete(Batch batch);
+	@Query("select distinct b from Batch b inner join b.trainer t inner join b.coTrainer c where t.trainerId = :trainerId or c.trainerId = :trainerId")
+	public List<Batch> findAllByTrainer(@Param("trainerId") Integer trainerId);
 
-	
-	
-
-	
+	/**
+	 * Looks for all batches, excluding dropped trainees, and orders by descending
+	 * start date.
+	 * 
+	 * Behavior is the same as {@link #findAllDistinct()} because the standard
+	 * Spring Data method {@link #findAll()} will return many duplicate and unwanted
+	 * batches.
+	 * 
+	 * @return list of batches
+	 */
+	@Override
+	default List<Batch> findAll() {
+		return findAllDistinct();
+	}
 
 }

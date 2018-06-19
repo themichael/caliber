@@ -4,9 +4,9 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.revature</groupId>
 	<artifactId>caliber</artifactId>
-	<packaging>war</packaging>
-	<version>1.7</version>
-	<name>caliber Maven Webapp</name>
+	<packaging>jar</packaging>
+	<version>2.0</version>
+	<name>Caliber [Spring Boot]</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
