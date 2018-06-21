@@ -14,6 +14,7 @@ import com.revature.caliber.beans.Batch;
  * Spring Data operations for the type {@link Batch}
  * 
  * @author Emily Higgins
+ * @author Patrick Walsh	
  */
 @Repository
 public interface BatchRepository extends JpaRepository<Batch, Integer>{
