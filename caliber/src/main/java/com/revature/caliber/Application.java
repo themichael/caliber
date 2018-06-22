@@ -19,18 +19,11 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 	}
 	
-	/*@Bean
-	public HibernateJpaSessionFactoryBean sessionFactory(EntityManagerFactory emf) {
-	    HibernateJpaSessionFactoryBean factory = new HibernateJpaSessionFactoryBean();
-	    factory.setEntityManagerFactory(emf);
-	    return factory;
-	}*/
-	
 	@Bean
 	 public SessionFactory sessionFactory(@Qualifier("entityManagerFactory") EntityManagerFactory emf) {
 	     return emf.unwrap(SessionFactory.class);
 	 }
-	
+
     @Bean
     public ViewResolver getViewResolver() {
         InternalResourceViewResolver resolver = new InternalResourceViewResolver();
@@ -38,5 +31,4 @@ public class Application {
         resolver.setSuffix(".html");
         return resolver;
     } 
-
 }

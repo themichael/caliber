@@ -7,33 +7,21 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.revature.caliber.beans.Assessment;
 import com.revature.caliber.beans.Batch;
 
 /**
  * Spring Data operations for the type {@link Batch}
  * 
  * @author Emily Higgins
+ * @author Patrick Walsh	
  */
 @Repository
-public interface BatchRepository extends JpaRepository<Batch, Integer> {
-
-	public static final int MONTHS_BACK = -1;
-	public static final String TRAINEES = "trainees";
-	public static final String T_TRAINING_STATUS = "t.trainingStatus";
-	public static final String START_DATE = "startDate";
-	public static final String END_DATE = "endDate";
-
+public interface BatchRepository extends JpaRepository<Batch, Integer>{
+	
 	/**
-	 * Find a batch by its given identifier
-	 * 
-	 * @param batchId
-	 * @return batch
-	 */
-	public Batch findOne(int batchId);
-
-	/**
-	 * Save a batch to the database.
-	 * 
+	 * Save an batch to the database
+	 *
 	 * @param batch
 	 * @return updated batch
 	 */
@@ -41,6 +29,7 @@ public interface BatchRepository extends JpaRepository<Batch, Integer> {
 	public Batch save(Batch batch);
 
 	/**
+
 	 * Looks for all batches, excluding dropped trainees, and orders by descending
 	 * start date.
 	 * 
