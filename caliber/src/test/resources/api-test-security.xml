@@ -54,4 +54,7 @@ http://www.springframework.org/schema/security/spring-security.xsd">
 			</security:user-service>
 		</security:authentication-provider>
 	</security:authentication-manager>
+	
+	<bean class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+	
 </beans>
