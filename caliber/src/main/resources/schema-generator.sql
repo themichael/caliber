@@ -3326,3 +3326,6 @@ INSERT INTO CALIBER_PANEL_FEEDBACK (PANEL_FEEDBACK_ID, PANELIST_COMMENTS, PANEL_
 VALUES(565, 'Better use of technical terms',5,'Pass',73,9);
 COMMIT;
 
+alter table caliber_trainer
+add trainer_password varchar2(800);
+/
