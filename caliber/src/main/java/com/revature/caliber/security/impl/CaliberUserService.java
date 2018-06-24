@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.revature.caliber.beans.Trainer;
@@ -21,6 +22,8 @@ public class CaliberUserService implements UserDetailsService{
 	
 	@Autowired
 	private TrainingService trainingService;
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -36,6 +39,17 @@ public class CaliberUserService implements UserDetailsService{
 		user.setId(Integer.toString(trainer.getTrainerId()));
 		user.setUsername(trainer.getEmail());
 		return user;
+	}
+	
+	public boolean checkPassword(String candidate, String hashed) {
+		return passwordEncoder.matches(candidate, hashed);
+	}
+	
+	public void saltAndSave(Trainer trainer) {
+		String password = trainer.getPassword();
+		// encode password
+		trainer.setPassword(passwordEncoder.encode(password));
+		trainingService.update(trainer);
 	}
 
 }

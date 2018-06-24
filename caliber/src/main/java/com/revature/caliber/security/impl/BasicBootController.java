@@ -1,5 +1,7 @@
 package com.revature.caliber.security.impl;
 
+import java.security.InvalidParameterException;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,7 +40,20 @@ public class BasicBootController {
 	@RequestMapping(value = "/authenticated", method = RequestMethod.POST)
 	public String authenticate(HttpServletRequest request, HttpServletResponse response) {
 		SalesforceUser user = (SalesforceUser) caliberUserService.loadUserByUsername(request.getParameter("username"));
-		authorize(user.getCaliberUser(), user, response);
+		String rawPassword = request.getParameter("pw");
+		if(rawPassword == null || rawPassword.equals("")) {
+			return "redirect:/";
+		}
+		if (user.getCaliberUser().getPassword() == null || user.getCaliberUser().getPassword().equals("")) {
+			// 1st time login.. user has not set password yet
+			user.getCaliberUser().setPassword(rawPassword);
+			caliberUserService.saltAndSave(user.getCaliberUser());
+		}
+		try {
+			authorize(user.getCaliberUser(), user, rawPassword, response);
+		}catch(InvalidParameterException e) {
+			return "redirect:/";
+		}
 		return "redirect:" + redirectUrl;
 	}
 
@@ -47,9 +62,13 @@ public class BasicBootController {
 		return "index";
 	}
 
-	private void authorize(Trainer trainer, SalesforceUser user, HttpServletResponse servletResponse) {
+	private void authorize(Trainer trainer, SalesforceUser user, String password, HttpServletResponse servletResponse) {
+		// check password hashes
+		if(!caliberUserService.checkPassword(password, trainer.getPassword())) {
+			// invalid password
+			throw new InvalidParameterException();
+		}
 		log.debug("Logged in user " + user.getEmail() + " now hasRole: " + user.getRole());
-
 		// check if user is active
 		if (user.getCaliberUser().getTier().equals(TrainerRole.ROLE_INACTIVE))
 			throw new NotAuthorizedException();

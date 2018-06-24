@@ -64,6 +64,9 @@ public class Trainer implements Serializable {
 	@Column(name = "TIER")
 	private TrainerRole tier;
 
+	@Column(name = "TRAINER_PASSWORD")
+	private String password;
+
 	@OneToMany(mappedBy = "trainer", fetch = FetchType.LAZY)
 	@JsonIgnore
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
@@ -80,8 +83,7 @@ public class Trainer implements Serializable {
 	// private Set<TrainerTaskCompletion> evaluations;
 
 	/**
-	 * Any evaluations that the user has checked off on behalf of another
-	 * trainer
+	 * Any evaluations that the user has checked off on behalf of another trainer
 	 */
 	/*
 	 * @OneToMany(mappedBy="checkedBy")
@@ -149,9 +151,17 @@ public class Trainer implements Serializable {
 	public void setBatches(Set<Batch> batches) {
 		this.batches = batches;
 	}
+	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
 	/*
-	 * public Set<TrainerTaskCompletion> getEvaluations() { return evaluations;
-	 * }
+	 * public Set<TrainerTaskCompletion> getEvaluations() { return evaluations; }
 	 * 
 	 * public void setEvaluations(Set<TrainerTaskCompletion> evaluations) {
 	 * this.evaluations = evaluations; }
@@ -161,7 +171,7 @@ public class Trainer implements Serializable {
 	 * public void setCheckOffs(Set<TrainerTaskCompletion> checkOffs) {
 	 * this.checkOffs = checkOffs; }
 	 */
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
