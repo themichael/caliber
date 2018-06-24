@@ -9,6 +9,7 @@ import java.io.IOException;
  * @date 1/25/17
  */
 @FunctionalInterface
+@Deprecated
 public interface UserDetails {
     /**
      * Gets the in salesforce user

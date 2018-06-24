@@ -17,8 +17,9 @@ import java.io.IOException;
  * @author d4k1d23
  * @date 1/25/17
  */
-@RestController
-@Scope("session")
+//@RestController
+//@Scope("session")
+@Deprecated
 public class UserDetailsImpl extends AbstractSalesforceSecurityHelper implements UserDetails {
     private HttpClient httpClient;
     private HttpResponse response;

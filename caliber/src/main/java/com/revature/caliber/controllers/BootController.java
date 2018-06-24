@@ -31,8 +31,9 @@ import com.revature.caliber.security.models.SalesforceUser;
 /**
  * The type Boot controller.
  */
-@Controller
-@CrossOrigin(origins = "http://ec2-54-163-132-124.compute-1.amazonaws.com")
+//@Controller
+//@CrossOrigin(origins = "http://ec2-54-163-132-124.compute-1.amazonaws.com")
+@Deprecated
 public class BootController extends AbstractSalesforceSecurityHelper {
     private static final Logger log = Logger.getLogger(BootController.class);
     private static final String INDEX = "index";

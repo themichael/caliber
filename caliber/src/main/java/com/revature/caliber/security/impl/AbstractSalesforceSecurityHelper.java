@@ -15,7 +15,8 @@ import org.springframework.stereotype.Component;
  * @author d4k1d23
  * @date 1/25/17
  */
-@Component
+//@Component
+@Deprecated
 public abstract class AbstractSalesforceSecurityHelper {
 	@Value("#{systemEnvironment['SALESFORCE_LOGIN_URL']}")
 	protected String loginURL;
