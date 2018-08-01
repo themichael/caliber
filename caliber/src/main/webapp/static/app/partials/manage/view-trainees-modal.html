@@ -63,19 +63,22 @@
 							</thead>
 							<tbody>
 								<tr ng-repeat="trainee in trainees">
-									<td ng-click="toggleColor(trainee, $index)">{{trainee.name}}</td>
+									<td role="button" ng-click="toggleColor(trainee, $index)">{{trainee.name}}</td>
 									<td><span ng-mouseover="showNotes($index)" ng-mouseleave="hideNotes($index)"
- 									ng-init="init(trainee, $index)" class="glyphicon glyphicon-flag"></span>
-									<form class="commentForm" ng-submit="updateFlag(trainee, $index)"
-										style="display: none;">
+ 									ng-init="initFlags(trainee, $index)" class="glyphicon glyphicon-flag"></span>
+									<form ng-if="showCommentForm[$index]" class="commentForm"
+										ng-submit="updateFlag(trainee, $index)"
+										style="display: inline-block; position: absolute; padding: 5px; border-radius: 5px; margin-left: 5px; background-color: white; border: solid #ccc 1px; z-index: 1">
 										<input type="text" placeholder="comment" name="statusComment"
 											ng-model="trainee.flagNotes"> <input type="submit"
 											value="Save"> <span ng-click="closeComment()"
 											class="glyphicon glyphicon-remove-sign"></span>
 									</form>
-									<div style="display:none" class="notes">
- 										<span>{{trainee.flagNotes}}</span>
- 									</div>
+									<div ng-if="showCommentBox[$index] && currentBatch.trainees[$index].flagNotes"
+										style="z-index: 1; display: inline-block; position: absolute; padding: 5px; border: 1px solid #CCC; border-radius: 5px; background-color: white"
+										class="notes">
+										<span>{{trainee.flagNotes}}</span>
+									</div>
 									</td>
 									<td>{{trainee.email}}</td>
 									<td>{{trainee.trainingStatus}}</td>

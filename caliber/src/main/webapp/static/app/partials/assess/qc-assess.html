@@ -20,11 +20,13 @@
 						<ul class="dropdown-menu">
 							<li ng-repeat="batch in batchesByYear track by $index"><a
 								role="button" ng-click="selectCurrentBatch($index)"> {{
-									batch.trainer.name }} - {{ batch.startDate | date:'shortDate' }} </a>
+									batch.trainer.name }} - {{ batch.startDate | date:'shortDate'
+									}} </a>
 						</ul></li>
 				</ul>
 				<!-- Display No data -->
-				<div class="bg-primary align center" ng-if="!currentBatch">No data available for {{ selectedYear }}.</div>
+				<div class="bg-primary align center" ng-if="!currentBatch">No
+					data available for {{ selectedYear }}.</div>
 				<!-- top ui for viewing trainee grades -->
 				<ul class="nav nav-tabs" ng-show="!currentView" ng-if="currentBatch">
 					<li role="button" class="dropdown"><a class="dropdown-toggle"
@@ -76,31 +78,36 @@
 						</thead>
 						<tbody>
 							<!-- Displays a list of all trainees still active in the batch -->
-							<tr role="button" ng-repeat="trainee in currentBatch.trainees track by $index">
-								<td ng-click="toggleColor(trainee, $index)">{{trainee.name}}</td>
-									<td><span ng-mouseover="showNotes($index)" ng-mouseleave="hideNotes($index)" 
-									ng-init="init(trainee, $index)" class="glyphicon glyphicon-flag"></span>
-									<form class="commentForm" ng-submit="updateFlag(trainee, $index)"
-										style="display: none;">
+							<tr ng-repeat="trainee in currentBatch.trainees track by $index">
+								<td role="button" ng-click="toggleColor(trainee, $index)">{{trainee.name}}</td>
+								<td><span ng-mouseover="showNotes($index)"
+									ng-mouseleave="hideNotes($index)"
+									ng-init="initFlags(trainee, $index)"
+									class="glyphicon glyphicon-flag"></span>
+									<form ng-if="showCommentForm[$index]" class="commentForm"
+										ng-submit="updateFlag(trainee, $index)"
+										style="display: inline-block; position: absolute; padding: 5px; border-radius: 5px; margin-left: 5px; background-color: white; border: solid #ccc 1px; z-index: 1">
 										<input type="text" placeholder="comment" name="statusComment"
 											ng-model="trainee.flagNotes"> <input type="submit"
 											value="Save"> <span ng-click="closeComment()"
 											class="glyphicon glyphicon-remove-sign"></span>
 									</form>
-									<div style="display:none" class="notes">
- 										<span>{{trainee.flagNotes}}</span>
- 									</div>
-									</td>
+									<div
+										ng-if="showCommentBox[$index] && currentBatch.trainees[$index].flagNotes"
+										style="z-index: 1; display: inline-block; position: absolute; padding: 5px; border: 1px solid #CCC; border-radius: 5px; background-color: white"
+										class="notes">
+										<span>{{trainee.flagNotes}}</span>
+									</div></td>
 								<!-- Icons: question mark in circle by default. 
 								  		Otherwise shows the status type (icons) -->
 								<td><button ng-hide="faces[$index].qcStatus"
-									class="hiddenButton col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
-									title="Click to update your feedback."
-									alt="Click to update your feedback."
-									ng-click="processingNote? null : pickIndividualStatus(trainee, qcStatusTypes[0], $index);"
-									ng-disabled="processingNote">
-									<i class="fa fa-question-circle fa-2x"></i>
-								</button>
+										class="hiddenButton col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"
+										title="Click to update your feedback."
+										alt="Click to update your feedback."
+										ng-click="processingNote? null : pickIndividualStatus(trainee, qcStatusTypes[0], $index);"
+										ng-disabled="processingNote">
+										<i class="fa fa-question-circle fa-2x"></i>
+									</button>
 									<button ng-hide="faces[$index].qcStatus !== qcStatusTypes[0]"
 										title="Excellent"
 										class="hiddenButton col-lg-2 col-md-2 col-sm-2 col-sm-offset-1"

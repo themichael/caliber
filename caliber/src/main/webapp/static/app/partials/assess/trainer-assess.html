@@ -109,25 +109,28 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr role="button"
+							<tr
 								;
 								ng-repeat="trainee in currentBatch.trainees track by $index">
 								<ng-form name="gradeFieldForm">
-								<td class="col-sm-2 col-md-2 col-lg-2"
+								<td role="button" class="col-sm-2 col-md-2 col-lg-2"
 									ng-click="toggleColor(trainee, $index)">{{ trainee.name }}</td>
 								<td class="col-sm-1 col-md-1 col-lg-1"><span
 									ng-mouseover="showNotes($index)"
 									ng-mouseleave="hideNotes($index)"
-									ng-init="init(trainee, $index)"
+									ng-init="initFlags(trainee, $index)"
 									class="glyphicon glyphicon-flag"></span>
-									<form class="commentForm"
-										ng-submit="updateFlag(trainee, $index)" style="display: none;">
+									<form ng-if="showCommentForm[$index]" class="commentForm"
+										ng-submit="updateFlag(trainee, $index)"
+										style="display: inline-block; position: absolute; padding: 5px; border-radius: 5px; margin-left: 5px; background-color: white; border: solid #ccc 1px; z-index: 1">
 										<input type="text" placeholder="comment" name="statusComment"
 											ng-model="trainee.flagNotes"> <input type="submit"
 											value="Save"> <span ng-click="closeComment()"
 											class="glyphicon glyphicon-remove-sign"></span>
 									</form>
-									<div style="display: none" class="notes">
+									<div ng-if="showCommentBox[$index] && currentBatch.trainees[$index].flagNotes"
+										style="z-index: 1; display: inline-block; position: absolute; padding: 5px; border: 1px solid #CCC; border-radius: 5px; background-color: white"
+										class="notes">
 										<span>{{trainee.flagNotes}}</span>
 									</div></td>
 								<td class="text-center col-sm-1 col-md-1 col-lg-1"
@@ -278,7 +281,8 @@
 					<div class="row">
 						<div class="form-group col-md-12 col-sm-12"
 							style="text-align: left">
-						<textarea placeholder="Quiz Data" cols="75" rows="10" ng-model="quiz.data"></textarea>
+							<textarea placeholder="Quiz Data" cols="75" rows="10"
+								ng-model="quiz.data"></textarea>
 						</div>
 					</div>
 				</div>

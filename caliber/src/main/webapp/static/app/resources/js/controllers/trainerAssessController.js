@@ -30,21 +30,6 @@ angular
 				this.qcStatus = status;
 			}
 			
-			// Set flags to color in database
-			$scope.init = function(trainee, index){
-				var flagElement = document.getElementsByClassName("glyphicon-flag")[index];
-				var flagColor = trainee.flagStatus;
-				if(flagColor === 'RED'){
-					flagElement.setAttribute("class","glyphicon glyphicon-flag color-red");
-				}else if(flagColor === 'GREEN'){
-					flagElement.setAttribute("class","glyphicon glyphicon-flag color-green");
-				}else if(flagColor === 'TRAINER'){
-					flagElement.setAttribute("class","glyphicon glyphicon-flag color-orange");
-				}else{
-					flagElement.setAttribute("class","glyphicon glyphicon-flag color-white");
-				}
-			}
-
 			// load categories
 			$scope.skill_categories = function() {
 				caliberDelegate.all.getAllCategories().then(
@@ -323,6 +308,7 @@ angular
 
 					getAllAssessmentsForWeek($scope.currentBatch.batchId,
 							$scope.currentWeek);
+					resetFlags();
 				};
 
 				// select week
@@ -942,73 +928,142 @@ angular
 
 				}
 				var status =  null;
-				// toggles the color of the flag and opens an input box to
-				// comment on the color change
+
+				/**
+				 * ********************************************************************
+				 * Flag Control
+				 * ********************************************************************
+				 */
+
+				/**
+				 * decides to show the form to submit the flagNotes for the
+				 * associate
+				 */
+				$scope.showCommentForm = [];
+
+				/**
+				 * decides to show the read-only comment box to view
+				 * flagNotes for the associate
+				 */
+				$scope.showCommentBox = [];
+
+				/**
+				 * creates a function triggered by a click on the trainee's
+				 * name, that toggles the color of the flag and opens an
+				 * input box to comment on the color change
+				 */
+
+				// Set flags to color in database
+				$scope.initFlags = function(trainee, index) {
+					var flag = document
+							.getElementsByClassName("glyphicon-flag")[index];
+					if (flag == undefined)
+						return;
+					var flagColor = trainee.flagStatus;
+					if (flagColor === 'RED') {
+						flag.setAttribute("class",
+								"glyphicon glyphicon-flag color-red");
+					} else if (flagColor === 'GREEN') {
+						flag.setAttribute("class",
+								"glyphicon glyphicon-flag color-green");
+					} else if (flagColor === 'TRAINER') {
+						flag.setAttribute("class",
+								"glyphicon glyphicon-flag color-orange");
+					} else {
+						flag.setAttribute("class",
+								"glyphicon glyphicon-flag color-white");
+					}
+				}
+
+				var status = null;
 				$scope.toggleColor = function(trainee, index) {
-					var flagElement = document.getElementsByClassName("glyphicon-flag")[index];
+					var flag = document
+							.getElementsByClassName("glyphicon-flag")[index];
 					var initialStatus = trainee.flagStatus;
-			        if (flagElement.getAttribute("class") === "glyphicon glyphicon-flag color-white") {
-			        		status = "RED";
-			        		flagElement.setAttribute("class","glyphicon glyphicon-flag color-red");
-			        } else if (flagElement.getAttribute("class") === "glyphicon glyphicon-flag color-red") {
-			        		status = "GREEN";
-			        		flagElement.setAttribute("class","glyphicon glyphicon-flag color-green");
-			        } else if (flagElement.getAttribute("class") === "glyphicon glyphicon-flag color-green") {
-			        		status = "TRAINER";
-			        		flagElement.setAttribute("class","glyphicon glyphicon-flag color-orange");
-			        } else if (flagElement.getAttribute("class") === "glyphicon glyphicon-flag color-orange") {
-			        		status = "NONE";
-			        		flagElement.setAttribute("class","glyphicon glyphicon-flag color-white");
-			        }
-			        if(initialStatus !== status){
-			        		commentBox(flagElement, status, initialStatus, index, trainee);
-			        } else {
-			        		flagElement.nextSibling.nextSibling.setAttribute("style","display:none;");
-			        }
-			    }
-				
-				// opens up a comment form box when the flag color changes
-				function commentBox(flag, status, initialStatus, index, trainee){
-					flag.nextSibling.nextSibling.removeAttribute("style");
-					flag.nextSibling.nextSibling.setAttribute("style","display:inline-block; position:absolute; padding:5px; border-radius:5px; margin-left:5px; background-color: white; border: solid #ccc 1px; z-index: 1");
-					$scope.closeComment = function(){
-						document.getElementsByClassName("commentForm")[index].setAttribute("style","display:none;");
-						if(initialStatus === "RED"){
-							flag.setAttribute("class","glyphicon glyphicon-flag color-red");
-						} else if (initialStatus === "GREEN"){
-							flag.setAttribute("class","glyphicon glyphicon-flag color-green");
-						} else if (initialStatus === "TRAINER"){
-							flag.setAttribute("class","glyphicon glyphicon-flag color-orange");
+					if (flag.getAttribute("class") === "glyphicon glyphicon-flag color-white") {
+						status = "RED";
+						flag.setAttribute("class",
+								"glyphicon glyphicon-flag color-red");
+					} else if (flag.getAttribute("class") === "glyphicon glyphicon-flag color-red") {
+						status = "GREEN";
+						flag.setAttribute("class",
+								"glyphicon glyphicon-flag color-green");
+					} else if (flag.getAttribute("class") === "glyphicon glyphicon-flag color-green") {
+						status = "TRAINER";
+						flag.setAttribute("class",
+								"glyphicon glyphicon-flag color-orange");
+					} else if (flag.getAttribute("class") === "glyphicon glyphicon-flag color-orange") {
+						status = "NONE";
+						flag.setAttribute("class",
+								"glyphicon glyphicon-flag color-white");
+					}
+					if (initialStatus !== status) {
+						commentBox(flag, status, initialStatus, index,
+								trainee);
+					} else {
+						$scope.hideNotes(index);
+					}
+				}
+
+				/**
+				 * opens up a comment form box when the flag color changes
+				 */
+				function commentBox(flag, status, initialStatus, index,
+						trainee) {
+					$scope.showCommentForm[index] = true;
+					$scope.closeComment = function() {
+						$scope.showCommentForm[index] = false;
+						if (initialStatus === "RED") {
+							flag.setAttribute("class",
+									"glyphicon glyphicon-flag color-red");
+						} else if (initialStatus === "GREEN") {
+							flag.setAttribute("class",
+									"glyphicon glyphicon-flag color-green");
+						} else if (initialStatus === "TRAINER") {
+							flag
+									.setAttribute("class",
+											"glyphicon glyphicon-flag color-orange");
 						} else {
-							flag.setAttribute("class","glyphicon glyphicon-flag color-white");
+							flag.setAttribute("class",
+									"glyphicon glyphicon-flag color-white");
 						}
 					}
 					trainee.batch = {
-                            batchId : $scope.currentBatch.batchId
-                        };
+						batchId : $scope.currentBatch.batchId
+					};
 				}
-				
-				// save changes to flag and persist back to database
-				$scope.updateFlag = function(trainee, index){
+
+				/**
+				 * saves changes the flag status in the javascript object
+				 * and persists it back to the database upon submission of
+				 * the comment form and closes the form
+				 */
+				$scope.updateFlag = function(trainee, index) {
 					trainee.flagStatus = status;
-					caliberDelegate.all
-                    	.updateTrainee(trainee);
-					document.getElementsByClassName("commentForm")[index].setAttribute("style","display:none;");
+					caliberDelegate.all.updateTrainee(trainee);
+					$scope.showCommentForm[index] = false;
 				}
-				
+
 				// show flagNotes when hovering over flag
-				$scope.showNotes = function(index){
-					if($scope.currentBatch.trainees[index].flagNotes != null){
-						document.getElementsByClassName("notes")[index].setAttribute("style",
-						"z-index: 1; display:inline-block; position:absolute; padding:5px; " +
-						"border: 1px solid #CCC; border-radius: 5px; background-color: white");
+				$scope.showNotes = function(index) {
+					if ($scope.currentBatch.trainees[index].flagNotes != null) {
+						$scope.showCommentBox[index] = true;
 					}
 				}
-				 					
+
 				// hide flagNotes when no there is no flag hover
-				$scope.hideNotes = function(index){
-					document.getElementsByClassName("notes")[index].setAttribute("style", "display: none");
-	 			}
+				$scope.hideNotes = function(index) {
+					$scope.showCommentBox[index] = false;
+				}
+
+				function resetFlags() {
+					$scope.showCommentForm = [];
+					$scope.showCommentBox = [];
+					angular.forEach($scope.currentBatch.trainees, function(trainee, index) {
+						$scope.initFlags(trainee, index);
+					});
+				}
+
 				
 				$scope.quiz = {
 						data: null
