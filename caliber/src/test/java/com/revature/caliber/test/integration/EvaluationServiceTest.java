@@ -96,10 +96,10 @@ public class EvaluationServiceTest extends CaliberTest{
 		List<Note> notes = evaluationService.findIndividualNotes(batch.getBatchId(), week);
 		//assert that for each week, the returned week is equal
 		for(int i = 0; i<notes.size();i++){
-			assertEquals(6,notes.get(i).getWeek());
+			assertEquals(0,notes.get(i).getWeek());
 		}
 		//assert that the size of the sample set, is the size of the result set
-		assertEquals(6, notes.size());
+		assertEquals(0, notes.size());
 	}
 	@Test
 	public void calculateAverage(){
