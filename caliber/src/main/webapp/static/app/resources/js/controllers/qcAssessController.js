@@ -589,9 +589,6 @@ angular
 						} else if (flagColor === 'GREEN') {
 							flag.setAttribute("class",
 									"glyphicon glyphicon-flag color-green");
-						} else if (flagColor === 'TRAINER') {
-							flag.setAttribute("class",
-									"glyphicon glyphicon-flag color-orange");
 						} else {
 							flag.setAttribute("class",
 									"glyphicon glyphicon-flag color-white");
@@ -612,10 +609,6 @@ angular
 							flag.setAttribute("class",
 									"glyphicon glyphicon-flag color-green");
 						} else if (flag.getAttribute("class") === "glyphicon glyphicon-flag color-green") {
-							status = "TRAINER";
-							flag.setAttribute("class",
-									"glyphicon glyphicon-flag color-orange");
-						} else if (flag.getAttribute("class") === "glyphicon glyphicon-flag color-orange") {
 							status = "NONE";
 							flag.setAttribute("class",
 									"glyphicon glyphicon-flag color-white");
@@ -642,10 +635,6 @@ angular
 							} else if (initialStatus === "GREEN") {
 								flag.setAttribute("class",
 										"glyphicon glyphicon-flag color-green");
-							} else if (initialStatus === "TRAINER") {
-								flag
-										.setAttribute("class",
-												"glyphicon glyphicon-flag color-orange");
 							} else {
 								flag.setAttribute("class",
 										"glyphicon glyphicon-flag color-white");
@@ -682,7 +671,8 @@ angular
 					function resetFlags() {
 						$scope.showCommentForm = [];
 						$scope.showCommentBox = [];
-						angular.forEach($scope.currentBatch.trainees, function(trainee, index) {
+						angular.forEach($scope.currentBatch.trainees, function(
+								trainee, index) {
 							$scope.initFlags(trainee, index);
 						});
 					}
