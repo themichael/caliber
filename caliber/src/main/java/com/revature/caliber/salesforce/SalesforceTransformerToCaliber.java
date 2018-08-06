@@ -12,7 +12,7 @@ import com.revature.salesforce.beans.BatchTrainer;
 import com.revature.salesforce.beans.SalesforceBatch;
 import com.revature.salesforce.beans.SalesforceTrainee;
 
-@Component
+@Deprecated
 public class SalesforceTransformerToCaliber {
 
 	private static final Logger logger = Logger.getLogger(SalesforceTransformerToCaliber.class);

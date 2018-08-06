@@ -10,7 +10,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
  * (current as of 7/3/2017) 
  * @author Patrick Walsh
  *
- */
+ */@Deprecated
 public class SalesforceBatch extends SalesforceRecord{
 
 	@JsonProperty("Id")

@@ -24,16 +24,16 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.data.TrainerDAO;
-import com.revature.caliber.security.models.SalesforceToken;
-import com.revature.caliber.security.models.SalesforceUser;
+import com.revature.caliber.security.models.RevProToken;
+import com.revature.caliber.security.models.RevProUser;
 
-@Service
+@Deprecated
 public class SalesforceAuth {
 	
 	@Autowired
 	TrainerDAO trainerDao;
 	
-	protected static SalesforceToken accessTokenJson = new SalesforceToken();
+	protected static RevProToken accessTokenJson = new RevProToken();
 	protected static final String AUTH = "Authorization";
 	protected static String jsessionid;
 
@@ -58,18 +58,18 @@ public class SalesforceAuth {
 			log.debug("Logging into Salesforce "+salesforceId+" "+salesforceSecret);
 			log.debug("User: "+username+" Pass: "+password);
 			login();
-			SalesforceUser salesforceUser = new SalesforceUser();
+			RevProUser salesforceUser = new RevProUser();
 			salesforceUser.setUserId(username);
 			Trainer trainer = trainerDao.findByEmail("patrick.walsh@revature.com");
 			salesforceUser.setCaliberUser(trainer);
 			salesforceUser.setRole(trainer.getTier().name());
 			log.debug("SalesforceUser role: "+salesforceUser.getRole());
-			salesforceUser.setSalesforceToken(accessTokenJson);
+			salesforceUser.setToken(accessTokenJson);
 			Authentication auth = new PreAuthenticatedAuthenticationToken(salesforceUser, salesforceUser.getUserId(),
 	                salesforceUser.getAuthorities());
 	        SecurityContextHolder.getContext().setAuthentication(auth);
 	        
-	        if(((SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getSalesforceToken() != null) {
+	        if(((RevProUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getToken() != null) {
 	        	userSet = true;
 	        }
 	        
@@ -108,7 +108,7 @@ public class SalesforceAuth {
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.configure(Feature.ALLOW_NUMERIC_LEADING_ZEROS, true);
 			accessTokenJson = mapper.readValue(response.getEntity().getContent(),
-					SalesforceToken.class); // actual
+					RevProToken.class); // actual
 			log.debug("Accessing Salesforce API using token:  " + accessTokenJson.getAccessToken());
 		}catch(Exception e){
 			log.error(e);

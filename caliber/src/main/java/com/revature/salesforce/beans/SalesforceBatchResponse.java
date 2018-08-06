@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
+@Deprecated
 public class SalesforceBatchResponse extends SalesforceResponse{
 
 	@JsonProperty("records")

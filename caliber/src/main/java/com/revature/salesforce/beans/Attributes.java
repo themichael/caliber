@@ -5,7 +5,7 @@ package com.revature.salesforce.beans;
  * (current as of 7/3/2017) 
  * @author Patrick Walsh
  *
- */
+ */@Deprecated
 public class Attributes {
 
 	private String type;

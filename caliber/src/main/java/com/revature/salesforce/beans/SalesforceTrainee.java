@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
  * 
  * @author Patrick Walsh
  *
- */
+ */@Deprecated
 public class SalesforceTrainee extends SalesforceRecord {
 
 	@JsonProperty("Id")

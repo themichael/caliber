@@ -14,7 +14,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Repository;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,7 +22,7 @@ import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.TrainingStatus;
 import com.revature.caliber.exceptions.ServiceNotAvailableException;
 import com.revature.caliber.salesforce.SalesforceTransformerToCaliber;
-import com.revature.caliber.security.models.SalesforceUser;
+import com.revature.caliber.security.models.RevProUser;
 import com.revature.salesforce.beans.SalesforceBatch;
 import com.revature.salesforce.beans.SalesforceBatchResponse;
 import com.revature.salesforce.beans.SalesforceTrainee;
@@ -37,7 +36,7 @@ import com.revature.salesforce.beans.SalesforceTraineeResponse;
  * @author
  *
  */
-@Repository
+@Deprecated
 public class SalesforceDAO {
 
 	private static final Logger log = Logger.getLogger(SalesforceDAO.class);
@@ -210,8 +209,8 @@ public class SalesforceDAO {
 		if (debug)
 			return "00D0n0000000Q1l!AQQAQO6EIphsBcQV0Jgk.XTNY_xmcIEdqYGDhhDznW83aYM0Gsy2MbiwswbL0kFXAa6lX.v8d097daDSlYYZeahW4GitXFCv";
 		else
-			return ((SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
-					.getSalesforceToken().getAccessToken();
+			return ((RevProUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
+					.getToken().getAccessToken();
 	}
 
 	/**

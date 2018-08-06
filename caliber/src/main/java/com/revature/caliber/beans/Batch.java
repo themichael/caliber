@@ -82,13 +82,13 @@ public class Batch implements Serializable {
 	@Column(name = "TRAINING_TYPE")
 	private TrainingType trainingType;
 
-	@JsonFormat(timezone="EST", pattern = "yyyy-MM-dd")
+	@JsonFormat(timezone = "EST", pattern = "yyyy-MM-dd")
 	@NotNull
 	@Temporal(TemporalType.DATE)
 	@Column(name = "START_DATE", nullable = false)
 	private Date startDate;
 
-	@JsonFormat(timezone="EST", pattern = "yyyy-MM-dd")
+	@JsonFormat(timezone = "EST", pattern = "yyyy-MM-dd")
 	@NotNull
 	@Temporal(TemporalType.DATE)
 	@Column(name = "END_DATE", nullable = false)
@@ -124,7 +124,7 @@ public class Batch implements Serializable {
 
 	@Column(name = "NUMBER_OF_WEEKS", nullable = false)
 	private int weeks;
-	
+
 	@Column(name = "GRADED_WEEKS")
 	private int gradedWeeks;
 
@@ -132,7 +132,7 @@ public class Batch implements Serializable {
 	@OneToMany(mappedBy = "batch")
 	@Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 	private Set<Note> notes;
-	
+
 	public Batch() {
 		super();
 		this.weeks = 1;
@@ -312,7 +312,7 @@ public class Batch implements Serializable {
 	public void setGradedWeeks(int gradedWeeks) {
 		this.gradedWeeks = gradedWeeks;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -392,7 +392,8 @@ public class Batch implements Serializable {
 	@Override
 	public String toString() {
 		return "Batch [batchId=" + batchId + ", trainingName=" + trainingName + ", skillType=" + skillType
-				+ ", trainingType=" + trainingType +", location==" + location + "]";
+				+ ", trainingType=" + trainingType + ", location=" + location + ", trainer= " + trainer
+				+ ", resourceId= " + resourceId + "]";
 	}
 
 }
