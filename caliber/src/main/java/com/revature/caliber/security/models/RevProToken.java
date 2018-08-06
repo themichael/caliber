@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * The type Salesforce token.
  */
-public class SalesforceToken {
+public class RevProToken {
     @JsonProperty(value = "access_token")
     private String accessToken;
 
@@ -37,7 +37,7 @@ public class SalesforceToken {
     /**
      * Instantiates a new Salesforce token.
      */
-    public SalesforceToken() {
+    public RevProToken() {
     	super();
     }
     /**
@@ -51,7 +51,7 @@ public class SalesforceToken {
      * @param tokenType    the token type
      * @param issuedAt     the issued at
      */
-    public SalesforceToken(String accessToken, String signature, String scope, String instanceUrl, String id, String tokenType, String issuedAt) {
+    public RevProToken(String accessToken, String signature, String scope, String instanceUrl, String id, String tokenType, String issuedAt) {
         this.accessToken = accessToken;
         this.signature = signature;
         this.scope = scope;

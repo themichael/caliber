@@ -27,7 +27,7 @@ import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.exceptions.NotAuthorizedException;
 import com.revature.caliber.security.impl.AbstractSalesforceSecurityHelper;
-import com.revature.caliber.security.models.SalesforceUser;
+import com.revature.caliber.security.models.RevProUser;
 /**
  * The type Boot controller.
  */
@@ -57,7 +57,7 @@ public class BootController extends AbstractSalesforceSecurityHelper {
         try{
 	        if(debug){
 	            // fake Salesforce User
-	            SalesforceUser salesforceUser = new SalesforceUser();
+	            RevProUser salesforceUser = new RevProUser();
 	            salesforceUser.setEmail(DEBUG_USER_LOGIN);
 	            String email = salesforceUser.getEmail();
 	
@@ -111,7 +111,7 @@ public class BootController extends AbstractSalesforceSecurityHelper {
      * @param servletResponse
      * @throws IOException
      */
-    private void authorize(String jsonString, SalesforceUser salesforceUser, HttpServletResponse servletResponse)
+    private void authorize(String jsonString, RevProUser salesforceUser, HttpServletResponse servletResponse)
             throws IOException {
         JSONObject jsonObject = new JSONObject(jsonString);
         if (jsonObject.getString("email").equals(salesforceUser.getEmail())) {

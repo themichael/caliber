@@ -29,7 +29,7 @@ import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerTask;
 import com.revature.caliber.beans.TrainerTaskCompletion;
-import com.revature.caliber.security.models.SalesforceUser;
+import com.revature.caliber.security.models.RevProUser;
 import com.revature.caliber.services.TrainingService;
 
 /**
@@ -464,7 +464,7 @@ public class TrainingController {
 	 * @return
 	 */
 	private Trainer getPrincipal(Authentication auth) {
-		return ((SalesforceUser) auth.getPrincipal()).getCaliberUser();
+		return ((RevProUser) auth.getPrincipal()).getCaliberUser();
 	}
 	
 	/*

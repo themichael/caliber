@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  *	Inherit to create a sub-type that deserializes the specific 'records' 
  * @author Patrick Walsh
  *
- */
+ */@Deprecated
 public abstract class SalesforceResponse {
 
 	@JsonProperty("totalSize")

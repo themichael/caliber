@@ -290,6 +290,12 @@ angular
 						if ($scope.batchToImport == null) {
 							return;
 						}
+						$scope.batchToImport.location = $scope.batchToImport.address.company
+								+ ", "
+								+ $scope.batchToImport.address.city
+								+ " "
+								+ $scope.batchToImport.address.state
+								+ " " + $scope.batchToImport.address.zipcode;
 						caliberDelegate.all
 								.createBatch($scope.batchToImport)
 								.then(
@@ -383,6 +389,8 @@ angular
 							$scope.currentBatch = null;
 						}
 					}
+
+					$scope.location = {};
 
 					/** Create new Batch Object * */
 					function createBatchObject(batch) {

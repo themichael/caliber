@@ -15,7 +15,7 @@ import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.SalesforceDAO;
 import com.revature.caliber.data.TrainerDAO;
 
-@Service
+@Deprecated
 public class SalesforceService {
 
 	private static final Logger log = Logger.getLogger(SalesforceService.class);

@@ -10,10 +10,9 @@ import org.springframework.stereotype.Component;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.data.BatchDAO;
-import com.revature.caliber.data.SalesforceDAO;
 import com.revature.caliber.data.TraineeDAO;
 import com.revature.caliber.data.TrainerDAO;
-import com.revature.caliber.services.SalesforceService;
+import com.revature.caliber.services.RevProBatchImportService;
 
 @Component
 public class BatchUpdate {
@@ -21,9 +20,9 @@ public class BatchUpdate {
 	private static final Logger log = Logger.getLogger(BatchUpdate.class);
 
 	@Autowired
-	private SalesforceAuth salesforceAuth;
+	private RevProAuth revProAuth;
 	@Autowired
-	private SalesforceDAO salesforceDao;
+	private RevProBatchImportService importService;
 	@Autowired
 	private BatchDAO batchDao;
 	@Autowired
@@ -34,67 +33,82 @@ public class BatchUpdate {
 	/**
 	 * Used cron to perform midnight execution To update batches
 	 */
-	//@Scheduled(cron = "0 0/15 * * * ?") // Every 15 minutes
-	@Scheduled(cron = "0 0 0 * * *") // Midnight
+	@Scheduled(cron = "0 0/1 * * * ?") // Every 5 minutes
+	// @Scheduled(cron = "0 0 0 * * *") // Midnight
 	public void updateBatchTask() {
 		try {
-			log.debug("Update Batch Task");
-			boolean userSet = salesforceAuth.setUser();
+			log.info("Update Batch Task");
+			boolean userSet = revProAuth.setUser();
 			if (userSet) {
 				List<Batch> caliberBatches = batchDao.findAll();
 				log.debug("Caliber Batch list size: " + caliberBatches.size());
-				List<Batch> salesforceBatches = salesforceDao.getAllRelevantBatches();
+				List<Batch> salesforceBatches = importService.getAllBatches();
 
 				compareBatches(caliberBatches, salesforceBatches);
 			} else {
 				log.error("Unable to perform BatchUpdate");
 			}
 
-			salesforceAuth.clearUser();
+			revProAuth.clearUser();
 			log.debug("End of Update Task");
 		} catch (Exception e) {
+			e.printStackTrace();
 			log.fatal(e);
 		}
 	}
 
 	/**
-	 * Grabs all batches from Salesforce and all batches from Caliber. For each of
-	 * the Caliber batches, it checks against all the Salesforce batches.. if the
+	 * Grabs all batches from RevPro and all batches from Caliber. For each of the
+	 * Caliber batches, it checks against all the RevPro batches.. if the Salesforce
 	 * resourceIds match, then the batch details in Caliber need to be updated with
-	 * the data in the Salesforce. Furthermore, we then need to check each of the
-	 * trainees in that batch and update their information from the salesforce as
-	 * well.
+	 * the data in the RevPro. Furthermore, we then need to check each of the
+	 * trainees in that batch and update their information from the RevPro as well.
 	 */
-	public boolean compareBatches(List<Batch> caliberBatches, List<Batch> salesforceBatches) {
-		log.debug("Comparing batches...");
-		for (int sIndex = 0; sIndex < salesforceBatches.size(); sIndex++) {
-			if (salesforceBatches.get(sIndex).getTrainer() == null) {
-				log.info(salesforceBatches.get(sIndex).getResourceId() + " batch trainer is null");
+	public boolean compareBatches(List<Batch> caliberBatches, List<Batch> revProBatches) {
+		log.info(revProBatches);
+		log.info("Comparing batches...");
+		log.info(caliberBatches);
+		for (int sIndex = 0; sIndex < revProBatches.size(); sIndex++) {
+			if (revProBatches.get(sIndex).getResourceId() == null) {
+				continue;
+			}
+			if (revProBatches.get(sIndex).getTrainer() == null) {
+				log.debug(revProBatches.get(sIndex).getResourceId() + " batch trainer is null");
 				continue;
 			}
 			for (int cIndex = 0; cIndex < caliberBatches.size(); cIndex++) {
 				// if caliber batch does not have resourceId, it cannot be synced. continue...
-				if (caliberBatches.get(cIndex).getResourceId() == null)
+				if (caliberBatches.get(cIndex).getResourceId() == null) {
 					continue;
+				}
 				// if resourceIds are same, update all the datas with fresh Salesforce data
-				if (caliberBatches.get(cIndex).getResourceId().equals(salesforceBatches.get(sIndex).getResourceId())) {
-					log.info("Found batch match: " + salesforceBatches.get(sIndex).getResourceId() + " "
-							+ salesforceBatches.get(sIndex).getTrainingName());
+				if (caliberBatches.get(cIndex).getResourceId().equals(revProBatches.get(sIndex).getResourceId())) {
+					log.info("Found batch match: " + revProBatches.get(sIndex).getResourceId() + " "
+							+ revProBatches.get(sIndex).getTrainingName());
 					// extract salesforce data and save
-					updateBatch(caliberBatches.get(cIndex), salesforceBatches.get(sIndex));
+					updateBatch(caliberBatches.get(cIndex), revProBatches.get(sIndex));
 
-					// extract trainee information from Salesforce and update the trainees in the
+					// extract trainee information from RevPro and update the trainees in the
 					// Caliber batch
 					for (Trainee trainee : caliberBatches.get(cIndex).getTrainees()) {
-						for (Trainee salesforceTrainee : salesforceDao
+						for (Trainee revProTrainee : importService
 								.getBatchDetails(caliberBatches.get(cIndex).getResourceId())) {
 							// if caliber trainee does not have resourceId, it cannot be synced. continue...
 							if (trainee.getResourceId() == null)
 								continue;
-							if (trainee.getResourceId().equals(salesforceTrainee.getResourceId())) {
-								log.info("Updating trainee: " + salesforceTrainee.getResourceId() + " " + trainee);
+							if (trainee.getResourceId().equals(revProTrainee.getResourceId())) {
+								log.info("Updating trainee: " + revProTrainee.getResourceId() + " " + trainee);
 								// extract salesforce data and save
-								updateTrainee(trainee, salesforceTrainee);
+								updateTrainee(trainee, revProTrainee);
+							}
+
+							// check if the trainee switched batches
+							if (!revProTrainee.getBatch().getResourceId().equals(trainee.getBatch().getResourceId())) {
+								log.info("Batches switched!! revpro batch: " + revProTrainee.getBatch().getResourceId() + " caliber batch: "
+										+ trainee.getBatch().getResourceId());
+								// he/she switched batches, update that batch
+								trainee.setBatch(batchDao.findByResourceId(revProTrainee.getBatch().getResourceId()));
+								traineeDao.update(trainee);
 							}
 						}
 					}
@@ -104,43 +118,46 @@ public class BatchUpdate {
 		return true;
 	}
 
-	private void updateTrainee(Trainee caliberTrainee, Trainee salesforceTrainee) {
+	private void updateTrainee(Trainee caliberTrainee, Trainee revProTrainee) {
+		log.info("Batch Update: syncing trainee " + revProTrainee.getResourceId());
 		try {
-			caliberTrainee.setTrainingStatus(salesforceTrainee.getTrainingStatus());
-			caliberTrainee.setCollege(salesforceTrainee.getCollege());
-			caliberTrainee.setDegree(salesforceTrainee.getDegree());
-			caliberTrainee.setEmail(salesforceTrainee.getEmail());
-			caliberTrainee.setMajor(salesforceTrainee.getMajor());
-			caliberTrainee.setName(salesforceTrainee.getName());
-			caliberTrainee.setPhoneNumber(salesforceTrainee.getPhoneNumber());
-			caliberTrainee.setProjectCompletion(salesforceTrainee.getProjectCompletion());
-			caliberTrainee.setRecruiterName(salesforceTrainee.getRecruiterName());
-			caliberTrainee.setTechScreenerName(salesforceTrainee.getTechScreenerName());
+			caliberTrainee.setTrainingStatus(revProTrainee.getTrainingStatus());
+			caliberTrainee.setCollege(revProTrainee.getCollege());
+			caliberTrainee.setDegree(revProTrainee.getDegree());
+			// caliberTrainee.setEmail(revProTrainee.getEmail());
+			// TODO fix this!!!!!!!!!!!!!!!!!!!!!!!!!!!!! (RevPro data)
+			caliberTrainee.setMajor(revProTrainee.getMajor());
+			caliberTrainee.setName(revProTrainee.getName());
+			caliberTrainee.setPhoneNumber(revProTrainee.getPhoneNumber());
+			caliberTrainee.setProjectCompletion(revProTrainee.getProjectCompletion());
+			caliberTrainee.setRecruiterName(revProTrainee.getRecruiterName());
+			caliberTrainee.setTechScreenerName(revProTrainee.getTechScreenerName());
 			traineeDao.update(caliberTrainee);
 		} catch (Exception e) {
 			log.fatal(e);
 		}
 	}
 
-	private void updateBatch(Batch caliberBatch, Batch salesforceBatch) {
+	private void updateBatch(Batch caliberBatch, Batch revProBatch) {
+		log.info("Batch Update: syncing batch " + revProBatch.getResourceId());
 		try {
-			if (salesforceBatch.getTrainer() != null) {
-				caliberBatch.setTrainer(trainerDao.findByEmail(salesforceBatch.getTrainer().getEmail()));
+			if (revProBatch.getTrainer() != null) {
+				caliberBatch.setTrainer(trainerDao.findByEmail(revProBatch.getTrainer().getEmail()));
 			} else {
-				log.info("Trainer is null for " + salesforceBatch.getTrainingName());
-				caliberBatch.setTrainer(trainerDao.findByEmail(SalesforceService.DEFAULT_TRAINER));
-				log.info("Trainer is now " + SalesforceService.DEFAULT_TRAINER + " for "
+				log.info("Trainer is null for " + revProBatch.getTrainingName());
+				caliberBatch.setTrainer(trainerDao.findByEmail(RevProBatchImportService.DEFAULT_TRAINER));
+				log.info("Trainer is now " + RevProBatchImportService.DEFAULT_TRAINER + " for "
 						+ caliberBatch.getTrainingName());
 			}
-			if (salesforceBatch.getCoTrainer() != null) {
-				caliberBatch.setCoTrainer(trainerDao.findByEmail(salesforceBatch.getCoTrainer().getEmail()));
-				log.info("Cotrainer for " + salesforceBatch.getTrainingName() + " is: " + caliberBatch.getCoTrainer());
+			if (revProBatch.getCoTrainer() != null) {
+				caliberBatch.setCoTrainer(trainerDao.findByEmail(revProBatch.getCoTrainer().getEmail()));
+				log.debug("Cotrainer for " + revProBatch.getTrainingName() + " is: " + caliberBatch.getCoTrainer());
 			}
-			caliberBatch.setEndDate(salesforceBatch.getEndDate());
-			caliberBatch.setSkillType(salesforceBatch.getSkillType());
-			caliberBatch.setStartDate(salesforceBatch.getStartDate());
-			caliberBatch.setTrainingName(salesforceBatch.getTrainingName());
-			caliberBatch.setTrainingType(salesforceBatch.getTrainingType());
+			caliberBatch.setEndDate(revProBatch.getEndDate());
+			caliberBatch.setSkillType(revProBatch.getSkillType());
+			caliberBatch.setStartDate(revProBatch.getStartDate());
+			caliberBatch.setTrainingName(revProBatch.getTrainingName());
+			caliberBatch.setTrainingType(revProBatch.getTrainingType());
 			batchDao.update(caliberBatch);
 		} catch (Exception e) {
 			log.fatal(e);

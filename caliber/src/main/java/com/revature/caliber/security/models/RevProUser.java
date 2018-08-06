@@ -13,7 +13,7 @@ import com.revature.caliber.beans.Trainer;
 /**
  * The type Salesforce user.
  */
-public class SalesforceUser implements UserDetails {
+public class RevProUser implements UserDetails {
 	private static final long serialVersionUID = 8330084985503759701L;
 	@JsonProperty(value = "id")
     private String id;
@@ -79,7 +79,7 @@ public class SalesforceUser implements UserDetails {
 	private boolean isLightningLoginUser;
 
     @JsonProperty(value = "salesforceToken")
-    private SalesforceToken salesforceToken;
+    private RevProToken token;
 
     @JsonProperty(value = "caliberUser")
     private Trainer caliberUser;
@@ -87,7 +87,7 @@ public class SalesforceUser implements UserDetails {
     /**
      * Instantiates a new Salesforce user.
      */
-    public SalesforceUser() {
+    public RevProUser() {
     	super();
     }
 
@@ -331,12 +331,12 @@ public class SalesforceUser implements UserDetails {
 		this.isLightningLoginUser = isLightningLoginUser;
 	}
 
-	public SalesforceToken getSalesforceToken() {
-		return salesforceToken;
+	public RevProToken getToken() {
+		return token;
 	}
 
-	public void setSalesforceToken(SalesforceToken salesforceToken) {
-		this.salesforceToken = salesforceToken;
+	public void setToken(RevProToken token) {
+		this.token = token;
 	}
 
 	public Trainer getCaliberUser() {
@@ -414,7 +414,7 @@ public class SalesforceUser implements UserDetails {
                 ", last_modified_date='" + lastModifiedDate + '\'' +
                 ", is_app_installed=" + isAppInstalled +
                 ", role='" + role + '\'' +
-                ", salesforceToken=" + salesforceToken +
+                ", salesforceToken=" + token +
                 '}';
     }
 }

@@ -6,6 +6,7 @@ package com.revature.salesforce.beans;
  * @author Patrick Walsh
  *
  */
+@Deprecated
 public class SalesforceCollege extends SalesforceRecord{
 
 	public SalesforceCollege() {
