@@ -67,7 +67,7 @@
 						<div class="form-group col-lg-12 col-md-12 col-sm-12">
 							<label for="switchBatch">Batch:</label> <select id="switchBatch"
 								class="form-control" ng-model="switchBatch">
-								<option ng-repeat="batch in batches" value="{{batch.batchId}}">{{batch.trainingName}}</option>
+								<option ng-repeat="batch in batches" value="{{batch.batchId}}">{{batch.trainingName}} - {{batch.trainer.name}}</option>
 							</select>
 						</div>
 					</div>
