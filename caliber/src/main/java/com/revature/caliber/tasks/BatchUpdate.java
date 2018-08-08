@@ -35,8 +35,8 @@ public class BatchUpdate {
 	/**
 	 * Used cron to perform midnight execution To update batches
 	 */
-	//@Scheduled(cron = "0 0/1 * * * ?") // Every 5 minutes
-	@Scheduled(cron = "0 0 0 * * *") // Midnight
+	@Scheduled(cron = "0 0/5 * * * ?") // Every 5 minutes
+	//@Scheduled(cron = "0 0 0 * * *") // Midnight
 	public void updateBatchTask() {
 		try {
 			log.info("Update Batch Task");
@@ -54,7 +54,6 @@ public class BatchUpdate {
 			revProAuth.clearUser();
 			log.debug("End of Update Task");
 		} catch (Exception e) {
-			e.printStackTrace();
 			log.fatal(e);
 		}
 	}

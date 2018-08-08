@@ -231,29 +231,28 @@ public class RevProBatchImportService {
 		// set batch resourceId as path param
 		String url = String.format(revProAssociatesUrl, resourceId);
 		log.debug(url);
+		List<Trainee> trainees = new ArrayList<>();
 		try {
 			ResponseEntity<BatchAssociatesResponse> response = http.exchange(url, HttpMethod.GET, entity,
 					BatchAssociatesResponse.class);
 
 			// convert the batches to Caliber batch
 			RevProBatch revProBatch = response.getBody().getData();
-			
+
 			// convert trainees
 			List<RevProTrainee> revProTrainees = revProBatch.getBatchTrainees();
-			List<Trainee> trainees = new ArrayList<>();
 			for (RevProTrainee trainee : revProTrainees) {
 				// filter out trainees that are not joining training on day one
 				if (!trainee.getTrainingStatus().equals(TrainingStatus.Dropped.toString())) {
 					trainees.add(transformer.transformTrainee(trainee));
 				}
 			}
-			return trainees;
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.warn("Failed to fetch details for batch :  " + resourceId + " with " + e.getClass() + " "
 					+ e.getMessage());
-			return null;
 		}
+		return trainees;
 	}
 
 }
