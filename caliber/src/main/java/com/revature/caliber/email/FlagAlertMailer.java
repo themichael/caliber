@@ -25,7 +25,7 @@ import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.beans.TrainingStatus;
 import com.revature.caliber.services.TrainingService;
 
-@Component
+//@Component
 public class FlagAlertMailer implements Runnable {
 
 	private static final Logger logger = Logger.getLogger(FlagAlertMailer.class);

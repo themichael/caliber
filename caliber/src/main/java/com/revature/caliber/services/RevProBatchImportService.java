@@ -189,7 +189,6 @@ public class RevProBatchImportService {
 		try {
 			ResponseEntity<AllBatchesResponse> response = http.exchange(url, HttpMethod.GET, entity,
 					AllBatchesResponse.class);
-			log.debug(response.getBody().getData());
 			// convert the batches to Caliber batch
 			List<RevProBatch> revProBatches = response.getBody().getData();
 			List<Batch> batches = new ArrayList<>();
@@ -238,7 +237,6 @@ public class RevProBatchImportService {
 
 			// convert the batches to Caliber batch
 			RevProBatch revProBatch = response.getBody().getData();
-			Batch batch = transformer.transformBatch(revProBatch);
 			
 			// convert trainees
 			List<RevProTrainee> revProTrainees = revProBatch.getBatchTrainees();
@@ -246,9 +244,7 @@ public class RevProBatchImportService {
 			for (RevProTrainee trainee : revProTrainees) {
 				// filter out trainees that are not joining training on day one
 				if (!trainee.getTrainingStatus().equals(TrainingStatus.Dropped.toString())) {
-					Trainee temp = transformer.transformTrainee(trainee);
-					temp.setBatch(batch);
-					trainees.add(temp);
+					trainees.add(transformer.transformTrainee(trainee));
 				}
 			}
 			return trainees;
