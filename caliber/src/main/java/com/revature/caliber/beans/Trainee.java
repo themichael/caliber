@@ -324,7 +324,6 @@ public class Trainee implements Serializable {
 		return "Trainee [traineeId=" + traineeId + ", name=" + name + ", email=" + email + ", trainingStatus="
 				+ trainingStatus + ", major=" + major + "]";
 	}
-	
 
 	public String getRecruiterName() {
 		return recruiterName;
@@ -373,7 +372,7 @@ public class Trainee implements Serializable {
 	public void setProjectCompletion(String projectCompletion) {
 		this.projectCompletion = projectCompletion;
 	}
-	
+
 	public TraineeFlag getFlagStatus() {
 		return flagStatus;
 	}

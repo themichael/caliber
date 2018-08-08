@@ -33,7 +33,7 @@ angular
 		.module("trainer")
 		.controller(
 				"trainerManageController",
-				function($scope, $log, caliberDelegate, allBatches) {
+				function($scope, $log, $state, $q, caliberDelegate, allBatches) {
 
 					$log.debug("Booted trainer manage controller.");
 					$log.debug('test trainermanager cntroller -j');
@@ -81,7 +81,6 @@ angular
 							})
 						}
 						$log.debug($scope.batches);
-
 					})();
 
 					/** Filter batches by year * */
@@ -918,4 +917,32 @@ angular
 						});
 					}
 
+					/**
+					 * Switch Batch feature
+					 */
+
+					$scope.getSwitchableBatches = function(trainee) {
+						$scope.traineeToSwitch = trainee;
+					}
+
+					$scope.switchBatchForTrainee = function(batchId) {
+						$q(
+								function(resolve, reject) {
+									angular.element("#switchBatchModal").modal(
+											"hide");
+									angular.element("#viewTraineeModal").modal(
+											"hide");
+									$(document).on('hidden.bs.modal',
+											'#viewTraineeModal', function() {
+												resolve();
+											});
+								}).then(
+								function() {
+									caliberDelegate.all.switchBatch(
+											$scope.traineeToSwitch.traineeId,
+											batchId).then(function() {
+										$state.reload();
+									});
+								});
+					}
 				});

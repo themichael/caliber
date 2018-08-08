@@ -417,6 +417,20 @@ public class TrainingService {
 		traineeDAO.update(trainee);
 	}
 	
+	/**
+	 * Switch a trainee to a different batch. 
+	 * @param traineeId
+	 * @param batchId
+	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public void switchBatches(Integer traineeId, Integer batchId) {
+		Batch batch = batchDAO.findOne(batchId);
+		Trainee trainee = traineeDAO.findOne(traineeId);
+		log.info("Switching trainee " + trainee + " to batch " + batch);
+		trainee.setBatch(batch);
+		this.update(trainee);
+	}
+	
 	/*
 	 *******************************************************
 	 * TASK SERVICES
@@ -465,4 +479,5 @@ public class TrainingService {
 		log.debug("Save task completed: " + taskCompletion);
 		taskCompletionDAO.saveTaskCompletion(taskCompletion);
 	}
+	
 }

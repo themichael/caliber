@@ -307,6 +307,19 @@ angular.module("api").factory("allFactory", function($log, $http) {
 			return false;
 		});
 	};
+	
+	all.switchBatch = function(traineeId, batchId) {
+		return $http({
+			url : "/all/trainee/switch/trainee/" + traineeId + "/batch/" + batchId, 
+			method : "PUT"
+		}).then(function(response) {
+			$log.debug("Trainee successfully updated.");
+			$log.debug(response);
+		}, function(response) {
+			$log.error("There was an error: " + response.status);
+			return false;
+		});
+	};
 
 	all.getTraineeEmail = function(traineeEmail) {
 		return $http({
