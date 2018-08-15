@@ -20,5 +20,7 @@ public enum TrainingStatus implements Serializable{
 	@JsonProperty("Dropped")
 	Dropped,
 	@JsonProperty("Project")
-	Project
+	Project,
+	@JsonProperty("Staging")
+	Staging
 }
