@@ -66,9 +66,9 @@ public class BatchUpdate {
 	 * trainees in that batch and update their information from the RevPro as well.
 	 */
 	public boolean compareBatches(List<Batch> caliberBatches, List<Batch> revProBatches) {
-		log.info(revProBatches);
+		log.debug(revProBatches);
 		log.info("Comparing batches...");
-		log.info(caliberBatches);
+		log.debug(caliberBatches);
 		for (int sIndex = 0; sIndex < revProBatches.size(); sIndex++) {
 			if (revProBatches.get(sIndex).getResourceId() == null) {
 				continue;
