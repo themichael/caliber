@@ -6,7 +6,7 @@ import java.util.List;
  * DTO used to import grades from RevaturePro quizzes. Format will look as
  * below:
  * 
- * { "quizzes": [ { "title" : "Core Java Week 1", "category": "Java", "grades" :
+ * { "batch": "AGSHHASLH19127", "quizzes": [ { "title" : "Core Java Week 1", "category": "Java", "grades" :
  * [ { "trainee": "salesforceResourceId", "grade": 75 }, { "trainee":
  * "jau1j18wjs9aj198", "grade": 87 } ] }, { "title" : "JUnit", "category":
  * "JUnit", "grades" : [ { "trainee": "salesforceResourceId", "grade": 81 }, {
