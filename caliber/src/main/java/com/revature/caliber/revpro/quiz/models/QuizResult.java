@@ -23,7 +23,7 @@ public class QuizResult {
 	/**
 	 * The final grade percentage of the quiz (out of 100)
 	 */
-	private int grade;
+	private double grade;
 
 	public QuizResult() {
 		super();
@@ -37,11 +37,11 @@ public class QuizResult {
 		this.trainee = trainee;
 	}
 
-	public int getGrade() {
+	public double getGrade() {
 		return grade;
 	}
 
-	public void setGrade(int grade) {
+	public void setGrade(double grade) {
 		this.grade = grade;
 	}
 
