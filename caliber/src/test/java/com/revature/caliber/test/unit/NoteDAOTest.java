@@ -345,8 +345,8 @@ public class NoteDAOTest extends CaliberTest {
 		// get the list of batch notes for week 2
 		List<Note> batchNotes = noteDao.findBatchNotes(TEST_BATCH_ID, 2);
 
-		// no batch note
-		assertTrue(batchNotes.isEmpty());
+		// has batch note
+		assertTrue(!batchNotes.isEmpty());
 	}
 
 	/**
@@ -360,8 +360,8 @@ public class NoteDAOTest extends CaliberTest {
 		// get the list of individual notes for week 2
 		List<Note> notes = noteDao.findIndividualNotes(TEST_QCBATCH_ID, 2);
 
-		// check if the individual notes size is equal to 58
-		assertEquals(58, notes.size());
+		// check if the individual notes size is equal to 16
+		assertEquals(16, notes.size());
 	}
 	/**
 	 * Tests finding individual notes all weeks
