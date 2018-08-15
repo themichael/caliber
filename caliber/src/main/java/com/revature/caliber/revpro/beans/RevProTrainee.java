@@ -14,6 +14,7 @@ public class RevProTrainee {
 	private String salesforceId;
 	private String firstName;
 	private String lastName;
+	private String email;
 	private String trainingStatus;
 	private String selectedStatus;
 	private String phone;
@@ -21,11 +22,13 @@ public class RevProTrainee {
 	private String recruiterName;
 	private String recruiterEmail;
 	private double currentProjectCompletionPercentage;
-	private List<RevProEducation> educations;
+	private List<RevProEducation> education;
 	private List<ScreenerInformation> screenerInformation;
 
 	public RevProTrainee() {
 		super();
+		// default to dropped
+		this.trainingStatus = "Dropped";
 	}
 
 	public String getSalesforceId() {
@@ -108,12 +111,12 @@ public class RevProTrainee {
 		this.currentProjectCompletionPercentage = currentProjectCompletionPercentage;
 	}
 
-	public List<RevProEducation> getEducations() {
-		return educations;
+	public List<RevProEducation> getEducation() {
+		return education;
 	}
 
-	public void setEducations(List<RevProEducation> educations) {
-		this.educations = educations;
+	public void setEducation(List<RevProEducation> education) {
+		this.education = education;
 	}
 
 	public List<ScreenerInformation> getScreenerInformation() {
@@ -123,21 +126,22 @@ public class RevProTrainee {
 	public void setScreenerInformation(List<ScreenerInformation> screenerInformation) {
 		this.screenerInformation = screenerInformation;
 	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	@Override
 	public String toString() {
 		return "RevProTrainee [salesforceId=" + salesforceId + ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", trainingStatus=" + trainingStatus + ", mobilePhone=" + mobilePhone + ", recruiterEmail="
-				+ recruiterEmail + "]";
+				+ ", email=" + email + ", trainingStatus=" + trainingStatus + "]";
 	}
 
-	/**
-	 * TODO fix this critical issue Randomly generate unique email until RevPro
-	 * gives us the trainee emails..
-	 * 
-	 * @return
-	 */
-	public String getEmail() {
+	public String fakeEmail() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(firstName.replaceAll("\\s", "").replaceAll("'", ".")).append(".")
 				.append(lastName.replaceAll("\\s", "").replaceAll("'", ".")).append(".")

@@ -134,25 +134,23 @@ public class RevProCaliberTransformer {
 
 		trainee.setName(revProTrainee.getFirstName() + " " + revProTrainee.getLastName());
 
-		// TODO get the trainee email from Aron. for now, we need a random unique email
 		trainee.setEmail(revProTrainee.getEmail());
 		trainee.setTrainingStatus(transformStatus(revProTrainee));
 		trainee.setPhoneNumber(revProTrainee.getPhone());
 		trainee.setPhoneNumber(revProTrainee.getMobilePhone());
 		trainee.setResourceId(revProTrainee.getSalesforceId());
 
-		// TODO get the trainee college from Aron
-		// trainee.setCollege(revProTrainee.getCollege().getName());
 		trainee.setProjectCompletion(Double.toString(revProTrainee.getCurrentProjectCompletionPercentage()));
 		trainee.setRecruiterName(revProTrainee.getRecruiterEmail());
 		trainee.setTechScreenerName(revProTrainee.getScreenerInformation().get(0).getScreenerName());
 
 		// need to add: trainee setTechScreenFeedback
-		for (RevProEducation edu : revProTrainee.getEducations()) {
+		for (RevProEducation edu : revProTrainee.getEducation()) {
 			if (edu == null)
 				break;
 			trainee.setDegree(edu.getDegree());
 			trainee.setMajor(edu.getMajor());
+			trainee.setCollege(edu.getUniversityName());
 		}
 		return trainee;
 	}

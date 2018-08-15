@@ -35,7 +35,7 @@ public class BatchUpdate {
 	/**
 	 * Used cron to perform midnight execution To update batches
 	 */
-	@Scheduled(cron = "0 0/5 * * * ?") // Every 5 minutes
+	@Scheduled(cron = "0 0/2 * * * ?") // Every 5 minutes
 	//@Scheduled(cron = "0 0 0 * * *") // Midnight
 	public void updateBatchTask() {
 		try {
@@ -126,8 +126,7 @@ public class BatchUpdate {
 			caliberTrainee.setTrainingStatus(revProTrainee.getTrainingStatus());
 			caliberTrainee.setCollege(revProTrainee.getCollege());
 			caliberTrainee.setDegree(revProTrainee.getDegree());
-			// caliberTrainee.setEmail(revProTrainee.getEmail());
-			// TODO fix this!!!!!!!!!!!!!!!!!!!!!!!!!!!!! (RevPro data)
+			caliberTrainee.setEmail(revProTrainee.getEmail());
 			caliberTrainee.setMajor(revProTrainee.getMajor());
 			caliberTrainee.setName(revProTrainee.getName());
 			caliberTrainee.setPhoneNumber(revProTrainee.getPhoneNumber());
