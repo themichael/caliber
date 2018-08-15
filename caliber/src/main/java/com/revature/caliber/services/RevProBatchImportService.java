@@ -177,11 +177,11 @@ public class RevProBatchImportService {
 		HttpEntity<String> entity = new HttpEntity<String>(headers);
 		RestTemplate http = new RestTemplate();
 
-		// filter to last 3 monthses
+		// filter to last 6 monthses
 		Date referenceDate = new Date();
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(referenceDate);
-		calendar.add(Calendar.MONTH, -3);
+		calendar.add(Calendar.MONTH, -6);
 		DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
 
 		String url = revProBatchesUrl + "?startDateAfter=" + dateformat.format(calendar.getTime());
