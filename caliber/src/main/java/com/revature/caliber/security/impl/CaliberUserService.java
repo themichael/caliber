@@ -8,7 +8,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.revature.caliber.beans.Trainer;
-import com.revature.caliber.security.models.SalesforceUser;
+import com.revature.caliber.security.models.RevProUser;
+import com.revature.caliber.security.models.RevProToken;
 import com.revature.caliber.services.TrainingService;
 
 /**
@@ -32,12 +33,15 @@ public class CaliberUserService implements UserDetailsService{
 			throw new UsernameNotFoundException(email);
 		}
 		// convert trainer into the User Principal
-		SalesforceUser user = new SalesforceUser();
+		RevProUser user = new RevProUser();
 		user.setCaliberUser(trainer);
 		user.setEmail(trainer.getEmail());
 		user.setRole(trainer.getTier().toString()); 
 		user.setId(Integer.toString(trainer.getTrainerId()));
 		user.setUsername(trainer.getEmail());
+		// initialize empty token to store RevPro token later
+		RevProToken token = new RevProToken();
+		user.setToken(token);
 		return user;
 	}
 	

@@ -74,6 +74,20 @@ public class BatchDAO {
 	}
 
 	/**
+	 * Find a batch by its given identifier
+	 * 
+	 * @param id
+	 * @return
+	 */
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public Batch findByResourceId(String resourceId) {
+		log.debug("Fetching batch: " + resourceId);
+		return (Batch) sessionFactory.getCurrentSession().createCriteria(Batch.class)
+				.createAlias(TRAINEES, "t", JoinType.LEFT_OUTER_JOIN).add(Restrictions.eq("resourceId", resourceId))
+				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped)).uniqueResult();
+	}
+	
+	/**
 	 * Looks for all batches where the user was the trainer or co-trainer.
 	 * 
 	 * @param auth

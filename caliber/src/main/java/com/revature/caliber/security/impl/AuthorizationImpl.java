@@ -42,8 +42,8 @@ import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.exceptions.NotAuthorizedException;
 import com.revature.caliber.security.Authorization;
-import com.revature.caliber.security.models.SalesforceToken;
-import com.revature.caliber.security.models.SalesforceUser;
+import com.revature.caliber.security.models.RevProToken;
+import com.revature.caliber.security.models.RevProUser;
 
 /**
  * Created by louislopez on 1/18/17.
@@ -148,7 +148,7 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 			return new ModelAndView(REDIRECT + REVATURE);
 		if (!debug) {
 			// revoke all tokens from the Salesforce
-			String accessToken = ((SalesforceUser) auth.getPrincipal()).getSalesforceToken().getAccessToken();
+			String accessToken = ((RevProUser) auth.getPrincipal()).getToken().getAccessToken();
 			revokeToken(accessToken);
 		}
 		// logout and clear Spring Security Context
@@ -223,15 +223,15 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 	}
 	
 	private void tryAuthorize(HttpServletRequest servletRequest, HttpServletResponse servletResponse, String salesTokenString) throws URISyntaxException, IOException {
-		SalesforceUser salesforceUser;
+		RevProUser salesforceUser;
 		
 		if (debug) {
 			// fake Salesforce User
-			salesforceUser = new SalesforceUser();
+			salesforceUser = new RevProUser();
 			salesforceUser.setEmail(DEBUG_USER_LOGIN);
 
 		} else {
-			SalesforceToken salesforceToken = getSalesforceToken(salesTokenString);
+			RevProToken salesforceToken = getSalesforceToken(salesTokenString);
 			// Http request to the salesforce module to get the Salesforce
 			// user
 			salesforceUser = getSalesforceUserDetails(servletRequest, salesforceToken);
@@ -254,7 +254,7 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 	 * @param servletResponse
 	 * @throws IOException
 	 */
-	private void authorize(String jsonString, SalesforceUser salesforceUser, HttpServletResponse servletResponse)
+	private void authorize(String jsonString, RevProUser salesforceUser, HttpServletResponse servletResponse)
 			throws IOException {
 		JSONObject jsonObject = new JSONObject(jsonString);
 		if (jsonObject.getString("email").equals(salesforceUser.getEmail())) {
@@ -283,14 +283,14 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 	 * @return
 	 * @throws IOException
 	 */
-	private SalesforceToken getSalesforceToken(String token) throws IOException {
+	private RevProToken getSalesforceToken(String token) throws IOException {
 		log.debug("Checking for the salesforce token");
 		if (token != null) {
 			log.debug("Parse salesforce token from forwarded request: " + token);
 			try {
 				ObjectMapper mapper = new ObjectMapper();
 				mapper.configure(Feature.ALLOW_NUMERIC_LEADING_ZEROS, true);
-				return mapper.readValue(token, SalesforceToken.class);
+				return mapper.readValue(token, RevProToken.class);
 			} catch (Exception e) {
 				log.error(e);
 				// log the Salesforce error JSON
@@ -311,7 +311,7 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 	 * @throws IOException
 	 * @throws URISyntaxException
 	 */
-	private SalesforceUser getSalesforceUserDetails(HttpServletRequest servletRequest, SalesforceToken salesforceToken)
+	private RevProUser getSalesforceUserDetails(HttpServletRequest servletRequest, RevProToken salesforceToken)
 			throws IOException, URISyntaxException {
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		URIBuilder uriBuilder = new URIBuilder();
@@ -325,8 +325,8 @@ public class AuthorizationImpl extends AbstractSalesforceSecurityHelper implemen
 		String user = toJsonString(response.getEntity().getContent());
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.configure(Feature.ALLOW_NUMERIC_LEADING_ZEROS, true);
-		SalesforceUser salesforceUser = mapper.readValue(user, SalesforceUser.class);
-		salesforceUser.setSalesforceToken(salesforceToken);
+		RevProUser salesforceUser = mapper.readValue(user, RevProUser.class);
+		salesforceUser.setToken(salesforceToken);
 		return salesforceUser;
 	}
 }

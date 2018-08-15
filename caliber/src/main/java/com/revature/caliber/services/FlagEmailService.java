@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 
 import com.revature.caliber.email.FlagAlertMailer;
 
-@Service
+//@Service
 public class FlagEmailService implements InitializingBean {
 
 		

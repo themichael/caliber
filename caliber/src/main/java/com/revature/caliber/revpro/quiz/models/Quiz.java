@@ -1,4 +1,4 @@
-package com.revature.caliber.revpro.models;
+package com.revature.caliber.revpro.quiz.models;
 
 import java.util.List;
 

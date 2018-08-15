@@ -5,20 +5,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
-import com.revature.caliber.security.models.SalesforceUser;
+import com.revature.caliber.security.models.RevProUser;
 import com.revature.caliber.services.SalesforceService;
 
-@RestController
-@PreAuthorize("isAuthenticated()")
-@CrossOrigin(origins = "http://ec2-54-163-132-124.compute-1.amazonaws.com")
+@Deprecated
+//@PreAuthorize("isAuthenticated()")
+//@CrossOrigin(origins = "http://ec2-54-163-132-124.compute-1.amazonaws.com")
 public class SalesforceController {
 
 	private static final Logger log = Logger.getLogger(SalesforceController.class);
@@ -39,8 +37,8 @@ public class SalesforceController {
 	@RequestMapping(value="/salesforce/token", method=RequestMethod.GET)
 	public String getSalesforceToken() {
 		log.debug("Getting access_token for testing purposes only!");
-		return ((SalesforceUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
-				.getSalesforceToken().getAccessToken();
+		return ((RevProUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal())
+				.getToken().getAccessToken();
 	}
 
 	/**

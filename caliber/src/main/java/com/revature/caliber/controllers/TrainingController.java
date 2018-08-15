@@ -29,7 +29,7 @@ import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerTask;
 import com.revature.caliber.beans.TrainerTaskCompletion;
-import com.revature.caliber.security.models.SalesforceUser;
+import com.revature.caliber.security.models.RevProUser;
 import com.revature.caliber.services.TrainingService;
 
 /**
@@ -356,7 +356,7 @@ public class TrainingController {
 		return new ResponseEntity<>(trainingService.findCommonLocations(), HttpStatus.OK);
 	}
 
-	/*get
+	/*
 	 *******************************************************
 	 * TRAINEE SERVICES
 	 *
@@ -430,6 +430,14 @@ public class TrainingController {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
+	@RequestMapping(value = "/all/trainee/switch/trainee/{traineeId}/batch/{batchId}", method = RequestMethod.PUT)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	@PreAuthorize("hasAnyRole('VP')")
+	public ResponseEntity<Void> switchBatch(@PathVariable Integer traineeId, @PathVariable Integer batchId) {
+		log.debug("Switching trainee " + traineeId + " to batch " + batchId);
+		trainingService.switchBatches(traineeId, batchId);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
 	
 	@RequestMapping(value = "/all/trainee/search/{searchTerm}", method = RequestMethod.GET)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
@@ -464,7 +472,7 @@ public class TrainingController {
 	 * @return
 	 */
 	private Trainer getPrincipal(Authentication auth) {
-		return ((SalesforceUser) auth.getPrincipal()).getCaliberUser();
+		return ((RevProUser) auth.getPrincipal()).getCaliberUser();
 	}
 	
 	/*

@@ -60,6 +60,10 @@ angular.module("delegate")
 			delegate.all.updateTrainee = function(traineeObj) {
 				return allFactory.updateTrainee(traineeObj);
 			};
+			
+			delegate.all.switchBatch = function(traineeId, batchId) {
+				return allFactory.switchBatch(traineeId, batchId);
+			};
 
 			delegate.all.deleteTrainee = function(traineeId) {
 				return allFactory.deleteTrainee(traineeId);

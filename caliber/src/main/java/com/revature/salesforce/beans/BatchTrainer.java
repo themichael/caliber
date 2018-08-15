@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * (current as of 7/3/2017) 
  * @author Patrick Walsh
  *
- */
+ */@Deprecated
 public class BatchTrainer extends SalesforceRecord{
 	
 	@JsonProperty("Email")

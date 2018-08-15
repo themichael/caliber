@@ -17,7 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.revature.caliber.beans.Trainer;
 import com.revature.caliber.beans.TrainerRole;
-import com.revature.caliber.security.models.SalesforceUser;
+import com.revature.caliber.security.models.RevProUser;
 
 /**
  * To create a consistent testing approach that provides 1) transient data in an
@@ -46,7 +46,7 @@ public class CaliberTest {
 	}
 	
 	public Authentication mockAuth(){
-		SalesforceUser salesforceUser = new SalesforceUser();
+		RevProUser salesforceUser = new RevProUser();
 		salesforceUser.setUserId("patrick@revature.com");
 		Trainer trainer = new Trainer("Patrick Walsh", "Lead Trainer", "patrick.walsh@revature.com", TrainerRole.ROLE_VP);
 		trainer.setTrainerId(1);

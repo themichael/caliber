@@ -21,9 +21,9 @@ import com.revature.caliber.data.CategoryDAO;
 import com.revature.caliber.data.GradeDAO;
 import com.revature.caliber.data.TraineeDAO;
 import com.revature.caliber.exceptions.RevProIntegrationException;
-import com.revature.caliber.revpro.models.Quiz;
-import com.revature.caliber.revpro.models.QuizResult;
-import com.revature.caliber.revpro.models.Quizzes;
+import com.revature.caliber.revpro.quiz.models.Quiz;
+import com.revature.caliber.revpro.quiz.models.QuizResult;
+import com.revature.caliber.revpro.quiz.models.Quizzes;
 
 @Service
 public class RevProQuizIntegrationService {

@@ -28,7 +28,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.revature.caliber.CaliberTest;
-import com.revature.caliber.security.models.SalesforceToken;
+import com.revature.caliber.security.models.RevProToken;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.response.Response;
@@ -51,7 +51,7 @@ public abstract class AbstractAPITest extends CaliberTest implements Initializin
 	 * Salesforce access token to be used in Authorization HTTP header
 	 */
 	protected static String accessToken = "Auth ";
-	protected static SalesforceToken accessTokenJson;
+	protected static RevProToken accessTokenJson;
 	protected static final String AUTH = "Authorization";
 	protected static String jsessionid;
 	protected static RequestSpecification requestSpec;
@@ -132,7 +132,7 @@ public abstract class AbstractAPITest extends CaliberTest implements Initializin
 			ObjectMapper mapper = new ObjectMapper();
 			mapper.configure(Feature.ALLOW_NUMERIC_LEADING_ZEROS, true);
 			accessTokenJson = mapper.readValue(response.getEntity().getContent(),
-					SalesforceToken.class); // actual
+					RevProToken.class); // actual
 			accessToken += accessTokenJson.getAccessToken();
 			log.debug("Accessing Salesforce API using token:  " + accessToken);
 		}catch(Exception e){

@@ -2,7 +2,7 @@ package com.revature.salesforce.beans;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
+@Deprecated
 public abstract class SalesforceRecord {
 	
 	@JsonProperty("attributes")

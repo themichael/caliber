@@ -1,4 +1,4 @@
-package com.revature.caliber.revpro.models;
+package com.revature.caliber.revpro.quiz.models;
 
 /**
  * DTO used to import grades from RevaturePro quizzes. Format will look as
