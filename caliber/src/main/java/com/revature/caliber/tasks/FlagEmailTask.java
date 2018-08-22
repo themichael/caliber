@@ -16,7 +16,7 @@ public class FlagEmailTask {
 	private FlagAlertMailer flagAlertMailer;
 	
 	// At 00:00 on Sunday
-	@Scheduled(cron = "0 0 * * 0")
+	@Scheduled(cron = "0 0 * * 0 ?")
 	//@Scheduled(cron = "0 0/15 * * * ?")
 	public void run() {
 		log.info("Sending flag emails to VPs");
