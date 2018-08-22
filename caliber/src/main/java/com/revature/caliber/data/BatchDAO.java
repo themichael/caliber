@@ -69,8 +69,7 @@ public class BatchDAO {
 				.createAlias(TRAINEES, "t", JoinType.LEFT_OUTER_JOIN)
 				.add(Restrictions.or(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped),
 						Restrictions.isNull(T_TRAINING_STATUS)))
-				.addOrder(Order.desc(START_DATE))
-				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+				.addOrder(Order.desc(START_DATE)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
 
 	/**
@@ -86,7 +85,7 @@ public class BatchDAO {
 				.createAlias(TRAINEES, "t", JoinType.LEFT_OUTER_JOIN).add(Restrictions.eq("resourceId", resourceId))
 				.add(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped)).uniqueResult();
 	}
-	
+
 	/**
 	 * Looks for all batches where the user was the trainer or co-trainer.
 	 * 
@@ -259,7 +258,8 @@ public class BatchDAO {
 	 */
 	@Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
 	public void update(Batch batch) {
-		log.info("Updating batch: " + batch + " Trainer: " + batch.getTrainer() + " Cotrainer: " + batch.getCoTrainer());
+		log.info(
+				"Updating batch: " + batch + " Trainer: " + batch.getTrainer() + " Cotrainer: " + batch.getCoTrainer());
 		batch.setStartDate(new Date(batch.getStartDate().getTime() + TimeUnit.DAYS.toMillis(1)));
 		batch.setEndDate(new Date(batch.getEndDate().getTime() + TimeUnit.DAYS.toMillis(1)));
 		sessionFactory.getCurrentSession().saveOrUpdate(batch);
@@ -281,7 +281,9 @@ public class BatchDAO {
 	 * month, and day. Month is 0-indexed Return all batches, trainees for that
 	 * batch, and the grades for each trainee
 	 * 
-	 * @param auth
+	 * @param month
+	 * @param day
+	 * @param year
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
@@ -297,4 +299,24 @@ public class BatchDAO {
 				.add(Restrictions.ge(START_DATE, startDate.getTime())).addOrder(Order.desc(START_DATE))
 				.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 	}
+
+	/**
+	 * Looks for all batches that are currently in-progress (the start date is
+	 * lesser than today, and the end date is greater than today)
+	 * 
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+	public List<Batch> findAllInProgress() {
+		log.debug("Fetching all batches currently in progress");
+		Calendar today = Calendar.getInstance();
+		return sessionFactory.getCurrentSession().createCriteria(Batch.class)
+				.createAlias(TRAINEES, "t", JoinType.LEFT_OUTER_JOIN)
+				.add(Restrictions.or(Restrictions.ne(T_TRAINING_STATUS, TrainingStatus.Dropped),
+						Restrictions.isNull(T_TRAINING_STATUS)))
+				.add(Restrictions.le(START_DATE, today.getTime())).add(Restrictions.ge(END_DATE, today.getTime()))
+				.addOrder(Order.desc(START_DATE)).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
+	}
+
 }
