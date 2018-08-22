@@ -24,7 +24,11 @@ import com.revature.caliber.email.Mailer;
  * @author Will Underwood
  * @author Vladimir Yevseenko
  */
-@Service
+@Deprecated
+/**
+ * Switched to Spring Task for setting Chron jobs
+ *
+ */
 public class EmailService implements InitializingBean {
 	
 	private static final Logger logger = Logger.getLogger(EmailService.class);
