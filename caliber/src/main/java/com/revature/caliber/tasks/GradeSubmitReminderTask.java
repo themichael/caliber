@@ -1,4 +1,4 @@
-package com.revature.caliber.validator;
+package com.revature.caliber.tasks;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,7 +6,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.revature.caliber.email.GradeSubmitMailer;
-import com.revature.caliber.tasks.FlagEmailTask;
 
 @Service
 public class GradeSubmitReminderTask {
