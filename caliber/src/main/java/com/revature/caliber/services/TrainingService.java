@@ -275,6 +275,16 @@ public class TrainingService {
 		log.debug("Find all current batches for trainer: " + trainerId);
 		return batchDAO.findAllCurrent(trainerId);
 	}
+	
+	/**
+	 * FIND ALL IN PROGRESS
+	 *
+	 * @return
+	 */
+	public List<Batch> findAllInProgress() {
+		log.debug("Find all in-progress batches");
+		return batchDAO.findAllInProgress();
+	}
 
 	/**
 	 * FIND BATCH BY ID

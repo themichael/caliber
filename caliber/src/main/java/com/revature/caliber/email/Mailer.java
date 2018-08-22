@@ -195,7 +195,7 @@ public class Mailer implements Runnable {
 	}
 	
 	private List<Batch> getBatches(){
-		return this.batchDAO.findAll();
+		return this.batchDAO.findAllInProgress();
 	}
 	
 	private List<Assessment> getAssessments(int batchID) {

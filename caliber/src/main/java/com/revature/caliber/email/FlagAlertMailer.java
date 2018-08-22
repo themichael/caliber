@@ -1,10 +1,12 @@
 package com.revature.caliber.email;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -25,7 +27,7 @@ import com.revature.caliber.beans.TrainerRole;
 import com.revature.caliber.beans.TrainingStatus;
 import com.revature.caliber.services.TrainingService;
 
-//@Component
+@Component
 public class FlagAlertMailer implements Runnable {
 
 	private static final Logger logger = Logger.getLogger(FlagAlertMailer.class);
@@ -37,9 +39,9 @@ public class FlagAlertMailer implements Runnable {
 	private EmailAuthenticator authenticator;
 
 	/**
-	 * The EMAIL TOKENs are tokens that are in the HTML file that will be
-	 * replaced with the name of the vp the email is addressed to, as well as
-	 * the names and flag comments associated with the flagged trainees
+	 * The EMAIL TOKENs are tokens that are in the HTML file that will be replaced
+	 * with the name of the vp the email is addressed to, as well as the names and
+	 * flag comments associated with the flagged trainees
 	 */
 	private static final String VP_NAME_TOKEN = "$VP_NAME";
 	private static final String GREEN_FLAGS_TOKEN = "$GREEN_FLAG_TRAINEES";
@@ -50,10 +52,12 @@ public class FlagAlertMailer implements Runnable {
 	 */
 	private static final String EMAIL_TEMPLATE_PATH = "flagEmailTemplate.html";
 
+	private static final String TD = "<td style=\"border: 1px solid rgb(190, 190, 190); padding: 10px 20px;text-align: center;\">";
+
 	/**
 	 * Called by the scheduledThreadExecutor when the time is right based on the
-	 * constants in EmailService Simply calls send(), which finds vps to be
-	 * emailed and emails them
+	 * constants in EmailService Simply calls send(), which finds vps to be emailed
+	 * and emails them
 	 * 
 	 * @precondition None.
 	 * @param None.
@@ -65,8 +69,8 @@ public class FlagAlertMailer implements Runnable {
 	}
 
 	/**
-	 * Sets up the properties and session in order to send emails then simply
-	 * calls the sendEmails() method to send the appropriate emails
+	 * Sets up the properties and session in order to send emails then simply calls
+	 * the sendEmails() method to send the appropriate emails
 	 */
 	private void send() {
 		Properties properties = setProperties();
@@ -75,8 +79,7 @@ public class FlagAlertMailer implements Runnable {
 	}
 
 	/**
-	 * Sets up the properties for the sending of emails We use gmail's SMTP
-	 * server
+	 * Sets up the properties for the sending of emails We use gmail's SMTP server
 	 * 
 	 * @return The properties for our email sending procedure
 	 */
@@ -103,16 +106,14 @@ public class FlagAlertMailer implements Runnable {
 	}
 
 	/**
-	 * Iterates over vps and emails each vp individually of the trainees with
-	 * flags
+	 * Iterates over vps and emails each vp individually of the trainees with flags
 	 * 
 	 * @param session
 	 *            The email session used to send emails
 	 * @param vps
 	 *            The trainers who have a role of "ROLE_VP"
 	 * @param redFlagHTML
-	 *            String of all trainees with a red flag, formatted in an HTML
-	 *            table
+	 *            String of all trainees with a red flag, formatted in an HTML table
 	 * @param greenFlagHTML
 	 *            String of all trainees with a green flag, formatted in an HTML
 	 *            table
@@ -139,12 +140,12 @@ public class FlagAlertMailer implements Runnable {
 				String templateReplace3 = templateReplace2.replace(GREEN_FLAGS_TOKEN, greenFlagHTML);
 				message.setContent(templateReplace3, "text/html");
 				Transport.send(message);
-				logger.info("Flag email sent");
 			} catch (MessagingException e) {
 				logger.error(e);
 				logger.error("Flag email exception");
 			}
 		}
+		logger.info("Flag email sent");
 	}
 
 	/**
@@ -157,7 +158,7 @@ public class FlagAlertMailer implements Runnable {
 			String emailStr;
 			ClassLoader classLoader = getClass().getClassLoader();
 			emailStr = IOUtils.toString(classLoader.getResourceAsStream(EMAIL_TEMPLATE_PATH));
-			logger.info("loaded flag email template");
+			logger.debug("loaded flag email template");
 			return emailStr;
 		} catch (IOException e) {
 			logger.error("Unable to read flag email template");
@@ -173,9 +174,9 @@ public class FlagAlertMailer implements Runnable {
 	 * @param None.
 	 * @return Set of VP Trainers
 	 */
-	public Set<Trainer> getVPs() {
+	private Set<Trainer> getVPs() {
 		List<Trainer> trainers = trainingService.findAllTrainers();
-		logger.info(trainers.toString());
+		logger.debug(trainers.toString());
 		Set<Trainer> vps = new HashSet<>();
 		for (Trainer trainer : trainers) {
 			if (trainer.getTier() == TrainerRole.ROLE_VP) {
@@ -186,43 +187,55 @@ public class FlagAlertMailer implements Runnable {
 	}
 
 	/**
-	 * Returns a String of trainees with red flags formatted in an HTML table
+	 * Returns a String of CURRENT trainees with red flags formatted in an HTML
+	 * table
 	 * 
 	 * @precondition None.
 	 * @param None.
 	 * @return String of red flagged trainees
 	 */
-	public String redFlagHTML() {
-		List<Trainee> trainees = trainingService.findAllTrainees();
-		String redFlagHTML = "";
+	private String redFlagHTML() {
+		List<Trainee> trainees = new ArrayList<>();
+		// get all trainees from all in-progress batches
+		trainingService.findAllInProgress().forEach(batch -> trainees.addAll(batch.getTrainees().stream()
+				.filter(t -> t.getFlagStatus().equals(TraineeFlag.RED)).collect(Collectors.toList())));
+		logger.info("Red trainees: " + trainees);
+		StringBuilder redFlagHTML = new StringBuilder("");
 		for (Trainee trainee : trainees) {
-			if (trainee.getFlagStatus().equals(TraineeFlag.RED)) {
-				TrainingStatus ts = trainee.getTrainingStatus();
-				if (ts.equals(TrainingStatus.Training) || ts.equals(TrainingStatus.Marketing)) {
-					redFlagHTML += "<tr><td>" + trainee.getName() + "</td><td>" + trainee.getFlagNotes() + "</td></tr>";
-				}
-			}
+			redFlagHTML.append("<tr>" + TD + trainee.getName() + "</td>" + TD + trainee.getFlagNotes() + "</td>" + TD
+					+ trainee.getBatch().getTrainingName() + "</td>" + TD + trainee.getBatch().getTrainer().getName()
+					+ "</td></tr>");
 		}
-		return redFlagHTML;
+		if (redFlagHTML.toString().equals("")) {
+			redFlagHTML.append("<tr><td>No Data Available</td><td></td><td></td><td></td></tr>");
+		}
+		return redFlagHTML.toString();
 	}
 
 	/**
-	 * Returns a String of trainees with green flags formatted in an HTML table
+	 * Returns a String of CURRENT trainees with green flags formatted in an HTML
+	 * table
 	 * 
 	 * @precondition None.
 	 * @param None.
 	 * @return String of green flagged trainees
 	 */
-	public String greenFlagHTML() {
-		List<Trainee> trainees = trainingService.findAllTrainees();
-		String greenFlagHTML = "";
+	private String greenFlagHTML() {
+		List<Trainee> trainees = new ArrayList<>();
+		// get all trainees from all in-progress batches
+		trainingService.findAllInProgress().forEach(batch -> trainees.addAll(batch.getTrainees().stream()
+				.filter(t -> t.getFlagStatus().equals(TraineeFlag.GREEN)).collect(Collectors.toList())));
+		logger.info("Green trainees: " + trainees);
+		StringBuilder greenFlagHTML = new StringBuilder("");
 		for (Trainee trainee : trainees) {
-			if (trainee.getFlagStatus() == TraineeFlag.GREEN) {
-				greenFlagHTML += "<tr><td>" + trainee.getName() + "</td><td>" + trainee.getFlagNotes() + "</td></tr>";
-			}
-
+			greenFlagHTML.append("<tr>" + TD + trainee.getName() + "</td>" + TD + trainee.getFlagNotes() + "</td>" + TD
+					+ trainee.getBatch().getTrainingName() + "</td>" + TD + trainee.getBatch().getTrainer().getName()
+					+ "</td></tr>");
 		}
-		return greenFlagHTML;
+		if (greenFlagHTML.toString().equals("")) {
+			greenFlagHTML.append("<tr><td>No Data Available</td><td></td><td></td><td></td></tr>");
+		}
+		return greenFlagHTML.toString();
 	}
 
 }

@@ -7,6 +7,7 @@ import static org.junit.Assert.fail;
 
 import java.time.Instant;
 import java.time.Period;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -313,5 +314,18 @@ public class BatchDAOTest extends CaliberTest {
 			}
 		}
 		assertTrue(success);
+	}
+	
+	/**
+	 * @see BatchDAO#findAllInProgress()
+	 */
+	public void testInProgress() {
+		log.info("Test all-in-porgress");
+		List<Batch> batches = batchDAO.findAllInProgress();
+		Calendar today = Calendar.getInstance();
+		for(Batch batch : batches) {
+			log.info(batch);
+			assertTrue(batch.getStartDate().before(today.getTime()) && (batch.getEndDate().after(today.getTime())));
+		}
 	}
 }
