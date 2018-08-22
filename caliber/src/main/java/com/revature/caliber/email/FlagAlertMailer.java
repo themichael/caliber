@@ -179,7 +179,7 @@ public class FlagAlertMailer implements Runnable {
 		logger.debug(trainers.toString());
 		Set<Trainer> vps = new HashSet<>();
 		for (Trainer trainer : trainers) {
-			if (trainer.getTier() == TrainerRole.ROLE_VP) {
+			if (trainer.getTier().equals(TrainerRole.ROLE_VP) || trainer.getTier().equals(TrainerRole.ROLE_QC)) {
 				vps.add(trainer);
 			}
 		}

@@ -5,21 +5,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import com.revature.caliber.email.FlagAlertMailer;
+import com.revature.caliber.email.GradeSubmitMailer;
 
 @Service
-public class FlagEmailTask {
+public class GradeSubmitReminderTask {
 
 	private static final Logger log = Logger.getLogger(FlagEmailTask.class);
 	
 	@Autowired
-	private FlagAlertMailer flagAlertMailer;
+	private GradeSubmitMailer gradeSubmitMailer;
 	
-	// at 12:00:00, on any day of month, all months, on Monday
-	@Scheduled(cron = "0 0 12 ? * Mon")
+	// at 15:00:00, on any day of month, all months, on Tuesday
+	@Scheduled(cron = "0 0 15 ? * Tue")
 	public void run() {
-		log.info("Sending flag emails to VPs");
-		flagAlertMailer.run();
+		log.info("Sending reminder emails to trainers currently conducting the batch");
+		gradeSubmitMailer.run();
 	}
+	
 	
 }
