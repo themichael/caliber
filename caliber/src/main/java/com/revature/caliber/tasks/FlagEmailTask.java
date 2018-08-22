@@ -15,8 +15,8 @@ public class FlagEmailTask {
 	@Autowired
 	private FlagAlertMailer flagAlertMailer;
 	
-	// midnight
-	@Scheduled(cron = "0 0 0 * * *")
+	// at 12:00:00, on any day of month, all months, on Monday
+	@Scheduled(cron = "0 0 12 ? * Mon")
 	public void run() {
 		log.info("Sending flag emails to VPs");
 		flagAlertMailer.run();
