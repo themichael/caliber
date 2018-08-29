@@ -23,7 +23,7 @@ public class RevProTrainee {
 	private String recruiterEmail;
 	private double currentProjectCompletionPercentage;
 	private List<RevProEducation> education;
-	private List<ScreenerInformation> screenerInformation;
+	private List<ScreeningInformation> screeningInformation;
 
 	public RevProTrainee() {
 		super();
@@ -118,14 +118,6 @@ public class RevProTrainee {
 	public void setEducation(List<RevProEducation> education) {
 		this.education = education;
 	}
-
-	public List<ScreenerInformation> getScreenerInformation() {
-		return screenerInformation;
-	}
-
-	public void setScreenerInformation(List<ScreenerInformation> screenerInformation) {
-		this.screenerInformation = screenerInformation;
-	}
 	
 	public String getEmail() {
 		return email;
@@ -133,6 +125,14 @@ public class RevProTrainee {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public List<ScreeningInformation> getScreeningInformation() {
+		return screeningInformation;
+	}
+
+	public void setScreeningInformation(List<ScreeningInformation> screeningInformation) {
+		this.screeningInformation = screeningInformation;
 	}
 
 	@Override

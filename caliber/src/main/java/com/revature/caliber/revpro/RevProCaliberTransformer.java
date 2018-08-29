@@ -16,6 +16,7 @@ import com.revature.caliber.revpro.beans.RevProBatch;
 import com.revature.caliber.revpro.beans.RevProEducation;
 import com.revature.caliber.revpro.beans.RevProTrainee;
 import com.revature.caliber.revpro.beans.RevProTrainer;
+import com.revature.caliber.revpro.beans.ScreeningInformation;
 
 @Component
 public class RevProCaliberTransformer {
@@ -142,7 +143,18 @@ public class RevProCaliberTransformer {
 
 		trainee.setProjectCompletion(Double.toString(revProTrainee.getCurrentProjectCompletionPercentage()));
 		trainee.setRecruiterName(revProTrainee.getRecruiterEmail());
-		trainee.setTechScreenerName(revProTrainee.getScreenerInformation().get(0).getScreenerName());
+
+		// find highest tech screen score
+		if (revProTrainee.getScreeningInformation() != null) {
+			ScreeningInformation highest = revProTrainee.getScreeningInformation().get(0);
+			for (ScreeningInformation screen : revProTrainee.getScreeningInformation()) {
+				if (screen.getScreeningScore() > highest.getScreeningScore()) {
+					highest = screen;
+				}
+			}
+			trainee.setTechScreenerName(highest.getScreenerName());
+			trainee.setTechScreenScore(highest.getScreeningScore());
+		}
 
 		// need to add: trainee setTechScreenFeedback
 		for (RevProEducation edu : revProTrainee.getEducation()) {

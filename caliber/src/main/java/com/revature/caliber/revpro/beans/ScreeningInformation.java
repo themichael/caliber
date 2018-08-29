@@ -5,12 +5,13 @@ package com.revature.caliber.revpro.beans;
  * @author Patrick Walsh
  *
  */
-public class ScreenerInformation {
+public class ScreeningInformation {
 	
 	private String screenerName;
-	private String screenerFeedback; // hopefully becomes INT \(^_^ )/
+	private String screenerFeedback; 
+	private double screeningScore;
 	
-	public ScreenerInformation() {
+	public ScreeningInformation() {
 		super();
 	}
 	public String getScreenerName() {
@@ -25,9 +26,17 @@ public class ScreenerInformation {
 	public void setScreenerFeedback(String screenerFeedback) {
 		this.screenerFeedback = screenerFeedback;
 	}
+	public double getScreeningScore() {
+		return screeningScore;
+	}
+	public void setScreeningScore(double screeningScore) {
+		this.screeningScore = screeningScore;
+	}
 	@Override
 	public String toString() {
-		return "ScreenerInformation [screenerName=" + screenerName + ", screenerFeedback=" + screenerFeedback + "]";
+		return "ScreenerInformation [screenerName=" + screenerName + ", screenerFeedback=" + screenerFeedback
+				+ ", screeningScore=" + screeningScore + "]";
 	}
+
 	
 }

@@ -20,6 +20,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -96,6 +97,9 @@ public class Trainee implements Serializable {
 
 	@Column(name = "TECH_SCREENER_NAME")
 	private String techScreenerName;
+	
+	@Column(name = "TECH_SCREEN_SCORE", nullable=true)
+	private double techScreenScore;
 
 	@Column(name = "REVPRO_PROJECT_COMPLETION")
 	private String projectCompletion;
@@ -387,5 +391,13 @@ public class Trainee implements Serializable {
 
 	public void setFlagNotes(String flagNotes) {
 		this.flagNotes = flagNotes;
+	}
+
+	public double getTechScreenScore() {
+		return techScreenScore;
+	}
+
+	public void setTechScreenScore(double techScreenScore) {
+		this.techScreenScore = techScreenScore;
 	}
 }
