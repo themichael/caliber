@@ -39,12 +39,6 @@ public class BasicBootController {
 
 	@Value("#{systemEnvironment['REVPRO_LOGIN_URL']}")
 	private String revProLoginUrl;
-	@Value("#{systemEnvironment['CALIBER_DEV_MODE']}")
-	private boolean devMode;
-	@Value("#{systemEnvironment['CALIBER_API_USERNAME']}")
-	private String apiUser;
-	@Value("#{systemEnvironment['CALIBER_API_PASSWORD']}")
-	private String apiPassword;
 
 	/**
 	 * Go to the login page by default
@@ -52,22 +46,7 @@ public class BasicBootController {
 	 * @return
 	 */
 	@RequestMapping(value = "/")
-	public String home(HttpServletRequest request, HttpServletResponse response) {
-		if (devMode && SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
-			String token = loginToRevPro(apiUser, apiPassword);
-			if (token == null) {
-				log.info("authentication failed for " + apiUser);
-				return "redirect:/";
-			}
-			RevProUser user = (RevProUser) caliberUserService.loadUserByUsername(apiUser);
-			log.debug(user);
-			user.getToken().setAccessToken(token);
-			authorize(user.getCaliberUser(), user, response);
-			return "redirect:" + redirectUrl;
-		}
-		if(devMode) {
-			return "redirect:" + redirectUrl;
-		}
+	public String home() {
 		return "login";
 	}
 
