@@ -53,7 +53,7 @@ public class BasicBootController {
 	 */
 	@RequestMapping(value = "/")
 	public String home(HttpServletRequest request, HttpServletResponse response) {
-		if(devMode) {
+		if (devMode && SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
 			String token = loginToRevPro(apiUser, apiPassword);
 			if (token == null) {
 				log.info("authentication failed for " + apiUser);
@@ -63,6 +63,9 @@ public class BasicBootController {
 			log.debug(user);
 			user.getToken().setAccessToken(token);
 			authorize(user.getCaliberUser(), user, response);
+			return "redirect:" + redirectUrl;
+		}
+		if(devMode) {
 			return "redirect:" + redirectUrl;
 		}
 		return "login";
