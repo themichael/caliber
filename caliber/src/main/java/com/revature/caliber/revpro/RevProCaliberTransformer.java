@@ -173,7 +173,7 @@ public class RevProCaliberTransformer {
 		String dropped = "Dropped";
 
 		if (stringTrainingStatus == null) {
-			stringTrainingStatus = "";
+			stringTrainingStatus = "Training";
 		}
 		switch (stringTrainingStatus) {
 		case "Declined Offer":

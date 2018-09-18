@@ -181,7 +181,7 @@ public class RevProBatchImportService {
 		Date referenceDate = new Date();
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(referenceDate);
-		calendar.add(Calendar.MONTH, -3);
+		calendar.add(Calendar.MONTH, -1);
 		DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
 
 		String url = revProBatchesUrl + "?startDateAfter=" + dateformat.format(calendar.getTime());
@@ -243,9 +243,7 @@ public class RevProBatchImportService {
 			List<RevProTrainee> revProTrainees = revProBatch.getBatchTrainees();
 			for (RevProTrainee trainee : revProTrainees) {
 				// filter out trainees that are not joining training on day one
-				if (!trainee.getTrainingStatus().equals(TrainingStatus.Dropped.toString())) {
-					trainees.add(transformer.transformTrainee(trainee));
-				}
+				trainees.add(transformer.transformTrainee(trainee));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
