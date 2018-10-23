@@ -35,7 +35,7 @@ import com.revature.caliber.beans.TrainingType;
 @RestController
 @PreAuthorize("isAuthenticated()")
 @RequestMapping(value = "types", produces = MediaType.APPLICATION_JSON_VALUE)
-@CrossOrigin(origins = "http://ec2-54-163-132-124.compute-1.amazonaws.com")
+@CrossOrigin(origins = "*")
 public class TypeController {
 
 	private static final Logger log = Logger.getLogger(TypeController.class);

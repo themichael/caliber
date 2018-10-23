@@ -25,7 +25,7 @@ import com.revature.caliber.services.CategoryService;
 
 @RestController
 @PreAuthorize("isAuthenticated()")
-@CrossOrigin(origins = "http://ec2-54-163-132-124.compute-1.amazonaws.com")
+@CrossOrigin(origins = "*")
 public class CategoryController {
 
 	private static final Logger log = Logger.getLogger(CategoryController.class);
