@@ -59,14 +59,9 @@ public class BasicBootController {
 	@RequestMapping(value = "/")
 	public String home(HttpServletResponse response) {
 		if (DEV_MODE) {
-			String token = loginToRevPro(DEV_USERNAME, DEV_PASSWORD);
-			if (token == null) {
-				log.info("authentication failed for " + DEV_USERNAME);
-				return "redirect:/";
-			}
 			RevProUser user = (RevProUser) caliberUserService.loadUserByUsername(DEV_USERNAME);
 			log.debug(user);
-			user.getToken().setAccessToken(token);
+			user.getToken().setAccessToken(DEV_USERNAME);
 			authorize(user.getCaliberUser(), user, response);
 			return "redirect:" + redirectUrl;
 		}
@@ -131,6 +126,7 @@ public class BasicBootController {
 			log.debug(response.getBody().getData());
 			return response.getBody().getData();
 		} catch (Exception e) {
+			e.printStackTrace();
 			log.info("Failed to login " + username + " with cause: " + e.getMessage());
 			return null;
 		}

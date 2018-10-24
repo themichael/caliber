@@ -63,9 +63,9 @@ public class Trainer implements Serializable {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "TIER")
 	private TrainerRole tier;
-
+/*
 	@Column(name = "TRAINER_PASSWORD")
-	private String password;
+	private String password;*/
 
 	@OneToMany(mappedBy = "trainer", fetch = FetchType.LAZY)
 	@JsonIgnore
@@ -152,13 +152,13 @@ public class Trainer implements Serializable {
 		this.batches = batches;
 	}
 	
-	public String getPassword() {
+/*	public String getPassword() {
 		return password;
 	}
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
+	}*/
 	
 	/*
 	 * public Set<TrainerTaskCompletion> getEvaluations() { return evaluations; }

@@ -49,11 +49,11 @@ public class CaliberUserService implements UserDetailsService{
 		return passwordEncoder.matches(candidate, hashed);
 	}
 	
-	public void saltAndSave(Trainer trainer) {
+/*	public void saltAndSave(Trainer trainer) {
 		String password = trainer.getPassword();
 		// encode password
 		trainer.setPassword(passwordEncoder.encode(password));
 		trainingService.update(trainer);
-	}
+	}*/
 
 }
