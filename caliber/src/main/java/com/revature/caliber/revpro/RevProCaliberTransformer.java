@@ -133,36 +133,46 @@ public class RevProCaliberTransformer {
 			return trainee;
 		}
 
-		trainee.setName(revProTrainee.getFirstName() + " " + revProTrainee.getLastName());
-
-		trainee.setEmail(revProTrainee.getEmail());
-		trainee.setTrainingStatus(transformStatus(revProTrainee));
-		trainee.setPhoneNumber(revProTrainee.getPhone());
-		trainee.setPhoneNumber(revProTrainee.getMobilePhone());
-		trainee.setResourceId(revProTrainee.getSalesforceId());
-
-		trainee.setProjectCompletion(Double.toString(revProTrainee.getCurrentProjectCompletionPercentage()));
-		trainee.setRecruiterName(revProTrainee.getRecruiterEmail());
-
-		// find highest tech screen score
-		if (revProTrainee.getScreeningInformation() != null) {
-			ScreeningInformation highest = revProTrainee.getScreeningInformation().get(0);
-			for (ScreeningInformation screen : revProTrainee.getScreeningInformation()) {
-				if (screen.getScreeningScore() > highest.getScreeningScore()) {
-					highest = screen;
-				}
-			}
-			trainee.setTechScreenerName(highest.getScreenerName());
-			trainee.setTechScreenScore(highest.getScreeningScore());
+		// required fields
+		try {
+			trainee.setName(revProTrainee.getFirstName() + " " + revProTrainee.getLastName());
+			trainee.setEmail(revProTrainee.getEmail());
+			trainee.setTrainingStatus(transformStatus(revProTrainee));
+		} catch (Exception e) {
+			return new Trainee(); 
 		}
 
-		// need to add: trainee setTechScreenFeedback
-		for (RevProEducation edu : revProTrainee.getEducation()) {
-			if (edu == null)
-				break;
-			trainee.setDegree(edu.getDegree());
-			trainee.setMajor(edu.getMajor());
-			trainee.setCollege(edu.getUniversityName());
+		// not required fields. if any exception, just continue with what data we can get
+		try {
+			trainee.setPhoneNumber(revProTrainee.getPhone());
+			trainee.setPhoneNumber(revProTrainee.getMobilePhone());
+			trainee.setResourceId(revProTrainee.getSalesforceId());
+
+			trainee.setProjectCompletion(Double.toString(revProTrainee.getCurrentProjectCompletionPercentage()));
+			trainee.setRecruiterName(revProTrainee.getRecruiterEmail());
+
+			// find highest tech screen score
+			if (revProTrainee.getScreeningInformation() != null) {
+				ScreeningInformation highest = revProTrainee.getScreeningInformation().get(0);
+				for (ScreeningInformation screen : revProTrainee.getScreeningInformation()) {
+					if (screen.getScreeningScore() > highest.getScreeningScore()) {
+						highest = screen;
+					}
+				}
+				trainee.setTechScreenerName(highest.getScreenerName());
+				trainee.setTechScreenScore(highest.getScreeningScore());
+			}
+
+			// need to add: trainee setTechScreenFeedback
+			for (RevProEducation edu : revProTrainee.getEducation()) {
+				if (edu == null)
+					break;
+				trainee.setDegree(edu.getDegree());
+				trainee.setMajor(edu.getMajor());
+				trainee.setCollege(edu.getUniversityName());
+			}
+		} catch (Exception e) {
+			return trainee; 
 		}
 		return trainee;
 	}

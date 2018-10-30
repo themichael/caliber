@@ -354,15 +354,9 @@ angular.module("api").factory("allFactory", function($log, $http) {
 	};
 	
 	all.searchTrainee = function (searchTerm) {
-		$http({
-			url: '/all/trainee/search/' + searchTerm,
+		return $http({
+			url: '/all/trainee/search/' + searchTerm + '/',
 			method: 'GET'
-		}).then(function (response) {
-			$log.debug("Searched list of trainees");
-			$log.debug(response);
-			return response.data;
-		}, function (error) {
-			$log.error("There was an error: " + error.status);
 		});
 	};
 

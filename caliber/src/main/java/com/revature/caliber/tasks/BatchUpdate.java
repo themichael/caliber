@@ -1,6 +1,5 @@
 package com.revature.caliber.tasks;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -10,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
-import com.revature.caliber.beans.TrainingStatus;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.TraineeDAO;
 import com.revature.caliber.data.TrainerDAO;
@@ -66,9 +64,9 @@ public class BatchUpdate {
 	 * trainees in that batch and update their information from the RevPro as well.
 	 */
 	public boolean compareBatches(List<Batch> caliberBatches, List<Batch> revProBatches) {
-		log.debug(revProBatches);
+		log.info(revProBatches);
 		log.info("Comparing batches...");
-		log.debug(caliberBatches);
+		log.info(caliberBatches);
 		for (int sIndex = 0; sIndex < revProBatches.size(); sIndex++) {
 			if (revProBatches.get(sIndex).getResourceId() == null) {
 				continue;
@@ -91,7 +89,6 @@ public class BatchUpdate {
 
 					// extract trainee information from RevPro and update the trainees in the
 					// Caliber batch
-					List<Trainee> dropped = new ArrayList<>(caliberBatches.get(cIndex).getTrainees());
 					for (Trainee trainee : caliberBatches.get(cIndex).getTrainees()) {
 						for (Trainee revProTrainee : importService
 								.getBatchDetails(caliberBatches.get(cIndex).getResourceId())) {
@@ -100,19 +97,10 @@ public class BatchUpdate {
 								continue;
 							if (trainee.getResourceId().equals(revProTrainee.getResourceId())) {
 								log.info("Updating trainee: " + revProTrainee.getResourceId() + " " + trainee);
-								// trainee is not dropped
-								dropped.remove(trainee);
 								// extract salesforce data and save
-								// update batch if batches switched
-								updateTrainee(trainee, revProTrainee, revProBatches.get(sIndex).getResourceId());
+								updateTrainee(trainee, revProTrainee);
 							}
 						}
-					}
-					// drop trainees not included in the response
-					for(Trainee toDrop : dropped) {
-						toDrop.setTrainingStatus(TrainingStatus.Dropped);
-						log.info("Dropped trainee: " + toDrop);
-						traineeDao.update(toDrop);
 					}
 				}
 			}
@@ -120,7 +108,7 @@ public class BatchUpdate {
 		return true;
 	}
 
-	private void updateTrainee(Trainee caliberTrainee, Trainee revProTrainee, String resourceId) {
+	private void updateTrainee(Trainee caliberTrainee, Trainee revProTrainee) {
 		log.info("Batch Update: syncing trainee " + revProTrainee.getResourceId());
 		try {
 			caliberTrainee.setTrainingStatus(revProTrainee.getTrainingStatus());
@@ -133,7 +121,6 @@ public class BatchUpdate {
 			caliberTrainee.setProjectCompletion(revProTrainee.getProjectCompletion());
 			caliberTrainee.setRecruiterName(revProTrainee.getRecruiterName());
 			caliberTrainee.setTechScreenerName(revProTrainee.getTechScreenerName());
-			caliberTrainee.setBatch(batchDao.findByResourceId(resourceId));
 			traineeDao.update(caliberTrainee);
 		} catch (Exception e) {
 			log.fatal(e);
