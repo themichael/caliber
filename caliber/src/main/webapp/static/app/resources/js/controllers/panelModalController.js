@@ -12,7 +12,7 @@ angular
 		.module("panel")
 		.controller(
 				"panelModalController",
-				function($rootScope, $scope, $state, $log, $cookies, $timeout,
+				function($rootScope, $scope, $state, $log, $cookies, $timeout, 
 						caliberDelegate, allBatches) {
 
 					$log.debug("in panel controller");
@@ -243,7 +243,10 @@ angular
 
 					// Retrieved trainees upon user input, not before
 					$scope.populateTraineeList = function() {
-
+						if($scope.chosenTrainee.indexOf('@') === -1){
+							return;
+						}
+						// ask backend for trainees
 						caliberDelegate.all.searchTrainee($scope.chosenTrainee).then(function(response){
 							$scope.employedTrainees = response.data;
 						});
