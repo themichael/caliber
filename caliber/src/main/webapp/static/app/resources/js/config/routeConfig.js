@@ -5,7 +5,7 @@ angular
 						ChartJsProvider, $logProvider) {
 
 					// Turn on/off debug messages
-					$logProvider.debugEnabled(true);
+					$logProvider.debugEnabled(false);
 
                     // chart options
 					ChartJsProvider.setOptions({

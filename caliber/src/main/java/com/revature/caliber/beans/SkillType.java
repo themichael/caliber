@@ -41,6 +41,10 @@ public enum SkillType implements Serializable{
 	CLOUD("Cloud Admin"),
 	@JsonProperty("Cloud Native")
 	NATIVE("Cloud Native"),
+	@JsonProperty("Spark")
+	SPARK("Spark"),
+	@JsonProperty("Big Data/Hadoop")
+	BIGDATA("Big Data/Hadoop"),
 	@JsonProperty("Other")
 	OTHER("Other");
 	
