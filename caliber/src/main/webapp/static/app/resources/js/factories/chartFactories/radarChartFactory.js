@@ -12,16 +12,16 @@ angular
 					//Enum defining colors and rgb values
 					var colorEnum = {
 							  BATCH_BLUE: 1,
-							  ORANGE: 2,
+							  YELLOW: 2,
 							  DARK_GREY: 3,
-							  YELLOW: 4,
+							  ORANGE: 4,
 							  GREEN:5,
 							  value: {
 							    1: {r: 114, g: 164, b: 194},
-							    2: {r: 242, g: 105, b: 37},
+							    2: {r: 252, g:180, b: 20},
 							    3: {r: 71, g: 76, b: 85},
 							    4: {r: 252, g:180, b: 20},
-							    5: {r: 0, g:160, b: 0}
+							    5: {r: 242, g: 105, b: 37}
 							  }
 					};
 

@@ -2,10 +2,9 @@ angular
 		.module("panel")
 		.controller(
 				"panelHomeController",
-				function($log, $scope, $filter, chartsDelegate,
+				function($log, $scope, $filter, $http, chartsDelegate,
 						caliberDelegate, qcFactory, allBatches) {
 					$log.debug("Booted panel home controller.");
-					
 					
 					(function() {
 						// Finishes any left over ajax animation from another

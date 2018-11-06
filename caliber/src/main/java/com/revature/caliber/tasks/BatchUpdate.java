@@ -33,8 +33,8 @@ public class BatchUpdate {
 	/**
 	 * Used cron to perform midnight execution To update batches
 	 */
-	@Scheduled(cron = "0 0/2 * * * ?") // Every 2 minutes
-	//@Scheduled(cron = "0 0 0 * * *") // Midnight
+	//@Scheduled(cron = "0 0/2 * * * ?") // Every 2 minutes
+	@Scheduled(cron = "0 0 0 * * *") // Midnight
 	public void updateBatchTask() {
 		try {
 			log.info("Update Batch Task");
@@ -53,6 +53,7 @@ public class BatchUpdate {
 			log.debug("End of Update Task");
 		} catch (Exception e) {
 			log.fatal(e);
+			e.printStackTrace();
 		}
 	}
 
@@ -124,6 +125,7 @@ public class BatchUpdate {
 			traineeDao.update(caliberTrainee);
 		} catch (Exception e) {
 			log.fatal(e);
+			e.printStackTrace();
 		}
 	}
 
@@ -150,6 +152,7 @@ public class BatchUpdate {
 			batchDao.update(caliberBatch);
 		} catch (Exception e) {
 			log.fatal(e);
+			e.printStackTrace();
 		}
 	}
 
