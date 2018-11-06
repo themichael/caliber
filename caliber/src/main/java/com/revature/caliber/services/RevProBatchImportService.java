@@ -24,7 +24,6 @@ import org.springframework.web.client.RestTemplate;
 import com.revature.caliber.beans.Batch;
 import com.revature.caliber.beans.Trainee;
 import com.revature.caliber.beans.Trainer;
-import com.revature.caliber.beans.TrainingStatus;
 import com.revature.caliber.data.BatchDAO;
 import com.revature.caliber.data.TrainerDAO;
 import com.revature.caliber.revpro.RevProCaliberTransformer;
@@ -62,7 +61,7 @@ public class RevProBatchImportService {
 	 */
 	public List<Batch> getAllBatches() {
 		log.debug("Find all batches");
-		List<Batch> allRevProBatches = getAllRevProBatches();
+		List<Batch> allRevProBatches = getAllRevProBatches(-4);
 
 		// load trainer and co-trainer from Caliber DB
 		for (Batch batch : allRevProBatches) {
@@ -99,7 +98,7 @@ public class RevProBatchImportService {
 	 */
 	public List<Batch> getAllRelevantBatches() {
 		log.debug("Find all current batches by year");
-		List<Batch> allRevProBatches = getAllRevProBatches();
+		List<Batch> allRevProBatches = getAllRevProBatches(-1);
 		List<Batch> allCaliberBatches = batchDAO.findAll();
 
 		// load trainer and co-trainer from Caliber DB
@@ -170,7 +169,7 @@ public class RevProBatchImportService {
 	 * 
 	 * @return
 	 */
-	private List<Batch> getAllRevProBatches() {
+	private List<Batch> getAllRevProBatches(int monthsAgo) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 		headers.set("encryptedToken", getToken());
@@ -179,12 +178,12 @@ public class RevProBatchImportService {
 
 		// filter to last 3 monthses
 		Date referenceDate = new Date();
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(referenceDate);
-		calendar.add(Calendar.MONTH, -1);
-		DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-
-		String url = revProBatchesUrl + "?startDateAfter=" + dateformat.format(calendar.getTime());
+		Calendar startDateAfter = Calendar.getInstance();
+		startDateAfter.setTime(referenceDate);
+		startDateAfter.add(Calendar.MONTH, monthsAgo);		
+		DateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");	
+		
+		String url = revProBatchesUrl + "?startDateAfter=" + dateformat.format(startDateAfter.getTime()) + "&startDateBefore="  + dateformat.format(referenceDate.getTime());
 		log.debug(url);
 		try {
 			ResponseEntity<AllBatchesResponse> response = http.exchange(url, HttpMethod.GET, entity,

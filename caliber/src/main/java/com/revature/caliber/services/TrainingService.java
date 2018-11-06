@@ -399,10 +399,6 @@ public class TrainingService {
 		Set<Trainee> result = new HashSet<>();
 		List<Trainee> traineeByEmail = traineeDAO.findByEmail(searchTerm);
 		result.addAll(traineeByEmail);
-		List<Trainee> traineeByName = traineeDAO.findByName(searchTerm);
-		result.addAll(traineeByName);
-		List<Trainee> traineeBySkypeId = traineeDAO.findBySkypeId(searchTerm);
-		result.addAll(traineeBySkypeId);
 		return result;
 	}
 	

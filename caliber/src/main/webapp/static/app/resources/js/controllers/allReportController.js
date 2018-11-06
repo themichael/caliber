@@ -18,9 +18,9 @@ angular
 	.module("charts")
 	.controller(
 	"allReportController",
-	function ($rootScope, $scope, $state, $log, caliberDelegate,
+	function ($rootScope, $scope, $state, $log, $interval, caliberDelegate,
 		chartsDelegate, allBatches) {
-
+		
 		// *******************************************************************************
 		// *** UI
 		// *******************************************************************************

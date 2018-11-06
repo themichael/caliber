@@ -12,7 +12,7 @@ angular
 		.module("panel")
 		.controller(
 				"panelModalController",
-				function($rootScope, $scope, $state, $log, $cookies, $timeout,
+				function($rootScope, $scope, $state, $log, $cookies, $timeout, 
 						caliberDelegate, allBatches) {
 
 					$log.debug("in panel controller");
@@ -41,7 +41,16 @@ angular
 
 					$scope.recordingConsent = {
 						model : null,
-						options : [{exp: 'Yes', value: 'Yes'}, {exp: 'No', value:'No'}, {exp: 'Did Not Ask', value:'Did Not Ask'}]
+						options : [ {
+							exp : 'Yes',
+							value : 'Yes'
+						}, {
+							exp : 'No',
+							value : 'No'
+						}, {
+							exp : 'Did Not Ask',
+							value : 'Did Not Ask'
+						} ]
 					};
 
 					$scope.panelStatus = {
@@ -232,17 +241,23 @@ angular
 						$log.debug($scope.trainee);
 					};
 
-					//Retrieved trainees upon user input, not before 
-					$scope.populateTraineeList = function(){
-						if ($scope.employedTrainees.length===0) {
-							getTrainees();					
+					// Retrieved trainees upon user input, not before
+					$scope.populateTraineeList = function() {
+						if($scope.chosenTrainee.indexOf('@') === -1){
+							return;
 						}
+						// ask backend for trainees
+						caliberDelegate.all.searchTrainee($scope.chosenTrainee).then(function(response){
+							$scope.employedTrainees = response.data;
+						});
+						$log.debug($scope.employedTrainees);
 					}
-					
-					function getTrainees(){
-						//for each batch, add the trainees to an overall list of trainees
-						allBatches.forEach(function(batch){
-							batch.trainees.forEach(function(trainee){
+
+					function getTrainees() {
+						// for each batch, add the trainees to an overall list
+						// of trainees
+						allBatches.forEach(function(batch) {
+							batch.trainees.forEach(function(trainee) {
 								$scope.employedTrainees.push(trainee);
 							});
 						});

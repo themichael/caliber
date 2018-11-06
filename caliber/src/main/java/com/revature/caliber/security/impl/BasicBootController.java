@@ -16,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.client.RestTemplate;
@@ -27,6 +28,7 @@ import com.revature.caliber.revpro.rest.models.AuthenticationTokenResponse;
 import com.revature.caliber.security.models.RevProUser;
 
 @Controller
+@CrossOrigin(origins = "*")
 public class BasicBootController {
 
 	private static final Logger log = Logger.getLogger(BasicBootController.class);
@@ -40,13 +42,29 @@ public class BasicBootController {
 	@Value("#{systemEnvironment['REVPRO_LOGIN_URL']}")
 	private String revProLoginUrl;
 
+	@Value("#{systemEnvironment['CALIBER_DEV_MODE']}")
+	private boolean DEV_MODE;
+
+	@Value("#{systemEnvironment['CALIBER_API_USERNAME']}")
+	private String DEV_USERNAME;
+
+	@Value("#{systemEnvironment['CALIBER_API_PASSWORD']}")
+	private String DEV_PASSWORD;
+
 	/**
 	 * Go to the login page by default
 	 * 
 	 * @return
 	 */
 	@RequestMapping(value = "/")
-	public String home() {
+	public String home(HttpServletResponse response) {
+		if (DEV_MODE) {
+			RevProUser user = (RevProUser) caliberUserService.loadUserByUsername(DEV_USERNAME);
+			log.debug(user);
+			user.getToken().setAccessToken(DEV_USERNAME);
+			authorize(user.getCaliberUser(), user, response);
+			return "redirect:" + redirectUrl;
+		}
 		return "login";
 	}
 
@@ -108,6 +126,7 @@ public class BasicBootController {
 			log.debug(response.getBody().getData());
 			return response.getBody().getData();
 		} catch (Exception e) {
+			e.printStackTrace();
 			log.info("Failed to login " + username + " with cause: " + e.getMessage());
 			return null;
 		}

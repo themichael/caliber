@@ -263,7 +263,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/all/batch/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasAnyRole('VP')")
+	@PreAuthorize("hasAnyRole('VP', 'TRAINER', 'QC')")
 	public ResponseEntity<Batch> createBatch(@Valid @RequestBody Batch batch) {
 		log.debug("Saving batch: " + batch);
 		trainingService.save(batch);
@@ -278,7 +278,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/all/batch/update", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasAnyRole('VP')")
+	@PreAuthorize("hasAnyRole('VP', 'TRAINER', 'QC')")
 	public ResponseEntity<Void> updateBatch(@Valid @RequestBody Batch batch) {
 		log.debug("Updating batch: " + batch);
 		trainingService.update(batch);
@@ -389,7 +389,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/all/trainee/create", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasAnyRole('VP')")
+	@PreAuthorize("hasAnyRole('VP', 'TRAINER', 'QC')")
 	public ResponseEntity<Trainee> createTrainee(@Valid @RequestBody Trainee trainee) {
 		log.debug("Saving trainee: " + trainee);
 		trainingService.save(trainee);
@@ -405,7 +405,7 @@ public class TrainingController {
 	 */
 	@RequestMapping(value = "/all/trainee/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
-	@PreAuthorize("hasAnyRole('VP')")
+	@PreAuthorize("hasAnyRole('VP', 'TRAINER', 'QC')")
 	public ResponseEntity<Void> updateTrainee(@Valid @RequestBody Trainee trainee) {
 		trainingService.update(trainee);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
